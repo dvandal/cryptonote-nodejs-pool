@@ -71,13 +71,19 @@ High performance Node.js (with native C addons) mining pool for CryptoNote based
 
 ### Community / Support
 
+* [GitHub Issues for cryptonote-nodejs-pool](https://github.com/dvandal/cryptonote-nodejs-pool/issues)
 * [CryptoNote Technology](https://cryptonote.org)
 * [CryptoNote Forum](https://forum.cryptonote.org/)
-* [CryptoNote Node.JS Pool Issues](https://github.com/dvandal/cryptonote-nodejs-pool/issues)
+* [ByteCoin Github](https://github.com/amjuarez/bytecoin)
+* [Monero Github](https://github.com/monero-project/bitmonero)
+* [GRAFT Github](https://github.com/graft-project/GraftNetwork)
+
 
 #### Pools Using This Software
 
 * https://graftpool.ca
+
+A pool must be operational for 6 months or more before it can be added to this list.
 
 Usage
 ===
