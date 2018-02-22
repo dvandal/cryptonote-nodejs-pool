@@ -17,6 +17,7 @@ High performance Node.js (with native C addons) mining pool for CryptoNote based
   * [Host the front-end](#4-host-the-front-end)
   * [Customizing your website](#5-customize-your-website)
   * [Upgrading](#upgrading)
+* [How to setup SSL front-end](#how-to-setup-ssl-front-end)
 * [JSON-RPC Commands from CLI](#json-rpc-commands-from-cli)
 * [Monitoring Your Pool](#monitoring-your-pool)
 * [Donations](#donations)
@@ -438,6 +439,38 @@ the Node.js modules, and any config files that may have been changed.
 * Remove the dependencies by deleting the `node_modules` directory with `rm -r node_modules`.
 * Run `npm update` to force updating/reinstalling of the dependencies.
 * Compare your `config.json` to the latest example ones in this repo or the ones in the setup instructions where each config field is explained. You may need to modify or add any new changes.
+
+### How to setup SSL front-end
+
+If you want to secure your front-end behind a SSL certificate you will need to forward a subdomain to the API port, for example *api.poolhost.com*
+
+Here is a sample configuration with NGINX:
+
+```bash
+server {
+    server_name api.poolhost.com
+    listen 443 ssl http2;
+
+    ssl_certificate /your/ssl/certificate;
+    ssl_certificate_key /your/ssl/certificate_key;
+
+    location / {
+        more_set_headers 'Access-Control-Allow-Origin: *';
+        proxy_pass http://127.0.01:8117;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+```
+
+You will need to edit the `api` variable in the `website/config.js` file and set your pool API url, for example:
+
+```javascript
+var api = "https://api.poolhost.com";
+```
 
 ### JSON-RPC Commands from CLI
 
