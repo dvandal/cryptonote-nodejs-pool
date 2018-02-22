@@ -9,7 +9,7 @@
             </div>
             <div class="content">
                 <div class="text">Total Blocks Mined</div>
-                <div class="value"><span id="blocksTotal"></span></div>
+                <div class="value"><span id="blocksTotal"></span> <span class="smallText">(Last: <span id="lastBlockFound"></span>)</span></div>
             </div>
         </div>
     </div>
@@ -73,6 +73,13 @@ currentPage = {
     },
     update: function(){
         updateText('blocksTotal', lastStats.pool.totalBlocks.toString());
+        if (lastStats.pool.lastBlockFound) {
+            var d = new Date(parseInt(lastStats.pool.lastBlockFound)).toISOString();
+            $('#lastBlockFound').timeago('update', d);
+        }
+        else {
+            $('#lastBlockFound').removeAttr('title').data('ts', '').update('Never');
+        }
         updateText('blocksMaturityCount', lastStats.config.depth.toString());
         renderBlocks(lastStats.pool.blocks);
     }
