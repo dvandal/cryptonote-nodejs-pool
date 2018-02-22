@@ -56,9 +56,9 @@
 
     <!-- Top Bar -->
     <div id="top-bar">
-        <div id="section">Network: <span id="g_networkHashrate"></span></div>
-        <div id="section">Pool: <span id="g_poolHashrate"></span></div>
-        <div id="section">You: <span id="g_userHashrate"></span></div>
+        <div id="section">Network: <span id="g_networkHashrate">N/A</span></div>
+        <div id="section">Pool: <span id="g_poolHashrate">N/A</span></div>
+        <div id="section">You: <span id="g_userHashrate">N/A</span></div>
         <div id="section"><span id="statsUpdated">Stats Updated &nbsp;<i class="fa fa-bolt"></i></span></div>
     </div>
     
@@ -326,6 +326,10 @@ function updateIndex(){
     var address = urlWalletAddress || docCookies.getItem('mining_address');
     
     function fetchAddressStats(longpoll){
+        if (!address) {
+	  updateText('g_userHashrate', 'N/A');
+	  return ;
+        }	  	  
         xhrAddressPoll = $.ajax({
             url: api + '/stats_address',
             data: {
