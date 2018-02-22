@@ -1,8 +1,7 @@
 cryptonote-nodejs-pool
 ======================
 
-High performance Node.js (with native C addons) mining pool for CryptoNote based coins such as Bytecoin, DuckNote, Monero, QuazarCoin, Boolberry, Dashcoin, GRAFT, etc..
-Comes with lightweight example front-end script which uses the pool's AJAX API.
+High performance Node.js (with native C addons) mining pool for CryptoNote based coins such as Bytecoin, DuckNote, Monero, QuazarCoin, Boolberry, Dashcoin, GRAFT, etc. Comes with lightweight example front-end script which uses the pool's AJAX API.
 
 
 
@@ -72,23 +71,31 @@ Comes with lightweight example front-end script which uses the pool's AJAX API.
 
 ### Community / Support
 
+* [GitHub Issues for cryptonote-nodejs-pool](https://github.com/dvandal/cryptonote-nodejs-pool/issues)
 * [CryptoNote Technology](https://cryptonote.org)
 * [CryptoNote Forum](https://forum.cryptonote.org/)
-* [CryptoNote Node.JS Pool Issues](https://github.com/dvandal/cryptonote-nodejs-pool/issues)
+* [ByteCoin Github](https://github.com/amjuarez/bytecoin)
+* [Monero Github](https://github.com/monero-project/bitmonero)
+* [GRAFT Github](https://github.com/graft-project/GraftNetwork)
+
 
 #### Pools Using This Software
 
 * https://graftpool.ca
+
+A pool must be operational for 6 months or more before it can be added to this list.
 
 Usage
 ===
 
 #### Requirements
 * Coin daemon(s) (find the coin's repo and build latest version from source)
-* [Node.js](http://nodejs.org/) v0.10+ ([follow these installation instructions](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager))
+* [Node.js](http://nodejs.org/) v0.10+
 * [Redis](http://redis.io/) key-value store v2.6+ ([follow these instructions](http://redis.io/topics/quickstart))
 * libssl required for the node-multi-hashing module
   * For Ubuntu: `sudo apt-get install libssl-dev`
+* Boost is required for the cryptonote-util module
+  * For Ubuntu: `sudo apt-get install libboost-all-dev`
 
 
 ##### Seriously
@@ -107,11 +114,18 @@ Clone the repository and run `npm update` for all the dependencies to be install
 ```bash
 git clone https://github.com/dvandal/cryptonote-nodejs-pool.git pool
 cd pool
+
+nvm install 0.10.48
+nvm use 0.10.48
+nvm alias default 0.10.48
+nvm use default
+
 npm update
 ```
 
 #### 2) Configuration
 
+*Warning for Cryptonote coins other than Monero:* this software may or may not work with any given cryptonote coin. Be wary of altcoins that change the number of minimum coin units because you will have to reconfigure several config values to account for those changes. Unless you're offering a bounty reward - do not open an issue asking for help getting a coin other than Monero working with this software.
 
 Explanation for each field:
 ```javascript
@@ -372,10 +386,10 @@ node init.js -module=api
 
 #### 4) Host the front-end
 
-Simply host the contents of the `website_example` directory on file server capable of serving simple static files.
+Simply host the contents of the `website` directory on file server capable of serving simple static files.
 
 
-Edit the variables in the `website_example/config.js` file to use your pool's specific configuration.
+Edit the variables in the `website/config.js` file to use your pool's specific configuration.
 Variable explanations:
 
 ```javascript
