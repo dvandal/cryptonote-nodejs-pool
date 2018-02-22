@@ -442,7 +442,7 @@ the Node.js modules, and any config files that may have been changed.
 
 ### How to setup SSL front-end
 
-If you want to secure your front-end behind a SSL certificate you will need to forward a subdomain, for example *api.poolhost.com* to the API port.
+If you want to secure your front-end behind a SSL certificate you will need to forward a subdomain to the API port, for example *api.poolhost.com*
 
 Here is a sample configuration with NGINX:
 
