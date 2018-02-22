@@ -1,7 +1,7 @@
 {
-    "coin": "graft",
-    "symbol": "GRFT",
-    "coinUnits": 10000000000,
+    "coin": "monero",
+    "symbol": "XMR",
+    "coinUnits": 1000000000000,
     "coinDifficultyTarget": 120,
 
     "logging": {
@@ -82,10 +82,10 @@
         "interval": 300,
         "maxAddresses": 50,
         "mixin": 5,
-        "transferFee": 4000000000,
-        "minPayment": 100000000000,
+	"transferFee": 14000000000,
+        "minPayment": 1000000000000,
         "maxTransactionAmount": 0,
-        "denomination": 10000000000
+        "denomination": 100000000000
     },
 
     "blockUnlocker": {
@@ -108,12 +108,12 @@
 
     "daemon": {
         "host": "127.0.0.1",
-        "port": 18981
+        "port": 18081
     },
 
     "wallet": {
         "host": "127.0.0.1",
-        "port": 18982
+        "port": 18082
     },
 
     "redis": {

@@ -1,0 +1,262 @@
+<!-- Worker Statistics -->
+<h3>Your Stats & Payment History</h3>
+
+<div id="workerStats" class="stats">
+    <div class="input-group">
+        <input class="form-control" id="yourStatsInput" type="text" placeholder="Enter Your Address">
+        <span class="input-group-btn"><button class="btn btn-default" type="button" id="lookUp">
+            <span><i class="fa fa-search"></i> Lookup</span>
+            <span><i class="fa fa-refresh fa-spin"></i> Searching...</span>
+        </button></span>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4 stats">
+            <div id="addressError"></div>
+            <div class="yourStats"><i class="fa fa-bank"></i> Pending Balance: <span id="yourPendingBalance"></span></div>
+            <div class="yourStats"><i class="fa fa-money"></i> Total Paid: <span id="yourPaid"></span></div>
+            <div class="yourStats"><i class="fa fa-clock-o"></i> Last Share Submitted: <span id="yourLastShare"></span></div>
+            <div class="yourStats"><i class="fa fa-tachometer"></i> Hash Rate: <span id="yourHashrateHolder"></span></div>
+            <div class="yourStats"><i class="fa fa-cloud-upload"></i> Total Hashes Submitted: <span id="yourHashes"></span></div>
+        </div>
+        <div class="col-lg-4 col-sm-6">            
+            <div class="userChart" data-chart="user_hashrate">
+                <h4>Hash Rate</h4>
+                <div class="chart">
+                    
+                </div>                
+            </div>
+        </div> 
+        <div class="col-lg-4 col-sm-6">
+            <div class="userChart" data-chart="user_payments">
+                <h4>Payments</h4>
+                <div class="chart">
+                    
+                </div> 
+            </div>
+        </div>       
+    </div>
+    
+    <h4 class="yourStats">Payments</h4>
+    <div id="workerPayments" class="yourStats table-responsive">
+        <table class="table table-hover table-striped">
+            <thead>
+            <tr>
+                <th class="col1">Time Sent</th>
+                <th class="col2">Transaction Hash</th>
+                <th class="col3">Amount</th>
+                <th class="col4">Mixin</th>
+            </tr>
+            </thead>
+            <tbody id="paymentsReport_rows">
+
+            </tbody>
+        </table>
+    </div>
+    <p class="yourStats text-center">
+        <button type="button" class="btn btn-default" id="loadMorePayments">Load More</button>
+    </p>
+
+</div>
+
+<!-- Javascript -->
+<script>
+currentPage = {
+    destroy: function(){
+        $('#yourLastShare').timeago('dispose');
+        if (xhrAddressPoll) xhrAddressPoll.abort();
+        if (addressTimeout) clearTimeout(addressTimeout);
+        if (xhrGetPayments) xhrGetPayments.abort();
+    },
+    update: function(){
+       fetchAddressStats(false);
+    }
+};
+
+$('#yourLastShare').timeago();
+
+var urlWalletAddress = location.search.split('wallet=')[1] || 0;
+var address = urlWalletAddress || docCookies.getItem('mining_address');
+
+var xhrAddressPoll;
+var xhrRenderUserCharts;
+var addressTimeout;
+
+function fetchAddressStats(longpoll){
+    xhrAddressPoll = $.ajax({
+        url: api + '/stats_address',
+        data: {
+            address: address,
+            longpoll: longpoll
+        },
+        dataType: 'json',
+        cache: 'false',
+        success: function(data){                    
+            if (!data.stats){
+                $('.yourStats, .userChart').hide();
+                $('#addressError').text(data.error).show();
+                updateText('g_userHashrate', 'N/A');
+            
+                if (addressTimeout) clearTimeout(addressTimeout);
+                addressTimeout = setTimeout(function(){
+                    fetchAddressStats(false);
+                }, 2000);
+
+                return;
+            }
+
+            $('#addressError').hide();
+
+            if (data.stats.lastShare) {
+                $('#yourLastShare').timeago('update', new Date(parseInt(data.stats.lastShare) * 1000).toISOString());
+            }
+            else {
+                updateText('yourLastShare', 'Never');
+            }
+
+            updateText('g_userHashrate', (data.stats.hashrate || '0 H') + '/sec');
+            updateText('yourHashrateHolder', (data.stats.hashrate || '0 H') + '/sec');
+            updateText('yourHashes', (data.stats.hashes || 0).toString());
+            updateText('yourPaid', getReadableCoins(data.stats.paid));
+            updateText('yourPendingBalance', getReadableCoins(data.stats.balance));
+
+            renderPayments(data.payments);
+
+            $('.yourStats').show();
+            createUserCharts(data);                                
+
+            docCookies.setItem('mining_address', address, Infinity);
+        },
+        error: function(e){
+            if (e.statusText === 'abort') return;
+            $('#addressError').text('Connection error').show();
+            updateText('g_userHashrate', 'N/A');
+        
+            if (addressTimeout) clearTimeout(addressTimeout);
+            addressTimeout = setTimeout(function(){
+                fetchAddressStats(false);
+            }, 2000);
+        }
+    });
+}
+    
+$('#lookUp').click(function(){
+    address = $('#yourStatsInput').val().trim();
+    if (!address){
+        $('#yourStatsInput').focus();
+        return;
+    }
+
+    $('#addressError').hide();
+    $('.yourStats').hide();
+    $('#paymentsReport_rows').empty();
+
+    $('#lookUp > span:first-child').hide();
+    $('#lookUp > span:last-child').show();
+
+    if (xhrAddressPoll) xhrAddressPoll.abort();
+    if (addressTimeout) clearTimeout(addressTimeout);
+
+    $('#lookUp > span:last-child').hide();
+    $('#lookUp > span:first-child').show();
+    
+    fetchAddressStats(false);
+});
+    
+var workerCharts = {
+    hashrate: {
+        type: 'line',
+        width: '100%',
+        height: '180',
+        lineColor: '#03a9f4',
+        fillColor: 'rgba(3, 169, 244, .4)',
+        spotColor: null,
+        minSpotColor: null,
+        maxSpotColor: null,
+        highlightLineColor: '#236d26',
+        spotRadius: 3,
+        drawNormalOnTop: false,
+        chartRangeMin: 0,
+        tooltipFormat: '<b>{{y}}</b>, {{offset:names}}'
+    },
+    payments: {
+        type: 'line',
+        width: '100%',
+        height: '180',
+        lineColor: '#03a9f4',
+        fillColor: 'rgba(3, 169, 244, .3)',
+        spotColor: null,
+        minSpotColor: null,
+        maxSpotColor: null,
+        highlightLineColor: '#236d26',
+        spotRadius: 3,
+        drawNormalOnTop: false,
+        chartRangeMin: 0,
+        tooltipFormat: '<b>{{y}}</b>, {{offset:names}}'
+    }
+};
+
+$(function() {
+    $('[data-toggle="tooltip"]').tooltip();
+});
+
+function createUserCharts(data) {
+    for(var chart in workerCharts) {
+        if(data['charts'][chart] && data['charts'][chart].length) {
+            var graphData = getGraphData(data['charts'][chart], chart == 'payments');
+            workerCharts[chart].tooltipValueLookups = {names: graphData.names};
+            $('[data-chart=user_' + chart + ']').show().find('.chart').sparkline(graphData.values, workerCharts[chart]);
+        }
+    }
+}
+
+function getGraphData (rawData, fixValueToCoins) {
+    var graphData = {
+        names: [],
+        values: []
+    };
+    
+    if(rawData) {
+        for (var i = 0, xy; xy = rawData[i]; i++) {
+            graphData.names.push(new Date(xy[0]*1000).toUTCString());
+            graphData.values.push(fixValueToCoins ? getReadableCoins(xy[1], 4, true) : xy[1]);
+        }
+    }
+    
+    return graphData;
+}
+
+function getPaymentCells(payment){
+    return '<td class="col1">' + formatDate(payment.time) + '</td>' +
+           '<td class="col2">' + formatPaymentLink(payment.hash) + '</td>' +
+           '<td class="col3">' + getReadableCoins(payment.amount, 4, false) + '</td>' +
+           '<td class="col4">' + payment.mixin + '</td>';
+}
+
+var xhrGetPayments;
+$('#loadMorePayments').click(function(){
+    if (xhrGetPayments) xhrGetPayments.abort();
+    xhrGetPayments = $.ajax({
+        url: api + '/get_payments',
+        data: {
+            time: $('#paymentsReport_rows').children().last().data('time'),
+            address: address
+        },
+        dataType: 'json',
+        cache: 'false',
+        success: function(data){
+            renderPayments(data);
+        }
+    });
+});
+
+if (address){
+    $('#yourStatsInput').val(address);
+    $('#lookUp').click();
+}
+
+$('#yourStatsInput').keyup(function(e){
+    if(e.keyCode === 13)
+        $('#lookUp').click();
+});
+</script>

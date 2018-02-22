@@ -1,45 +1,75 @@
-<style>
-    .paymentsStatHolder > span{
-        display: inline-block;
-        border-radius: 5px;
-        padding: 1px 9px;
-        border: 1px solid #e5e5e5;
-        margin: 2px;
-    }
-    .paymentsStatHolder > span > span{
-        font-weight: bold;
-    }
-    #payments_rows > tr > td{
-        vertical-align: middle;
-        font-family: 'Inconsolata', monospace;
-        font-size: 0.95em;
-        text-align: center;
-    }
-</style>
+<!-- Statistics -->
+<div id="paymentsStats" class="row">
 
-<div class="paymentsStatHolder">
-    <span class="bg-primary">Total Payments: <span id="paymentsTotal"></span></span>
-    <span class="bg-info">Total Miners Paid: <span id="paymentsTotalPaid"></span></span>
-    <span class="bg-info">Minimum Payment Threshold: <span id="paymentsMinimum"></span></span>
-    <span class="bg-info">Denomination Unit: <span id="paymentsDenomination"></span></span>
+    <!-- Total Payments -->
+    <div class="col-lg-3 col-sm-6">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-money"></span>
+            </div>
+            <div class="content">
+                <div class="text">Total Payments</div>
+                <div class="value"><span id="paymentsTotal"></span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Total Miners Paid -->
+    <div class="col-lg-3 col-sm-6">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-group"></span>
+            </div>
+            <div class="content">
+                <div class="text">Total Miners Paid</div>
+                <div class="value"><span id="paymentsTotalPaid"></span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Minimum Payment Threshold -->
+    <div class="col-lg-3 col-sm-6">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-dollar"></span>
+            </div>
+            <div class="content">
+                <div class="text">Minimum Payout</div>
+                <div class="value"><span id="paymentsMinimum"></span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Denomination Unit -->
+    <div class="col-lg-3 col-sm-6">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-hashtag"></span>
+            </div>
+            <div class="content">
+                <div class="text">Denomination Unit</div>
+                <div class="value"><span id="paymentsDenomination"></span></div>
+            </div>
+        </div>
+    </div>
+    
 </div>
 
-<hr>
-
-<div class="table-responsive">
+<!-- Report -->
+<div id="paymentsReport" class="table-responsive">
     <table class="table table-hover table-striped">
         <thead>
         <tr>
-            <th><i class="fa fa-clock-o"></i> Time Sent</th>
-            <th><i class="fa fa-paw"></i> Transaction Hash</th>
-            <th><i class="fa fa-money"></i> Amount</th>
-            <th><i class="fa fa-tag"></i> Fee</th>
-            <th><i class="fa fa-sitemap"></i> Mixin</th>
-            <th><i class="fa fa-group"></i> Payees</th>
+            <th class="col1">Time Sent</th>
+            <th class="col2">Transaction Hash</th>
+            <th class="col3">Amount</th>
+            <th class="col4">Fee</th>
+            <th class="col5">Mixin</th>
+            <th class="col6">Payees</th>
         </tr>
         </thead>
-        <tbody id="payments_rows">
-
+        <tbody id="paymentsReport_rows">
+    
         </tbody>
     </table>
 </div>
@@ -48,51 +78,47 @@
     <button type="button" class="btn btn-default" id="loadMorePayments">Load More</button>
 </p>
 
-
+<!-- Javascript -->
 <script>
+function getTransactionUrl(id) {
+    return transactionExplorer.replace('{symbol}', lastStats.config.symbol.toLowerCase()).replace('{id}', id);
+}
 
-    function getTransactionUrl(id) {
-        return transactionExplorer.replace('{symbol}', lastStats.config.symbol.toLowerCase()).replace('{id}', id);
-    }
-
-    currentPage = {
-        destroy: function(){
-            if (xhrGetPayments) xhrGetPayments.abort();
-        },
-        update: function(){
-            updateText('paymentsTotal', lastStats.pool.totalPayments.toString());
-            updateText('paymentsTotalPaid', lastStats.pool.totalMinersPaid.toString());
-            updateText('paymentsMinimum', getReadableCoins(lastStats.config.minPaymentThreshold, 3));
-            updateText('paymentsDenomination', getReadableCoins(lastStats.config.denominationUnit, 3));
-            renderPayments(lastStats.pool.payments);
-        }
-    };
-
-
-    var xhrGetPayments;
-    $('#loadMorePayments').click(function(){
+currentPage = {
+    destroy: function(){
         if (xhrGetPayments) xhrGetPayments.abort();
-        xhrGetPayments = $.ajax({
-            url: api + '/get_payments',
-            data: {
-                time: $('#payments_rows').children().last().data('time')
-            },
-            dataType: 'json',
-            cache: 'false',
-            success: function(data){
-                renderPayments(data);
-            }
-        });
-    });
-
-
-    function getPaymentCells(payment){
-        return '<td>' + formatDate(payment.time) + '</td>' +
-                '<td>' + formatPaymentLink(payment.hash) + '</td>' +
-                '<td>' + getReadableCoins(payment.amount, 4, true) + '</td>' +
-                '<td>' + getReadableCoins(payment.fee, 4, true) + '</td>' +
-                '<td>' + payment.mixin + '</td>' +
-                '<td>' + payment.recipients + '</td>';
+    },
+    update: function(){
+        updateText('paymentsTotal', lastStats.pool.totalPayments.toString());
+        updateText('paymentsTotalPaid', lastStats.pool.totalMinersPaid.toString());
+        updateText('paymentsMinimum', getReadableCoins(lastStats.config.minPaymentThreshold, 1));
+        updateText('paymentsDenomination', getReadableCoins(lastStats.config.denominationUnit, 3));
+        renderPayments(lastStats.pool.payments);
     }
+};
 
+var xhrGetPayments;
+$('#loadMorePayments').click(function(){
+    if (xhrGetPayments) xhrGetPayments.abort();
+    xhrGetPayments = $.ajax({
+        url: api + '/get_payments',
+        data: {
+            time: $('#paymentsReport_rows').children().last().data('time')
+        },
+        dataType: 'json',
+        cache: 'false',
+        success: function(data){
+            renderPayments(data);
+        }
+    });
+});
+
+function getPaymentCells(payment){
+    return '<td class="col1">' + formatDate(payment.time) + '</td>' +
+           '<td class="col2">' + formatPaymentLink(payment.hash) + '</td>' +
+           '<td class="col3">' + getReadableCoins(payment.amount, 4, false) + '</td>' +
+           '<td class="col4">' + getReadableCoins(payment.fee, 4, false) + '</td>' +
+           '<td class="col5">' + payment.mixin + '</td>' +
+           '<td class="col6">' + payment.recipients + '</td>';
+}
 </script>

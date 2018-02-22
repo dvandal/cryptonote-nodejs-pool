@@ -1,49 +1,62 @@
-<style>
-    .blocksStatHolder > span{
-        display: inline-block;
-        border-radius: 5px;
-        padding: 1px 9px;
-        border: 1px solid #e5e5e5;
-        margin: 2px;
-    }
-    .blocksStatHolder > span > span{
-        font-weight: bold;
-    }
-    #blocks_rows > tr > td{
-        vertical-align: middle;
-        font-family: 'Inconsolata', monospace;
-        font-size: 0.95em;
-        text-align: center;
-    }
-    .luckGood{
-        color: darkgreen;
-    }
-    .luckBad{
-        color: darkred;
-    }
-</style>
+<!-- Statistics -->
+<div id="blocksStats" class="row">
 
-<div class="blocksStatHolder">
-    <span class="bg-primary">Total Blocks Mined: <span id="blocksTotal"></span></span>
-    <span class="bg-info">Maturity Depth Requirement: <span id="blocksMaturityCount"></span></span>
+    <!-- Total Blocks Mined -->
+    <div class="col-lg-3 col-sm-4">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-cubes"></span>
+            </div>
+            <div class="content">
+                <div class="text">Total Blocks Mined</div>
+                <div class="value"><span id="blocksTotal"></span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Maturity Depth Requirement -->
+    <div class="col-lg-3 col-sm-4">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-unlock-alt"></span>
+            </div>
+            <div class="content">
+                <div class="text">Maturity Requirement</div>
+                <div class="value"><span id="blocksMaturityCount"></span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Efficiency -->
+    <div class="col-lg-3 col-sm-4">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-line-chart"></span>
+            </div>
+            <div class="content">
+                <div class="text">Efficiency</div>
+                <div class="value"><span id="efficiency"></span> <span class="smallText">for <span id="efficiencyBlocks"></span> blocks</div>
+            </div>
+        </div>
+    </div>
+    
 </div>
 
-<hr>
-
-<div class="table-responsive">
-    <table class="table table-hover">
+<!-- Report -->
+<div id="blocksReport" class="table-responsive">
+    <table class="table table-hover table-striped">
         <thead>
         <tr>
-            <th><i class="fa fa-bars"></i> Height</th>
-            <th title="How many more blocks network must mine before this block is matured"><i class="fa fa-link"></i> Maturity</th>
-            <th><i class="fa fa-unlock-alt"></i> Difficulty</th>
-            <th><i class="fa fa-paw"></i> Block Hash</th>
-            <th><i class="fa fa-clock-o"></i> Time Found</th>
-            <th><i class="fa fa-star-half-o"></i> Shares/Diff</th>
+            <th class="col1">Time Found</th>
+            <th class="col2">Reward</th>
+            <th class="col3">Height</th>
+            <th class="col4">Difficulty</th>
+            <th class="col5">Block Hash</th>
+            <th class="col6">Effort</th>
+            <th class="col7" title="How many more blocks network must mine before this block is matured">Status</th>
         </tr>
         </thead>
-        <tbody id="blocks_rows">
-
+        <tbody id="blocksReport_rows">
         </tbody>
     </table>
 </div>
@@ -52,150 +65,192 @@
     <button type="button" class="btn btn-default" id="loadMoreBlocks">Load More</button>
 </p>
 
+<!-- Javascript -->
 <script>
+currentPage = {
+    destroy: function(){
+        if (xhrGetBlocks) xhrGetBlocks.abort();
+    },
+    update: function(){
+        updateText('blocksTotal', lastStats.pool.totalBlocks.toString());
+        updateText('blocksMaturityCount', lastStats.config.depth.toString());
+        renderBlocks(lastStats.pool.blocks);
+    }
+};
 
-    currentPage = {
-        destroy: function(){
-            if (xhrGetBlocks) xhrGetBlocks.abort();
+var xhrGetBlocks;
+$('#loadMoreBlocks').click(function(){
+    if (xhrGetBlocks) xhrGetBlocks.abort();
+    xhrGetBlocks = $.ajax({
+        url: api + '/get_blocks',
+        data: {
+            height: $('#blocksReport_rows').children().last().data('height')
         },
-        update: function(){
-            updateText('blocksTotal', lastStats.pool.totalBlocks.toString());
-            updateText('blocksMaturityCount', lastStats.config.depth.toString());
-            renderBlocks(lastStats.pool.blocks);
+        dataType: 'json',
+        cache: 'false',
+        success: function(data){
+            renderBlocks(data);
         }
+    });
+});
+
+function parseBlock(height, serializedBlock){
+    var parts = serializedBlock.split(':');
+    var block = {
+        height: parseInt(height),
+        hash: parts[0],
+        time: parts[1],
+        difficulty: parseInt(parts[2]),
+        shares: parseInt(parts[3]),
+        orphaned: parts[4],
+        reward: parts[5]
     };
 
+    var toGo = lastStats.config.depth - (lastStats.network.height - block.height);
+    if(toGo > 1){
+        block.maturity = toGo + ' to go';
+    } 
+    else if(toGo == 1){
+        block.maturity = "<i class='fa fa-spinner fa-spin'></i>";
+    } 
+    else if(toGo <= 0){
+        block.maturity = "<i class='fa fa-unlock-alt'></i>";
+    }
+        
+    switch (block.orphaned){
+        case '0':
+            block.status = 'unlocked';
+            block.maturity = "<i class='fa fa-unlock-alt'></i>";
+            break;
+       case '1':
+            block.status = 'orphaned';
+            block.maturity = "<i class='fa fa-times'></i>";
+            block.reward = 0;
+            break;
+        default:
+            block.status = 'pending';
+            break;
+    }
+    return block;
+}
 
+var effBlocksCount = 0;
+var effDiffTotals  = 0;
 
-    var xhrGetBlocks;
-    $('#loadMoreBlocks').click(function(){
-        if (xhrGetBlocks) xhrGetBlocks.abort();
-        xhrGetBlocks = $.ajax({
-            url: api + '/get_blocks',
-            data: {
-                height: $('#blocks_rows').children().last().data('height')
-            },
-            dataType: 'json',
-            cache: 'false',
-            success: function(data){
-                renderBlocks(data);
-            }
-        });
-    });
-
-
-    function parseBlock(height, serializedBlock){
-        var parts = serializedBlock.split(':');
-        var block = {
-            height: parseInt(height),
-            hash: parts[0],
-            time: parts[1],
-            difficulty: parseInt(parts[2]),
-            shares: parseInt(parts[3]),
-            orphaned: parts[4],
-            reward: parts[5]
-        };
-
-        var toGo = lastStats.config.depth - (lastStats.network.height - block.height);
-        block.maturity = toGo < 1 ? '' : (toGo + ' to go');
-
-        switch (block.orphaned){
-            case '0':
-                block.status = 'unlocked';
-                break;
-            case '1':
-                block.status = 'orphaned';
-                break;
-            default:
-                block.status = 'pending';
-                break;
+function getBlockRowElement(block, jsonString){
+    function formatLuck(difficulty, shares) {
+        // Only an approximation to reverse the calculations done in pool.js, because the shares with their respective times are not recorded in redis
+        // Approximation assumes equal pool hashrate for the whole round
+        // Could potentially be replaced by storing the sum of all job.difficulty in the redis db.
+        if (lastStats.config.slushMiningEnabled) {
+            // Uses integral calculus to calculate the average of a dynamic function
+            var accurateShares = 1/lastStats.config.blockTime * (  // 1/blockTime to get the average
+                shares * lastStats.config.weight (                  // Basically calculates the 'area below the graph' between 0 and blockTime
+                    1 - Math.pow( 
+                        Math.E, 
+                        ((- lastStats.config.blockTime) / lastStats.config.weight)  // blockTime is equal to the highest possible result of (dateNowSeconds - scoreTime)
+                    )
+                )
+            );
         }
-
-        return block;
+        else {
+            var accurateShares = shares;
+        }
+        
+        var percent = Math.round(accurateShares / difficulty * 100);
+        if(!percent){
+            return '<span class="luckGood">?</span>';
+        }
+        else if(percent <= 100){
+            return '<span class="luckGood">' + percent + '%</span>';
+        }
+        else if(percent >= 101 && percent <= 150){
+            return '<span class="luckMid">' + percent + '%</span>';
+        }
+        else{
+            return '<span class="luckBad">' + percent + '%</span>';
+        }    
+    }
+    
+    function formatEfficiency(total, nb){
+        var percent = Math.round( ( 10000 / ( total/nb ))) / 100;
+        return percent + '%';
+    }
+    
+    function formatBlockLink(hash){
+        return '<a target="_blank" href="' + getBlockchainUrl(hash) + '">' + hash + '</a>';
     }
 
+    var blockStatusClasses = {
+        'pending': 'pending',
+        'unlocked': 'unlocked',
+        'orphaned': 'orphaned'
+    };
 
-
-    function getBlockRowElement(block, jsonString){
-
-	    function formatLuck(difficulty, shares) {
-			    var percent = Math.round(shares / difficulty * 100);
-			    if(!percent) {
-				      return '<span class="luckGood">?</span>';
-			    }
-			    else if(percent <= 100) {
-				      return '<span class="luckGood">' + percent + '%</span>';
-			    }
-			    else {
-				      return '<span class="luckBad">' + percent + '%</span>';
-			    }
-	    }
-
-	    function formatBlockLink(hash){
-            return '<a target="_blank" href="' + getBlockchainUrl(hash) + '">' + hash + '</a>';
-        }
-
-        var blockStatusClasses = {
-            'pending': '',
-            'unlocked': 'success',
-            'orphaned': 'danger'
-        };
-
-        var row = document.createElement('tr');
-        row.setAttribute('data-json', jsonString);
-        row.setAttribute('data-height', block.height);
-        row.setAttribute('id', 'blockRow' + block.height);
-        row.setAttribute('title', block.status);
-        row.className = blockStatusClasses[block.status];
-
-        var columns =
-            '<td>' + block.height + '</td>' +
-            '<td>' + block.maturity + '</td>' +
-            '<td>' + block.difficulty + '</td>' +
-            '<td>' + formatBlockLink(block.hash) + '</td>' +
-            '<td>' + formatDate(block.time) + '</td>' +
-            '<td>' + formatLuck(block.difficulty, block.shares) + '</td>';
-
-        row.innerHTML = columns;
-
-        return row;
+    var row = document.createElement('tr');
+    row.setAttribute('data-json', jsonString);
+    row.setAttribute('data-height', block.height);
+    row.setAttribute('id', 'blockRow' + block.height);
+    row.setAttribute('title', block.status);
+    row.className = blockStatusClasses[block.status];
+                
+    var reward = "";    
+    if(typeof block.reward == "undefined"){
+        reward = "TBA";
     }
+    else{
+        reward = getReadableCoins(block.reward, 4, true);
+    }
+    
+    var columns =
+        '<td class="col1">' + formatDate(block.time) + '</td>' +
+        '<td class="col2">' + reward + '</td>' +
+        '<td class="col3">' + block.height + '</td>' +
+        '<td class="col4">' + block.difficulty + '</td>' +
+        '<td class="col5">' + formatBlockLink(block.hash) + '</td>' +
+        '<td class="col6">' + formatLuck(block.difficulty, block.shares) + '</td>' +
+        '<td class="col7">' + block.maturity + '</td>';
 
+    row.innerHTML = columns;
 
-    function renderBlocks(blocksResults){
+    if(block.status != 'orphaned'){
+        effDiffTotals = effDiffTotals + (block.shares / block.difficulty);
+        effBlocksCount++ ;
+    }
+    updateText('efficiency', formatEfficiency(effDiffTotals,effBlocksCount).toString());
+    updateText('efficiencyBlocks', effBlocksCount.toString());
+    
+    return row;
+}
 
-        var $blocksRows = $('#blocks_rows');
+function renderBlocks(blocksResults){
+    var $blocksRows = $('#blocksReport_rows');
 
-        for (var i = 0; i < blocksResults.length; i += 2){
+    for (var i = 0; i < blocksResults.length; i += 2){
+        var block = parseBlock(blocksResults[i + 1], blocksResults[i]);
+        var blockJson = JSON.stringify(block);
+        
+        var existingRow = document.getElementById('blockRow' + block.height);
+        if (existingRow && existingRow.getAttribute('data-json') !== blockJson){
+            $(existingRow).replaceWith(getBlockRowElement(block, blockJson));
+        }
+        else if (!existingRow){
+            var blockElement = getBlockRowElement(block, blockJson);
 
-            var block = parseBlock(blocksResults[i + 1], blocksResults[i]);
-
-            var blockJson = JSON.stringify(block);
-
-            var existingRow = document.getElementById('blockRow' + block.height);
-
-            if (existingRow && existingRow.getAttribute('data-json') !== blockJson){
-                $(existingRow).replaceWith(getBlockRowElement(block, blockJson));
-            }
-            else if (!existingRow){
-
-                var blockElement = getBlockRowElement(block, blockJson);
-
-                var inserted = false;
-                var rows = $blocksRows.children().get();
-                for (var f = 0; f < rows.length; f++) {
-                    var bHeight = parseInt(rows[f].getAttribute('data-height'));
-                    if (bHeight < block.height){
-                        inserted = true;
-                        $(rows[f]).before(blockElement);
-                        break;
-                    }
+            var inserted = false;
+            var rows = $blocksRows.children().get();
+            for (var f = 0; f < rows.length; f++) {
+                var bHeight = parseInt(rows[f].getAttribute('data-height'));
+                if (bHeight < block.height){
+                    inserted = true;
+                    $(rows[f]).before(blockElement);
+                    break;
                 }
-                if (!inserted)
-                    $blocksRows.append(blockElement);
             }
-
+            if (!inserted){
+                $blocksRows.append(blockElement);
+            }
         }
     }
-
+}
 </script>

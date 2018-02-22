@@ -1,83 +1,106 @@
-<script>
-
-	function formatLuck(difficulty, shares) {
-		var percent = Math.round(shares / difficulty * 100);
-		if(!percent) {
-			return '<span class="luckGood">?</span>';
-		}
-		else if(percent <= 100) {
-			return '<span class="luckGood">' + percent + '%</span>';
-		}
-		else {
-			return '<span class="luckBad">' + percent + '%</span>';
-		}
-	}
-
-	function getStats(promptPassword) {
-
-		var password = docCookies.getItem('password');
-
-		if(!password || promptPassword) {
-			password = prompt('Enter admin password');
-		}
-
-		$('#loading').show();
-		$.ajax({
-			url: api + '/admin_stats',
-			data: {password: password},
-			success: function(data) {
-				docCookies.setItem('password', password, Infinity);
-				$('#loading').hide();
-				renderData(data);
-			},
-			error: function(e) {
-				docCookies.removeItem('password');
-				getStats(true);
-			}
-		});
-	}
-
-	function renderData(data) {
-		$('#totalOwed').text(getReadableCoins(data.totalOwed));
-		$('#totalPaid').text(getReadableCoins(data.totalPaid));
-		$('#totalMined').text(getReadableCoins(data.totalRevenue));
-		$('#profit').text(getReadableCoins(data.totalRevenue - data.totalOwed - data.totalPaid));
-		$('#averageLuck').html(formatLuck(data.totalDiff, data.totalShares));
-		$('#orphanPercent').text((data.blocksOrphaned / data.blocksUnlocked * 100).toFixed(2));
-		$('#registeredAddresses').text(data.totalWorkers);
-	}
-
-	$(function() {
-		getStats();
-	});
-</script>
 <div class="row adminStats">
-	<div class="col-sm-3 color1">
-		<h4>Total Owed</h4>
-		<span class="statValue" id="totalOwed">...</span>
-	</div>
-	<div class="col-sm-3 color2">
-		<h4>Total Paid</h4>
-		<span class="statValue" id="totalPaid">...</span>
-	</div>
-	<div class="col-sm-3 color3">
-		<h4>Total Mined</h4>
-		<span class="statValue" id="totalMined">...</span>
-	</div>
-	<div class="col-sm-3 color4">
-		<h4>Profit (before tx fees)</h4>
-		<span class="statValue" id="profit">...</span>
-	</div>
-	<div class="col-sm-4 color5">
-		<h4>Average Luck (shares/diff)</h4>
-		<span class="statValue lead" id="averageLuck">...</span>
-	</div>
-	<div class="col-sm-4 color6">
-		<h4>Orphan Percent</h4>
-		<span class="statValue lead" id="orphanPercent">...</span>
-	</div>
-	<div class="col-sm-4 color7">
-		<h4>Registered Addresses</h4>
-		<span class="statValue lead" id="registeredAddresses">...</span>
-	</div>
+    <div class="col-sm-3 color1">
+        <h4>Total Owed</h4>
+        <span class="statValue" id="totalOwed">...</span>
+    </div>
+    <div class="col-sm-3 color2">
+        <h4>Total Paid</h4>
+        <span class="statValue" id="totalPaid">...</span>
+    </div>
+    <div class="col-sm-3 color3">
+        <h4>Total Mined</h4>
+        <span class="statValue" id="totalMined">...</span>
+    </div>
+    <div class="col-sm-3 color4">
+        <h4>Profit (before tx fees)</h4>
+        <span class="statValue" id="profit">...</span>
+    </div>
+    <div class="col-sm-4 color5">
+        <h4>Average Luck (shares/diff)</h4>
+        <span class="statValue lead" id="averageLuck">...</span>
+    </div>
+    <div class="col-sm-4 color6">
+        <h4>Orphan Percent</h4>
+        <span class="statValue lead" id="orphanPercent">...</span>
+    </div>
+    <div class="col-sm-4 color7">
+        <h4>Registered Addresses</h4>
+        <span class="statValue lead" id="registeredAddresses">...</span>
+    </div>
 </div>
+
+<!-- Javascript -->
+<script>
+function formatLuck(difficulty, shares) {
+    // Only an approximation to reverse the calculations done in pool.js, because the shares with their respective times are not recorded in redis
+    // Approximation assumes equal pool hashrate for the whole round
+    // Could potentially be replaced by storing the sum of all job.difficulty in the redis db.
+    if (lastStats.config.slushMiningEnabled) {
+        // Uses integral calculus to calculate the average of a dynamic function
+        var accurateShares = 1/lastStats.config.blockTime * (  // 1/blockTime to get the average
+            shares * lastStats.config.weight (                  // Basically calculates the 'area below the graph' between 0 and blockTime
+                1 - Math.pow( 
+                    Math.E, 
+                    ((- lastStats.config.blockTime) / lastStats.config.weight)  // blockTime is equal to the highest possible result of (dateNowSeconds - scoreTime)
+                )
+            )
+        );
+    }
+    else {
+        var accurateShares = shares;
+    }
+	    
+    var percent = Math.round(accurateShares / difficulty * 100);
+    if(!percent){
+        return '<span class="luckGood">?</span>';
+    }
+    else if(percent <= 100){
+        return '<span class="luckGood">' + percent + '%</span>';
+    }
+    else if(percent >= 101 && percent <= 150){
+        return '<span class="luckMid">' + percent + '%</span>';
+    }
+    else{
+        return '<span class="luckBad">' + percent + '%</span>';
+    }	
+}
+
+function getStats(promptPassword) {
+    var password = docCookies.getItem('password');
+
+    if(!password || promptPassword) {
+        password = prompt('Enter admin password');
+    }
+
+    $('#loading').show();
+    $.ajax({
+        url: api + '/admin_stats',
+        data: {password: password},
+	dataType: 'json',
+        cache: 'false',
+        success: function(data) {
+            docCookies.setItem('password', password, Infinity);
+            $('#loading').hide();
+            renderData(data);
+        },
+        error: function(e) {
+            docCookies.removeItem('password');
+            getStats(true);
+        }
+    });
+}
+
+function renderData(data) {
+    $('#totalOwed').text(getReadableCoins(data.totalOwed, 4, false));
+    $('#totalPaid').text(getReadableCoins(data.totalPaid, 4, false));
+    $('#totalMined').text(getReadableCoins(data.totalRevenue, 4, false));
+    $('#profit').text(getReadableCoins(data.totalRevenue - data.totalOwed - data.totalPaid, 4, true));
+    $('#averageLuck').html(formatLuck(data.totalDiff, data.totalShares));
+    $('#orphanPercent').text((data.blocksOrphaned / data.blocksUnlocked * 100).toFixed(2));
+    $('#registeredAddresses').text(data.totalWorkers);
+}
+
+$(function() {
+    getStats();
+});
+</script>
