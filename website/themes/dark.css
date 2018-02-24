@@ -350,7 +350,7 @@ footer > div{
 }
 .table-striped > tbody > tr:nth-child(odd) > td,
 .table-striped > tbody > tr:nth-child(odd) > th {
-  background-color: #202020;
+  background-color: rgba(32, 32, 32, .85);
 }
 .table > tbody > tr:hover td,
 .table > tbody > tr:hover th {
