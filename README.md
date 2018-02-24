@@ -394,10 +394,10 @@ node init.js -module=api
 
 #### 4) Host the front-end
 
-Simply host the contents of the `website` directory on file server capable of serving simple static files.
+Simply host the contents of the `website_example` directory on file server capable of serving simple static files.
 
 
-Edit the variables in the `website/config.js` file to use your pool's specific configuration.
+Edit the variables in the `website_example/config.js` file to use your pool's specific configuration.
 Variable explanations:
 
 ```javascript
