@@ -69,6 +69,7 @@ High performance Node.js (with native C addons) mining pool for CryptoNote based
 * Set fixed difficulty on miner client by passing "address" param with ".[difficulty]" postfix
 * Prevent "transaction is too big" error with "payments.maxTransactionAmount" option
 * Slush mining system support
+* SSL API support
 
 ### Community / Support
 
@@ -444,7 +445,7 @@ You can configure the API to be accessible via SSL using various methods. Find a
 
 * Using SSL api in `config.json`:
 
-By using this you will need to make your `api` variable in the `website_example/config.js` include the /api. For example:  
+By using this you will need to update your `api` variable in the `website_example/config.js`. For example:  
 `var api = "https://poolhost:8119";`
 
 * Inside your SSL Listener, add the following:
@@ -455,7 +456,7 @@ location ~ ^/api/(.*) {
 }
 ```
 
-By adding this you will need to make your `api` variable in the `website_example/config.js` include the /api. For example:  
+By adding this you will need to update your `api` variable in the `website_example/config.js` to include the /api. For example:  
 `var api = "http://poolhost/api";`
 
 You no longer need to include the port in the variable because of the proxy connection.
@@ -482,7 +483,7 @@ server {
 }
 ```
 
-By adding this you will need to make your `api` variable in the `website_example/config.js` include the /api. For example:  
+By adding this you will need to update your `api` variable in the `website_example/config.js`. For example:  
 `var api = "//api.poolhost.com";`
 
 You no longer need to include the port in the variable because of the proxy connection.
