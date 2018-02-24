@@ -203,7 +203,7 @@ function getBlockRowElement(block, jsonString){
                 
     var reward = "";    
     if(typeof block.reward == "undefined"){
-        reward = "TBA";
+        reward = "Waiting...";
     }
     else{
         reward = getReadableCoins(block.reward, 4, true);
