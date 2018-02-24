@@ -178,6 +178,8 @@ function sortTable() {
 function comparer(index) {
     return function(a, b) {
         var valA = getCellValue(a, index), valB = getCellValue(b, index);
+	if (!valA) { valA = 0; }
+	if (!valB) { valB = 0; }
         return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB : valA.localeCompare(valB)
     }
 }
