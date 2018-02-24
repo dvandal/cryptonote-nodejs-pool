@@ -103,7 +103,12 @@
         "port": 8117,
         "blocks": 30,
         "payments": 30,
-        "password": "your_password"
+        "password": "your_password",
+        "ssl": false,
+        "sslport": 8119,
+        "sslcert": "./cert.pem",
+        "sslkey": "./privkey.pem",
+        "sslca": "./chain.pem"
     },
 
     "daemon": {

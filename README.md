@@ -128,6 +128,8 @@ npm update
 
 *Warning for Cryptonote coins other than Monero:* this software may or may not work with any given cryptonote coin. Be wary of altcoins that change the number of minimum coin units because you will have to reconfigure several config values to account for those changes. Unless you're offering a bounty reward - do not open an issue asking for help getting a coin other than Monero working with this software.
 
+Copy the `config_example.json` file to `config.json` then overview each options and change any to match your preferred setup.
+
 Explanation for each field:
 ```javascript
 /* Used for storage in redis so multiple coins can share the same redis instance. */
@@ -285,10 +287,15 @@ Explanation for each field:
     "enabled": true,
     "hashrateWindow": 600, // How many second worth of shares used to estimate hash rate
     "updateInterval": 3, // Gather stats and broadcast every this many seconds
-    "port": 8117,
+    "port": 8117, // The API port
     "blocks": 30, // Amount of blocks to send at a time
     "payments": 30, // Amount of payments to send at a time
-    "password": "your_password" // Password required for admin stats
+    "password": "your_password", // Password required for admin stats
+    "ssl": false, // Enable SSL API?
+    "sslport": 8119, // The SSL port
+    "sslcert": "./cert.pem", // The SSL certificate
+    "sslkey": "./privkey.pem", // The SSL private key
+    "sslca": "./chain.pem" // The SSL certificate authority chain
 },
 
 /* Coin daemon connection details (default port is 18981) */
