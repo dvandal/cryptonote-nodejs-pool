@@ -16,8 +16,8 @@ High performance Node.js (with native C addons) mining pool for CryptoNote based
   * [Starting the Pool](#3-start-the-pool)
   * [Host the front-end](#4-host-the-front-end)
   * [Customizing your website](#5-customize-your-website)
+  * [SSL](#ssl)
   * [Upgrading](#upgrading)
-* [How to setup SSL front-end](#how-to-setup-ssl-front-end)
 * [JSON-RPC Commands from CLI](#json-rpc-commands-from-cli)
 * [Monitoring Your Pool](#monitoring-your-pool)
 * [Donations](#donations)
@@ -438,20 +438,29 @@ to `index.html` or other front-end files thus reducing the difficulty of merging
 
 Then simply serve the files via nginx, Apache, Google Drive, or anything that can host static content.
 
+#### SSL
 
-#### Upgrading
-When updating to the latest code its important to not only `git pull` the latest from this repo, but to also update
-the Node.js modules, and any config files that may have been changed.
-* Inside your pool directory (where the init.js script is) do `git pull` to get the latest code.
-* Remove the dependencies by deleting the `node_modules` directory with `rm -r node_modules`.
-* Run `npm update` to force updating/reinstalling of the dependencies.
-* Compare your `config.json` to the latest example ones in this repo or the ones in the setup instructions where each config field is explained. You may need to modify or add any new changes.
+You can configure the API to be accessible via SSL using various methods. Find an example for nginx below:
 
-### How to setup SSL front-end
+* Using SSL api in `config.json`:
 
-If you want to secure your front-end behind a SSL certificate you will need to forward a subdomain to the API port, for example *api.poolhost.com*
+By using this you will need to make your `api` variable in the `website_example/config.js` include the /api. For example:  
+`var api = "https://poolhost:8119";`
 
-Here is a sample configuration with NGINX:
+* Inside your SSL Listener, add the following:
+
+``` javascript
+location ~ ^/api/(.*) {
+    proxy_pass http://127.0.0.1:8117/$1$is_args$args;
+}
+```
+
+By adding this you will need to make your `api` variable in the `website_example/config.js` include the /api. For example:  
+`var api = "http://poolhost/api";`
+
+You no longer need to include the port in the variable because of the proxy connection.
+
+* Using his own subdomain, for example `api.poolhost.com`:
 
 ```bash
 server {
@@ -473,11 +482,19 @@ server {
 }
 ```
 
-You will need to edit the `api` variable in the `website/config.js` file and set your pool API url, for example:
+By adding this you will need to make your `api` variable in the `website_example/config.js` include the /api. For example:  
+`var api = "//api.poolhost.com";`
 
-```javascript
-var api = "https://api.poolhost.com";
-```
+You no longer need to include the port in the variable because of the proxy connection.
+
+
+#### Upgrading
+When updating to the latest code its important to not only `git pull` the latest from this repo, but to also update
+the Node.js modules, and any config files that may have been changed.
+* Inside your pool directory (where the init.js script is) do `git pull` to get the latest code.
+* Remove the dependencies by deleting the `node_modules` directory with `rm -r node_modules`.
+* Run `npm update` to force updating/reinstalling of the dependencies.
+* Compare your `config.json` to the latest example ones in this repo or the ones in the setup instructions where each config field is explained. You may need to modify or add any new changes.
 
 ### JSON-RPC Commands from CLI
 
