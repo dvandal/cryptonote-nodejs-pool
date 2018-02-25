@@ -277,8 +277,11 @@ function fetchLiveStats() {
         dataType: 'json',
         cache: 'false'
     }).done(function(data){
-        pulseLiveUpdate();
+        pulseLiveUpdate();	
         lastStats = data;
+	if (lastStats && lastStats.pool && lastStats.pool.totalMinersPaid.toString() == '-1') {
+	  lastStats.pool.totalMinersPaid = 0;
+	}
         updateIndex();
         if (currentPage) currentPage.update();
     }).always(function () {
@@ -364,6 +367,9 @@ $(function(){
 
     $.get(api + '/stats', function(data){
         lastStats = data;
+	if (lastStats && lastStats.pool && lastStats.pool.totalMinersPaid.toString() == '-1') {
+	  lastStats.pool.totalMinersPaid = 0;
+	}
         updateIndex();
         routePage(fetchLiveStats);
     });
