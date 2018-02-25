@@ -52,6 +52,7 @@ High performance Node.js (with native C addons) mining pool for CryptoNote based
   * Each miners' individual stats (hashrate, shares submitted, pending balance, total paid, etc)
   * Blocks found (pending, confirmed, and orphaned)
 * An easily extendable, responsive, light-weight front-end using API to display data
+* Onishin's [keepalive function](https://github.com/perl5577/cpuminer-multi/commit/0c8aedb)
 
 #### Extra features
 
@@ -69,7 +70,7 @@ High performance Node.js (with native C addons) mining pool for CryptoNote based
 * Set fixed difficulty on miner client by passing "address" param with ".[difficulty]" postfix
 * Prevent "transaction is too big" error with "payments.maxTransactionAmount" option
 * Slush mining system support
-* SSL API support
+* SSL support for Pool server and API
 
 ### Community / Support
 
@@ -79,7 +80,6 @@ High performance Node.js (with native C addons) mining pool for CryptoNote based
 * [ByteCoin Github](https://github.com/amjuarez/bytecoin)
 * [Monero Github](https://github.com/monero-project/bitmonero)
 * [GRAFT Github](https://github.com/graft-project/GraftNetwork)
-
 
 #### Pools Using This Software
 
@@ -187,11 +187,21 @@ Explanation for each field:
     /* How many seconds until we consider a miner disconnected. */
     "minerTimeout": 900,
 
+    "sslCert": "./cert.pem", // The SSL certificate
+    "sslKey": "./privkey.pem", // The SSL private key
+    "sslCA": "./chain.pem" // The SSL certificate authority chain
+    
     "ports": [
         {
             "port": 3333, // Port for mining apps to connect to
-            "difficulty": 200, // Initial difficulty miners are set to
+            "difficulty": 2000, // Initial difficulty miners are set to
             "desc": "Low end hardware" // Description of port
+        },
+        {
+            "port": 3333, // Port for mining apps to connect to
+            "difficulty": 2000, // Initial difficulty miners are set to
+            "desc": "Low end hardware (SSL)", // Description of port
+            "ssl": true // Enable SSL
         },
         {
             "port": 5555,
@@ -199,14 +209,32 @@ Explanation for each field:
             "desc": "Mid range hardware"
         },
         {
+            "port": 5556,
+            "difficulty": 10000,
+            "desc": "Mid range hardware (SSL)",
+            "ssl": true
+        },
+        {
             "port": 7777,
             "difficulty": 20000,
             "desc": "High end hardware"
         },
         {
+            "port": 7778,
+            "difficulty": 20000,
+            "desc": "High end hardware (SSL)",
+            "ssl": true
+        },
+        {
             "port": 9999,
             "difficulty": 500000,
-            "desc": "Nice Hash"
+            "desc": "Cloud-mining / NiceHash"
+        },
+        {
+            "port": 9998,
+            "difficulty": 500000,
+            "desc": "Cloud-mining / NiceHash (SSL)",
+            "ssl": true
         }
     ],
 
@@ -292,11 +320,11 @@ Explanation for each field:
     "blocks": 30, // Amount of blocks to send at a time
     "payments": 30, // Amount of payments to send at a time
     "password": "your_password", // Password required for admin stats
-    "ssl": false, // Enable SSL API?
-    "sslport": 8119, // The SSL port
-    "sslcert": "./cert.pem", // The SSL certificate
-    "sslkey": "./privkey.pem", // The SSL private key
-    "sslca": "./chain.pem" // The SSL certificate authority chain
+    "ssl": false, // Enable SSL API
+    "sslPort": 8119, // The SSL port
+    "sslCert": "./cert.pem", // The SSL certificate
+    "sslKey": "./privkey.pem", // The SSL private key
+    "sslCA": "./chain.pem" // The SSL certificate authority chain
 },
 
 /* Coin daemon connection details (default port is 18981) */

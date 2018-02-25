@@ -22,11 +22,20 @@
         "poolAddress": "ddehi53dwGSBEXdhTYtga2R3fS4y9hRz4YHAsLABJpH75yUd5EDQmuL3yDBj1mG6MMeDfydY9vp4zFVVNQ99FTYq2PpsFJP2y",
         "blockRefreshInterval": 1000,
         "minerTimeout": 900,
+        "sslCert": "./cert.pem",
+        "sslKey": "./privkey.pem",
+        "sslCA": "./chain.pem",
         "ports": [
+            {
+                "port": 3334,
+                "difficulty": 2000,
+                "desc": "Low end hardware"
+            },
             {
                 "port": 3333,
                 "difficulty": 2000,
-                "desc": "Low end hardware"
+                "desc": "Low end hardware (SSL)",
+                "ssl": true
             },
             {
                 "port": 5555,
@@ -34,14 +43,32 @@
                 "desc": "Mid range hardware"
             },
             {
+                "port": 5556,
+                "difficulty": 10000,
+                "desc": "Mid range hardware (SSL)",
+                "ssl": true
+            },
+            {
                 "port": 7777,
                 "difficulty": 20000,
                 "desc": "High end hardware"
             },
             {
+                "port": 7778,
+                "difficulty": 20000,
+                "desc": "High end hardware (SSL)",
+                "ssl": true
+            },
+            {
                 "port": 9999,
                 "difficulty": 500000,
-                "desc": "Nice Hash"
+                "desc": "Cloud-mining / NiceHash"
+            },
+            {
+                "port": 9998,
+                "difficulty": 500000,
+                "desc": "Cloud-mining / NiceHash (SSL)",
+                "ssl": true
             }
         ],
         "varDiff": {
@@ -82,7 +109,7 @@
         "interval": 300,
         "maxAddresses": 50,
         "mixin": 3,
-	"transferFee": 50000000,
+        "transferFee": 50000000,
         "minPayment": 1000000000,
         "maxTransactionAmount": 0,
         "denomination": 1000000000
@@ -105,10 +132,10 @@
         "payments": 30,
         "password": "your_password",
         "ssl": false,
-        "sslport": 8119,
-        "sslcert": "./cert.pem",
-        "sslkey": "./privkey.pem",
-        "sslca": "./chain.pem"
+        "sslPort": 8119,
+        "sslCert": "./cert.pem",
+        "sslKey": "./privkey.pem",
+        "sslCA": "./chain.pem"
     },
 
     "daemon": {
