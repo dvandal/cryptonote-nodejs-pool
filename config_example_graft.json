@@ -27,12 +27,12 @@
         "sslCA": "./chain.pem",
         "ports": [
             {
-                "port": 3334,
+                "port": 3333,
                 "difficulty": 2000,
                 "desc": "Low end hardware"
             },
             {
-                "port": 3333,
+                "port": 3334,
                 "difficulty": 2000,
                 "desc": "Low end hardware (SSL)",
                 "ssl": true

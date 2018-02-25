@@ -198,7 +198,7 @@ Explanation for each field:
             "desc": "Low end hardware" // Description of port
         },
         {
-            "port": 3333, // Port for mining apps to connect to
+            "port": 3334, // Port for mining apps to connect to
             "difficulty": 2000, // Initial difficulty miners are set to
             "desc": "Low end hardware (SSL)", // Description of port
             "ssl": true // Enable SSL
