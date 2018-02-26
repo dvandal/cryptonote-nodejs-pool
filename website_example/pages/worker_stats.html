@@ -279,12 +279,21 @@ function sortWorkers(a, b){
       
 function renderWorkers(workersData){
     workersData = workersData.sort(sortWorkers);
+    
     var $workersRows = $('#workersReport_rows');
+    
+    for (var i = 0; i < workersData.length; i++){
+        var existingRow = document.getElementById('workerRow_' + getWorkerRowId(workersData[i].name));
+	if (!existingRow){
+	    $workersRows.empty();
+	    break;
+	}
+    }
+    
     for (var i = 0; i < workersData.length; i++){
         var worker = workersData[i];
         var workerJson = JSON.stringify(worker);
-        var existingRow = document.getElementById('workerRow_' + getWorkerRowId(worker.name));
-    
+        var existingRow = document.getElementById('workerRow_' + getWorkerRowId(worker.name));    
         if (existingRow && existingRow.getAttribute('data-json') !== workerJson){
             $(existingRow).replaceWith(getWorkerRowElement(worker, workerJson));
         }
