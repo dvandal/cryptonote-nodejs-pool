@@ -370,6 +370,9 @@ footer > div{
 .table > tbody > tr > td {
   border-top-color: #c9e0e9;
 }
+table th.sort:hover{
+  cursor: pointer;
+}
 
 /* jQuery sparkline tooltip */
 .jqstooltip {
@@ -628,6 +631,26 @@ footer > div{
 }
 #addressError {
   color: red;
+}
+#workersReport td {
+  vertical-align: middle;
+}
+@media (min-width: 767px) {
+  #workersReport table th {
+    white-space: nowrap;
+  }
+  #workersReport table .col2 {
+    width:150px;
+    text-align: center;
+  }  
+  #workersReport table .col3 {
+    width: 210px;
+    text-align: center;
+  }
+  #workersReport table .col4 {
+    width: 210px;
+    text-align: center;
+  }
 }
 #workerPayments td {
   vertical-align: middle;

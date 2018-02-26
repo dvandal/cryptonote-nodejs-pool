@@ -112,12 +112,6 @@ function fetchAddressStats(longpoll){
             if (!data.stats){
                 $('.yourStats, .userChart').hide();
                 $('#addressError').text(data.error).show();
-            
-                if (addressTimeout) clearTimeout(addressTimeout);
-                addressTimeout = setTimeout(function(){
-                    fetchAddressStats(false);
-                }, 2000);
-
                 return;
             }
 
@@ -141,8 +135,11 @@ function fetchAddressStats(longpoll){
             $('.yourStats').show();
             createUserCharts(data);                                
 
-            docCookies.setItem('mining_address', address, Infinity);
-        
+            if (getCurrentAddress() != address) {
+                docCookies.setItem('mining_address', address, Infinity);            
+                loadLiveStats(true);
+            }
+	    
             fetchAddressStats(true);
         },
         error: function(e){
@@ -263,15 +260,11 @@ function getWorkerRowElement(worker, jsonString){
 }
 
 function getWorkerCells(worker){
-    var workerName = worker.name;
-    if (workerName == 'undefined') {
-        workerName = "Undefined (default)"; 
-    }
     var hashrate = worker.hashrate ? worker.hashrate : 0;
     var lastShare = worker.lastShare ? worker.lastShare : 0;
     var hashes = (worker.hashes || 0).toString();
     
-    return '<td class="col1" data-sort="' + worker.name + '">' + worker.name + '</td>' +
+    return '<td class="col1" data-sort="' + (worker.name != 'undefined' ? worker.name : '') + '">' + (worker.name != 'undefined' ? worker.name : '<em>Undefined</em>') + '</td>' +
            '<td class="col2" data-sort="' + hashrate + '">' + getReadableHashRateString(hashrate) + '/sec</td>' +
            '<td class="col3" data-sort="' + lastShare + '">' + (lastShare ? $.timeago(new Date(parseInt(lastShare) * 1000).toISOString()) : 'Never') + '</td>' +
            '<td class="col4" data-sort="' + hashes + '">' + hashes + '</td>';
@@ -290,7 +283,7 @@ function renderWorkers(workersData){
         var worker = workersData[i];
         var workerJson = JSON.stringify(worker);
         var existingRow = document.getElementById('workerRow_' + getWorkerRowId(worker.name));
-
+    
         if (existingRow && existingRow.getAttribute('data-json') !== workerJson){
             $(existingRow).replaceWith(getWorkerRowElement(worker, workerJson));
         }
@@ -306,31 +299,6 @@ function getPaymentCells(payment){
            '<td class="col2">' + formatPaymentLink(payment.hash) + '</td>' +
            '<td class="col3">' + getReadableCoins(payment.amount, 4, false) + '</td>' +
            '<td class="col4">' + payment.mixin + '</td>';
-}
-
-function sortTable() {
-    var table = $(this).parents('table').eq(0),
-        rows = table.find('tr:gt(0)').toArray().sort(comparer($(this).index()));
-    this.asc = !this.asc;
-    if(!this.asc) {
-        rows = rows.reverse()
-    }
-    for(var i = 0; i < rows.length; i++) {
-        table.append(rows[i])
-    }
-}
-
-function comparer(index) {
-    return function(a, b) {
-        var valA = getCellValue(a, index), valB = getCellValue(b, index);
-	if (!valA) { valA = 0; }
-	if (!valB) { valB = 0; }
-        return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB : valA.localeCompare(valB)
-    }
-}
-
-function getCellValue(row, index) {
-    return $(row).children('td').eq(index).data("sort")
 }
 
 var xhrGetPayments;

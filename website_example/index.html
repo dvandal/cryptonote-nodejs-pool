@@ -288,13 +288,28 @@ function updateIndex(){
     updateText('poolVersion', lastStats.config.version);
 }
 
-function fetchLiveStats() {
-    var apiURL = api + '/live_stats';
+function loadLiveStats(reload) {
+    var apiURL = api + '/stats';
     
     var address = getCurrentAddress();
     if (address) { apiURL = apiURL + '?address=' + address; }
-	   
-    $.ajax({
+
+    if (xhrLiveStats) xhrLiveStats.abort();
+    
+    $.get(apiURL, function(data){        
+        updateLiveStats(data);
+	if (!reload) routePage(fetchLiveStats);
+    });
+}
+
+var xhrLiveStats;
+function fetchLiveStats() {
+    var apiURL = api + '/live_stats';
+
+    var address = getCurrentAddress();
+    if (address) { apiURL = apiURL + '?address=' + address; }
+    
+    xhrLiveStats = $.ajax({
         url: apiURL,
         dataType: 'json',
         cache: 'false'
@@ -355,7 +370,7 @@ function comparer(index) {
         var valA = getCellValue(a, index), valB = getCellValue(b, index);
 	if (!valA) { valA = 0; }
 	if (!valB) { valB = 0; }
-        return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB : valA.localeCompare(valB)
+        return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB : valA.toString().localeCompare(valB.toString())
     }
 }
 
@@ -376,15 +391,7 @@ $(function(){
         $('#menu-content').append('<li><a target="_new" href="mailto:'+email+'"><i class="fa fa-envelope"></i> Contact Us</a></li>');
     }
 
-    var apiURL = api + '/stats';
-    
-    var address = getCurrentAddress();
-    if (address) { apiURL = apiURL + '?address=' + address; }
-    
-    $.get(apiURL, function(data){
-        updateLiveStats(data);
-        routePage(fetchLiveStats);
-    });
+    loadLiveStats();
 });
 </script>
 <script src="custom.js"></script>
