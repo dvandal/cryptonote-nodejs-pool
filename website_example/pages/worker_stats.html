@@ -112,6 +112,8 @@ function fetchAddressStats(longpoll){
             if (!data.stats){
                 $('.yourStats, .userChart').hide();
                 $('#addressError').text(data.error).show();
+                docCookies.setItem('mining_address', '', Infinity);
+                loadLiveStats(true);
                 return;
             }
 
@@ -134,11 +136,6 @@ function fetchAddressStats(longpoll){
 
             $('.yourStats').show();
             createUserCharts(data);                                
-
-            if (getCurrentAddress() != address) {
-                docCookies.setItem('mining_address', address, Infinity);            
-                loadLiveStats(true);
-            }
 	    
             fetchAddressStats(true);
         },
@@ -156,6 +153,11 @@ function fetchAddressStats(longpoll){
     
 $('#lookUp').click(function(){
     address = $('#yourStatsInput').val().trim();
+    if (getCurrentAddress() != address) {
+        docCookies.setItem('mining_address', address, Infinity);
+        loadLiveStats(true);
+    }
+
     if (!address){
         $('#yourStatsInput').focus();
         return;
