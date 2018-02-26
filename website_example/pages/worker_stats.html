@@ -158,13 +158,9 @@ $('#lookUp').click(function(){
         loadLiveStats(true);
     }
 
-    if (!address){
-        $('#yourStatsInput').focus();
-        return;
-    }
-
     $('#addressError').hide();
     $('.yourStats').hide();
+    $('.userChart').hide();
     $('#workersReport_rows').empty();
     $('#paymentsReport_rows').empty();
 
@@ -176,6 +172,11 @@ $('#lookUp').click(function(){
 
     $('#lookUp > span:last-child').hide();
     $('#lookUp > span:first-child').show();
+    
+    if (!address){
+        $('#yourStatsInput').focus();
+        return;
+    }
     
     fetchAddressStats(false);
 });
