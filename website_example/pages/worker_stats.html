@@ -10,13 +10,14 @@
         </button></span>
     </div>
 
+    <!-- Statistics -->
     <div class="row">
         <div class="col-lg-4 stats">
             <div id="addressError"></div>
             <div class="yourStats"><i class="fa fa-bank"></i> Pending Balance: <span id="yourPendingBalance"></span></div>
             <div class="yourStats"><i class="fa fa-money"></i> Total Paid: <span id="yourPaid"></span></div>
-            <div class="yourStats"><i class="fa fa-clock-o"></i> Last Share Submitted: <span id="yourLastShare"></span></div>
             <div class="yourStats"><i class="fa fa-tachometer"></i> Hash Rate: <span id="yourHashrateHolder"></span></div>
+            <div class="yourStats"><i class="fa fa-clock-o"></i> Last Share Submitted: <span id="yourLastShare"></span></div>
             <div class="yourStats"><i class="fa fa-cloud-upload"></i> Total Hashes Submitted: <span id="yourHashes"></span></div>
         </div>
         <div class="col-lg-4 col-sm-6">            
@@ -36,7 +37,25 @@
             </div>
         </div>       
     </div>
+
+    <!-- Workers -->
+    <div id="workersReport" class="yourStats table-responsive">
+        <table class="table table-hover table-striped">
+            <thead>
+            <tr>
+                <th class="col1 sort">Worker Name <i class="fa fa-sort"></i></th>
+                <th class="col2 sort">Hash Rate <i class="fa fa-sort"></i></th>
+                <th class="col3 sort">Last Share Submitted <i class="fa fa-sort"></i></th>
+                <th class="col4 sort">Total Hashes Submitted <i class="fa fa-sort"></i></th>
+            </tr>
+            </thead>
+            <tbody id="workersReport_rows">
+
+            </tbody>
+        </table>
+    </div>
     
+    <!-- Payments -->
     <h4 class="yourStats">Payments</h4>
     <div id="workerPayments" class="yourStats table-responsive">
         <table class="table table-hover table-striped">
@@ -69,7 +88,6 @@ currentPage = {
         if (xhrGetPayments) xhrGetPayments.abort();
     },
     update: function(){
-       fetchAddressStats(false);
     }
 };
 
@@ -79,7 +97,6 @@ var urlWalletAddress = location.search.split('wallet=')[1] || 0;
 var address = urlWalletAddress || docCookies.getItem('mining_address');
 
 var xhrAddressPoll;
-var xhrRenderUserCharts;
 var addressTimeout;
 
 function fetchAddressStats(longpoll){
@@ -95,7 +112,6 @@ function fetchAddressStats(longpoll){
             if (!data.stats){
                 $('.yourStats, .userChart').hide();
                 $('#addressError').text(data.error).show();
-                updateText('g_userHashrate', 'N/A');
             
                 if (addressTimeout) clearTimeout(addressTimeout);
                 addressTimeout = setTimeout(function(){
@@ -114,23 +130,24 @@ function fetchAddressStats(longpoll){
                 updateText('yourLastShare', 'Never');
             }
 
-            updateText('g_userHashrate', (data.stats.hashrate || '0 H') + '/sec');
-            updateText('yourHashrateHolder', (data.stats.hashrate || '0 H') + '/sec');
+            updateText('yourHashrateHolder', (getReadableHashRateString(data.stats.hashrate) || '0 H') + '/sec');
             updateText('yourHashes', (data.stats.hashes || 0).toString());
             updateText('yourPaid', getReadableCoins(data.stats.paid));
             updateText('yourPendingBalance', getReadableCoins(data.stats.balance));
 
             renderPayments(data.payments);
+            renderWorkers(data.workers);
 
             $('.yourStats').show();
             createUserCharts(data);                                
 
             docCookies.setItem('mining_address', address, Infinity);
+        
+            fetchAddressStats(true);
         },
         error: function(e){
             if (e.statusText === 'abort') return;
             $('#addressError').text('Connection error').show();
-            updateText('g_userHashrate', 'N/A');
         
             if (addressTimeout) clearTimeout(addressTimeout);
             addressTimeout = setTimeout(function(){
@@ -200,6 +217,8 @@ $(function() {
     $('[data-toggle="tooltip"]').tooltip();
 });
 
+$('#workersReport th.sort').on('click', sortTable);
+    
 function createUserCharts(data) {
     for(var chart in workerCharts) {
         if(data['charts'][chart] && data['charts'][chart].length) {
@@ -226,11 +245,92 @@ function getGraphData (rawData, fixValueToCoins) {
     return graphData;
 }
 
+function getWorkerRowId(workerName){
+    var id = btoa(workerName);
+    id = id.replace(/=/, '');
+    return id;
+}
+
+function getWorkerRowElement(worker, jsonString){
+    var row = document.createElement('tr');
+    row.setAttribute('data-json', jsonString);
+    row.setAttribute('data-name', worker.name);
+    row.setAttribute('id', 'workerRow_' + getWorkerRowId(worker.name));
+
+    row.innerHTML = getWorkerCells(worker);
+
+    return row;
+}
+
+function getWorkerCells(worker){
+    var workerName = worker.name;
+    if (workerName == 'undefined') {
+        workerName = "Undefined (default)"; 
+    }
+    var hashrate = worker.hashrate ? worker.hashrate : 0;
+    var lastShare = worker.lastShare ? worker.lastShare : 0;
+    var hashes = (worker.hashes || 0).toString();
+    
+    return '<td class="col1" data-sort="' + worker.name + '">' + worker.name + '</td>' +
+           '<td class="col2" data-sort="' + hashrate + '">' + getReadableHashRateString(hashrate) + '/sec</td>' +
+           '<td class="col3" data-sort="' + lastShare + '">' + (lastShare ? $.timeago(new Date(parseInt(lastShare) * 1000).toISOString()) : 'Never') + '</td>' +
+           '<td class="col4" data-sort="' + hashes + '">' + hashes + '</td>';
+}
+
+function sortWorkers(a, b){
+  var aName = a.name.toLowerCase();
+  var bName = b.name.toLowerCase(); 
+  return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
+}
+      
+function renderWorkers(workersData){
+    workersData = workersData.sort(sortWorkers);
+    var $workersRows = $('#workersReport_rows');
+    for (var i = 0; i < workersData.length; i++){
+        var worker = workersData[i];
+        var workerJson = JSON.stringify(worker);
+        var existingRow = document.getElementById('workerRow_' + getWorkerRowId(worker.name));
+
+        if (existingRow && existingRow.getAttribute('data-json') !== workerJson){
+            $(existingRow).replaceWith(getWorkerRowElement(worker, workerJson));
+        }
+        else if (!existingRow){
+            var workerElement = getWorkerRowElement(worker, workerJson);
+            $workersRows.append(workerElement);
+        }
+    }
+}
+
 function getPaymentCells(payment){
     return '<td class="col1">' + formatDate(payment.time) + '</td>' +
            '<td class="col2">' + formatPaymentLink(payment.hash) + '</td>' +
            '<td class="col3">' + getReadableCoins(payment.amount, 4, false) + '</td>' +
            '<td class="col4">' + payment.mixin + '</td>';
+}
+
+function sortTable() {
+    var table = $(this).parents('table').eq(0),
+        rows = table.find('tr:gt(0)').toArray().sort(comparer($(this).index()));
+    this.asc = !this.asc;
+    if(!this.asc) {
+        rows = rows.reverse()
+    }
+    for(var i = 0; i < rows.length; i++) {
+        table.append(rows[i])
+    }
+}
+
+function comparer(index) {
+    return function(a, b) {
+        var valA = getCellValue(a, index), valB = getCellValue(b, index);
+	if (!valA) { valA = 0; }
+	if (!valB) { valB = 0; }
+        return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB : valA.localeCompare(valB)
+    }
+}
+
+function getCellValue(row, index) {
+    return $(row).children('td').eq(index).data("sort")
 }
 
 var xhrGetPayments;

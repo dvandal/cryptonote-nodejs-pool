@@ -82,17 +82,6 @@
 <!-- Javascript -->
 <script src="config.js"></script>
 <script>
-$('#menu-content').collapse('hide');
-if (telegram) {
-    $('#menu-content').append('<li><a target="_new" href="'+telegram+'"><i class="fa fa-telegram"></i> Telegram group</a></li>');
-}
-if (discord) {
-    $('#menu-content').append('<li><a target="_new" href="'+discord+'"><i class="fa fa-ticket"></i> Discord</a></li>');
-}
-if (email) {
-    $('#menu-content').append('<li><a target="_new" href="mailto:'+email+'"><i class="fa fa-envelope"></i> Contact Us</a></li>');
-}
-
 var currentPage;
 var lastStats;
 
@@ -159,6 +148,10 @@ function updateText(elementId, text){
         el.textContent = text;
     }
     return el;
+}
+
+function floatToString(float) {
+    return float.toFixed(6).replace(/[0\.]+$/, '');
 }
 
 function getReadableTime(seconds){
@@ -257,6 +250,12 @@ function renderPayments(paymentsResults){
     }
 }
 
+function getCurrentAddress() {
+    var urlWalletAddress = location.search.split('wallet=')[1] || 0;
+    var address = urlWalletAddress || docCookies.getItem('mining_address');
+    return address;
+}
+
 function pulseLiveUpdate(){
     var stats_update = document.getElementById('statsUpdated');
     stats_update.style.transition = 'opacity 100ms ease-out';
@@ -267,31 +266,48 @@ function pulseLiveUpdate(){
     }, 500);
 }
 
-window.onhashchange = function(){
-    routePage();
-};
+function updateLiveStats(data) {
+    pulseLiveUpdate();	
+    lastStats = data;
+    if (lastStats && lastStats.pool && lastStats.pool.totalMinersPaid.toString() == '-1'){
+        lastStats.pool.totalMinersPaid = 0;
+    }
+    updateIndex();
+    if (currentPage) currentPage.update();
+}
+
+function updateIndex(){
+    updateText('g_networkHashrate', getReadableHashRateString(lastStats.network.difficulty / lastStats.config.coinDifficultyTarget) + '/sec');
+    updateText('g_poolHashrate', getReadableHashRateString(lastStats.pool.hashrate) + '/sec');    
+    if (lastStats.miner && lastStats.miner.hashrate){
+         updateText('g_userHashrate', getReadableHashRateString(lastStats.miner.hashrate) + '/sec');
+    }
+    else{
+        updateText('g_userHashrate', 'N/A');
+    }    
+    updateText('poolVersion', lastStats.config.version);
+}
 
 function fetchLiveStats() {
+    var apiURL = api + '/live_stats';
+    
+    var address = getCurrentAddress();
+    if (address) { apiURL = apiURL + '?address=' + address; }
+	   
     $.ajax({
-        url: api + '/live_stats',
+        url: apiURL,
         dataType: 'json',
         cache: 'false'
     }).done(function(data){
-        pulseLiveUpdate();	
-        lastStats = data;
-	if (lastStats && lastStats.pool && lastStats.pool.totalMinersPaid.toString() == '-1') {
-	  lastStats.pool.totalMinersPaid = 0;
-	}
-        updateIndex();
-        if (currentPage) currentPage.update();
-    }).always(function () {
+        updateLiveStats(data);
+    }).always(function(){
         fetchLiveStats();
     });
 }
 
-function floatToString(float) {
-    return float.toFixed(6).replace(/[0\.]+$/, '');
-}
+window.onhashchange = function(){
+    routePage();
+};
 
 var xhrPageLoading;
 function routePage(loadedCallback) {
@@ -322,55 +338,51 @@ function routePage(loadedCallback) {
     });
 }
 
-function updateIndex(){
-    updateText('g_networkHashrate', getReadableHashRateString(lastStats.network.difficulty / lastStats.config.coinDifficultyTarget) + '/sec');
-    updateText('g_poolHashrate', getReadableHashRateString(lastStats.pool.hashrate) + '/sec');
+function sortTable() {
+    var table = $(this).parents('table').eq(0),
+        rows = table.find('tr:gt(0)').toArray().sort(comparer($(this).index()));
+    this.asc = !this.asc;
+    if(!this.asc) {
+        rows = rows.reverse()
+    }
+    for(var i = 0; i < rows.length; i++) {
+        table.append(rows[i])
+    }
+}
 
-    var urlWalletAddress = location.search.split('wallet=')[1] || 0;
-    var address = urlWalletAddress || docCookies.getItem('mining_address');
-    
-    function fetchAddressStats(longpoll){
-        if (!address) {
-	  updateText('g_userHashrate', 'N/A');
-	  return ;
-        }	  	  
-        xhrAddressPoll = $.ajax({
-            url: api + '/stats_address',
-            data: {
-                address: address,
-                longpoll: longpoll
-            },
-            dataType: 'json',
-            cache: 'false',
-            success: function(data){
-                if (!data.stats){
-                  updateText('g_userHashrate', 'N/A');
-                }
-                else {
-                  updateText('g_userHashrate', (data.stats.hashrate || '0 H') + '/sec');
-                }
-            },
-            error: function(e){
-                updateText('g_userHashrate', 'N/A');
-            }
-        });
+function comparer(index) {
+    return function(a, b) {
+        var valA = getCellValue(a, index), valB = getCellValue(b, index);
+	if (!valA) { valA = 0; }
+	if (!valB) { valB = 0; }
+        return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB : valA.localeCompare(valB)
     }
-    if (!window.location.hash || window.location.hash != '#worker_stats') {
-        fetchAddressStats(false);
-    }
-    
-    updateText('poolVersion', lastStats.config.version);
+}
+
+function getCellValue(row, index) {
+    return $(row).children('td').eq(index).data("sort")
 }
 
 $(function(){
     $("head").append("<link rel='stylesheet' href=" + themeCss + ">");
+    $('#menu-content').collapse('hide');
+    if (telegram) {
+        $('#menu-content').append('<li><a target="_new" href="'+telegram+'"><i class="fa fa-telegram"></i> Telegram group</a></li>');
+    }
+    if (discord) {
+        $('#menu-content').append('<li><a target="_new" href="'+discord+'"><i class="fa fa-ticket"></i> Discord</a></li>');
+    }
+    if (email) {
+        $('#menu-content').append('<li><a target="_new" href="mailto:'+email+'"><i class="fa fa-envelope"></i> Contact Us</a></li>');
+    }
 
-    $.get(api + '/stats', function(data){
-        lastStats = data;
-	if (lastStats && lastStats.pool && lastStats.pool.totalMinersPaid.toString() == '-1') {
-	  lastStats.pool.totalMinersPaid = 0;
-	}
-        updateIndex();
+    var apiURL = api + '/stats';
+    
+    var address = getCurrentAddress();
+    if (address) { apiURL = apiURL + '?address=' + address; }
+    
+    $.get(apiURL, function(data){
+        updateLiveStats(data);
         routePage(fetchLiveStats);
     });
 });

@@ -58,7 +58,7 @@ function parseUsers(wallets) {
     return properObject;
 }
 
-function cretaUserTable() {
+function createUserTable() {
     $.ajax({
         url: api + '/admin_users',
         data: {password: docCookies.getItem('password')},
@@ -73,6 +73,6 @@ function cretaUserTable() {
 $(function() {
     $('[data-toggle="tooltip"]').tooltip();
     $('.usersList th.sort').on('click', sortTable);
-    cretaUserTable();
+    createUserTable();
 });
 </script>
