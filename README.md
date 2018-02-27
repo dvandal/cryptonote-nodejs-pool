@@ -25,7 +25,8 @@ High performance Node.js (with native C addons) mining pool for CryptoNote based
 * [License](#license)
 
 
-### Features
+Features
+===
 
 #### Optimized pool server
 * TCP (stratum-like) protocol for server-push based jobs
@@ -82,7 +83,8 @@ High performance Node.js (with native C addons) mining pool for CryptoNote based
 * Support for slush mining system (disabled by default)
 
 
-### Community / Support
+Community / Support
+===
 
 * [GitHub Issues for cryptonote-nodejs-pool](https://github.com/dvandal/cryptonote-nodejs-pool/issues)
 * [CryptoNote Technology](https://cryptonote.org)
