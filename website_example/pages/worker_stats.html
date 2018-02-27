@@ -93,13 +93,13 @@ currentPage = {
 
 $('#yourLastShare').timeago();
 
-var urlWalletAddress = location.search.split('wallet=')[1] || 0;
-var address = urlWalletAddress || docCookies.getItem('mining_address');
 
 var xhrAddressPoll;
 var addressTimeout;
 
 function fetchAddressStats(longpoll){
+    var address = getCurrentAddress();
+    
     xhrAddressPoll = $.ajax({
         url: api + '/stats_address',
         data: {
@@ -152,10 +152,20 @@ function fetchAddressStats(longpoll){
 }
     
 $('#lookUp').click(function(){
-    address = $('#yourStatsInput').val().trim();
+    var address = $('#yourStatsInput').val().trim();
+    
     if (getCurrentAddress() != address) {
         docCookies.setItem('mining_address', address, Infinity);
-        loadLiveStats(true);
+    
+        var urlWalletAddress = location.search.split('wallet=')[1] || 0;
+        if (urlWalletAddress){
+            window.location.href = "/#worker_stats";
+            return ;
+        }
+        else {
+            docCookies.setItem('mining_address', address, Infinity);
+            loadLiveStats(true);
+        }
     }
 
     $('#addressError').hide();
@@ -287,10 +297,10 @@ function renderWorkers(workersData){
     
     for (var i = 0; i < workersData.length; i++){
         var existingRow = document.getElementById('workerRow_' + getWorkerRowId(workersData[i].name));
-	if (!existingRow){
-	    $workersRows.empty();
-	    break;
-	}
+        if (!existingRow){
+            $workersRows.empty();
+            break;
+        }
     }
     
     for (var i = 0; i < workersData.length; i++){
@@ -331,6 +341,7 @@ $('#loadMorePayments').click(function(){
     });
 });
 
+var address = getCurrentAddress();
 if (address){
     $('#yourStatsInput').val(address);
     $('#lookUp').click();
