@@ -12,25 +12,30 @@
 
     <!-- Statistics -->
     <div class="row">
-        <div class="col-lg-4 stats">
+        <div class="col-xs-12"><h4>Hash Rate</h4></div>
+        <div class="col-lg-4 col-sm-6 stats">
             <div id="addressError"></div>
-            <div class="yourStats"><i class="fa fa-bank"></i> Pending Balance: <span id="yourPendingBalance"></span></div>
-            <div class="yourStats"><i class="fa fa-money"></i> Total Paid: <span id="yourPaid"></span></div>
-            <div class="yourStats"><i class="fa fa-tachometer"></i> Hash Rate: <span id="yourHashrateHolder"></span></div>
+            <div class="yourStats"><i class="fa fa-tachometer"></i> Current Hash Rate: <span id="yourHashrateHolder"></span></div>
             <div class="yourStats"><i class="fa fa-clock-o"></i> Last Share Submitted: <span id="yourLastShare"></span></div>
             <div class="yourStats"><i class="fa fa-cloud-upload"></i> Total Hashes Submitted: <span id="yourHashes"></span></div>
         </div>
-        <div class="col-lg-4 col-sm-6">            
+        <div class="col-lg-8 col-sm-6">
             <div class="userChart" data-chart="user_hashrate">
-                <h4>Hash Rate</h4>
                 <div class="chart">
                     
                 </div>                
             </div>
         </div> 
-        <div class="col-lg-4 col-sm-6">
+	<br/>
+	
+        <div class="col-xs-12"><h4>Payments</h4></div>
+        <div class="col-lg-4 col-sm-6 stats">
+            <div class="yourStats"><i class="fa fa-bank"></i> Pending Balance: <span id="yourPendingBalance"></span></div>
+            <div class="yourStats"><i class="fa fa-money"></i> Total Paid: <span id="yourPaid"></span></div>
+            <div class="yourStats"><i class="fa fa-money"></i> Current Payout Estimate: <span id="yourPayoutEstimate"></span></div>
+        </div>
+        <div class="col-lg-8 col-sm-6">
             <div class="userChart" data-chart="user_payments">
-                <h4>Payments</h4>
                 <div class="chart">
                     
                 </div> 
@@ -131,6 +136,13 @@ function fetchAddressStats(longpoll){
             updateText('yourPaid', getReadableCoins(data.stats.paid));
             updateText('yourPendingBalance', getReadableCoins(data.stats.balance));
 
+            var userRoundHashes = parseInt(data.stats.roundHashes || 0);
+	    var poolRoundHashes = parseInt(lastStats.pool.roundHashes || 0);
+	    var lastReward = parseFloat(lastStats.network.reward || 0);
+            var payoutEstimatePct = parseFloat(userRoundHashes * 100 / poolRoundHashes)
+	    var payoutEstimate = Math.round(lastReward * (payoutEstimatePct / 100));
+	    updateText('yourPayoutEstimate', getReadableCoins(payoutEstimate, 4));
+	    
             renderPayments(data.payments);
             renderWorkers(data.workers);
 
@@ -195,7 +207,7 @@ var workerCharts = {
     hashrate: {
         type: 'line',
         width: '100%',
-        height: '180',
+        height: '120',
         lineColor: '#03a9f4',
         fillColor: 'rgba(3, 169, 244, .4)',
         spotColor: null,
@@ -210,7 +222,7 @@ var workerCharts = {
     payments: {
         type: 'line',
         width: '100%',
-        height: '180',
+        height: '120',
         lineColor: '#03a9f4',
         fillColor: 'rgba(3, 169, 244, .3)',
         spotColor: null,
