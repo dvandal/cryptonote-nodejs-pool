@@ -3,6 +3,7 @@
 <div class="stats">
     <div><i class="fa fa-cloud"></i> Mining Pool Address: <span id="miningPoolHost"></span></div>
     <div><i class="fa fa-lock"></i> Difficulty locking: <span>address.diff</span></div>
+    <div><i class="fa fa-server"></i> Worker Identification: <span>Specify your worker name as the password</span></div>
 </div>
 
 <h3>Mining Ports</h3>
@@ -40,85 +41,115 @@
         </tr>
         </thead>
         <tbody id="miningApps_rows">
-        <tr>
+        <tr class="appInfo">
             <td class="miningAppTitle">XMR Stak</td>
             <td>CPU, OpenCL (AMD), CUDA (Nvidia)</td>
             <td><a target="_blank" href="https://github.com/fireice-uk/xmr-stak/releases">Releases</a></td>
             <td><a target="_blank" href="https://github.com/fireice-uk/xmr-stak/issues">Issues</a></td>
             <td><a target="_blank" href="https://github.com/fireice-uk/xmr-stak">Github</a></td>
         </tr>
-        <tr>
+        <tr class="appConfig">
             <td colspan="5">
                 <span>Example config.txt (replace the relevant lines):</span><br/>        
                 <div class="config">
                 "pool_address": "<span class="exampleHost"></span>:<span class="examplePort"></span>",<br/>
                 "wallet_address": "<span class="exampleAddress">YOUR_WALLET_ADDRESS</span>",<br/>
-                "pool_password": "x",</div>
+                "pool_password": "<span class="exampleWorkerName">YOUR_WORKER_NAME"</span>,</div>
             </td>
         </tr>
-        <tr>
+        <tr class="appInfo">
+            <td class="miningAppTitle">XMRig</td>
+            <td>CPU</td>
+            <td><a target="_blank" href="https://github.com/xmrig/xmrig/releases">Releases</a></td>
+            <td><a target="_blank" href="https://github.com/xmrig/xmrig/issues">Issues</a></td>
+            <td><a target="_blank" href="https://github.com/xmrig/xmrig">Github</a></td>
+        </tr>
+        <tr class="appInfo2">
+            <td class="miningAppTitle">XMRig-AMD</td>
+            <td>OpenCL (AMD)</td>
+            <td><a target="_blank" href="https://github.com/xmrig/xmrig-amd/releases">Releases</a></td>
+            <td><a target="_blank" href="https://github.com/xmrig/xmrig-amd/issues">Issues</a></td>
+            <td><a target="_blank" href="https://github.com/xmrig/xmrig-amd">Github</a></td>
+        </tr>
+        <tr class="appInfo2">
+            <td class="miningAppTitle">XMRig-NVIDIA</td>
+            <td>Cuda (Nvidia)</td>
+            <td><a target="_blank" href="https://github.com/xmrig/xmrig-nvidia/releases">Releases</a></td>
+            <td><a target="_blank" href="https://github.com/xmrig/xmrig-nvidia/issues">Issues</a></td>
+            <td><a target="_blank" href="https://github.com/xmrig/xmrig-nvidia">Github</a></td>
+        </tr>
+        <tr class="appConfig">
+            <td colspan="5">
+                <span>Example config.txt (replace the relevant lines):</span><br/>        
+                <div class="config">
+                "url": "<span class="exampleHost"></span>:<span class="examplePort"></span>",<br/>
+                "user": "<span class="exampleAddress">YOUR_WALLET_ADDRESS</span>",<br/>
+                "pass": "<span class="exampleWorkerName">YOUR_WORKER_NAME</span>",</div>
+            </td>
+        </tr>
+        <tr class="appInfo">
             <td class="miningAppTitle">CPUMiner-multi</td>
             <td>CPU</td>
             <td><a target="_blank" href="https://github.com/tpruvot/cpuminer-multi/releases">Releases</a></td>
             <td><a target="_blank" href="https://github.com/tpruvot/cpuminer-multi/issues">Issues</a></td>
             <td><a target="_blank" href="https://github.com/tpruvot/cpuminer-multi">Github</a></td>
         </tr>
-        <tr>
+        <tr class="appConfig">
             <td colspan="5">
                 <span>Example:</span>
-                <code>minerd -a cryptonight -o stratum+tcp://<span class="exampleHost"></span>:<span class="examplePort"></span> -u <span class="exampleAddress">YOUR_WALLET_ADDRESS</span> -p x</code>
+                <code>minerd -a cryptonight -o stratum+tcp://<span class="exampleHost"></span>:<span class="examplePort"></span> -u <span class="exampleAddress">YOUR_WALLET_ADDRESS</span> -p <span class="exampleWorkerName">YOUR_WORKER_NAME</span></code>
             </td>
         </tr>
-        <tr>
+        <tr class="appInfo">
             <td class="miningAppTitle">ccminer (forked by tsiv)</td>
             <td>CUDA (Nvidia)</td>
             <td><a target="_blank" href="https://github.com/tsiv/ccminer-cryptonight/releases">Releases</a></td>
             <td><a target="_blank" href="https://bitcointalk.org/index.php?topic=656841.msg7487737#msg7487737">BitcoinTalk</a></td>
             <td><a target="_blank" href="https://github.com/tsiv/ccminer-cryptonight">Github</a></td>
         </tr>
-        <tr>
+        <tr class="appConfig">
             <td colspan="5">
                 <span>Example:</span>
-                <code>ccminer -o stratum+tcp://<span class="exampleHost"></span>:<span class="examplePort"></span> -u <span class="exampleAddress">YOUR_WALLET_ADDRESS</span> -p x</code>
+                <code>ccminer -o stratum+tcp://<span class="exampleHost"></span>:<span class="examplePort"></span> -u <span class="exampleAddress">YOUR_WALLET_ADDRESS</span> -p <span class="exampleWorkerName">YOUR_WORKER_NAME</span></code>
             </td>
         </tr>
-        <tr>
+        <tr class="appInfo">
             <td class="miningAppTitle">YAM Miner (by yvg1900)</td>
             <td>CPU</td>
             <td><a target="_blank" href="https://mega.co.nz/#F!UlkU0RyR!E8n4CFkqVu0WoOnsJnQkSg">MEGA</a></td>
             <td><a target="_blank" href="https://twitter.com/yvg1900">Twitter</a></td>
             <td>Proprietary <i class="fa fa-frown-o"></i></td>
         </tr>
-        <tr>
+        <tr class="appConfig">
             <td colspan="5">
                 <span>Example:</span>
-                <code>yam -c x -M stratum+tcp://<span class="exampleAddress">YOUR_WALLET_ADDRESS</span>:x@<span class="exampleHost"></span>:<span class="examplePort"></span>/xmr</code>
+                <code>yam -c x -M stratum+tcp://<span class="exampleAddress">YOUR_WALLET_ADDRESS</span>:<span class="exampleWorkerName">YOUR_WORKER_NAME</span>@<span class="exampleHost"></span>:<span class="examplePort"></span>/xmr</code>
             </td>
         </tr>
-        <tr>
+        <tr class="appInfo">
             <td class="miningAppTitle">Claymore CPU Miner</td>
             <td>CPU</td>
             <td><a target="_blank" href="https://bitcointalk.org/index.php?topic=647251.0">BitcoinTalk</a></td>
             <td><a target="_blank" href="https://bitcointalk.org/index.php?topic=647251.0">BitcoinTalk</a></td>
             <td>Proprietary <i class="fa fa-frown-o"></i></td>
         </tr>
-        <tr>
+        <tr class="appConfig">
             <td colspan="5">
                 <span>Example:</span>
-                <code>NsCpuCNMiner64 -o stratum+tcp://<span class="exampleHost"></span>:<span class="examplePort"></span> -u <span class="exampleAddress">YOUR_WALLET_ADDRESS</span> -p x</code>
+                <code>NsCpuCNMiner64 -o stratum+tcp://<span class="exampleHost"></span>:<span class="examplePort"></span> -u <span class="exampleAddress">YOUR_WALLET_ADDRESS</span> -p <span class="exampleWorkerName">YOUR_WORKER_NAME</span></code>
             </td>
         </tr>
-        <tr>
+        <tr class="appInfo">
             <td class="miningAppTitle">Claymore GPU Miner</td>
             <td>OpenCL (AMD)</td>
             <td><a target="_blank" href="https://bitcointalk.org/index.php?topic=638915.0">BitcoinTalk</a></td>
             <td><a target="_blank" href="https://bitcointalk.org/index.php?topic=638915.0">BitcoinTalk</a></td>
             <td>Proprietary <i class="fa fa-frown-o"></i></td>
         </tr>
-        <tr>
+        <tr class="appConfig">
             <td colspan="5">
                 <span>Example:</span>
-                <code>NsGpuCNMiner -o stratum+tcp://<span class="exampleHost"></span>:<span class="examplePort"></span> -u <span class="exampleAddress">YOUR_WALLET_ADDRESS</span> -p x</code>
+                <code>NsGpuCNMiner -o stratum+tcp://<span class="exampleHost"></span>:<span class="examplePort"></span> -u <span class="exampleAddress">YOUR_WALLET_ADDRESS</span> -p <span class="exampleWorkerName">YOUR_WORKER_NAME</span></code>
             </td>
         </tr>
         </tbody>

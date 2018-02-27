@@ -589,12 +589,12 @@ table th.sort:hover{
 #miningApps_rows > tr > td {
   border-top: none;
 }
-#miningApps_rows > tr:nth-child(even) > td {
+#miningApps_rows .appInfo td {
+  padding-top: 20px;
+}
+#miningApps_rows .appConfig td {
   border-bottom: 1px solid #e5e5e5;
   padding-bottom: 20px;
-}
-#miningApps_rows > tr:nth-child(odd) > td {
-  padding-top: 20px;
 }
 #miningApps_rows {
   margin-top: 10px;
@@ -607,7 +607,8 @@ table th.sort:hover{
 #miningApps .miningAppTitle {
   font-weight: bold;
 }
-#miningApps .exampleAddress {
+#miningApps .exampleAddress,
+#miningApps .exampleWorkerName {
   font-style: italic;
 }
 #miningApps .config {
