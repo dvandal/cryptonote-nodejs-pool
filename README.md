@@ -450,6 +450,12 @@ var telegram = "https://t.me/YourPool";
 /* Pool Discord URL */
 var discord = "https://discordapp.com/invite/YourPool";
 
+/* Market stat display params from https://www.cryptonator.com/widget */
+var cryptonatorWidget = ["{symbol}-BTC", "{symbol}-USD", "{symbol}-EUR", "{symbol}-CAD"];
+
+/* Default currency used by Estimate Mining Profit tool */
+var defaultCurrency = 'USD';
+
 /* Used for front-end block links. */
 var blockchainExplorer = "http://chainradar.com/{symbol}/block/{id}";
 
