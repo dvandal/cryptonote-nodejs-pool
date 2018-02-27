@@ -511,6 +511,14 @@ table th.sort:hover{
 #miningProfitCalc{
   margin: 35px 0;
 }
+#miningProfitCalc .input-group-addon{
+  padding: 6px;
+}
+#miningProfitCalc .input-group-addon, 
+#miningProfitCalc .input-group-btn .btn, 
+#miningProfitCalc .input-group .form-control{
+  height:45px;
+}
 #calcHashDropdown{
   border-radius: 0;
   border-left: 0;
@@ -526,13 +534,29 @@ table th.sort:hover{
 }
 #calcHashAmount{
   font-family: 'Inconsolata', monospace;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  overflow: hidden;
+}
+#calcHashPeriod{
+  font-family: 'Inconsolata', monospace;
+  display: inline-block;
+  width: 60px;
+  vertical-align: middle;
 }
 #calcHashResultsHolder{
-  min-width: 145px;
-  max-width: 145px;
+  min-width: 170px;
+  max-width: 170px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+@media (min-width: 768px) {
+  #calcHashResultsHolder{
+    min-width: 225px;
+    max-width: 225px;
+  }    
 }
 
 /* Mining Ports */
@@ -540,7 +564,7 @@ table th.sort:hover{
   vertical-align: middle;
   font-size: 0.95em;
 }
-@media (min-width: 767px) {
+@media (min-width: 768px) {
   #miningPorts table th {
     white-space: nowrap;
   }
@@ -625,7 +649,7 @@ table th.sort:hover{
 #workersReport td {
   vertical-align: middle;
 }
-@media (min-width: 767px) {
+@media (min-width: 768px) {
   #workersReport table th {
     white-space: nowrap;
   }
@@ -647,7 +671,7 @@ table th.sort:hover{
   font-family: 'Inconsolata', monospace;
   font-size: 0.95em;
 }
-@media (min-width: 767px) {
+@media (min-width: 768px) {
   #workerPayments table  {
     table-layout:fixed;
   }  
@@ -683,7 +707,7 @@ table th.sort:hover{
   font-family: 'Inconsolata', monospace;
   font-size: 0.95em;
 }
-@media (min-width: 767px) {
+@media (min-width: 768px) {
   #blocksReport table  {
     table-layout:fixed;
   }  
@@ -742,7 +766,7 @@ table th.sort:hover{
   font-family: 'Inconsolata', monospace;
   font-size: 0.95em;
 }
-@media (min-width: 767px) {
+@media (min-width: 768px) {
   #paymentsReport table  {
     table-layout:fixed;
   }  

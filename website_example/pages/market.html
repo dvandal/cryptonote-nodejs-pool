@@ -1,0 +1,130 @@
+<!-- Market -->
+<div id="marketRate" style="display: block;">
+    <h3 id="marketHeader">Market</h3>
+    <div class="marketData stats clearfix" style="margin-bottom:10px"></div>
+    <div class="marketFooter">Updated: <span id="marketLastUpdated" title="Never">less than a minute ago</span> &ndash; Powered by <a target="_blank" href="https://www.cryptonator.com/">Cryptonator</a></div>
+</div>
+    
+<!-- Mining Profit Calculator -->
+<div id="miningProfitCalc">
+    <h3>Estimate Mining Profits</h3>
+    <div id="calcHashHolder">
+        <div class="input-group">
+            <input class="form-control" id="calcHashRate" placeholder="Enter Your Hash Rate" type="number">
+            <div class="input-group-btn">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="calcHashDropdown">
+                    <span id="calcHashUnit" data-mul="1">KH/s</span> <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right" role="menu" id="calcHashUnits">
+                    <li><a href="#" data-mul="0">H/s</a></li>
+                    <li><a href="#" data-mul="1">KH/s</a></li>
+                    <li><a href="#" data-mul="2">MH/s</a></li>
+                </ul>
+            </div>
+            <span class="input-group-addon">=</span>
+            <span class="input-group-addon" id="calcHashResultsHolder"><div id="calcHashAmount"><span id="calcHashAmount1"></span><br/><span id="calcHashAmount2"></span></div> <div id="calcHashPeriod"> per day</div></span>
+        </div>
+    </div>
+</div>
+
+<div id="test"></div>
+
+<!-- Javascript -->
+<script>
+currentPage = {
+    destroy: function(){
+        $('#marketLastUpdated').timeago('dispose');
+    },
+    update: function(){
+        calcEstimateProfit();
+    }
+};
+
+$('#marketLastUpdated').timeago();
+
+/* Market data polling (poll data every 5 minutes) */
+var marketPrices = {};
+
+$('#marketRate').hide();
+if (typeof cryptonatorWidget !== 'undefined' && cryptonatorWidget.length > 0){
+    var intervalMarketPolling = setInterval(updateMarkets, 300000);
+    var xhrMarketGets = {};
+    updateMarkets();
+    function updateMarkets(){
+        var completedFetches = 0;
+        var marketsData = [];
+        for (var i = 0; i < cryptonatorWidget.length; i++){
+            (function(i){
+                cryptonatorWidget[i] = cryptonatorWidget[i].replace('{symbol}', lastStats.config.symbol.toLowerCase());
+                xhrMarketGets[cryptonatorWidget[i]] = $.get('https://api.cryptonator.com/api/ticker/' + cryptonatorWidget[i], function(data){
+                    if (data.error) return ;
+                    $('#marketRate').show();
+
+                    marketsData[i] = data;
+                    completedFetches++;            
+                    if (completedFetches !== cryptonatorWidget.length) return;
+            
+                    var $marketData = $('.marketData');
+                    $('.marketLoading').remove();
+                    $('.marketData').empty();
+                    for (var f = 0; f < marketsData.length ; f++){
+                        var base = marketsData[f].ticker.base;
+                        var target = marketsData[f].ticker.target;
+            
+                        var icon = 'fa-money';
+                        if (target.toUpperCase() == 'BTC') icon = 'fa-btc';
+                        if (target.toUpperCase() == 'BCH') icon = 'fa-btc';
+                        if (target.toUpperCase() == 'USD') icon = 'fa-dollar';
+                        if (target.toUpperCase() == 'CAD') icon = 'fa-dollar';
+                        if (target.toUpperCase() == 'EUR') icon = 'fa-eur';
+                        if (target.toUpperCase() == 'GBP') icon = 'fa-gbp';
+                        if (target.toUpperCase() == 'JPY') icon = 'fa-jpy';
+            
+                        var price = parseFloat(marketsData[f].ticker.price);
+                        if (price > 1) price = Math.round(price * 100) / 100;
+                        else price = parseFloat(marketsData[f].ticker.price);
+            
+                        if (base.toLowerCase() == lastStats.config.symbol.toLowerCase()) {
+                            marketPrices[target] = price;
+                        }
+            
+                        $marketData.append('<div class="col-lg-3 col-md-4 col-sm-6 marketTicker"><i class="fa ' + icon + '"></i> ' + base + ': <span>' + price + ' ' + target + '</span></div>');
+                    }
+                    $('#marketLastUpdated').timeago('update', new Date(marketsData[0].timestamp * 1000).toISOString());
+                }, 'json');
+            })(i);
+        }
+    }
+}
+
+/* Hash Profitability Calculator */
+$('#calcHashRate').keyup(calcEstimateProfit).change(calcEstimateProfit);
+
+$('#calcHashUnits > li > a').click(function(e){
+    e.preventDefault();
+    $('#calcHashUnit').text($(this).text()).data('mul', $(this).data('mul'));
+    calcEstimateProfit();
+});
+
+function calcEstimateProfit(){
+    try {
+        var rateUnit = Math.pow(1000,parseInt($('#calcHashUnit').data('mul')));
+        var hashRate = parseFloat($('#calcHashRate').val()) * rateUnit;
+        var profit = (hashRate * 86400 / lastStats.network.difficulty) * lastStats.network.reward;
+        if (profit) {
+            updateText('calcHashAmount1', getReadableCoins(profit, 2, false));
+            updateText('calcHashAmount2', getCurrencyPriceText(profit));
+            return;
+        }
+    }
+    catch(e){ }
+    updateText('calcHashAmount1', '');
+    updateText('calcHashAmount2', '');
+}
+
+function getCurrencyPriceText(coinsRaw) {    
+    if (!defaultCurrency || !marketPrices || !marketPrices[defaultCurrency]) return ;    
+    var priceInCurrency = (Math.trunc(getReadableCoins(coinsRaw, 4, true) * marketPrices[defaultCurrency] * 100) / 100);
+    return  priceInCurrency + ' ' + defaultCurrency;
+}
+</script>

@@ -221,7 +221,7 @@
 <script>
 currentPage = {
     destroy: function(){
-        $('#networkLastBlockFound,#poolLastBlockFound,#marketLastUpdated').timeago('dispose');
+        $('#networkLastBlockFound,#poolLastBlockFound').timeago('dispose');
     },
     update: function(){
         $('#networkLastBlockFound').timeago('update', new Date(lastStats.network.timestamp * 1000).toISOString());
@@ -266,7 +266,7 @@ currentPage = {
     }
 };
 
-$('#networkLastBlockFound,#poolLastBlockFound,#marketLastUpdated').timeago();
+$('#networkLastBlockFound,#poolLastBlockFound').timeago();
 
 /* Pool Charts */
 var poolCharts = {
@@ -366,28 +366,5 @@ $(function(){
         cache: false,            
         success: createCharts
     });               
-});
-    
-/* Hash Profitability Calculator */
-$('#calcHashRate').keyup(calcEstimateProfit).change(calcEstimateProfit);
-
-$('#calcHashUnits > li > a').click(function(e){
-    e.preventDefault();
-    $('#calcHashUnit').text($(this).text()).data('mul', $(this).data('mul'));
-    calcEstimateProfit();
-});
-
-function calcEstimateProfit(){
-    try {
-        var rateUnit = Math.pow(1000,parseInt($('#calcHashUnit').data('mul')));
-        var hashRate = parseFloat($('#calcHashRate').val()) * rateUnit;
-        var profit = (hashRate * 86400 / lastStats.network.difficulty) * lastStats.network.reward;
-        if (profit) {
-            updateText('calcHashAmount', getReadableCoins(profit, 2, true));
-            return;
-        }
-    }
-    catch(e){ }
-    updateText('calcHashAmount', '');
-}
+});    
 </script>
