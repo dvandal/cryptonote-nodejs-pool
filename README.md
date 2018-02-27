@@ -71,6 +71,8 @@ High performance Node.js (with native C addons) mining pool for CryptoNote based
 * Prevent "transaction is too big" error with "payments.maxTransactionAmount" option
 * Slush mining system support
 * SSL support for Pool server and API
+* Option to enable dynamic transfer fee based on number of payees per transaction and option to have miner pay transfer fee instead of pool owner (applied to dynamic fee only)
+
 
 ### Community / Support
 
@@ -292,6 +294,8 @@ Explanation for each field:
     "maxAddresses": 50, // Split up payments if sending to more than this many addresses
     "mixin": 5, // Number of transactions yours is indistinguishable from
     "transferFee": 4000000000, // Fee to pay for each transaction
+    "dynamicTransferFee": true, // Enable dynamic transfer fee (fee is multiplied by number of miners)
+    "minerPayFee" : true, // Miner pays the transfer fee instead of pool owner when using dynamic transfer fee
     "minPayment": 100000000000, // Miner balance required before sending payment
     "maxTransactionAmount": 0, // Split transactions by this amount (to prevent "too big transaction" error)
     "denomination": 10000000000 // Truncate to this precision and store remainder
