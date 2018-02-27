@@ -49,7 +49,7 @@ Features
 * Current block height
 * Network hashrate
 * Pool hashrate
-* Each miners' individual stats (hashrate, shares submitted, pending balance, total paid, etc)
+* Each miners' individual stats (hashrate, shares submitted, pending balance, total paid, payout estimate, etc)
 * Blocks found (pending, confirmed, and orphaned)
 * Historic charts of pool's hashrate, miners count and coin difficulty
 * Historic charts of users's hashrate and payments
