@@ -139,8 +139,21 @@ function fetchAddressStats(longpoll){
             var userRoundHashes = parseInt(data.stats.roundHashes || 0);
 	    var poolRoundHashes = parseInt(lastStats.pool.roundHashes || 0);
 	    var lastReward = parseFloat(lastStats.network.reward || 0);
+	    
+            var poolFee = lastStats.config.fee;
+            if (Object.keys(lastStats.config.donation).length) {
+                var totalDonation = 0;
+                for(var i in lastStats.config.donation) {
+                    totalDonation += lastStats.config.donation[i];
+                }
+                poolFee += totalDonation;
+            }
+	    var transferFee = lastStats.config.transferFee;
+	    
             var payoutEstimatePct = parseFloat(userRoundHashes * 100 / poolRoundHashes)
 	    var payoutEstimate = Math.round(lastReward * (payoutEstimatePct / 100));
+            if (poolFee) payoutEstimate = payoutEstimate - (payoutEstimate * poolFee);
+            if (transferFee) payoutEstimate = payoutEstimate - transferFee;
 	    updateText('yourPayoutEstimate', getReadableCoins(payoutEstimate, 4));
 	    
             renderPayments(data.payments);
