@@ -44,7 +44,7 @@
     </div>
 
     <!-- Workers -->
-    <div id="workersReport" class="yourStats table-responsive">
+    <div id="workersReport" class="yourWorkers table-responsive" style="display: none">
         <table class="table table-hover table-striped">
             <thead>
             <tr>
@@ -115,7 +115,7 @@ function fetchAddressStats(longpoll){
         cache: 'false',
         success: function(data){                    
             if (!data.stats){
-                $('.yourStats, .userChart').hide();
+                $('.yourStats, .yourWorkers, .userChart').hide();
                 $('#addressError').text(data.error).show();
                 docCookies.setItem('mining_address', '', Infinity);
                 loadLiveStats(true);
@@ -144,8 +144,12 @@ function fetchAddressStats(longpoll){
 	    updateText('yourPayoutEstimate', getReadableCoins(payoutEstimate, 4));
 	    
             renderPayments(data.payments);
-            renderWorkers(data.workers);
-
+	    
+            if (data.workers && data.workers.length > 0) {
+                renderWorkers(data.workers);
+                $('.yourWorkers').show();
+            }
+	    
             $('.yourStats').show();
             createUserCharts(data);                                
 	    
@@ -180,9 +184,7 @@ $('#lookUp').click(function(){
         }
     }
 
-    $('#addressError').hide();
-    $('.yourStats').hide();
-    $('.userChart').hide();
+    $('#addressError, .yourStats, .yourWorkers, .userChart').hide();
     $('#workersReport_rows').empty();
     $('#paymentsReport_rows').empty();
 
