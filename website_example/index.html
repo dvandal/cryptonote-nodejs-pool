@@ -86,6 +86,8 @@
 <!-- Javascript -->
 <script src="config.js"></script>
 <script>
+$('#menu-content').collapse('hide');
+
 var currentPage;
 var lastStats;
 
@@ -348,7 +350,7 @@ function routePage(loadedCallback) {
         url: 'pages/' + page,
         cache: false,
         success: function (data) {
-        $('#menu-content').collapse('hide');
+            $('#menu-content').collapse('hide');
             $('#loading').hide();
             $('#page').show().html(data);
             if (currentPage) currentPage.update();
@@ -384,7 +386,6 @@ function getCellValue(row, index) {
 
 $(function(){
     $("head").append("<link rel='stylesheet' href=" + themeCss + ">");
-    $('#menu-content').collapse('hide');
     if (telegram) {
         $('#menu-content').append('<li><a target="_new" href="'+telegram+'"><i class="fa fa-telegram"></i> Telegram group</a></li>');
     }
