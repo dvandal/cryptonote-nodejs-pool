@@ -28,46 +28,28 @@
         "ports": [
             {
                 "port": 3333,
-                "difficulty": 2000,
+                "difficulty": 5000,
                 "desc": "Low end hardware"
             },
             {
-                "port": 3334,
-                "difficulty": 2000,
-                "desc": "Low end hardware (SSL)",
-                "ssl": true
-            },
-            {
-                "port": 5555,
-                "difficulty": 10000,
+                "port": 4444,
+                "difficulty": 15000,
                 "desc": "Mid range hardware"
             },
             {
-                "port": 5556,
-                "difficulty": 10000,
-                "desc": "Mid range hardware (SSL)",
-                "ssl": true
-            },
-            {
-                "port": 7777,
-                "difficulty": 20000,
+                "port": 5555,
+                "difficulty": 25000,
                 "desc": "High end hardware"
             },
             {
-                "port": 7778,
-                "difficulty": 20000,
-                "desc": "High end hardware (SSL)",
-                "ssl": true
-            },
-            {
-                "port": 9999,
+                "port": 7777,
                 "difficulty": 500000,
                 "desc": "Cloud-mining / NiceHash"
             },
             {
-                "port": 9998,
-                "difficulty": 500000,
-                "desc": "Cloud-mining / NiceHash (SSL)",
+                "port": 9999,
+                "difficulty": 20000,
+                "desc": "SSL connection",
                 "ssl": true
             }
         ],

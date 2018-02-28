@@ -209,43 +209,25 @@ Explanation for each field:
             "desc": "Low end hardware" // Description of port
         },
         {
-            "port": 3334, // Port for mining apps to connect to
-            "difficulty": 2000, // Initial difficulty miners are set to
-            "desc": "Low end hardware (SSL)", // Description of port
-            "ssl": true // Enable SSL
-        },
-        {
-            "port": 5555,
-            "difficulty": 10000,
+            "port": 4444,
+            "difficulty": 15000,
             "desc": "Mid range hardware"
         },
         {
-            "port": 5556,
-            "difficulty": 10000,
-            "desc": "Mid range hardware (SSL)",
-            "ssl": true
-        },
-        {
-            "port": 7777,
-            "difficulty": 20000,
+            "port": 5555,
+            "difficulty": 25000,
             "desc": "High end hardware"
         },
         {
-            "port": 7778,
-            "difficulty": 20000,
-            "desc": "High end hardware (SSL)",
-            "ssl": true
-        },
-        {
-            "port": 9999,
+            "port": 7777,
             "difficulty": 500000,
             "desc": "Cloud-mining / NiceHash"
         },
         {
-            "port": 9998,
-            "difficulty": 500000,
-            "desc": "Cloud-mining / NiceHash (SSL)",
-            "ssl": true
+            "port": 9999,
+            "difficulty": 20000,
+            "desc": "SSL connection",
+            "ssl": true // Enable SSL
         }
     ],
 
