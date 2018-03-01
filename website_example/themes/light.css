@@ -644,7 +644,8 @@ table th.sort:hover{
 #lookUp > span:nth-child(2) {
   display: none;
 }
-.yourStats {
+.yourStats,
+.yourWorkers {
   display: none;
 }
 #yourAddressDisplay {
