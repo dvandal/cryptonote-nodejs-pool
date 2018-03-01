@@ -44,14 +44,16 @@
     </div>
 
     <!-- Workers -->
+    <h4 class="yourWorkers">Workers Statistics</h4>
     <div id="workersReport" class="yourWorkers table-responsive" style="display: none">
         <table class="table table-hover table-striped">
             <thead>
             <tr>
-                <th class="col1 sort">Worker Name <i class="fa fa-sort"></i></th>
-                <th class="col2 sort">Hash Rate <i class="fa fa-sort"></i></th>
-                <th class="col3 sort">Last Share Submitted <i class="fa fa-sort"></i></th>
-                <th class="col4 sort">Total Hashes Submitted <i class="fa fa-sort"></i></th>
+                <th class="col1 sort">Status <i class="fa fa-sort"></i></th>
+                <th class="col2 sort">Worker Name <i class="fa fa-sort"></i></th>
+                <th class="col3 sort">Hash Rate <i class="fa fa-sort"></i></th>
+                <th class="col4 sort">Last Share Submitted <i class="fa fa-sort"></i></th>
+                <th class="col5 sort">Total Hashes Submitted <i class="fa fa-sort"></i></th>
             </tr>
             </thead>
             <tbody id="workersReport_rows">
@@ -61,7 +63,7 @@
     </div>
     
     <!-- Payments -->
-    <h4 class="yourStats">Payments</h4>
+    <h4 class="yourStats">Payments History</h4>
     <div id="workerPayments" class="yourStats table-responsive">
         <table class="table table-hover table-striped">
             <thead>
@@ -304,11 +306,13 @@ function getWorkerCells(worker){
     var hashrate = worker.hashrate ? worker.hashrate : 0;
     var lastShare = worker.lastShare ? worker.lastShare : 0;
     var hashes = (worker.hashes || 0).toString();
+    var status = (hashrate <= 0) ? 'error' : 'ok';
     
-    return '<td class="col1" data-sort="' + (worker.name != 'undefined' ? worker.name : '') + '">' + (worker.name != 'undefined' ? worker.name : '<em>Undefined</em>') + '</td>' +
-           '<td class="col2" data-sort="' + hashrate + '">' + getReadableHashRateString(hashrate) + '/sec</td>' +
-           '<td class="col3" data-sort="' + lastShare + '">' + (lastShare ? $.timeago(new Date(parseInt(lastShare) * 1000).toISOString()) : 'Never') + '</td>' +
-           '<td class="col4" data-sort="' + hashes + '">' + hashes + '</td>';
+    return '<td class="col1" data-sort="' + status + '"><i class="fa fa-' + (status == 'ok' ? 'check status-ok' : 'times status-error') + '"></i></td>' +
+           '<td class="col2" data-sort="' + (worker.name != 'undefined' ? worker.name : '') + '">' + (worker.name != 'undefined' ? worker.name : '<em>Undefined</em>') + '</td>' +
+           '<td class="col3" data-sort="' + hashrate + '">' + getReadableHashRateString(hashrate) + '/sec</td>' +
+           '<td class="col4" data-sort="' + lastShare + '">' + (lastShare ? $.timeago(new Date(parseInt(lastShare) * 1000).toISOString()) : 'Never') + '</td>' +
+           '<td class="col5" data-sort="' + hashes + '">' + hashes + '</td>';
 }
 
 function sortWorkers(a, b){

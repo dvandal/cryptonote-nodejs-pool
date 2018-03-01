@@ -76,38 +76,39 @@ h3 {
 
 /* Users list */
 .usersList {
-  table-layout: fixed;
   word-wrap: break-word;
 }
 .usersList .tooltip-inner {
   max-width: 100%;
 }
-.usersList .sort {
-  cursor: pointer;
-}
-.usersList tr > th,
-.usersList tr > td {
-  text-align: center;
-  white-space: nowrap;
-}
-.usersList .col1 {
-  white-space: normal;
-}
-.usersList .col2 {
-  width: 100px;
-}
-.usersList .col3 {
-  width: 100px;
-}
-.usersList .col4 {
-  width: 100px;
-}
-.usersList .col5 {
-  width: 100px;
-}
-.usersList .col6 {
-  width: 120px;
-  white-space: normal;
+@media (min-width: 768px) {
+  .usersList {
+    table-layout: fixed;
+  }
+  .usersList tr > th,
+  .usersList tr > td {
+    text-align: center;
+    white-space: nowrap;
+  }
+  .usersList .col1 {
+    white-space: normal;
+  }
+  .usersList .col2 {
+    width: 100px;
+  }
+  .usersList .col3 {
+    width: 100px;
+  }
+  .usersList .col4 {
+    width: 100px;
+  }
+  .usersList .col5 {
+    width: 100px;
+  }
+  .usersList .col6 {
+    width: 120px;
+    white-space: normal;
+  }
 }
 
 /* Monitoring */

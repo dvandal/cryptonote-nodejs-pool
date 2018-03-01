@@ -574,6 +574,10 @@ table th.sort:hover{
   vertical-align: middle;
   font-size: 0.95em;
 }
+#miningPorts table .col1,
+#miningPorts table .col2 {
+  text-align: center;
+}  
 @media (min-width: 768px) {
   #miningPorts table th {
     white-space: nowrap;
@@ -584,8 +588,6 @@ table th.sort:hover{
   #miningPorts table .col2 {
     width:160px;
     text-align: center;
-  }  
-  #miningPorts table .col3 {
   }  
 }
 
@@ -660,27 +662,43 @@ table th.sort:hover{
 #workersReport td {
   vertical-align: middle;
 }
+#workersReport .status-ok{
+  color: #17a600;
+}
+#workersReport .status-error{
+  color: #a60000;
+}
+#workersReport table .col1,
+#workersReport table .col3,
+#workersReport table .col4,
+#workersReport table .col5 {
+  text-align: center;
+}
 @media (min-width: 768px) {
   #workersReport table th {
     white-space: nowrap;
   }
-  #workersReport table .col2 {
-    width:150px;
-    text-align: center;
-  }  
-  #workersReport table .col3 {
-    width: 210px;
-    text-align: center;
+  #workersReport table .col1 {
+    width:80px;
   }
+  #workersReport table .col3 {
+    width:150px;
+  }  
   #workersReport table .col4 {
     width: 210px;
-    text-align: center;
+  }
+  #workersReport table .col5 {
+    width: 210px;
   }
 }
 #workerPayments td {
   vertical-align: middle;
   font-family: 'Inconsolata', monospace;
   font-size: 0.95em;
+}
+#workerPayments table .col3,
+#workerPayments table .col4 {
+  text-align: center;
 }
 @media (min-width: 768px) {
   #workerPayments table  {
@@ -698,11 +716,9 @@ table th.sort:hover{
   }  
   #workerPayments table .col3 {
     width:130px;
-    text-align: center;
   }  
   #workerPayments table .col4 {
     width: 70px;
-    text-align: center;
   }
 }
 
@@ -718,6 +734,13 @@ table th.sort:hover{
   font-family: 'Inconsolata', monospace;
   font-size: 0.95em;
 }
+#blocksReport table .col2,
+#blocksReport table .col3,
+#blocksReport table .col4,
+#blocksReport table .col6,
+#blocksReport table .col7 {
+  text-align: center;
+}  
 @media (min-width: 768px) {
   #blocksReport table  {
     table-layout:fixed;
@@ -730,15 +753,12 @@ table th.sort:hover{
   }  
   #blocksReport table .col2 {
     width:80px;
-    text-align: center;
   }  
   #blocksReport table .col3 {
     width:90px;
-    text-align: center;
   }  
   #blocksReport table .col4 {
     width:120px;
-    text-align: center;
   }  
   #blocksReport table .col5 {
     overflow: hidden;
@@ -746,11 +766,9 @@ table th.sort:hover{
   }  
   #blocksReport table .col6 {
     width: 55px;
-    text-align: center;
   }  
   #blocksReport table .col7 {
     width: 80px;
-    text-align: center;
   }  
 }
 #blocksReport .luckGood,
@@ -777,6 +795,12 @@ table th.sort:hover{
   font-family: 'Inconsolata', monospace;
   font-size: 0.95em;
 }
+#paymentsReport table .col3,
+#paymentsReport table .col4,
+#paymentsReport table .col5,
+#paymentsReport table .col6 {
+  text-align: center;
+}
 @media (min-width: 768px) {
   #paymentsReport table  {
     table-layout:fixed;
@@ -793,18 +817,14 @@ table th.sort:hover{
   }  
   #paymentsReport table .col3 {
     width:130px;
-    text-align: center;
   }  
   #paymentsReport table .col4 {
     width:110px;
-    text-align: center;
   }  
   #paymentsReport table .col5 {
     width: 70px;
-    text-align: center;
   }
   #paymentsReport table .col6 {
     width: 70px;
-    text-align: center;
   }
 }
