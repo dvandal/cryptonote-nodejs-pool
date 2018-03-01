@@ -95,7 +95,7 @@ Community / Support
 
 #### Pools Using This Software
 
-* https://graftpool.ca
+* https://graft.blockhashmining.com/
 
 
 Usage
