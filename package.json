@@ -1,6 +1,6 @@
 {
     "name": "cryptonote-nodejs-pool",
-    "version": "1.0.1",
+    "version": "1.2.0",
     "license": "GPL-2.0",
     "author": "Daniel Vandal",
     "repository": {
@@ -8,16 +8,17 @@
         "url": "https://github.com/dvandal/cryptonote-nodejs-pool.git"
     },
     "dependencies": {
-        "bignum": "0.12.5",
-        "async": "1.5.2",
-        "redis": "0.12.1",
-        "cli-color": "1.1.0",
-        "dateformat": "1.0.12",
-        "base58-native": "0.1.4",
-        "multi-hashing": "git://github.com/dvandal/node-multi-hashing.git",
-        "cryptonote-util": "git://github.com/dvandal/node-cryptonote-util#xmr-Nan-2.0"
+        "bignum": "*",
+        "async": "1",
+        "redis": "*",
+        "cli-color": "*",
+        "dateformat": "*",
+        "base58-native": "*",
+        "mailgun.js": "*",
+        "multi-hashing": "git://github.com/clintar/node-multi-hashing.git#Nan-2.0",
+        "cryptonote-util": "git://github.com/clintar/node-cryptonote-util.git#Nan-2.0"
     },
     "engines": {
-        "node": ">=0.10"
+        "node": ">=4.0"
     }
 }
