@@ -141,11 +141,11 @@
 
     "email": {
       "enabled": false,
-      "api_key": "",
-      "api_domain": "mg.yourdomain",
-      "from_address": "",
-      "template_dir": "email_templates",
+      "apiKey": "",
+      "apiDomain": "mg.yourdomain",
+      "fromAddress": "",
       "domain": "poolhost.com",
+      "templateDir": "email_templates",
       "templates": ["worker_connected", "worker_banned", "worker_timeout"]
     },
 

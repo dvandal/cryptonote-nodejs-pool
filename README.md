@@ -346,12 +346,12 @@ Explanation for each field:
 /* Email Notifications using MailGun */
 "email": {
   "enabled": false,
-  "api_key": "", // Your MailGun Private API key
-  "api_domain": "mg.yourdomain", // Your MailGun domain
-  "from_address": "", // Your sender email
-  "template_dir": "email_templates", // The templates folder
+  "apiKey": "", // Your MailGun Private API key
+  "apiDomain": "mg.yourdomain", // Your MailGun domain
+  "fromAddress": "", // Your sender email
   "domain": "poolhost.com", // Your pool domain
-  "templates": ["worker_connected", "worker_banned", "worker_timeout"] // Specify the email templates to enable
+  "templateDir": "email_templates", // The templates folder
+  "templates": ["worker_connected", "worker_banned", "worker_timeout"] // Specify which templates to enable
 },
     
 /* Monitoring RPC services. Statistics will be displayed in Admin panel */
