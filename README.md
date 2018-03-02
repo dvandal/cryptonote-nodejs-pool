@@ -320,7 +320,8 @@ Explanation for each field:
     "sslPort": 8119, // The SSL port
     "sslCert": "./cert.pem", // The SSL certificate
     "sslKey": "./privkey.pem", // The SSL private key
-    "sslCA": "./chain.pem" // The SSL certificate authority chain
+    "sslCA": "./chain.pem", // The SSL certificate authority chain
+    "trustProxyIP": false // Proxy X-Forwarded-For support
 },
 
 /* Coin daemon connection details (default port is 18981) */

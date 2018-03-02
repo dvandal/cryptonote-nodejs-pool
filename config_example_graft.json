@@ -119,7 +119,8 @@
         "sslPort": 8119,
         "sslCert": "./cert.pem",
         "sslKey": "./privkey.pem",
-        "sslCA": "./chain.pem"
+        "sslCA": "./chain.pem",
+	"trustProxyIP": false
     },
 
     "daemon": {
