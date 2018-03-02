@@ -81,6 +81,7 @@ Features
 * An easily extendable, responsive, light-weight front-end using API to display data
 * Onishin's [keepalive function](https://github.com/perl5577/cpuminer-multi/commit/0c8aedb)
 * Support for slush mining system (disabled by default)
+* E-Mail Notifications on worker connected, disconnected (timeout) or banned
 
 
 Community / Support
@@ -341,6 +342,17 @@ Explanation for each field:
     "auth": null // If set, client will run redis auth command on connect. Use for remote db
 }
 
+/* Email Notifications using MailGun */
+"email": {
+  "enabled": false,
+  "api_key": "", // Your MailGun Private API key
+  "api_domain": "mg.yourdomain", // Your MailGun domain
+  "from_address": "", // Your sender email
+  "template_dir": "email_templates", // The templates folder
+  "domain": "poolhost.com", // Your pool domain
+  "templates": ["worker_connected", "worker_banned", "worker_timeout"] // Specify the email templates to enable
+},
+    
 /* Monitoring RPC services. Statistics will be displayed in Admin panel */
 "monitoring": {
     "daemon": {
