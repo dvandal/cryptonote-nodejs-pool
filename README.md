@@ -90,9 +90,6 @@ Community / Support
 * [GitHub Issues for cryptonote-nodejs-pool](https://github.com/dvandal/cryptonote-nodejs-pool/issues)
 * [CryptoNote Technology](https://cryptonote.org)
 * [CryptoNote Forum](https://forum.cryptonote.org/)
-* [ByteCoin Github](https://github.com/amjuarez/bytecoin)
-* [Monero Github](https://github.com/monero-project/bitmonero)
-* [GRAFT Github](https://github.com/graft-project/GraftNetwork)
 
 #### Pools Using This Software
 
@@ -104,7 +101,11 @@ Usage
 
 #### Requirements
 * Coin daemon(s) (find the coin's repo and build latest version from source)
-* [Node.js](http://nodejs.org/) v0.10+
+  * [ByteCoin](https://github.com/amjuarez/bytecoin)
+  * [Monero](https://github.com/monero-project/bitmonero)
+  * [GRAFT](https://github.com/graft-project/GraftNetwork)
+* [Node.js](http://nodejs.org/) v4.0+
+  * For Ubuntu: `sudo apt-get install nodejs npm && ln -s /usr/bin/nodejs /usr/bin/node`
 * [Redis](http://redis.io/) key-value store v2.6+ ([follow these instructions](http://redis.io/topics/quickstart))
 * libssl required for the node-multi-hashing module
   * For Ubuntu: `sudo apt-get install libssl-dev`
@@ -128,11 +129,6 @@ Clone the repository and run `npm update` for all the dependencies to be install
 ```bash
 git clone https://github.com/dvandal/cryptonote-nodejs-pool.git pool
 cd pool
-
-nvm install 0.10.48
-nvm use 0.10.48
-nvm alias default 0.10.48
-nvm use default
 
 npm update
 ```
