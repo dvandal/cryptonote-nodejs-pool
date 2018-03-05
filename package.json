@@ -14,6 +14,8 @@
         "cli-color": "*",
         "dateformat": "*",
         "base58-native": "*",
+        "nodemailer": "2.7.2",
+        "nodemailer-sendmail-transport" : "*",
         "mailgun.js": "*",
         "multi-hashing": "git://github.com/dvandal/node-multi-hashing.git#Nan-2.0",
         "cryptonote-util": "git://github.com/dvandal/node-cryptonote-util#xmr-Nan-2.0"

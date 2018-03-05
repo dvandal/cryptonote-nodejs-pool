@@ -120,7 +120,7 @@
         "sslCert": "./cert.pem",
         "sslKey": "./privkey.pem",
         "sslCA": "./chain.pem",
-	"trustProxyIP": false
+        "trustProxyIP": false
     },
 
     "daemon": {
@@ -140,15 +140,32 @@
     },
 
     "email": {
-      "enabled": false,
-      "apiKey": "",
-      "apiDomain": "mg.yourdomain",
-      "fromAddress": "",
-      "domain": "poolhost.com",
-      "templateDir": "email_templates",
-      "templates": ["worker_connected", "worker_banned", "worker_timeout"]
+        "enabled": false,
+        "templateDir": "email_templates",
+        "templates": ["worker_connected", "worker_banned", "worker_timeout"],
+        "variables": {
+            "POOL_HOST": "poolhost.com"
+        },
+        "fromAddress": "your@email.com",
+        "transport": "sendmail",
+        "sendmail": {
+            "path": "/usr/sbin/sendmail"
+        },
+        "smtp": {
+            "host": "smtp.example.com",
+            "port": 587,
+            "secure": false,
+            "auth": {
+                "user": "username",
+                "pass": "password"
+            }
+        },
+        "mailgun": {
+            "key": "your-private-key",
+            "domain": "mg.yourdomain"
+        }
     },
-
+    
     "monitoring": {
         "daemon": {
             "checkInterval": 60,

@@ -339,15 +339,32 @@ Explanation for each field:
     "auth": null // If set, client will run redis auth command on connect. Use for remote db
 }
 
-/* Email Notifications using MailGun */
+/* Email Notifications */
 "email": {
-  "enabled": false,
-  "apiKey": "", // Your MailGun Private API key
-  "apiDomain": "mg.yourdomain", // Your MailGun domain
-  "fromAddress": "", // Your sender email
-  "domain": "poolhost.com", // Your pool domain
-  "templateDir": "email_templates", // The templates folder
-  "templates": ["worker_connected", "worker_banned", "worker_timeout"] // Specify which templates to enable
+    "enabled": false,
+    "templateDir": "email_templates", // The templates folder
+    "templates": ["worker_connected", "worker_banned", "worker_timeout"], // Specify which templates to enable
+    "variables": { // The variables to replace in templates
+        "POOL_HOST": "poolhost.com" // Your pool domain
+    },
+    "fromAddress": "your@email.com", // Your sender email
+    "transport": "sendmail", // The transport mode (sendmail, smtp or mailgun)
+    "sendmail": { // Configuration for sendmail transport
+        "path": "/usr/sbin/sendmail" // The path to sendmail command
+    },
+    "smtp": { // Configuration for SMTP transport
+        "host": "smtp.example.com", // SMTP server
+        "port": 587, // SMTP port (25, 587 or 465)
+        "secure": false, // TLS (if false will upgrade with STARTTLS)
+        "auth": {
+            "user": "username", // SMTP username
+            "pass": "password" // SMTP password
+        }
+    },
+    "mailgun": { // Configuration for MailGun transport
+        "key": "your-private-key", // Your MailGun Private API key
+        "domain": "mg.yourdomain" // Your MailGun domain
+    }
 },
     
 /* Monitoring RPC services. Statistics will be displayed in Admin panel */
