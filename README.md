@@ -349,10 +349,16 @@ Explanation for each field:
     },
     "fromAddress": "your@email.com", // Your sender email
     "transport": "sendmail", // The transport mode (sendmail, smtp or mailgun)
-    "sendmail": { // Configuration for sendmail transport
+    
+    // Configuration for sendmail transport
+    // Documentation: http://nodemailer.com/transports/sendmail/
+    "sendmail": {
         "path": "/usr/sbin/sendmail" // The path to sendmail command
     },
-    "smtp": { // Configuration for SMTP transport
+    
+    // Configuration for SMTP transport
+    // Documentation: http://nodemailer.com/smtp/
+    "smtp": {
         "host": "smtp.example.com", // SMTP server
         "port": 587, // SMTP port (25, 587 or 465)
         "secure": false, // TLS (if false will upgrade with STARTTLS)
@@ -361,7 +367,9 @@ Explanation for each field:
             "pass": "password" // SMTP password
         }
     },
-    "mailgun": { // Configuration for MailGun transport
+    
+    // Configuration for MailGun transport
+    "mailgun": {
         "key": "your-private-key", // Your MailGun Private API key
         "domain": "mg.yourdomain" // Your MailGun domain
     }
