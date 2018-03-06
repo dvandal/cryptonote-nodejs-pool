@@ -2,8 +2,14 @@
 <h3>Connection Details</h3>
 <div class="stats">
     <div><i class="fa fa-cloud"></i> Mining Pool Address: <span id="miningPoolHost"></span></div>
-    <div><i class="fa fa-lock"></i> Difficulty locking: <span>address.diff</span></div>
+    
+    <strong>Username:</strong><br/>
+    <div><i class="fa fa-key"></i> Username: <span>Specify your wallet address</span></div>
+    <div id="fixedDiff"><i class="fa fa-lock"></i> Difficulty locking: <span>[address]<span id="fixedDiffSeparator">+</span>[diff]</span></div>
+    
+    <strong>Password:</strong><br/>
     <div><i class="fa fa-server"></i> Worker Identification: <span>Specify your worker name as the password</span></div>
+    <div id="emailsNotification"><i class="fa fa-envelope"></i> E-Mail Notifications: <span>[Worker ID]:[E-mail address]</div>
 </div>
 
 <h3>Mining Ports</h3>
@@ -179,6 +185,9 @@ currentPage = {
 
         updateTextClasses('exampleHost', poolHost);
         updateTextClasses('examplePort', lastStats.config.ports[0].port.toString());
+	updateText('fixedDiffSeparator', lastStats.config.fixedDiffSeparator);
+	if (!lastStats.config.fixedDiffEnabled) $('#fixedDiff').hide();
+	if (!lastStats.config.sendEmails) $('#emailsNotification').hide();
     }
 };
 
