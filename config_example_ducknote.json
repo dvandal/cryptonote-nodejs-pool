@@ -196,6 +196,20 @@
                 "updateInterval": 1800,
                 "stepInterval": 10800,
                 "maximumPeriod": 604800
+            },
+            "price": {
+                "enabled": true,
+                "source": "cryptonator",
+                "currency": "USD",
+                "updateInterval": 1800,
+                "stepInterval": 10800,
+                "maximumPeriod": 604800
+            },
+            "profit": {
+                "enabled": true,
+                "updateInterval": 1800,
+                "stepInterval": 10800,
+                "maximumPeriod": 604800
             }
         },
         "user": {
