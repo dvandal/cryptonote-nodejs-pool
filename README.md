@@ -234,7 +234,7 @@ Explanation for each field:
     "varDiff": {
         "minDiff": 100, // Minimum difficulty
         "maxDiff": 100000000,
-        "targetTime": 100, // Try to get 1 share per this many seconds
+        "targetTime": 60, // Try to get 1 share per this many seconds
         "retargetTime": 30, // Check to see if we should retarget every this many seconds
         "variancePercent": 30, // Allow time to vary this % from target without retargeting
         "maxJump": 100 // Limit diff percent increase/decrease in a single retargetting
