@@ -385,7 +385,14 @@ Explanation for each field:
         "checkInterval": 60,
         "rpcMethod": "getbalance"
     }
+},
 
+/* Prices settings for market and price charts */
+"prices": {
+    "source": "cryptonator", // Price source (cryptonator or tradeogre)
+    "currency": "USD" // Default currency
+},
+	    
 /* Collect pool statistics to display in frontend charts  */
 "charts": {
     "pool": {
@@ -406,7 +413,20 @@ Explanation for each field:
             "updateInterval": 1800,
             "stepInterval": 10800,
             "maximumPeriod": 604800
+        },
+        "price": {
+            "enabled": true,
+            "updateInterval": 1800,
+            "stepInterval": 10800,
+            "maximumPeriod": 604800
+        },
+        "profit": {
+            "enabled": true,
+            "updateInterval": 1800,
+            "stepInterval": 10800,
+            "maximumPeriod": 604800
         }
+
     },
     "user": { // Chart data displayed in user stats block
         "hashrate": {

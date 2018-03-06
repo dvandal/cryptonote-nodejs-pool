@@ -177,6 +177,11 @@
         }
     },
 
+    "prices": {
+        "source": "cryptonator",
+        "currency": "USD"
+    },
+
     "charts": {
         "pool": {
             "hashrate": {
@@ -199,8 +204,6 @@
             },
             "price": {
                 "enabled": true,
-                "source": "cryptonator",
-                "currency": "USD",
                 "updateInterval": 1800,
                 "stepInterval": 10800,
                 "maximumPeriod": 604800

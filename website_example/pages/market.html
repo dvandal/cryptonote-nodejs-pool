@@ -1,8 +1,24 @@
 <!-- Market -->
-<div id="marketRate" style="display: block;">
-    <h3 id="marketHeader">Market</h3>
-    <div class="marketData stats clearfix" style="margin-bottom:10px"></div>
-    <div class="marketFooter">Updated: <span id="marketLastUpdated" title="Never">less than a minute ago</span> &ndash; Powered by <a target="_blank" href="https://www.cryptonator.com/">Cryptonator</a></div>
+<h3>Market</h3>
+
+<div id="marketRate">
+    <div id="marketData" class="stats clearfix">Loading ...</div>
+    <div id="marketFooter">Updated: <span id="marketLastUpdated" title="Never">Never</span> &ndash; Source: <span id="marketSource">N/A</span></div>
+</div>
+
+<div class="row">
+    <div class="col-sm-6 marketChart">
+        <h4>Price in <span id="priceChartCurrency">USD</span></h4>
+        <div id="chartPrice" data-chart="price">
+            <div class="chart"></div>
+        </div>        
+    </div>
+    <div class="col-sm-6 marketChart">
+        <h4>Hash/<span id="profitChartCurrency">USD</span> <span data-toggle="tooltip" data-placement="top" data-original-title="Reward * Rate / Difficulty"><i class="fa fa-question-circle"></i></span></h4>
+        <div id="chartProfit" data-chart="profit">
+            <div class="chart"></div>
+        </div>
+    </div>
 </div>
     
 <!-- Mining Profit Calculator -->
@@ -31,70 +47,234 @@
 
 <!-- Javascript -->
 <script>
+var priceSource = 'cryptonator';
+var priceCurrency = 'USD';
+
+var marketPrices = {};
+var xhrMarketGets = {};
+
+var loadedData = false;
+function loadInitialData() {
+    if (loadedData) return ;
+    
+    if (typeof marketCurrencies !== 'undefined' && marketCurrencies.length > 0){
+        var intervalMarketPolling = setInterval(updateMarkets, 300000);
+        updateMarkets();
+        function updateMarkets(){
+            if (priceSource == "cryptonator") updateMarketsCryptonator();
+            else if (priceSource == "tradeogre") updateMarketsTradeOgre();
+        }
+    }
+    
+    loadedData = true;
+}
+
 currentPage = {
     destroy: function(){
         $('#marketLastUpdated').timeago('dispose');
     },
     update: function(){
+        priceSource = lastStats.config.priceSource || 'cryptonator';
+        priceCurrency = lastStats.config.priceCurrency || 'USD';
+	
+        updateText('priceChartCurrency', priceCurrency);
+        updateText('profitChartCurrency', priceCurrency);
+
+        if (priceSource == "cryptonator") updateText('marketSource', 'Cryptonator');
+        else if (priceSource == "tradeogre") updateText('marketSource', 'TradeOgre');
+	
+        loadInitialData();
+	updateCharts();
         calcEstimateProfit();
     }
 };
-
-$('#marketLastUpdated').timeago();
-
+    
 /* Market data polling (poll data every 5 minutes) */
-var marketPrices = {};
+$('#marketLastUpdated').timeago();
+function updateMarketsTradeOgre(){
+    var currencies = {};
+    var listBases = {}; var numBases = 0;
+    var listTargets = {}; var numTargets = 0;
+    for (var i = 0; i < marketCurrencies.length; i++){
+        marketCurrencies[i] = marketCurrencies[i].replace('{symbol}', lastStats.config.symbol).toUpperCase();
+        var parts = marketCurrencies[i].split('-');
+        var base = parts[0] || null;
+        var target = parts[1] || null;
+	
+	if (!currencies[base]) currencies[base] = [];
+	currencies[base].push(target);
+	
+        if (base != 'BTC' && !listBases[base]) {
+            listBases[base] = base;
+	    numBases ++;
+        }
 
-$('#marketRate').hide();
-if (typeof cryptonatorWidget !== 'undefined' && cryptonatorWidget.length > 0){
-    var intervalMarketPolling = setInterval(updateMarkets, 300000);
-    var xhrMarketGets = {};
-    updateMarkets();
-    function updateMarkets(){
-        var completedFetches = 0;
-        var marketsData = [];
-        for (var i = 0; i < cryptonatorWidget.length; i++){
-            (function(i){
-                cryptonatorWidget[i] = cryptonatorWidget[i].replace('{symbol}', lastStats.config.symbol.toLowerCase());
-                xhrMarketGets[cryptonatorWidget[i]] = $.get('https://api.cryptonator.com/api/ticker/' + cryptonatorWidget[i], function(data){
-                    if (data.error) return ;
-                    $('#marketRate').show();
-
-                    marketsData[i] = data;
-                    completedFetches++;            
-                    if (completedFetches !== cryptonatorWidget.length) return;
-            
-                    var $marketData = $('.marketData');
-                    $('.marketLoading').remove();
-                    $('.marketData').empty();
-                    for (var f = 0; f < marketsData.length ; f++){
-                        var base = marketsData[f].ticker.base;
-                        var target = marketsData[f].ticker.target;
-            
-                        var icon = 'fa-money';
-                        if (target.toUpperCase() == 'BTC') icon = 'fa-btc';
-                        if (target.toUpperCase() == 'BCH') icon = 'fa-btc';
-                        if (target.toUpperCase() == 'USD') icon = 'fa-dollar';
-                        if (target.toUpperCase() == 'CAD') icon = 'fa-dollar';
-                        if (target.toUpperCase() == 'EUR') icon = 'fa-eur';
-                        if (target.toUpperCase() == 'GBP') icon = 'fa-gbp';
-                        if (target.toUpperCase() == 'JPY') icon = 'fa-jpy';
-            
-                        var price = parseFloat(marketsData[f].ticker.price);
-                        if (price > 1) price = Math.round(price * 100) / 100;
-                        else price = parseFloat(marketsData[f].ticker.price);
-            
-                        if (base.toLowerCase() == lastStats.config.symbol.toLowerCase()) {
-                            marketPrices[target] = price;
-                        }
-            
-                        $marketData.append('<div class="col-lg-3 col-md-4 col-sm-6 marketTicker"><i class="fa ' + icon + '"></i> ' + base + ': <span>' + price + ' ' + target + '</span></div>');
-                    }
-                    $('#marketLastUpdated').timeago('update', new Date(marketsData[0].timestamp * 1000).toISOString());
-                }, 'json');
-            })(i);
+        if (target != 'BTC' && !listTargets[target]) {
+            listTargets[target] = target;
+	    numTargets ++;
         }
     }
+    
+    var completedFetches = 0;
+    var basesData = {};
+    var targetsData = [];
+    for (var t in listTargets){
+        (function(t){
+	    var marketKey = 'BTC-' + t;
+            xhrMarketGets[marketKey] = $.get('https://api.cryptonator.com/api/ticker/' + marketKey, function(data){
+                if (data.error) return ;
+
+                targetsData[t] = data;
+                completedFetches++;
+                if (completedFetches !== numTargets) return;
+
+                var completedFetches2 = 0;
+		for (var b in listBases) {
+                    var marketKey = 'BTC-' + b;
+                    xhrMarketGets[marketKey] = $.get('https://tradeogre.com/api/v1/ticker/' + marketKey, function(data){
+                        if (data.error) return ;
+
+			basesData[b] = data;
+                        completedFetches2++;
+                        if (completedFetches2 !== numBases) return;
+
+                        $('#marketData').empty();
+                        for (var base in currencies) {
+                            if (!basesData[base]) continue;
+                            var priceBTC = +basesData[base].price || 0;
+			    for (var i in currencies[base]) {
+                                var target = currencies[base][i];
+				if (target == 'BTC') {
+                                    updateMarketPrice(base, target, priceBTC);
+				}
+                                else {
+				    if (!targetsData[target] || !targetsData[target].ticker) continue;
+                                    var priceCurrency = +targetsData[target].ticker.price || 0;
+				    var price = priceCurrency * priceBTC;
+                                    updateMarketPrice(base, target, price);
+				}
+			    }
+			}
+                        $('#marketLastUpdated').timeago('update', new Date().toISOString());
+                        $('#marketRate').show();
+                    }, 'json');
+		}
+            }, 'json');
+        })(t);
+    }
+}
+
+function updateMarketsCryptonator(){
+    var completedFetches = 0;
+    var marketsData = [];
+    for (var i = 0; i < marketCurrencies.length; i++){
+        (function(i){
+            marketCurrencies[i] = marketCurrencies[i].replace('{symbol}', lastStats.config.symbol).toUpperCase();
+            xhrMarketGets[marketCurrencies[i]] = $.get('https://api.cryptonator.com/api/ticker/' + marketCurrencies[i], function(data){
+                if (data.error) return ;
+
+                marketsData[i] = data;
+                completedFetches++;            
+                if (completedFetches !== marketCurrencies.length) return;
+            
+                $('#marketData').empty();
+                for (var f = 0; f < marketsData.length ; f++){
+                    var base = marketsData[f].ticker.base;
+                    var target = marketsData[f].ticker.target;
+                    var price = parseFloat(marketsData[f].ticker.price);
+                    updateMarketPrice(base, target, price);
+                }
+                $('#marketLastUpdated').timeago('update', new Date(marketsData[0].timestamp * 1000).toISOString());
+                $('#marketRate').show();
+            }, 'json');
+        })(i);
+    }
+}
+
+function updateMarketPrice(base, target, price) {
+    var icon = 'fa-money';
+    if (target == 'BTC') icon = 'fa-btc';
+    if (target == 'BCH') icon = 'fa-btc';
+    if (target == 'USD') icon = 'fa-dollar';
+    if (target == 'CAD') icon = 'fa-dollar';
+    if (target == 'EUR') icon = 'fa-eur';
+    if (target == 'GBP') icon = 'fa-gbp';
+    if (target == 'JPY') icon = 'fa-jpy';
+            
+    if (price > 1 || target == 'USD' || target == 'CAD' ||  target == 'EUR' || target == 'GBP' || target == 'JPY') {
+        price = Math.round(price * 100) / 100;    
+    }
+
+    if (base == lastStats.config.symbol.toUpperCase()) {
+        marketPrices[target] = price;
+    }
+
+    $('#marketData').append('<div class="col-lg-3 col-md-4 col-sm-6 marketTicker"><i class="fa ' + icon + '"></i> ' + base + ': <span>' + price + ' ' + target + '</span></div>');
+}
+
+/* Market Charts */
+var marketCharts = {
+    type: 'line',
+    width: '100%',
+    height: '120',
+    lineColor: '#03a9f4',
+    fillColor: 'rgba(3, 169, 244, .4)',
+    spotColor: null,
+    minSpotColor: null,
+    maxSpotColor: null,
+    highlightLineColor: '#236d26',
+    spotRadius: 3,
+    chartRangeMin: 0,
+    drawNormalOnTop: false,
+    tooltipFormat: '<b>{{y}}</b>, {{offset:names}}'
+};
+
+$(function() {
+    $('[data-toggle="tooltip"]').tooltip();
+});
+
+var xhrRenderCharts;
+
+function updateCharts() {
+    xhrRenderCharts = $.ajax({
+        url: api + '/stats',
+        cache: false,            
+        success: createCharts
+    });
+}
+
+function createCharts(data) {
+    if (data.hasOwnProperty("charts")) {
+        var graphData = {
+            price: getGraphData(data.charts.price),
+            profit: getGraphData(data.charts.profit)
+        };
+            
+        for(var graphType in graphData) {
+            if(graphData[graphType].values.length > 1) {
+                var settings = jQuery.extend({}, marketCharts);
+                settings.tooltipValueLookups = {names: graphData[graphType].names};
+                var $chart = $('[data-chart=' + graphType + '] .chart');
+                $chart.closest('.marketChart').show();
+                $chart.sparkline(graphData[graphType].values, settings);
+            }
+        }
+    }
+}
+
+function getGraphData(rawData, fixValueToCoins) {
+    var graphData = {
+        names: [],
+        values: []
+    };
+    if(rawData) {
+        for (var i = 0, xy; xy = rawData[i]; i++) {
+            graphData.names.push(new Date(xy[0]*1000).toUTCString());
+            graphData.values.push(fixValueToCoins ? getReadableCoins(xy[1], 4, true) : xy[1]);
+        }
+    }        
+        
+    return graphData;
 }
 
 /* Hash Profitability Calculator */
@@ -123,8 +303,8 @@ function calcEstimateProfit(){
 }
 
 function getCurrencyPriceText(coinsRaw) {    
-    if (!defaultCurrency || !marketPrices || !marketPrices[defaultCurrency]) return ;    
-    var priceInCurrency = (Math.trunc(getReadableCoins(coinsRaw, 4, true) * marketPrices[defaultCurrency] * 100) / 100);
-    return  priceInCurrency + ' ' + defaultCurrency;
+    if (!priceCurrency || !marketPrices || !marketPrices[priceCurrency]) return ;    
+    var priceInCurrency = (Math.trunc(getReadableCoins(coinsRaw, 4, true) * marketPrices[priceCurrency] * 100) / 100);
+    return  priceInCurrency + ' ' + priceCurrency;
 }
 </script>

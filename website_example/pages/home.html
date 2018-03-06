@@ -267,10 +267,8 @@ $(function() {
 function createCharts(data) {         
     if (data.hasOwnProperty("charts")) {
         var graphData = {
-            profit: getGraphData(data.charts.profit),
-            diff: getGraphData(data.charts.difficulty),
             hashrate: getGraphData(data.charts.hashrate),
-            price: getGraphData(data.charts.price),
+            diff: getGraphData(data.charts.difficulty),
             workers: getGraphData(data.charts.workers)
         };
             
@@ -286,7 +284,7 @@ function createCharts(data) {
     }
 }
 
-function getGraphData (rawData, fixValueToCoins) {
+function getGraphData(rawData, fixValueToCoins) {
     var graphData = {
         names: [],
         values: []
@@ -301,38 +299,6 @@ function getGraphData (rawData, fixValueToCoins) {
     return graphData;
 }
 
-function loadStatistics () {        
-    $.get(api + '/stats', function (stats) {
-        if (stats) {
-            showStats(stats)
-        }
-    });      
-}
-
-function showStats (stats) {
-    if (stats.hasOwnProperty('charts')) {
-        var priceData = stats.charts.price;
-        $('#cur_price').text(priceData ? priceData[priceData.length-1][1] : '---'); 
-    }
-    if (stats.hasOwnProperty('charts')) {
-        var profitValue;
-        var profitData = stats.charts.profit;
-
-        if (profitData) {
-            profitValue = profitData[profitData.length-1][1];
-            if (profitValue) {
-                profitValue = profitValue.toPrecision(3).toString().replace(/(.*?)e(\+|\-)(\d+)/, '$1<sup>10<sup>$2$3</sup></sup>');
-            }
-            else {
-                profitValue = '---';
-            }
-        }
-        else {
-            profitValue = '---';
-        }
-    }
-}
-    
 var xhrRenderCharts;
 
 $(function(){
