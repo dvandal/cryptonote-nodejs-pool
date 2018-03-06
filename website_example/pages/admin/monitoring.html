@@ -41,24 +41,26 @@
 
         <h3>Logs</h3>
 
-        <table class="table table-hover table-striped logList" id="logTable">
-            <thead>
-            <tr>
-                <th class="sort">Name <i class="fa fa-sort"></i></th>
-                <th class="sort">Modified <i class="fa fa-sort"></i></th>
-                <th class="sort">Size <i class="fa fa-sort"></i></th>
-            </tr>
-            </thead>
-            <tbody>
-            {{#each logs}}
-            <tr>
-                <td data-sort="{{@key}}"><a href="{{this.link}}" target="_blank">{{@key}}</a></td>
-                <td data-sort="{{this.changed}}">{{this.changed}}</td>
-                <td data-sort="{{this.size}}">{{this.size}} bytes</td>
-            </tr>
-            {{/each}}
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table class="table table-hover table-striped logList" id="logTable">
+                <thead>
+                <tr>
+                    <th class="sort">Name <i class="fa fa-sort"></i></th>
+                    <th class="sort">Modified <i class="fa fa-sort"></i></th>
+                    <th class="sort">Size <i class="fa fa-sort"></i></th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each logs}}
+                <tr>
+                    <td data-sort="{{@key}}"><a href="{{this.link}}" target="_blank">{{@key}}</a></td>
+                    <td data-sort="{{this.changed}}">{{this.changed}}</td>
+                    <td data-sort="{{this.size}}">{{this.size}} bytes</td>
+                </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
     </div>
 </script>
 
