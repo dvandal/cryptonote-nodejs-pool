@@ -53,10 +53,14 @@ var priceCurrency = 'USD';
 var marketPrices = {};
 var xhrMarketGets = {};
 
+if (typeof cryptonatorWidget !== 'undefined' && typeof marketCurrencies === 'undefined') {
+    var marketCurrencies = cryptonatorWidget;
+}
+    
 var loadedData = false;
 function loadInitialData() {
     if (loadedData) return ;
-    
+        
     if (typeof marketCurrencies !== 'undefined' && marketCurrencies.length > 0){
         var intervalMarketPolling = setInterval(updateMarkets, 300000);
         updateMarkets();
@@ -64,6 +68,8 @@ function loadInitialData() {
             if (priceSource == "cryptonator") updateMarketsCryptonator();
             else if (priceSource == "tradeogre") updateMarketsTradeOgre();
         }
+    } else {
+        $('#marketRate').hide();
     }
     
     loadedData = true;
