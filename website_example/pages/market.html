@@ -208,7 +208,7 @@ function updateMarketPrice(base, target, price) {
     if (target == 'JPY') icon = 'fa-jpy';
             
     if (price > 1 || target == 'USD' || target == 'CAD' ||  target == 'EUR' || target == 'GBP' || target == 'JPY') {
-        price = Math.round(price * 100) / 100;    
+        price = Math.round(price * 10000) / 10000;
     }
 
     if (base == lastStats.config.symbol.toUpperCase()) {
