@@ -50,14 +50,27 @@
     </div>
 
     <!-- Dynamic or fixed difficulty -->
-    <div class="col-md-4 col-sm-6">
+    <div id="fixedDiff" class="col-md-4 col-sm-6">
         <div class="aboutBox hoverExpandEffect">
             <div class="icon">
                 <span class="fa fa-lock"></span>
             </div>
             <div class="content">
                 <div class="title">Dynamic or fixed difficulty</div>
-                <div class="value">Lock your difficulty by adding .<em>diff</em> at end of your address</div>
+                <div class="value">Lock your difficulty by adding <span id="fixedDiffSeparator">+</span><em>diff</em> at end of your address</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- E-mail notifications -->
+    <div id="emailNotification" class="col-md-4 col-sm-6">
+        <div class="aboutBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-envelope"></span>
+            </div>
+            <div class="content">
+                <div class="title">E-mail notifications</div>
+                <div class="value">Get notifications when worker connect to the pool or stop hashing (timeout)</div>
             </div>
         </div>
     </div>
@@ -69,6 +82,9 @@ currentPage = {
     destroy: function(){
     },
     update: function(){
+        updateText('fixedDiffSeparator', lastStats.config.fixedDiffSeparator);    
+        if (!lastStats.config.fixedDiffEnabled) $('#fixedDiff').hide();
+	if (!lastStats.config.sendEmails) $('#emailsNotification').hide();
 	updateText('aboutPoolVersion', lastStats.config.version);
     }
 };
