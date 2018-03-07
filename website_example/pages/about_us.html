@@ -5,7 +5,6 @@
 <div id="poolDesc" class="row">
     <div class="col-md-12">
         <p>This pool is using <a target="_blank" href="https://github.com/dvandal/cryptonote-nodejs-pool"><i class="fa fa-github"></i> cryptonote-nodejs-pool</a> software <span id="aboutPoolVersion"></span>.</p>
-	<script>updateText('aboutPoolVersion', lastStats.config.version);</script>
     </div>
 </div>
 
@@ -63,3 +62,14 @@
         </div>
     </div>
 </div>
+
+<!-- Javascript -->
+<script>
+currentPage = {
+    destroy: function(){
+    },
+    update: function(){
+	updateText('aboutPoolVersion', lastStats.config.version);
+    }
+};
+</script>
