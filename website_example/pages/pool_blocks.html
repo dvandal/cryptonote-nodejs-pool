@@ -215,7 +215,7 @@ function getBlockRowElement(block, jsonString){
         '<td class="col3">' + block.height + '</td>' +
         '<td class="col4">' + block.difficulty + '</td>' +
         '<td class="col5">' + formatBlockLink(block.hash) + '</td>' +
-        '<td class="col6">' + formatLuck(block.difficulty, block.shares) + '</td>' +
+        '<td class="col6" title="' + block.shares + ' shares submitted">' + formatLuck(block.difficulty, block.shares) + '</td>' +
         '<td class="col7">' + block.maturity + '</td>';
 
     row.innerHTML = columns;
