@@ -1,12 +1,10 @@
 <!-- Market -->
 <h3>Market</h3>
 
-<div id="marketRate">
-    <div id="marketData" class="stats clearfix">Loading ...</div>
-    <div id="marketFooter">Updated: <span id="marketLastUpdated" title="Never">Never</span> &ndash; Source: <span id="marketSource">N/A</span></div>
+<div id="marketRate" class="row">
 </div>
-
 <div class="row">
+    <div id="marketInfos" class="clearfix"><div class="col-xs-12">Loading ...</div></div>
     <div class="col-sm-6 marketChart">
         <h4>Price in <span id="priceChartCurrency">USD</span></h4>
         <div id="chartPrice" data-chart="price">
@@ -19,6 +17,7 @@
             <div class="chart"></div>
         </div>
     </div>
+    <div id="marketFooter" class="col-xs-12">Updated: <span id="marketLastUpdated" title="Never">Never</span> &ndash; Source: <span id="marketSource">N/A</span></div>
 </div>
     
 <!-- Mining Profit Calculator -->
@@ -144,7 +143,7 @@ function updateMarketsTradeOgre(){
                         completedFetches2++;
                         if (completedFetches2 !== numBases) return;
 
-                        $('#marketData').empty();
+                        $('#marketInfos').empty();
                         for (var base in currencies) {
                             if (!basesData[base]) continue;
                             var priceBTC = +basesData[base].price || 0;
@@ -183,7 +182,7 @@ function updateMarketsCryptonator(){
                 completedFetches++;            
                 if (completedFetches !== marketCurrencies.length) return;
             
-                $('#marketData').empty();
+                $('#marketInfos').empty();
                 for (var f = 0; f < marketsData.length ; f++){
                     var base = marketsData[f].ticker.base;
                     var target = marketsData[f].ticker.target;
@@ -215,7 +214,12 @@ function updateMarketPrice(base, target, price) {
         marketPrices[target] = price;
     }
 
-    $('#marketData').append('<div class="col-lg-3 col-md-4 col-sm-6 marketTicker"><i class="fa ' + icon + '"></i> ' + base + ' to ' + target + ': <span>' + price + '</span></div>');
+    $('#marketInfos').append(
+        '<div class="col-lg-3 col-md-4 col-sm-6 marketTicker"><div class="infoBox hoverExpandEffect">' +
+	    '<div class="icon"><span class="fa '+ icon + '"></span></div>' +
+            '<div class="content"><div class="text">' + base + ' to ' + target + '</div><div class="value">' + price + '</div></div>' +
+        '</div></div>'
+    );
 }
 
 /* Market Charts */
