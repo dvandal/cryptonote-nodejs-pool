@@ -769,6 +769,15 @@ table th.sort:hover{
     width: 80px;
   }  
 }
+#blocksReport .pending td{
+  background-color:rgba(255, 255, 255, .3);
+}
+#blocksReport .unlocked td{
+  background-color:rgba(0, 255, 0, .1);
+}
+#blocksReport .orphaned td{
+  background-color:rgba(255, 0, 0, .1);
+}
 #blocksReport .luckGood,
 #blocksReport .unlocked .col7 {
   color: #5eff5e;
