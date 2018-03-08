@@ -523,6 +523,9 @@ table th.sort:hover{
 #marketStats .infoBox  {
   margin-bottom: 15px;
 }
+#marketUpdate {
+    display: none;
+}
 
 /* Mining Profit Calculator */
 #miningProfitCalc{
