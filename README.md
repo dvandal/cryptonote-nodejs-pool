@@ -40,7 +40,7 @@ Features
 * Miner login (wallet address) validation
 * Workers identification (specify worker name as the password)
 * Variable difficulty / share limiter
-* Set fixed difficulty on miner client by passing "address" param with ".[difficulty]" postfix
+* Set fixed difficulty on miner client by passing "address" param with "+[difficulty]" postfix
 * Modular components for horizontal scaling (pool server, database, stats/API, payment processing, front-end)
 * SSL support for both pool and API servers
 
@@ -66,6 +66,8 @@ Features
 * Prevent "transaction is too big" error with "payments.maxTransactionAmount" option
 * Option to enable dynamic transfer fee based on number of payees per transaction and option to have miner pay transfer fee instead of pool owner (applied to dynamic fee only)
 * Control transactions priority with config.payments.priority (default: 0).
+* Set payment ID on miner client when using <address>.<paymentID> login
+* Integrated payment ID addresses support for Exchanges
 
 #### Admin panel
 * Aggregated pool statistics
@@ -241,11 +243,15 @@ Explanation for each field:
         "maxJump": 100 // Limit diff percent increase/decrease in a single retargetting
     },
 
-    /* Set difficulty on miner client side by passing <address> param with .<difficulty> postfix
-       minerd -u GBqRuitSoU3PFPBAkXMEnLdBRWXH4iDSD6RDxnQiEFjVJhWUi1UuqfV5EzosmaXgpPGE6JJQjMYhZZgWY8EJQn8jQTsuTit.5000 */
+    /* Set payment ID on miner client side by passing <address>.<paymentID> */
+    "paymentId": {
+        "addressSeparator": "." // Character separator between <address> and <paymentID>
+    },
+	
+    /* Set difficulty on miner client side by passing <address> param with +<difficulty> postfix */
     "fixedDiff": {
         "enabled": true,
-        "separator": ".", // Character separator between <address> and <difficulty>
+        "separator": "+", // Character separator between <address> and <difficulty>
     },
 
     /* Feature to trust share difficulties from miners which can
