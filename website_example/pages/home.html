@@ -231,7 +231,7 @@ currentPage = {
             }
             totalFee += totalDonation;
         }
-        updateText('poolFee', floatToString(totalFee) + '%');
+        updateText('poolFee', (totalFee > 0 ? floatToString(totalFee) : '0') + '%');
 
         updateText('paymentsInterval', getReadableTime(lastStats.config.paymentsInterval));
         updateText('paymentsMinimum', getReadableCoins(lastStats.config.minPaymentThreshold, 2));
@@ -257,7 +257,7 @@ var poolCharts = {
     spotRadius: 3,
     chartRangeMin: 0,
     drawNormalOnTop: false,
-    tooltipFormat: '<b>{{y}}</b>, {{offset:names}}'
+    tooltipFormat: '<b>{{y}}</b> &ndash; {{offset:names}}'
 };
 
 $(function() {
@@ -291,7 +291,7 @@ function getGraphData(rawData, fixValueToCoins) {
     };
     if(rawData) {
         for (var i = 0, xy; xy = rawData[i]; i++) {
-            graphData.names.push(new Date(xy[0]*1000).toUTCString());
+            graphData.names.push(new Date(xy[0]*1000).toLocaleString());
             graphData.values.push(fixValueToCoins ? getReadableCoins(xy[1], 4, true) : xy[1]);
         }
     }        
