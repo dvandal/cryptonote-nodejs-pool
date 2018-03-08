@@ -5,7 +5,7 @@
     
     <strong>Username</strong><br/>
     <div><i class="fa fa-key"></i> <span>Specify your wallet address</span></div>
-    <div id="paymentId"><i class="fa fa-money"></i> Payment ID: <span><u>address</u><span id="paymentIdSeparator">.</span><u>paymentID</u></span></div>
+    <div id="paymentId"><i class="fa fa-money"></i> Exchange Payment ID: <span><u>address</u><span id="paymentIdSeparator">.</span><u>paymentID</u></span></div>
     <div id="fixedDiff"><i class="fa fa-lock"></i> Difficulty locking: <span><u>address</u><span id="fixedDiffSeparator">+</span><u>diff</u></span></div>
     
     <strong>Password</strong><br/>
@@ -34,6 +34,39 @@
     </table>
 </div>
 
+<!-- Configuration Generator -->
+<h3>Configuration Generator</h3>
+
+<div id="configGenerator" class="row">
+    <div class="col-md-12">
+        Mining Port<br/>
+        <select class="form-select" id="gMiningPort"></select>
+    </div>
+    <div class="col-md-12">
+        Wallet Address <span class="required">*</span><br/>
+        <input class="form-control" id="gAddress" type="text" required="required" />
+    </div>
+    <div class="col-sm-9 col-xs-7">
+        Exchange Payment ID<br/>
+        <input class="form-control" id="gPaymentID" type="text" />
+    </div>
+    <div class="col-sm-3 col-xs-5">
+        Static Difficulty<br/>
+        <input class="form-control" id="gDifficulty" type="text" />
+    </div>
+    <div class="col-xs-6">
+        Worker Name<br/>
+        <input class="form-control" id="gWorkerName" type="text" />
+    </div>
+    <div class="col-xs-6">
+        E-mail Address<br/>
+        <input class="form-control" id="gEmail" type="email" />
+    </div>
+    <div class="col-md-12">
+        <input id="generateConf" type="submit" value="Generate configuration" class="btn btn-default" />
+    </div>
+</div>
+
 <!-- Mining Apps -->
 <h3>Mining Apps</h3>
 <div id="miningApps" class="table-responsive">
@@ -60,8 +93,8 @@
                 <span>Example config.txt (replace the relevant lines):</span><br/>        
                 <div class="config">
                 "pool_address": "<span class="exampleHost"></span>:<span class="examplePort"></span>",<br/>
-                "wallet_address": "<span class="exampleAddress">YOUR_WALLET_ADDRESS</span>",<br/>
-                "pool_password": "<span class="exampleWorkerName">YOUR_WORKER_NAME"</span>,</div>
+                "wallet_address": "<span class="exampleLogin">YOUR_WALLET_ADDRESS</span>",<br/>
+                "pool_password": "<span class="examplePassword">YOUR_WORKER_NAME"</span>,</div>
             </td>
         </tr>
         <tr class="appInfo">
@@ -90,8 +123,8 @@
                 <span>Example config.txt (replace the relevant lines):</span><br/>        
                 <div class="config">
                 "url": "<span class="exampleHost"></span>:<span class="examplePort"></span>",<br/>
-                "user": "<span class="exampleAddress">YOUR_WALLET_ADDRESS</span>",<br/>
-                "pass": "<span class="exampleWorkerName">YOUR_WORKER_NAME</span>",</div>
+                "user": "<span class="exampleLogin">YOUR_WALLET_ADDRESS</span>",<br/>
+                "pass": "<span class="examplePassword">YOUR_WORKER_NAME</span>",</div>
             </td>
         </tr>
         <tr class="appInfo">
@@ -104,7 +137,7 @@
         <tr class="appConfig">
             <td colspan="5">
                 <span>Example:</span>
-                <code>minerd -a cryptonight -o stratum+tcp://<span class="exampleHost"></span>:<span class="examplePort"></span> -u <span class="exampleAddress">YOUR_WALLET_ADDRESS</span> -p <span class="exampleWorkerName">YOUR_WORKER_NAME</span></code>
+                <code>minerd -a cryptonight -o stratum+tcp://<span class="exampleHost"></span>:<span class="examplePort"></span> -u <span class="exampleLogin">YOUR_WALLET_ADDRESS</span> -p <span class="examplePassword">YOUR_WORKER_NAME</span></code>
             </td>
         </tr>
         <tr class="appInfo">
@@ -117,7 +150,7 @@
         <tr class="appConfig">
             <td colspan="5">
                 <span>Example:</span>
-                <code>ccminer -o stratum+tcp://<span class="exampleHost"></span>:<span class="examplePort"></span> -u <span class="exampleAddress">YOUR_WALLET_ADDRESS</span> -p <span class="exampleWorkerName">YOUR_WORKER_NAME</span></code>
+                <code>ccminer -o stratum+tcp://<span class="exampleHost"></span>:<span class="examplePort"></span> -u <span class="exampleLogin">YOUR_WALLET_ADDRESS</span> -p <span class="examplePassword">YOUR_WORKER_NAME</span></code>
             </td>
         </tr>
         <tr class="appInfo">
@@ -130,7 +163,7 @@
         <tr class="appConfig">
             <td colspan="5">
                 <span>Example:</span>
-                <code>yam -c x -M stratum+tcp://<span class="exampleAddress">YOUR_WALLET_ADDRESS</span>:<span class="exampleWorkerName">YOUR_WORKER_NAME</span>@<span class="exampleHost"></span>:<span class="examplePort"></span>/xmr</code>
+                <code>yam -c x -M stratum+tcp://<span class="exampleLogin">YOUR_WALLET_ADDRESS</span>:<span class="examplePassword">YOUR_WORKER_NAME</span>@<span class="exampleHost"></span>:<span class="examplePort"></span>/xmr</code>
             </td>
         </tr>
         <tr class="appInfo">
@@ -143,7 +176,7 @@
         <tr class="appConfig">
             <td colspan="5">
                 <span>Example:</span>
-                <code>NsCpuCNMiner64 -o stratum+tcp://<span class="exampleHost"></span>:<span class="examplePort"></span> -u <span class="exampleAddress">YOUR_WALLET_ADDRESS</span> -p <span class="exampleWorkerName">YOUR_WORKER_NAME</span></code>
+                <code>NsCpuCNMiner64 -o stratum+tcp://<span class="exampleHost"></span>:<span class="examplePort"></span> -u <span class="exampleLogin">YOUR_WALLET_ADDRESS</span> -p <span class="examplePassword">YOUR_WORKER_NAME</span></code>
             </td>
         </tr>
         <tr class="appInfo">
@@ -156,7 +189,7 @@
         <tr class="appConfig">
             <td colspan="5">
                 <span>Example:</span>
-                <code>NsGpuCNMiner -o stratum+tcp://<span class="exampleHost"></span>:<span class="examplePort"></span> -u <span class="exampleAddress">YOUR_WALLET_ADDRESS</span> -p <span class="exampleWorkerName">YOUR_WORKER_NAME</span></code>
+                <code>NsGpuCNMiner -o stratum+tcp://<span class="exampleHost"></span>:<span class="examplePort"></span> -u <span class="exampleLogin">YOUR_WALLET_ADDRESS</span> -p <span class="examplePassword">YOUR_WORKER_NAME</span></code>
             </td>
         </tr>
         </tbody>
@@ -173,6 +206,7 @@ currentPage = {
         if (lastPortsJson !== portsJson) {
             lastPortsJson = portsJson;
             var $miningPortChildren = [];
+	    var $miningPortOptions = [];
             for (var i = 0; i < lastStats.config.ports.length; i++) {
                 var portData = lastStats.config.ports[i];
                 var $portChild = $(miningPortTemplate);
@@ -180,12 +214,14 @@ currentPage = {
                 $portChild.find('.miningPortDiff').text(formatDifficulty(portData.difficulty));
                 $portChild.find('.miningPortDesc').text(portData.desc);
                 $miningPortChildren.push($portChild);
+		$miningPortOptions.push('<option value="'+portData.port+'">'+portData.port+' &ndash; '+portData.desc+'</option>');
             }
             $miningPorts.empty().append($miningPortChildren);
+            $miningPortSelect.empty().append($miningPortOptions);
+            updateTextClasses('examplePort', lastStats.config.ports[0].port.toString());
         }
 
         updateTextClasses('exampleHost', poolHost);
-        updateTextClasses('examplePort', lastStats.config.ports[0].port.toString());
 	updateText('paymentIdSeparator', lastStats.config.paymentIdSeparator);
 	updateText('fixedDiffSeparator', lastStats.config.fixedDiffSeparator);
 	if (!lastStats.config.fixedDiffEnabled) $('#fixedDiff').hide();
@@ -199,6 +235,33 @@ var lastPortsJson = '';
 var $miningPorts = $('#miningPorts_rows');
 var miningPortTemplate = $miningPorts.html();
 $miningPorts.empty();
+
+var $miningPortSelect = $('#gMiningPort');
+$miningPortSelect.empty();
+
+$('#generateConf').click(function() {
+    // Mining Port
+    var port = $('#gMiningPort').val();
+    updateTextClasses('examplePort', port);
+
+    // Username
+    var address = $('#gAddress').val().replace(/\s+/g, '').trim();
+    var paymentID = $('#gPaymentID').val().replace(/\s+/g, '').trim();
+    var difficulty = parseInt($('#gDifficulty').val().replace(/\s+/g, '').trim());
+    
+    var login = address ? address : 'YOUR_WALLET_ADDRESS';
+    if (paymentID) login = login + lastStats.config.paymentIdSeparator + paymentID;
+    if (difficulty) login = login + lastStats.config.fixedDiffSeparator + difficulty;
+    updateTextClasses('exampleLogin', login);
+
+    // Password
+    var workerName = $('#gWorkerName').val().replace(/\s+/g, '').trim();
+    var email = $('#gEmail').val().replace(/\s+/g, '').trim();
+
+    var password = workerName ? workerName : 'x';
+    if (email) password = password + ':' + email;
+    updateTextClasses('examplePassword', password);    
+});
 
 function formatDifficulty(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");

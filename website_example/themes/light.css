@@ -309,7 +309,8 @@ footer > div{
 }
 
 /* Bootstrap Form Controls */
-.form-control {
+.form-control,
+.form-select {
   background-color: #0274a8;
   color: #00FF33;
   border: 1px solid #014e71; 
@@ -325,6 +326,17 @@ footer > div{
 }
 .form-control::placeholder {
   color: #efefef;
+}
+.form-select {
+  display: inline-block;
+  width: 100%;
+  padding: .5rem 1.75rem .5rem .75rem;
+  background: #0274a8 url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23ffffff' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E") no-repeat right .75rem center;
+  background-size: 8px 10px;
+  vertical-align: middle;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 .input-group-addon {
   background-color: #014e71;
@@ -599,6 +611,18 @@ table th.sort:hover{
     width:160px;
     text-align: center;
   }  
+}
+
+/* Configuration Generator */
+#configGenerator .form-control,
+#configGenerator .form-select {
+  margin-bottom: 5px;
+}
+#configGenerator .required {
+  color: red;
+}
+#configGenerator #generateConf {
+  margin-top: 10px;
 }
 
 /* Mining Apps */
