@@ -517,11 +517,11 @@ table th.sort:hover{
 }
 
 /* Market Rates */
-#marketData{
-  border:2px solid #0274a8;
-  border-radius: 4px;
-  margin-bottom: 5px;
-  padding: 10px;
+#marketStats  {
+  margin-top: 20px;
+}
+#marketStats .infoBox  {
+  margin-bottom: 15px;
 }
 
 /* Mining Profit Calculator */

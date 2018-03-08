@@ -1,9 +1,5 @@
 <!-- Market -->
-<h3>Market</h3>
-
-<div id="marketRate" class="row">
-</div>
-<div class="row">
+<div id="marketStats" class="row">
     <div id="marketInfos" class="clearfix"><div class="col-xs-12">Loading ...</div></div>
     <div class="col-sm-6 marketChart">
         <h4>Price in <span id="priceChartCurrency">USD</span></h4>
@@ -17,7 +13,7 @@
             <div class="chart"></div>
         </div>
     </div>
-    <div id="marketFooter" class="col-xs-12">Updated: <span id="marketLastUpdated" title="Never">Never</span> &ndash; Source: <span id="marketSource">N/A</span></div>
+    <div id="marketUpdate" class="col-xs-12">Updated: <span id="marketLastUpdated" title="Never">Never</span> &ndash; Source: <span id="marketSource">N/A</span></div>
 </div>
     
 <!-- Mining Profit Calculator -->
@@ -68,7 +64,8 @@ function loadInitialData() {
             else if (priceSource == "tradeogre") updateMarketsTradeOgre();
         }
     } else {
-        $('#marketRate').hide();
+        $('#marketInfos').hide();
+        $('#marketUpdate').hide();
     }
     
     loadedData = true;
@@ -161,7 +158,8 @@ function updateMarketsTradeOgre(){
 			    }
 			}
                         $('#marketLastUpdated').timeago('update', new Date().toISOString());
-                        $('#marketRate').show();
+                        $('#marketInfos').show();
+                        $('#marketUpdate').show();
                     }, 'json');
 		}
             }, 'json');
