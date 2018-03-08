@@ -215,7 +215,7 @@ function updateMarketPrice(base, target, price) {
         marketPrices[target] = price;
     }
 
-    $('#marketData').append('<div class="col-lg-3 col-md-4 col-sm-6 marketTicker"><i class="fa ' + icon + '"></i> ' + base + ': <span>' + price + ' ' + target + '</span></div>');
+    $('#marketData').append('<div class="col-lg-3 col-md-4 col-sm-6 marketTicker"><i class="fa ' + icon + '"></i> ' + base + ' to ' + target + ': <span>' + price + '</span></div>');
 }
 
 /* Market Charts */
