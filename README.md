@@ -65,6 +65,7 @@ Features
 * Minimum denomination for truncating payment amount precision to reduce size/complexity of block transactions
 * Prevent "transaction is too big" error with "payments.maxTransactionAmount" option
 * Option to enable dynamic transfer fee based on number of payees per transaction and option to have miner pay transfer fee instead of pool owner (applied to dynamic fee only)
+* Control transactions priority with config.payments.priority (default: 0).
 
 #### Admin panel
 * Aggregated pool statistics
@@ -281,6 +282,7 @@ Explanation for each field:
     "interval": 300, // How often to run in seconds
     "maxAddresses": 50, // Split up payments if sending to more than this many addresses
     "mixin": 5, // Number of transactions yours is indistinguishable from
+    "priority": 0, // The transaction priority    
     "transferFee": 4000000000, // Fee to pay for each transaction
     "dynamicTransferFee": true, // Enable dynamic transfer fee (fee is multiplied by number of miners)
     "minerPayFee" : true, // Miner pays the transfer fee instead of pool owner when using dynamic transfer fee

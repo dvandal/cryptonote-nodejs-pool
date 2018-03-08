@@ -91,6 +91,7 @@
         "interval": 300,
         "maxAddresses": 50,
         "mixin": 5,
+        "priority": 0,
         "transferFee": 4000000000,
         "dynamicTransferFee": true,
         "minerPayFee" : true,
