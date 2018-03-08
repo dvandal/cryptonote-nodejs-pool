@@ -5,6 +5,7 @@
     
     <strong>Username</strong><br/>
     <div><i class="fa fa-key"></i> <span>Specify your wallet address</span></div>
+    <div id="paymentId"><i class="fa fa-money"></i> Payment ID: <span><u>address</u><span id="paymentIdSeparator">.</span><u>paymentID</u></span></div>
     <div id="fixedDiff"><i class="fa fa-lock"></i> Difficulty locking: <span><u>address</u><span id="fixedDiffSeparator">+</span><u>diff</u></span></div>
     
     <strong>Password</strong><br/>
@@ -185,6 +186,7 @@ currentPage = {
 
         updateTextClasses('exampleHost', poolHost);
         updateTextClasses('examplePort', lastStats.config.ports[0].port.toString());
+	updateText('paymentIdSeparator', lastStats.config.paymentIdSeparator);
 	updateText('fixedDiffSeparator', lastStats.config.fixedDiffSeparator);
 	if (!lastStats.config.fixedDiffEnabled) $('#fixedDiff').hide();
 	if (!lastStats.config.sendEmails) $('#emailsNotification').hide();
