@@ -66,7 +66,7 @@ Features
 * Prevent "transaction is too big" error with "payments.maxTransactionAmount" option
 * Option to enable dynamic transfer fee based on number of payees per transaction and option to have miner pay transfer fee instead of pool owner (applied to dynamic fee only)
 * Control transactions priority with config.payments.priority (default: 0).
-* Set payment ID on miner client when using <address>.<paymentID> login
+* Set payment ID on miner client when using "[address].[paymentID]" login
 * Integrated payment ID addresses support for Exchanges
 
 #### Admin panel
