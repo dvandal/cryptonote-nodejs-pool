@@ -3,6 +3,7 @@
     "symbol": "XDN",
     "coinUnits": 100000000,
     "coinDifficultyTarget": 240,
+    "moneroVariant": false,
 
     "logging": {
         "files": {

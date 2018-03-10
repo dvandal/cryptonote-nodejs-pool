@@ -3,6 +3,7 @@
     "symbol": "XMR",
     "coinUnits": 1000000000000,
     "coinDifficultyTarget": 120,
+    "moneroVariant": true,
 
     "logging": {
         "files": {
