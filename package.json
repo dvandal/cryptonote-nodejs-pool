@@ -18,7 +18,7 @@
         "nodemailer-sendmail-transport" : "*",
         "mailgun.js": "*",
         "multi-hashing": "git://github.com/dvandal/node-multi-hashing.git#Nan-2.0",
-        "cryptonote-util": "git://github.com/dvandal/node-cryptonote-util#xmr-Nan-2.0"
+        "cryptonote-util": "git://github.com/VirtuBox/node-cryptonote-util.git"
     },
     "engines": {
         "node": ">=4.0"
