@@ -4,8 +4,9 @@
 <script id="portsListTable" type="text/x-handlebars-template">
     {{#each ports}}
     <tr>
-        <td data-sort="{{this.port.port}}">{{this.port}}</td>
-        <td data-sort="{{this.port.users}}">{{this.users}}</td>
+        <td class="col1" data-sort="{{this.port.port}}">{{this.port}}</td>
+        <td class="col2" data-sort="{{this.port.users}}">{{this.users}}</td>
+        <td class="col3">&nbsp;</td>
     </tr>
     {{/each}}
 </script>
@@ -15,8 +16,9 @@
     <table class="table table-hover table-striped portsList">
         <thead>
         <tr>
-            <th class="col1 sort">Port</th>
-            <th class="col2 sort">Connected Users</th>
+            <th class="col1">Port</th>
+            <th class="col2">Connected Users</th>
+            <th class="col3">&nbsp;</th>
         </tr>
         </thead>
         <tbody id="template">

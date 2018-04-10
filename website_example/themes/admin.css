@@ -67,3 +67,25 @@
 .adminMonitor #logTable th {
   white-space: nowrap;
 }
+
+/* Ports Usage */
+#portsUsage tr > td {
+  vertical-align: middle;
+  font-size: 0.95em;
+}
+#portsUsage table .col1,
+#portsUsage table .col2 {
+  text-align: center;
+}  
+@media (min-width: 768px) {
+  #portsUsage table th {
+    white-space: nowrap;
+  }
+  #portsUsage table .col1 {
+    width:60px;
+  }
+  #portsUsage table .col2 {
+    width:160px;
+    text-align: center;
+  }  
+}
