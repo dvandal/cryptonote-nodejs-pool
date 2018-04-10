@@ -9,7 +9,8 @@
 }
 
 .nav-side-menu li.sign-out {
-  border-left: 3px solid darkred;
+  border-left: 3px solid darkred;  
+  background-color: rgba(255,0,0,.2);
 }
 
 .nav-side-menu li.sign-out:hover {
