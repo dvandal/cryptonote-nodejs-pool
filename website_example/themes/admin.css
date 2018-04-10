@@ -1,77 +1,20 @@
-body {
-  padding-top: 80px;
-  padding-bottom: 80px;
-  overflow-y: scroll;
+#page-wrapper {
+  padding: 0 15px 0;
+  min-height: 568px;
 }
-h3 {
-  margin-top: 0;
-}
-
-#loading {
-  font-size: 2em;
-  position: absolute;
-  width: 100%;
-  text-align: center;
-  top: 10%;
-}
-	
-/* Navigation */
-.navbar-inverse {
-  background-color: #014e71;
-  border-color: #014e71;
-}
-.navbar-inverse .navbar-brand {
-  color: #fff;
-  font-size: 20px;
-  font-weight: 400;
-}
-.navbar-inverse .navbar-toggle {
-  display: none;
+@media (min-width: 992px) {
+  #page-wrapper {
+    padding: 0 30px;
+  }
 }
 
-/* Statistics */
-.adminStats > div {
-  min-height: 127px;
-  color: #fff;
-  position: relative;
-  -webkit-box-shadow: inset 0px 0px 0 1px #ffffff;
-  box-shadow: inset 0px 0px 0 1px #ffffff;
-  background-color: #428bca;
+.nav-side-menu li.sign-out {
+  border-left: 3px solid darkred;
 }
-.adminStats .statValue {
-  position: absolute;
-  display: block;
-  padding: 0 10px;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
-  line-height: 100px;
-  text-align: center;
-  word-wrap: break-word;
-  font-size: 17px;
-}
-.adminStats .statValue.lead {
-  font-size: 21px;
-  font-weight: 600;
-}
-.adminStats h4 {
-  text-align: right;
-  font-size: 18px;
-  position: absolute;
-  bottom: 10px;
-  right: 15px;
-  margin: 0;
-  color: #efefef;
-}
-.adminStats .luckGood {
-  color: #5eff5e;
-}
-.adminStats .luckBad {
-  color: red;
-}
-.adminStats .luckMid {
-  color: #FFF500;
+
+.nav-side-menu li.sign-out:hover {
+  border-left: 3px solid darkred;
+  background-color: darkred;
 }
 
 /* Users list */
