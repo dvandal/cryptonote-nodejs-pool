@@ -18,6 +18,17 @@
   background-color: darkred;
 }
 
+/* Pool Statistics */
+#poolStats .luckGood {
+  color: #5eff5e;
+}
+#poolStats .luckBad {
+  color: red;
+}
+#poolStats .luckMid {
+  color: #FFF500;
+}
+
 /* Users list */
 .usersList {
   word-wrap: break-word;
