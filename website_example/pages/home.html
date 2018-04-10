@@ -1,5 +1,4 @@
-<!-- Welcome -->
-<h3>Welcome!</h3>
+<br/>
 
 <!-- Statistics -->
 <div id="poolStats" class="row">
@@ -17,45 +16,6 @@
         </div>
     </div>
     
-    <!-- Network Hash Rate -->
-    <div class="col-lg-3 col-sm-4">
-        <div class="infoBox hoverExpandEffect">
-            <div class="icon">
-                <span class="fa fa-dashboard"></span>
-            </div>
-            <div class="content">
-                <div class="text">Network Hash Rate</div>
-                <div class="value"><span id="networkHashrate"></span></div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Current Effort -->
-    <div class="col-lg-3 col-sm-4">
-        <div class="infoBox hoverExpandEffect">
-            <div class="icon">
-                <span class="fa fa-line-chart"></span>
-            </div>
-            <div class="content">
-                <div class="text">Current Effort</div>
-                <div class="value"><span id="currentEffort"></span></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Difficulty -->
-    <div class="col-lg-3 col-sm-4">
-        <div class="infoBox hoverExpandEffect">
-            <div class="icon">
-                <span class="fa fa-unlock-alt"></span>
-            </div>
-            <div class="content">
-                <div class="text">Difficulty</div>
-                <div class="value"><span id="networkDifficulty"></span></div>
-            </div>
-        </div>
-    </div>
-
     <!-- Blocks Found -->
     <div class="col-lg-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
@@ -81,6 +41,45 @@
             </div>
         </div>
     </div>
+        
+    <!-- Current Effort -->
+    <div class="col-lg-3 col-sm-4">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-line-chart"></span>
+            </div>
+            <div class="content">
+                <div class="text">Current Effort</div>
+                <div class="value"><span id="currentEffort"></span></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Network Hash Rate -->
+    <div class="col-lg-3 col-sm-4">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-dashboard"></span>
+            </div>
+            <div class="content">
+                <div class="text">Network Hash Rate</div>
+                <div class="value"><span id="networkHashrate"></span></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Difficulty -->
+    <div class="col-lg-3 col-sm-4">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-unlock-alt"></span>
+            </div>
+            <div class="content">
+                <div class="text">Difficulty</div>
+                <div class="value"><span id="networkDifficulty"></span></div>
+            </div>
+        </div>
+    </div>
     
     <!-- Blockchain Height -->
     <div class="col-lg-3 col-sm-4">
@@ -94,7 +93,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Last Reward -->
     <div class="col-lg-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
@@ -107,7 +106,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Connected Miners -->
     <div class="col-lg-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
@@ -116,11 +115,11 @@
             </div>
             <div class="content">
                 <div class="text">Connected Miners</div>
-                <div class="value"><span id="poolMiners"></span></div>
+                <div class="value"><span id="poolMiners"></span> <span class="smallText">(<strong><span id="poolWorkers"></span></strong> workers)</span></div>
             </div>
         </div>
     </div>
-    
+        
     <!-- Pool Fee -->
     <div class="col-lg-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
@@ -146,7 +145,7 @@
             </div>
         </div>
     </div>
-    
+            
     <!-- Payment Interval -->
     <div class="col-lg-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
@@ -160,7 +159,7 @@
         </div>
     </div>
 
-    <!-- Last Hash --> 
+    <!-- Last Hash -->
     <div class="col-sm-12">
         <div class="hashInfo hoverExpandEffect">
             <div class="text">Last Hash</div>
@@ -175,20 +174,26 @@
 
 <!-- Pool Charts -->
 <div class="row">
-    <div class="col-sm-4 poolChart">
+    <div class="col-sm-6 poolChart">
         <h4>Hashrate</h4>
         <div id="chartHashrate" data-chart="hashrate">
             <div class="chart"></div>
         </div>        
     </div>
-    <div class="col-sm-4 poolChart">
+    <div class="col-sm-6 poolChart">
         <h4>Difficulty</h4>
         <div id="chartDifficulty" data-chart="diff">
             <div class="chart"></div>
         </div>
     </div>
-    <div class="col-sm-4 poolChart">        
+    <div class="col-sm-6 poolChart">        
         <h4>Miners</h4>
+        <div id="chartMiners" data-chart="miners">
+            <div class="chart"></div>
+        </div> 
+    </div>    
+    <div class="col-sm-6 poolChart">        
+        <h4>Workers</h4>
         <div id="chartWorkers" data-chart="workers">
             <div class="chart"></div>
         </div> 
@@ -222,6 +227,7 @@ currentPage = {
         }
 
         updateText('poolMiners', lastStats.pool.miners.toString());
+        updateText('poolWorkers', lastStats.pool.workers.toString());
 
         var totalFee = lastStats.config.fee;
         if (Object.keys(lastStats.config.donation).length) {
@@ -269,6 +275,7 @@ function createCharts(data) {
         var graphData = {
             hashrate: getGraphData(data.charts.hashrate),
             diff: getGraphData(data.charts.difficulty),
+            miners: getGraphData(data.charts.miners),
             workers: getGraphData(data.charts.workers)
         };
             
