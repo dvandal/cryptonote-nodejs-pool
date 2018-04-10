@@ -754,6 +754,15 @@ table th.sort:hover{
 #blocksStats .infoBox  {
   margin-bottom: 15px;
 }
+#blocksStats .luckGood {
+  color: #5eff5e;
+}
+#blocksStats .luckBad {
+  color: red;
+}
+#blocksStats .luckMid {
+  color: #FFF500;
+}
 #blocksReport tr > td {
   vertical-align: middle;
   font-family: 'Inconsolata', monospace;
