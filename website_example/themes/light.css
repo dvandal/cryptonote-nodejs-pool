@@ -881,3 +881,31 @@ table th.sort:hover{
     width: 70px;
   }
 }
+
+/* Top 10 miners */
+#top10miners td {
+  vertical-align: middle;
+}
+#top10miners table .col1,
+#top10miners table .col3,
+#top10miners table .col4,
+#top10miners table .col5 {
+  text-align: center;
+}
+@media (min-width: 768px) {
+  #top10miners table th {
+    white-space: nowrap;
+  }
+  #top10miners table .col1 {
+    width:80px;
+  }
+  #top10miners table .col3 {
+    width:150px;
+  }  
+  #top10miners table .col4 {
+    width: 210px;
+  }
+  #top10miners table .col5 {
+    width: 210px;
+  }
+}
