@@ -1,242 +1,313 @@
-{
-    "coin": "Stellitecoin",
-    "symbol": "XTL",
-    "coinUnits": 10000,
-    "coinDifficultyTarget": 60,
-    "moneroVariant": false,
+/* Used for storage in redis so multiple coins can share the same redis instance. */
+"coin": "StelliteCoin",
 
-    "logging": {
-        "files": {
-            "level": "info",
-            "directory": "logs",
-            "flushInterval": 5
+/* Used for front-end display */
+"symbol": "XTL",
+
+/* Minimum units in a single coin, see COIN constant in DAEMON_CODE/src/cryptonote_config.h */
+"coinUnits": 100,
+
+/* Coin network time to mine one block, see DIFFICULTY_TARGET constant in DAEMON_CODE/src/cryptonote_config.h */
+"coinDifficultyTarget": 60,
+
+/* Enable/Disable support for monero variants */
+"moneroVariant": false,
+
+/* Logging */
+"logging": {
+
+    "files": {
+
+        /* Specifies the level of log output verbosity. This level and anything
+           more severe will be logged. Options are: info, warn, or error. */
+        "level": "info",
+
+        /* Directory where to write log files. */
+        "directory": "logs",
+
+        /* How often (in seconds) to append/flush data to the log files. */
+        "flushInterval": 5
+    },
+
+    "console": {
+        "level": "info",
+        /* Gives console output useful colors. If you direct that output to a log file
+           then disable this feature to avoid nasty characters in the file. */
+        "colors": true
+    }
+},
+
+/* Modular Pool Server */
+"poolServer": {
+    "enabled": true,
+
+    /* Set to "auto" by default which will spawn one process/fork/worker for each CPU
+       core in your system. Each of these workers will run a separate instance of your
+       pool(s), and the kernel will load balance miners using these forks. Optionally,
+       the 'forks' field can be a number for how many forks will be spawned. */
+    "clusterForks": "auto",
+
+    /* Address where block rewards go, and miner payments come from. */
+    "poolAddress": "Se3uv4ghkuBR2DnDZoEZBiRnd2WnmDkKyYbuTagBeNFcTMQLNZaP6HFX3HvcgUxA4ahtv8avuhXLrJoPf4TbrWWm1A63dxeLU",
+    /* Poll RPC daemons for new blocks every this many milliseconds. */
+    "blockRefreshInterval": 1000,
+
+    /* How many seconds until we consider a miner disconnected. */
+    "minerTimeout": 900,
+
+    "sslCert": "./cert.pem", // The SSL certificate
+    "sslKey": "./privkey.pem", // The SSL private key
+    "sslCA": "./chain.pem" // The SSL certificate authority chain
+    
+    "ports": [
+        {
+            "port": 3333, // Port for mining apps to connect to
+            "difficulty": 2000, // Initial difficulty miners are set to
+            "desc": "Low end hardware" // Description of port
         },
-        "console": {
-            "level": "info",
-            "colors": true
+        {
+            "port": 4444,
+            "difficulty": 15000,
+            "desc": "Mid range hardware"
+        },
+        {
+            "port": 5555,
+            "difficulty": 25000,
+            "desc": "High end hardware"
+        },
+        {
+            "port": 7777,
+            "difficulty": 500000,
+            "desc": "Cloud-mining / NiceHash"
+        },
+        {
+            "port": 9999,
+            "difficulty": 20000,
+            "desc": "SSL connection",
+            "ssl": true // Enable SSL
+        }
+    ],
+
+    /* Variable difficulty is a feature that will automatically adjust difficulty for
+       individual miners based on their hashrate in order to lower networking and CPU
+       overhead. */
+    "varDiff": {
+        "minDiff": 100, // Minimum difficulty
+        "maxDiff": 100000000,
+        "targetTime": 60, // Try to get 1 share per this many seconds
+        "retargetTime": 30, // Check to see if we should retarget every this many seconds
+        "variancePercent": 30, // Allow time to vary this % from target without retargeting
+        "maxJump": 100 // Limit diff percent increase/decrease in a single retargeting
+    },
+
+    /* Set payment ID on miner client side by passing <address>.<paymentID> */
+    "paymentId": {
+        "addressSeparator": "." // Character separator between <address> and <paymentID>
+    },
+	
+    /* Set difficulty on miner client side by passing <address> param with +<difficulty> postfix */
+    "fixedDiff": {
+        "enabled": true,
+        "separator": "+", // Character separator between <address> and <difficulty>
+    },
+
+    /* Feature to trust share difficulties from miners which can
+       significantly reduce CPU load. */
+    "shareTrust": {
+        "enabled": true,
+        "min": 10, // Minimum percent probability for share hashing
+        "stepDown": 3, // Increase trust probability % this much with each valid share
+        "threshold": 10, // Amount of valid shares required before trusting begins
+        "penalty": 30 // Upon breaking trust require this many valid share before trusting
+    },
+
+    /* If under low-diff share attack we can ban their IP to reduce system/network load. */
+    "banning": {
+        "enabled": true,
+        "time": 600, // How many seconds to ban worker for
+        "invalidPercent": 25, // What percent of invalid shares triggers ban
+        "checkThreshold": 30 // Perform check when this many shares have been submitted
+    },
+    
+    /* Slush Mining is a reward calculation technique which disincentivizes pool hopping and rewards 'loyal' miners by valuing younger shares higher than older shares. Remember adjusting the weight!
+    More about it here: https://mining.bitcoin.cz/help/#!/manual/rewards */
+    "slushMining": {
+        "enabled": false, // Enables slush mining. Recommended for pools catering to professional miners
+        "weight": 300, // Defines how fast the score assigned to a share declines in time. The value should roughly be equivalent to the average round duration in seconds divided by 8. When deviating by too much numbers may get too high for JS.
+        "blockTime": 60
+        "lastBlockCheckRate": 1 // How often the pool checks the timestamp of the last block. Lower numbers increase load but raise precision of the share value
+    }
+},
+
+/* Module that sends payments to miners according to their submitted shares. */
+"payments": {
+    "enabled": true,
+    "interval": 300, // How often to run in seconds
+    "maxAddresses": 50, // Split up payments if sending to more than this many addresses
+    "mixin": 5, // Number of transactions yours is indistinguishable from
+    "priority": 0, // The transaction priority    
+    "transferFee": 200, // Fee to pay for each transaction
+    "dynamicTransferFee": true, // Enable dynamic transfer fee (fee is multiplied by number of miners)
+    "minerPayFee" : true, // Miner pays the transfer fee instead of pool owner when using dynamic transfer fee
+    "minPayment": 10000, // Miner balance required before sending payment
+    "maxTransactionAmount": 0, // Split transactions by this amount (to prevent "too big transaction" error)
+    "denomination": 1// Truncate to this precision and store remainder
+},
+
+/* Module that monitors the submitted block maturities and manages rounds. Confirmed
+   blocks mark the end of a round where workers' balances are increased in proportion
+   to their shares. */
+"blockUnlocker": {
+    "enabled": true,
+    "interval": 30, // How often to check block statuses in seconds
+
+    /* Block depth required for a block to unlocked/mature. Found in daemon source as
+       the variable CRYPTONOTE_MINED_MONEY_UNLOCK_WINDOW */
+    "depth": 60,
+    "poolFee": 1.8, // 1.8% pool fee (2% total fee total including donations)
+    "devDonation": 0.2 // 0.2% donation to send to pool dev
+},
+
+/* AJAX API used for front-end website. */
+"api": {
+    "enabled": true,
+    "hashrateWindow": 600, // How many second worth of shares used to estimate hash rate
+    "updateInterval": 3, // Gather stats and broadcast every this many seconds
+    "port": 8117, // The API port
+    "blocks": 30, // Amount of blocks to send at a time
+    "payments": 30, // Amount of payments to send at a time
+    "password": "your_password", // Password required for admin stats
+    "ssl": false, // Enable SSL API
+    "sslPort": 8119, // The SSL port
+    "sslCert": "./cert.pem", // The SSL certificate
+    "sslKey": "./privkey.pem", // The SSL private key
+    "sslCA": "./chain.pem", // The SSL certificate authority chain
+    "trustProxyIP": false // Proxy X-Forwarded-For support
+},
+
+/* Coin daemon connection details (default port is 18981) */
+"daemon": {
+    "host": "127.0.0.1",
+    "port": 18981
+},
+
+/* Wallet daemon connection details (default port is 18980) */
+"wallet": {
+    "host": "127.0.0.1",
+    "port": 18982
+},
+
+/* Redis connection into (default port is 6379) */
+"redis": {
+    "host": "127.0.0.1",
+    "port": 6379,
+    "auth": null // If set, client will run redis auth command on connect. Use for remote db
+    "db" : 0 //Select which db to use in redis
+}
+
+/* Email Notifications */
+"email": {
+    "enabled": false,
+    "templateDir": "email_templates", // The templates folder
+    "templates": ["worker_connected", "worker_banned", "worker_timeout"], // Specify which templates to enable
+    "variables": { // The variables to replace in templates
+        "POOL_HOST": "poolhost.com" // Your pool domain
+    },
+    "fromAddress": "your@email.com", // Your sender email
+    "transport": "sendmail", // The transport mode (sendmail, smtp or mailgun)
+    
+    // Configuration for sendmail transport
+    // Documentation: http://nodemailer.com/transports/sendmail/
+    "sendmail": {
+        "path": "/usr/sbin/sendmail" // The path to sendmail command
+    },
+    
+    // Configuration for SMTP transport
+    // Documentation: http://nodemailer.com/smtp/
+    "smtp": {
+        "host": "smtp.example.com", // SMTP server
+        "port": 587, // SMTP port (25, 587 or 465)
+        "secure": false, // TLS (if false will upgrade with STARTTLS)
+        "auth": {
+            "user": "username", // SMTP username
+            "pass": "password" // SMTP password
         }
     },
-
-    "poolServer": {
-        "enabled": true,
-        "clusterForks": "auto",
-        "poolAddress": "Se2Ba4fwCSNcYmh8pPDXdvcQGkkszeVK9EiREjXVeBa7UdYUVUMPiyDgnoTE7pPAKB6Jy7jiQYASG31YvUETr2pR1kTTmfjYm",
-        "blockRefreshInterval": 1000,
-        "minerTimeout": 900,
-        "sslCert": "./cert.pem",
-        "sslKey": "./privkey.pem",
-        "sslCA": "./chain.pem",
-        "ports": [
-            {
-                "port": 3333,
-                "difficulty": 5000,
-                "desc": "Low end hardware"
-            },
-            {
-                "port": 4444,
-                "difficulty": 15000,
-                "desc": "Mid range hardware"
-            },
-            {
-                "port": 5555,
-                "difficulty": 25000,
-                "desc": "High end hardware"
-            },
-            {
-                "port": 7777,
-                "difficulty": 500000,
-                "desc": "Cloud-mining / NiceHash"
-            },
-            {
-                "port": 9999,
-                "difficulty": 20000,
-                "desc": "SSL connection",
-                "ssl": true
-            }
-        ],
-        "varDiff": {
-            "minDiff": 100,
-            "maxDiff": 100000000,
-            "targetTime": 60,
-            "retargetTime": 30,
-            "variancePercent": 30,
-            "maxJump": 100
-        },
-        "paymentId": {
-            "addressSeparator": "."
-        },
-        "fixedDiff": {
-            "enabled": true,
-            "addressSeparator": "+"
-        },
-        "shareTrust": {
-            "enabled": true,
-            "min": 10,
-            "stepDown": 3,
-            "threshold": 10,
-            "penalty": 30
-        },
-        "banning": {
-            "enabled": true,
-            "time": 600,
-            "invalidPercent": 25,
-            "checkThreshold": 30
-        },
-        "slushMining": {
-            "enabled": false,
-            "weight": 300,
-            "blockTime": 60,
-            "lastBlockCheckRate": 1
-         }
-    },
-
-    "payments": {
-        "enabled": true,
-        "interval": 300,
-        "maxAddresses": 50,
-        "mixin": 6,
-        "priority": 0,
-        "transferFee": 100,
-        "dynamicTransferFee": true,
-        "minerPayFee" : true,
-        "minPayment": 100000,
-        "maxTransactionAmount": 0,
-        "denomination": 10000
-    },
-
-    "blockUnlocker": {
-        "enabled": true,
-        "interval": 30,
-        "depth": 60,
-        "poolFee": 1.8,
-        "devDonation": 0.2
-    },
-
-    "api": {
-        "enabled": true,
-        "hashrateWindow": 600,
-        "updateInterval": 5,
-        "port": 8117,
-        "blocks": 30,
-        "payments": 30,
-        "password": "your_password",
-        "ssl": false,
-        "sslPort": 8119,
-        "sslCert": "./cert.pem",
-        "sslKey": "./privkey.pem",
-        "sslCA": "./chain.pem",
-        "trustProxyIP": false
-    },
-
+    
+    // Configuration for MailGun transport
+    "mailgun": {
+        "key": "your-private-key", // Your MailGun Private API key
+        "domain": "mg.yourdomain" // Your MailGun domain
+    }
+},
+    
+/* Monitoring RPC services. Statistics will be displayed in Admin panel */
+"monitoring": {
     "daemon": {
-        "host": "127.0.0.1",
-        "port": 20189
+        "checkInterval": 60, // Interval of sending rpcMethod request
+        "rpcMethod": "getblockcount" // RPC method name
     },
-
     "wallet": {
-        "host": "127.0.0.1",
-        "port": 20190
-    },
+        "checkInterval": 60,
+        "rpcMethod": "getbalance"
+    }
+},
 
-    "redis": {
-        "host": "127.0.0.1",
-        "port": 6379,
-        "auth": null,
-        "cleanupInterval": 15
-    },
-
-    "email": {
-        "enabled": false,
-        "templateDir": "email_templates",
-        "templates": ["worker_connected", "worker_banned", "worker_timeout"],
-        "variables": {
-            "POOL_HOST": "poolhost.com"
+/* Prices settings for market and price charts */
+"prices": {
+    "source": "cryptonator", // Price source (cryptonator or tradeogre)
+    "currency": "USD" // Default currency
+},
+	    
+/* Collect pool statistics to display in frontend charts  */
+"charts": {
+    "pool": {
+        "hashrate": {
+            "enabled": true, // Enable data collection and chart displaying in frontend
+            "updateInterval": 60, // How often to get current value
+            "stepInterval": 1800, // Chart step interval calculated as average of all updated values
+            "maximumPeriod": 86400 // Chart maximum periods (chart points number = maximumPeriod / stepInterval = 48)
         },
-        "fromAddress": "your@email.com",
-        "transport": "sendmail",
-        "sendmail": {
-            "path": "/usr/sbin/sendmail"
+        "miners": {
+            "enabled": true,
+            "updateInterval": 60,
+            "stepInterval": 1800,
+            "maximumPeriod": 86400
         },
-        "smtp": {
-            "host": "smtp.example.com",
-            "port": 587,
-            "secure": false,
-            "auth": {
-                "user": "username",
-                "pass": "password"
-            }
+        "workers": {
+            "enabled": true,
+            "updateInterval": 60,
+            "stepInterval": 1800,
+            "maximumPeriod": 86400
         },
-        "mailgun": {
-            "key": "your-private-key",
-            "domain": "mg.yourdomain"
+        "difficulty": {
+            "enabled": true,
+            "updateInterval": 1800,
+            "stepInterval": 10800,
+            "maximumPeriod": 604800
+        },
+        "price": {
+            "enabled": true,
+            "updateInterval": 1800,
+            "stepInterval": 10800,
+            "maximumPeriod": 604800
+        },
+        "profit": {
+            "enabled": true,
+            "updateInterval": 1800,
+            "stepInterval": 10800,
+            "maximumPeriod": 604800
         }
-    },
-    
-    "monitoring": {
-        "daemon": {
-            "checkInterval": 60,
-            "rpcMethod": "getblockcount"
-        },
-        "wallet": {
-            "checkInterval": 60,
-            "rpcMethod": "getbalance"
-        }
-    },
 
-    "prices": {
-        "source": "tradeogre",
-        "currency": "USD"
     },
-    
-    "charts": {
-        "pool": {
-            "hashrate": {
-                "enabled": true,
-                "updateInterval": 60,
-                "stepInterval": 1800,
-                "maximumPeriod": 86400
-            },
-            "miners": {
-                "enabled": true,
-                "updateInterval": 60,
-                "stepInterval": 1800,
-                "maximumPeriod": 86400
-            },
-            "workers": {
-                "enabled": true,
-                "updateInterval": 60,
-                "stepInterval": 1800,
-                "maximumPeriod": 86400
-            },
-            "difficulty": {
-                "enabled": true,
-                "updateInterval": 1800,
-                "stepInterval": 10800,
-                "maximumPeriod": 604800
-            },
-            "price": {
-                "enabled": true,
-                "updateInterval": 1800,
-                "stepInterval": 10800,
-                "maximumPeriod": 604800
-            },
-            "profit": {
-                "enabled": true,
-                "updateInterval": 1800,
-                "stepInterval": 10800,
-                "maximumPeriod": 604800
-            }
+    "user": { // Chart data displayed in user stats block
+        "hashrate": {
+            "enabled": true,
+            "updateInterval": 180,
+            "stepInterval": 1800,
+            "maximumPeriod": 86400
         },
-        "user": {
-            "hashrate": {
-                "enabled": true,
-                "updateInterval": 180,
-                "stepInterval": 1800,
-                "maximumPeriod": 86400
-            },
-            "payments": {
-                "enabled": true
-            }
+        "payments": { // Payment chart uses all user payments data stored in DB
+            "enabled": true
         }
     }
-}
