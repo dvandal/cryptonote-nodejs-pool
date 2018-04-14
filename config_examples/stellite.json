@@ -71,9 +71,6 @@
         }
     ],
 
-    /* Variable difficulty is a feature that will automatically adjust difficulty for
-       individual miners based on their hashrate in order to lower networking and CPU
-       overhead. */
     "varDiff": {
         "minDiff": 100, // Minimum difficulty
         "maxDiff": 100000000,
@@ -83,19 +80,15 @@
         "maxJump": 100 // Limit diff percent increase/decrease in a single retargeting
     },
 
-    /* Set payment ID on miner client side by passing <address>.<paymentID> */
     "paymentId": {
         "addressSeparator": "." // Character separator between <address> and <paymentID>
     },
 	
-    /* Set difficulty on miner client side by passing <address> param with +<difficulty> postfix */
     "fixedDiff": {
         "enabled": true,
         "separator": "+", // Character separator between <address> and <difficulty>
     },
 
-    /* Feature to trust share difficulties from miners which can
-       significantly reduce CPU load. */
     "shareTrust": {
         "enabled": true,
         "min": 10, // Minimum percent probability for share hashing
@@ -104,16 +97,12 @@
         "penalty": 30 // Upon breaking trust require this many valid share before trusting
     },
 
-    /* If under low-diff share attack we can ban their IP to reduce system/network load. */
     "banning": {
         "enabled": true,
         "time": 600, // How many seconds to ban worker for
         "invalidPercent": 25, // What percent of invalid shares triggers ban
         "checkThreshold": 30 // Perform check when this many shares have been submitted
     },
-    
-    /* Slush Mining is a reward calculation technique which disincentivizes pool hopping and rewards 'loyal' miners by valuing younger shares higher than older shares. Remember adjusting the weight!
-    More about it here: https://mining.bitcoin.cz/help/#!/manual/rewards */
     "slushMining": {
         "enabled": false, // Enables slush mining. Recommended for pools catering to professional miners
         "weight": 300, // Defines how fast the score assigned to a share declines in time. The value should roughly be equivalent to the average round duration in seconds divided by 8. When deviating by too much numbers may get too high for JS.
@@ -122,7 +111,6 @@
     }
 },
 
-/* Module that sends payments to miners according to their submitted shares. */
 "payments": {
     "enabled": true,
     "interval": 300, // How often to run in seconds
@@ -137,9 +125,6 @@
     "denomination": 1// Truncate to this precision and store remainder
 },
 
-/* Module that monitors the submitted block maturities and manages rounds. Confirmed
-   blocks mark the end of a round where workers' balances are increased in proportion
-   to their shares. */
 "blockUnlocker": {
     "enabled": true,
     "interval": 30, // How often to check block statuses in seconds
@@ -151,7 +136,6 @@
     "devDonation": 0.2 // 0.2% donation to send to pool dev
 },
 
-/* AJAX API used for front-end website. */
 "api": {
     "enabled": true,
     "hashrateWindow": 600, // How many second worth of shares used to estimate hash rate
@@ -168,27 +152,22 @@
     "trustProxyIP": false // Proxy X-Forwarded-For support
 },
 
-/* Coin daemon connection details (default port is 18981) */
 "daemon": {
     "host": "127.0.0.1",
-    "port": 18981
+    "port": 20188
 },
 
-/* Wallet daemon connection details (default port is 18980) */
 "wallet": {
     "host": "127.0.0.1",
     "port": 18982
 },
 
-/* Redis connection into (default port is 6379) */
 "redis": {
     "host": "127.0.0.1",
     "port": 6379,
     "auth": null // If set, client will run redis auth command on connect. Use for remote db
     "db" : 0 //Select which db to use in redis
 }
-
-/* Email Notifications */
 "email": {
     "enabled": false,
     "templateDir": "email_templates", // The templates folder
@@ -223,8 +202,6 @@
         "domain": "mg.yourdomain" // Your MailGun domain
     }
 },
-    
-/* Monitoring RPC services. Statistics will be displayed in Admin panel */
 "monitoring": {
     "daemon": {
         "checkInterval": 60, // Interval of sending rpcMethod request
@@ -235,14 +212,10 @@
         "rpcMethod": "getbalance"
     }
 },
-
-/* Prices settings for market and price charts */
 "prices": {
     "source": "cryptonator", // Price source (cryptonator or tradeogre)
     "currency": "USD" // Default currency
 },
-	    
-/* Collect pool statistics to display in frontend charts  */
 "charts": {
     "pool": {
         "hashrate": {
