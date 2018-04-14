@@ -17,9 +17,7 @@
 "logging": {
 
     "files": {
-
-        /* Specifies the level of log output verbosity. This level and anything
-           more severe will be logged. Options are: info, warn, or error. */
+        /* Specifies the level of log output verbosity. This level and anything more severe will be logged. Options are: info, warn, or error. */
         "level": "info",
 
         /* Directory where to write log files. */
