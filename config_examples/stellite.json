@@ -17,20 +17,13 @@
 "logging": {
 
     "files": {
-        /* Specifies the level of log output verbosity. This level and anything more severe will be logged. Options are: info, warn, or error. */
         "level": "info",
-
-        /* Directory where to write log files. */
         "directory": "logs",
-
-        /* How often (in seconds) to append/flush data to the log files. */
         "flushInterval": 5
     },
 
     "console": {
         "level": "info",
-        /* Gives console output useful colors. If you direct that output to a log file
-           then disable this feature to avoid nasty characters in the file. */
         "colors": true
     }
 },
@@ -38,16 +31,8 @@
 /* Modular Pool Server */
 "poolServer": {
     "enabled": true,
-
-    /* Set to "auto" by default which will spawn one process/fork/worker for each CPU
-       core in your system. Each of these workers will run a separate instance of your
-       pool(s), and the kernel will load balance miners using these forks. Optionally,
-       the 'forks' field can be a number for how many forks will be spawned. */
     "clusterForks": "auto",
-
-    /* Address where block rewards go, and miner payments come from. */
     "poolAddress": "Se3uv4ghkuBR2DnDZoEZBiRnd2WnmDkKyYbuTagBeNFcTMQLNZaP6HFX3HvcgUxA4ahtv8avuhXLrJoPf4TbrWWm1A63dxeLU",
-    /* Poll RPC daemons for new blocks every this many milliseconds. */
     "blockRefreshInterval": 1000,
 
     /* How many seconds until we consider a miner disconnected. */
