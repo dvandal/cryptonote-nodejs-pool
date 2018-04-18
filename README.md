@@ -156,8 +156,8 @@ Explanation for each field:
 /* Coin network time to mine one block, see DIFFICULTY_TARGET constant in DAEMON_CODE/src/cryptonote_config.h */
 "coinDifficultyTarget": 120,
 
-/* Enable/Disable support for monero variants */
-"moneroVariant": false,
+/* Enable/Disable support for monero v7 and variants */
+"moneroVariant": true,
 
 /* Logging */
 "logging": {
