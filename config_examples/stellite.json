@@ -3,7 +3,7 @@
     "symbol": "XTL",
     "coinUnits": 10000,
     "coinDifficultyTarget": 60,
-    "cnVariant": null,
+    "cnVariant": 1,
 
     "logging": {
         "files": {
