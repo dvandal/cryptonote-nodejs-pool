@@ -3,7 +3,7 @@
     "symbol": "GRFT",
     "coinUnits": 10000000000,
     "coinDifficultyTarget": 120,
-    "moneroVariant": true,
+    "cnVariant": null,
 
     "logging": {
         "files": {
@@ -63,11 +63,11 @@
             "maxJump": 100
         },
         "paymentId": {
-            "addressSeparator": "."
+            "addressSeparator": "+"
         },
         "fixedDiff": {
             "enabled": true,
-            "addressSeparator": "+"
+            "addressSeparator": "."
         },
         "shareTrust": {
             "enabled": true,

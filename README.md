@@ -156,8 +156,8 @@ Explanation for each field:
 /* Coin network time to mine one block, see DIFFICULTY_TARGET constant in DAEMON_CODE/src/cryptonote_config.h */
 "coinDifficultyTarget": 120,
 
-/* Enable/Disable support for monero v7 and variants */
-"moneroVariant": true,
+/* Set Cryptonight variant. Set 0 for original Cryptonight algorithm and 1 for Cryptonight v1 / Monero v7 algorithm. If empty will use automatic detection. */
+"cnVariant": null,
 
 /* Logging */
 "logging": {

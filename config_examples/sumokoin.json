@@ -3,7 +3,7 @@
     "symbol": "SUMO",
     "coinUnits": 1000000000,
     "coinDifficultyTarget": 240,
-    "moneroVariant": false,
+    "cnVariant": null,
 
     "logging": {
         "files": {
@@ -63,11 +63,11 @@
             "maxJump": 100
         },
         "paymentId": {
-            "addressSeparator": "."
+            "addressSeparator": "+"
         },
         "fixedDiff": {
             "enabled": true,
-            "addressSeparator": "+"
+            "addressSeparator": "."
         },
         "shareTrust": {
             "enabled": true,
