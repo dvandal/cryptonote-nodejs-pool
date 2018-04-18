@@ -1,6 +1,6 @@
 {
     "name": "cryptonote-nodejs-pool",
-    "version": "1.2.6",
+    "version": "1.2.7",
     "license": "GPL-2.0",
     "author": "Daniel Vandal",
     "repository": {
