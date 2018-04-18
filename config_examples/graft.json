@@ -3,7 +3,7 @@
     "symbol": "GRFT",
     "coinUnits": 10000000000,
     "coinDifficultyTarget": 120,
-    "cnVariant": null,
+    "cnVariant": 1,
 
     "logging": {
         "files": {
