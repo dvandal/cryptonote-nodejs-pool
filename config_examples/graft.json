@@ -3,7 +3,7 @@
     "symbol": "GRFT",
     "coinUnits": 10000000000,
     "coinDifficultyTarget": 120,
-    "moneroVariant": false,
+    "cnVariant": 1,
 
     "logging": {
         "files": {
@@ -63,11 +63,11 @@
             "maxJump": 100
         },
         "paymentId": {
-            "addressSeparator": "."
+            "addressSeparator": "+"
         },
         "fixedDiff": {
             "enabled": true,
-            "addressSeparator": "+"
+            "addressSeparator": "."
         },
         "shareTrust": {
             "enabled": true,
@@ -141,7 +141,8 @@
     "redis": {
         "host": "127.0.0.1",
         "port": 6379,
-        "auth": null
+        "auth": null,
+        "cleanupInterval": 15
     },
 
     "email": {
@@ -190,6 +191,12 @@
     "charts": {
         "pool": {
             "hashrate": {
+                "enabled": true,
+                "updateInterval": 60,
+                "stepInterval": 1800,
+                "maximumPeriod": 86400
+            },
+            "miners": {
                 "enabled": true,
                 "updateInterval": 60,
                 "stepInterval": 1800,

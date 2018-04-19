@@ -35,7 +35,20 @@
             </div>
             <div class="content">
                 <div class="text">Efficiency</div>
-                <div class="value"><span id="efficiency"></span> <span class="smallText">for <span id="efficiencyBlocks"></span> blocks</div>
+                <div class="value"><span id="efficiency"></span></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Average Luck -->
+    <div class="col-lg-3 col-sm-4">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-line-chart"></span>
+            </div>
+            <div class="content">
+                <div class="text">Average Luck</div>
+                <div class="value"><span id="averageLuck"></span></div>
             </div>
         </div>
     </div>
@@ -67,6 +80,45 @@
 
 <!-- Javascript -->
 <script>
+function formatLuck(difficulty, shares) {
+    // Only an approximation to reverse the calculations done in pool.js, because the shares with their respective times are not recorded in redis
+    // Approximation assumes equal pool hashrate for the whole round
+    // Could potentially be replaced by storing the sum of all job.difficulty in the redis db.
+    if (lastStats.config.slushMiningEnabled) {
+        // Uses integral calculus to calculate the average of a dynamic function
+        var accurateShares = 1/lastStats.config.blockTime * (  // 1/blockTime to get the average
+            shares * lastStats.config.weight * (                  // Basically calculates the 'area below the graph' between 0 and blockTime
+                1 - Math.pow( 
+                    Math.E, 
+                    ((- lastStats.config.blockTime) / lastStats.config.weight)  // blockTime is equal to the highest possible result of (dateNowSeconds - scoreTime)
+                )
+            )
+        );
+    }
+    else {
+        var accurateShares = shares;
+    }
+        
+    var percent = Math.round(accurateShares / difficulty * 100);
+    if(!percent){
+        return '<span class="luckGood">?</span>';
+    }
+    else if(percent <= 100){
+        return '<span class="luckGood">' + percent + '%</span>';
+    }
+    else if(percent >= 101 && percent <= 150){
+        return '<span class="luckMid">' + percent + '%</span>';
+    }
+    else{
+        return '<span class="luckBad">' + percent + '%</span>';
+    }    
+}
+
+function formatEfficiency(percent) {
+    return percent + '%';
+}
+
+    
 currentPage = {
     destroy: function(){
         if (xhrGetBlocks) xhrGetBlocks.abort();
@@ -81,7 +133,11 @@ currentPage = {
             $('#lastBlockFound').removeAttr('title').data('ts', '').update('Never');
         }
         updateText('blocksMaturityCount', lastStats.config.depth.toString());
-        renderBlocks(lastStats.pool.blocks);
+
+        $('#efficiency').html(formatEfficiency(lastStats.pool.efficiency));
+        $('#averageLuck').html(formatLuck(lastStats.pool.totalDiff, lastStats.pool.totalShares));
+
+        renderBlocks(lastStats.pool.blocks);	
     }
 };
 
@@ -141,49 +197,7 @@ function parseBlock(height, serializedBlock){
     return block;
 }
 
-var effBlocksCount = 0;
-var effDiffTotals  = 0;
-
-function getBlockRowElement(block, jsonString){
-    function formatLuck(difficulty, shares) {
-        // Only an approximation to reverse the calculations done in pool.js, because the shares with their respective times are not recorded in redis
-        // Approximation assumes equal pool hashrate for the whole round
-        // Could potentially be replaced by storing the sum of all job.difficulty in the redis db.
-        if (lastStats.config.slushMiningEnabled) {
-            // Uses integral calculus to calculate the average of a dynamic function
-            var accurateShares = 1/lastStats.config.blockTime * (  // 1/blockTime to get the average
-                shares * lastStats.config.weight (                  // Basically calculates the 'area below the graph' between 0 and blockTime
-                    1 - Math.pow( 
-                        Math.E, 
-                        ((- lastStats.config.blockTime) / lastStats.config.weight)  // blockTime is equal to the highest possible result of (dateNowSeconds - scoreTime)
-                    )
-                )
-            );
-        }
-        else {
-            var accurateShares = shares;
-        }
-        
-        var percent = Math.round(accurateShares / difficulty * 100);
-        if(!percent){
-            return '<span class="luckGood">?</span>';
-        }
-        else if(percent <= 100){
-            return '<span class="luckGood">' + percent + '%</span>';
-        }
-        else if(percent >= 101 && percent <= 150){
-            return '<span class="luckMid">' + percent + '%</span>';
-        }
-        else{
-            return '<span class="luckBad">' + percent + '%</span>';
-        }    
-    }
-    
-    function formatEfficiency(total, nb){
-        var percent = Math.round( ( 10000 / ( total/nb ))) / 100;
-        return percent + '%';
-    }
-    
+function getBlockRowElement(block, jsonString){        
     function formatBlockLink(hash){
         return '<a target="_blank" href="' + getBlockchainUrl(hash) + '">' + hash + '</a>';
     }
@@ -219,13 +233,6 @@ function getBlockRowElement(block, jsonString){
         '<td class="col7">' + block.maturity + '</td>';
 
     row.innerHTML = columns;
-
-    if(block.status != 'orphaned'){
-        effDiffTotals = effDiffTotals + (block.shares / block.difficulty);
-        effBlocksCount++ ;
-    }
-    updateText('efficiency', formatEfficiency(effDiffTotals,effBlocksCount).toString());
-    updateText('efficiencyBlocks', effBlocksCount.toString());
     
     return row;
 }

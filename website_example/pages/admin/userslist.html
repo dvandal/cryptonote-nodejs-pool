@@ -1,3 +1,5 @@
+<h3>Users List (<span id="totalUsers">0</span> users)</h3>
+
 <!-- Handlebars template -->
 <script id="usersListTable" type="text/x-handlebars-template">
     {{#each users}}
@@ -34,9 +36,10 @@
 <!-- Javascript -->
 <script>
 function parseUsers(wallets) {
-    var walletsArray = [],
-        properObject = {};
-	
+    var totalUsers = 0;
+    var walletsArray = [];
+    var properObject = {};
+
     for(var wallet in wallets) {
         if(wallets.hasOwnProperty(wallet)) {
             var userData = wallets[wallet];
@@ -49,8 +52,11 @@ function parseUsers(wallets) {
                 readableHashrate: getReadableHashRateString(userData.hashrate) + '/s',
                 readableHashes: getReadableHashRateString(userData.hashes)
             });
+	    totalUsers++;
         }
     }
+    $('#totalUsers').html(totalUsers);
+
     properObject['users'] = walletsArray.sort(function(a, b) {
         return a.wallet.hashrate - b.wallet.hashrate
     }).reverse();

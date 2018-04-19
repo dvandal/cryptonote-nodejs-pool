@@ -50,6 +50,10 @@
                     <i class="fa fa-money"></i> Payments
                 </a></li>            
 
+                <li><a class="hot_link" data-page="top10miners.html" href="#top10miners">
+                    <i class="fa fa-trophy"></i> Top 10 miners
+                </a></li>
+
                 <li><a class="hot_link" data-page="market.html" href="#market">
                     <i class="fa fa-bank"></i> Market
                 </a></li>
@@ -141,16 +145,18 @@ $.fn.update = function(txt){
 
 function updateTextClasses(className, text){
     var els = document.getElementsByClassName(className);
-    for (var i = 0; i < els.length; i++){
-        var el = els[i];
-        if (el.textContent !== text)
-            el.textContent = text;
+    if (els) {
+        for (var i = 0; i < els.length; i++){
+            var el = els[i];
+            if (el && el.textContent !== text)
+                el.textContent = text;
+        }
     }
 }
 
 function updateText(elementId, text){
     var el = document.getElementById(elementId);
-    if (el.textContent !== text){
+    if (el && el.textContent !== text){
         el.textContent = text;
     }
     return el;

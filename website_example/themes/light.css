@@ -450,7 +450,7 @@ table th.sort:hover{
   text-shadow: 1px 1px 1px #000;
 }
 .infoBox .content .value .smallText {
-  font-size: 15px;
+  font-size: 18px;
   font-weight: normal;
 }
 
@@ -764,6 +764,15 @@ table th.sort:hover{
 #blocksStats .infoBox  {
   margin-bottom: 15px;
 }
+#blocksStats .luckGood {
+  color: #5eff5e;
+}
+#blocksStats .luckBad {
+  color: red;
+}
+#blocksStats .luckMid {
+  color: #FFF500;
+}
 #blocksReport tr > td {
   vertical-align: middle;
   font-family: 'Inconsolata', monospace;
@@ -870,5 +879,33 @@ table th.sort:hover{
   }
   #paymentsReport table .col6 {
     width: 70px;
+  }
+}
+
+/* Top 10 miners */
+#top10miners td {
+  vertical-align: middle;
+}
+#top10miners table .col1,
+#top10miners table .col3,
+#top10miners table .col4,
+#top10miners table .col5 {
+  text-align: center;
+}
+@media (min-width: 768px) {
+  #top10miners table th {
+    white-space: nowrap;
+  }
+  #top10miners table .col1 {
+    width:80px;
+  }
+  #top10miners table .col3 {
+    width:150px;
+  }  
+  #top10miners table .col4 {
+    width: 210px;
+  }
+  #top10miners table .col5 {
+    width: 210px;
   }
 }

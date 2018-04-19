@@ -1,32 +1,112 @@
-<div class="row adminStats">
-    <div class="col-sm-3 color1">
-        <h4>Total Owed</h4>
-        <span class="statValue" id="totalOwed">...</span>
+<h3>Pool Statistics</h3>
+
+<!-- Statistics -->
+<div id="poolStats" class="row">
+
+    <!-- Total Mined -->
+    <div class="col-lg-3 col-sm-4">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-money"></span>
+            </div>
+            <div class="content">
+                <div class="text">Total Mined</div>
+                <div class="value"><span id="totalMined">...</span></div>
+            </div>
+        </div>
     </div>
-    <div class="col-sm-3 color2">
-        <h4>Total Paid</h4>
-        <span class="statValue" id="totalPaid">...</span>
+
+    <!-- Total Paid -->
+    <div class="col-lg-3 col-sm-4">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-money"></span>
+            </div>
+            <div class="content">
+                <div class="text">Total Paid</div>
+                <div class="value"><span id="totalPaid">...</span></div>
+            </div>
+        </div>
     </div>
-    <div class="col-sm-3 color3">
-        <h4>Total Mined</h4>
-        <span class="statValue" id="totalMined">...</span>
+
+    <!-- Total Owed -->
+    <div class="col-lg-3 col-sm-4">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-money"></span>
+            </div>
+            <div class="content">
+                <div class="text">Total Owed</div>
+                <div class="value"><span id="totalOwed">...</span></div>
+            </div>
+        </div>
     </div>
-    <div class="col-sm-3 color4">
-        <h4>Profit (before tx fees)</h4>
-        <span class="statValue" id="profit">...</span>
+    
+    <!-- Profit (before tx fees) -->
+    <div class="col-lg-3 col-sm-4">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-dollar"></span>
+            </div>
+            <div class="content">
+                <div class="text">Profit (before tx fees)</div>
+                <div class="value"><span id="profit">...</span></div>
+            </div>
+        </div>
     </div>
-    <div class="col-sm-4 color5">
-        <h4>Average Luck (shares/diff)</h4>
-        <span class="statValue lead" id="averageLuck">...</span>
+    
+    <!-- Registered Addresses -->
+    <div class="col-lg-3 col-sm-4">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-users"></span>
+            </div>
+            <div class="content">
+                <div class="text">Registered Addresses</div>
+                <div class="value"><span id="registeredAddresses">...</span></div>
+            </div>
+        </div>
     </div>
-    <div class="col-sm-4 color6">
-        <h4>Orphan Percent</h4>
-        <span class="statValue lead" id="orphanPercent">...</span>
+
+    <!-- Blocks Unlocked -->
+    <div class="col-lg-3 col-sm-4">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-cubes"></span>
+            </div>
+            <div class="content">
+                <div class="text">Blocks Unlocked</div>
+                <div class="value"><span id="blocksUnlocked">...</span></div>
+            </div>
+        </div>
     </div>
-    <div class="col-sm-4 color7">
-        <h4>Registered Addresses</h4>
-        <span class="statValue lead" id="registeredAddresses">...</span>
+
+    <!-- Blocks Orphaned -->
+    <div class="col-lg-3 col-sm-4">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-cubes"></span>
+            </div>
+            <div class="content">
+                <div class="text">Blocks Orphaned</div>
+                <div class="value"><span id="blocksOrphaned">...</span> <span class="smallText">(<span id="orphanPercent">0%</span>)</span></div>
+            </div>
+        </div>
     </div>
+    
+    <!-- Average Luck (shares/diff) -->
+    <div class="col-lg-3 col-sm-4">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-line-chart"></span>
+            </div>
+            <div class="content">
+                <div class="text">Average Luck (shares/diff)</div>
+                <div class="value"><span id="averageLuck">...</span></div>
+            </div>
+        </div>
+    </div>
+        
 </div>
 
 <!-- Javascript -->
@@ -38,7 +118,7 @@ function formatLuck(difficulty, shares) {
     if (lastStats.config.slushMiningEnabled) {
         // Uses integral calculus to calculate the average of a dynamic function
         var accurateShares = 1/lastStats.config.blockTime * (  // 1/blockTime to get the average
-            shares * lastStats.config.weight (                  // Basically calculates the 'area below the graph' between 0 and blockTime
+            shares * lastStats.config.weight * (                  // Basically calculates the 'area below the graph' between 0 and blockTime
                 1 - Math.pow( 
                     Math.E, 
                     ((- lastStats.config.blockTime) / lastStats.config.weight)  // blockTime is equal to the highest possible result of (dateNowSeconds - scoreTime)
@@ -91,12 +171,14 @@ function getStats(promptPassword) {
 }
 
 function renderData(data) {
-    $('#totalOwed').text(getReadableCoins(data.totalOwed, 4, false));
-    $('#totalPaid').text(getReadableCoins(data.totalPaid, 4, false));
-    $('#totalMined').text(getReadableCoins(data.totalRevenue, 4, false));
+    $('#totalOwed').text(getReadableCoins(data.totalOwed, 4, true));
+    $('#totalPaid').text(getReadableCoins(data.totalPaid, 4, true));
+    $('#totalMined').text(getReadableCoins(data.totalRevenue, 4, true));
     $('#profit').text(getReadableCoins(data.totalRevenue - data.totalOwed - data.totalPaid, 4, true));
+    $('#blocksUnlocked').text(data.blocksUnlocked);
     $('#averageLuck').html(formatLuck(data.totalDiff, data.totalShares));
-    $('#orphanPercent').text((data.blocksOrphaned / data.blocksUnlocked * 100).toFixed(2));
+    $('#blocksOrphaned').text(data.blocksOrphaned);
+    $('#orphanPercent').text((data.blocksOrphaned / data.blocksUnlocked * 100).toFixed(2) + '%');
     $('#registeredAddresses').text(data.totalWorkers);
 }
 
