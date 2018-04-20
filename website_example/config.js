@@ -1,8 +1,8 @@
 var api = "https://api.xtlpool.com";//or direct with 8117
 var poolHost = "stratum.xtlpool.com";
 
-var email = "support@xtlpool.com";
-var telegram = "";
+var email = false;
+var telegram = false;
 var discord = "https://discord.gg/zng9k2D";
 
 var marketCurrencies = ["{symbol}-BTC", "{symbol}-USD", "{symbol}-EUR", "{symbol}-CAD"];

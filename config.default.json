@@ -1,9 +1,8 @@
 {
-    "coin": "monero",
-    "symbol": "XMR",
-    "coinUnits": 1000000000000,
-    "coinDifficultyTarget": 120,
-    "moneroVariant": true,
+    "coin": "StelliteCoin",
+    "symbol": "XTL",
+    "coinUnits":100,
+    "coinDifficultyTarget": 60,
 
     "logging": {
         "files": {
@@ -20,7 +19,7 @@
     "poolServer": {
         "enabled": true,
         "clusterForks": "auto",
-        "poolAddress": "GBqRuitSoU3PFPBAkXMEnLdBRWXH4iDSD6RDxnQiEFjVJhWUi1UuqfV5EzosmaXgpPGE6JJQjMYhZZgWY8EJQn8jQTsuTit",
+        "poolAddress": "Se2WEgKarYw84Cc4JDY86t5HB42kKmvRd1ncLDcdkBYc1y3JEEmWVFrjDNJvcxEKVhXvWurnav1TJZB1XH4mxBuS34cU6nhvv",
         "blockRefreshInterval": 1000,
         "minerTimeout": 900,
         "sslCert": "./cert.pem",
@@ -29,29 +28,18 @@
         "ports": [
             {
                 "port": 3333,
-                "difficulty": 5000,
-                "desc": "Low end hardware"
+                "difficulty": 4000,
+                "desc": "Low end hardware (1 ~ 100H/s) diff: 4000"
             },
             {
                 "port": 4444,
-                "difficulty": 15000,
-                "desc": "Mid range hardware"
-            },
-            {
-                "port": 5555,
-                "difficulty": 25000,
-                "desc": "High end hardware"
-            },
-            {
-                "port": 7777,
-                "difficulty": 500000,
-                "desc": "Cloud-mining / NiceHash"
-            },
-            {
-                "port": 9999,
                 "difficulty": 20000,
-                "desc": "SSL connection",
-                "ssl": true
+                "desc": "Mid range hardware (~ 500H/s) diff: 20000"
+            },
+             {
+                "port": 5555,
+                "difficulty": 100000,
+                "desc": "High end hardware (> 2.5kH/s) dif: 10000"
             }
         ],
         "varDiff": {
@@ -63,6 +51,7 @@
             "maxJump": 100
         },
         "paymentId": {
+            "enabled": true,
             "addressSeparator": "."
         },
         "fixedDiff": {
@@ -92,23 +81,23 @@
 
     "payments": {
         "enabled": true,
-        "interval": 300,
-        "maxAddresses": 50,
-        "mixin": 5,
+        "interval": 900,
+        "maxAddresses": 10,
+        "mixin": 1,
         "priority": 0,
-        "transferFee": 14000000000,
+        "transferFee": 10,
         "dynamicTransferFee": true,
         "minerPayFee" : true,
-        "minPayment": 1000000000000,
-        "maxTransactionAmount": 0,
-        "denomination": 100000000000
+        "minPayment": 10000,
+        "maxTransactionAmount": 1000000,
+        "denomination": 100
     },
 
     "blockUnlocker": {
         "enabled": true,
         "interval": 30,
-        "depth": 60,
-        "poolFee": 1.8,
+        "depth": 18,
+        "poolFee": 0.8,
         "devDonation": 0.2
     },
 
@@ -119,30 +108,32 @@
         "port": 8117,
         "blocks": 30,
         "payments": 30,
-        "password": "your_password",
+        "password": "your_password_here",
+        "bindIp":"127.0.0.1",
         "ssl": false,
-        "sslPort": 8119,
+        "sslPort": 2889,
         "sslCert": "./cert.pem",
         "sslKey": "./privkey.pem",
         "sslCA": "./chain.pem",
+        "bindIpSSL":"127.0.0.1",
         "trustProxyIP": false
     },
 
     "daemon": {
         "host": "127.0.0.1",
-        "port": 18081
+        "port": 20189
     },
 
     "wallet": {
         "host": "127.0.0.1",
-        "port": 18082
+        "port": 18081
     },
 
     "redis": {
         "host": "127.0.0.1",
         "port": 6379,
         "auth": null,
-        "cleanupInterval": 15
+	    "db": 0
     },
 
     "email": {
@@ -184,19 +175,13 @@
     },
 
     "prices": {
-        "source": "cryptonator",
+        "source": "tradeogre",
         "currency": "USD"
     },
     
     "charts": {
         "pool": {
             "hashrate": {
-                "enabled": true,
-                "updateInterval": 60,
-                "stepInterval": 1800,
-                "maximumPeriod": 86400
-            },
-            "miners": {
                 "enabled": true,
                 "updateInterval": 60,
                 "stepInterval": 1800,

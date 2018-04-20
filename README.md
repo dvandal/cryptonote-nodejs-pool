@@ -57,7 +57,7 @@ Features
 #### Mined blocks explorer
 * Mined blocks table with block status (pending, confirmed, and orphaned)
 * Blocks luck (shares/difficulty) statistics
-* Universal blocks and transactions explorer based on [chainradar.com](http://chainradar.com)
+* Universal blocks and transactions explorer based on [explorer.stellite.cash](https://explorer.stellite.cash)
 
 #### Smart payment processing
 * Splintered transactions to deal with max transaction size
@@ -95,7 +95,10 @@ Community / Support
 
 #### Pools Using This Software
 
-* https://xtlpool.com/
+* https://xtlpool.com
+* https://stellite.anypool.net
+* http://stellite.poolclub.cafe
+* http://dearmon.zone/stellite
 
 
 Usage
@@ -127,8 +130,11 @@ you are using - a good place to start with redis is [data persistence](http://re
 Clone the repository and run `npm update` for all the dependencies to be installed:
 
 ```bash
+curl https://raw.githubusercontent.com/creationix/nvm/v0.33.9/install.sh | bash
 nvm install 4.8
 nvm use 4.8
+nvm alias default 4.8
+nvm use default
 
 git clone https://github.com/ahmyi/cryptonote-stellite-pool.git pool
 cd pool
@@ -138,9 +144,7 @@ npm update
 
 #### 2) Configuration
 
-*Warning for Cryptonote coins other than Monero:* this software may or may not work with any given cryptonote coin. Be wary of altcoins that change the number of minimum coin units because you will have to reconfigure several config values to account for those changes. Unless you're offering a bounty reward - do not open an issue asking for help getting a coin other than Monero working with this software.
-
-Copy the `config_examples/stellite.json` file to `config.json` then overview each options and change any to match your preferred setup.
+Copy the `config.default.json` file to `config.json` then overview each options and change any to match your preferred setup.
 
 Explanation for each field:
 ```javascript
@@ -155,9 +159,6 @@ Explanation for each field:
 
 /* Coin network time to mine one block, see DIFFICULTY_TARGET constant in DAEMON_CODE/src/cryptonote_config.h */
 "coinDifficultyTarget": 60,
-
-/* Enable/Disable support for monero variants */
-"moneroVariant": false,
 
 /* Logging */
 "logging": {
@@ -194,7 +195,7 @@ Explanation for each field:
     "clusterForks": "auto",
 
     /* Address where block rewards go, and miner payments come from. */
-    "poolAddress": "Se3uv4ghkuBR2DnDZoEZBiRnd2WnmDkKyYbuTagBeNFcTMQLNZaP6HFX3HvcgUxA4ahtv8avuhXLrJoPf4TbrWWm1A63dxeLU",
+    "poolAddress": "Se2WEgKarYw84Cc4JDY86t5HB42kKmvRd1ncLDcdkBYc1y3JEEmWVFrjDNJvcxEKVhXvWurnav1TJZB1XH4mxBuS34cU6nhvv",
     /* Poll RPC daemons for new blocks every this many milliseconds. */
     "blockRefreshInterval": 1000,
 
@@ -322,25 +323,27 @@ Explanation for each field:
     "port": 8117, // The API port
     "blocks": 30, // Amount of blocks to send at a time
     "payments": 30, // Amount of payments to send at a time
-    "password": "your_password", // Password required for admin stats
+    "password": "your_password", // Password required for admin stats,
+    "bindIp:"127.0.0.1",//Allow bind to certain ip
     "ssl": false, // Enable SSL API
     "sslPort": 8119, // The SSL port
     "sslCert": "./cert.pem", // The SSL certificate
     "sslKey": "./privkey.pem", // The SSL private key
     "sslCA": "./chain.pem", // The SSL certificate authority chain
-    "trustProxyIP": false // Proxy X-Forwarded-For support
+    "trustProxyIP": false // Proxy X-Forwarded-For support,
+    "bindIpSSL:"127.0.0.1",//Allow bind to certain ip for ssl connection
 },
 
 /* Coin daemon connection details (default port is 18981) */
 "daemon": {
     "host": "127.0.0.1",
-    "port": 18981
+    "port": 20189
 },
 
 /* Wallet daemon connection details (default port is 18980) */
 "wallet": {
     "host": "127.0.0.1",
-    "port": 18982
+    "port": 18081
 },
 
 /* Redis connection into (default port is 6379) */
@@ -520,13 +523,14 @@ var cryptonatorWidget = ["{symbol}-BTC", "{symbol}-USD", "{symbol}-EUR", "{symbo
 var defaultCurrency = 'USD';
 
 /* Used for front-end block links. */
-var blockchainExplorer = "http://chainradar.com/{symbol}/block/{id}";
+var blockchainExplorer = "https://explorer.stellite.cash/search?value={id}";
 
 /* Used by front-end transaction links. */
-var transactionExplorer = "http://chainradar.com/{symbol}/transaction/{id}";
+var transactionExplorer = "https://explorer.stellite.cash/search?value={id}";
+
 
 /* Any custom CSS theme for pool frontend */
-var themeCss = "themes/light.css";
+var themeCss = "themes/stellite.css";
 
 ```
 
@@ -604,7 +608,7 @@ Documentation for JSON-RPC commands can be found here:
 Curl can be used to use the JSON-RPC commands from command-line. Here is an example of calling `getblockheaderbyheight` for block 100:
 
 ```bash
-curl 127.0.0.1:18081/json_rpc -d '{"method":"getblockheaderbyheight","params":{"height":100}}'
+curl 127.0.0.1:20189/json_rpc -d '{"method":"getblockheaderbyheight","params":{"height":100}}'
 ```
 
 
@@ -623,7 +627,9 @@ Donations
 Credits
 ---------
 
-* [dvandal](//github.com/dvandal) - Developer on cryptonote-universal-pool project from which current project is forked.
+* [dvandal/cryptonote-nodejs-pool](//github.com/dvandal/cryptonote-nodejs-pool)
+* [cryptoknight.cc](//cryptoknight.cc)
+* [fairhash.org](//fairhash.org)
 
 License
 -------
