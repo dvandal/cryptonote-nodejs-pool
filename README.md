@@ -96,7 +96,6 @@ Community / Support
 #### Pools Using This Software
 
 * https://xtlpool.com
-* https://stellite.anypool.net
 * http://stellite.poolclub.cafe
 * http://dearmon.zone/stellite
 
