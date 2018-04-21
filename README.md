@@ -323,14 +323,14 @@ Explanation for each field:
     "blocks": 30, // Amount of blocks to send at a time
     "payments": 30, // Amount of payments to send at a time
     "password": "your_password", // Password required for admin stats,
-    "bindIp:"127.0.0.1",//Allow bind to certain ip
+    "bindIp":"127.0.0.1",//Allow bind to certain ip
     "ssl": false, // Enable SSL API
     "sslPort": 8119, // The SSL port
     "sslCert": "./cert.pem", // The SSL certificate
     "sslKey": "./privkey.pem", // The SSL private key
     "sslCA": "./chain.pem", // The SSL certificate authority chain
     "trustProxyIP": false // Proxy X-Forwarded-For support,
-    "bindIpSSL:"127.0.0.1",//Allow bind to certain ip for ssl connection
+    "bindIpSSL":"127.0.0.1",//Allow bind to certain ip for ssl connection
 },
 
 /* Coin daemon connection details (default port is 18981) */
