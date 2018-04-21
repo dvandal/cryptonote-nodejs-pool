@@ -107,7 +107,7 @@
     "blockUnlocker": {
         "enabled": true,
         "interval": 30,
-        "depth": 10,
+        "depth": 60,
         "poolFee": 1.8,
         "devDonation": 0.2
     },
