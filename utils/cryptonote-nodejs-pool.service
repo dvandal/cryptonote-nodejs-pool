@@ -1,0 +1,16 @@
+[Unit]
+Description=Cryptonote-nodejs-pool Service
+After=network.target
+
+[Service]
+Type=simple
+# Edit WorkingDirectory, User and Group as needed
+WorkingDirectory=/path/to/your/cryptonote-nodejs-pool/pool
+User=pool-user
+Group=pool-user
+ExecStart=/usr/bin/node init.js
+Restart=always
+SyslogIdentifier=Cryptonote-nodejs-pool
+
+[Install]
+WantedBy=multi-user.target

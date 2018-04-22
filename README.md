@@ -97,7 +97,7 @@ Community / Support
 #### Pools Using This Software
 
 * https://graft.blockhashmining.com/
-
+* https://graft.anypool.net/
 
 Usage
 ===
@@ -108,10 +108,21 @@ Usage
   * [Monero](https://github.com/monero-project/bitmonero)
   * [GRAFT](https://github.com/graft-project/GraftNetwork)
 * [Node.js](http://nodejs.org/) v4.0+
-  * For Ubuntu: `sudo apt-get install nodejs npm && ln -s /usr/bin/nodejs /usr/bin/node`
-* [Redis](http://redis.io/) key-value store v2.6+ ([follow these instructions](http://redis.io/topics/quickstart))
+  * For Ubuntu: 
+ ```
+  curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash
+  sudo apt-get install -y nodejs
+```
+* [Redis](http://redis.io/) key-value store v2.6+ 
+  * For Ubuntu: 
+```
+sudo add-apt-repository ppa:chris-lea/redis-server
+sudo apt-get update
+sudo apt-get install redis-server
+ ```
 * libssl required for the node-multi-hashing module
   * For Ubuntu: `sudo apt-get install libssl-dev`
+
 * Boost is required for the cryptonote-util module
   * For Ubuntu: `sudo apt-get install libboost-all-dev`
 
@@ -120,8 +131,7 @@ Usage
 Those are legitimate requirements. If you use old versions of Node.js or Redis that may come with your system package manager then you will have problems. Follow the linked instructions to get the last stable versions.
 
 
-[**Redis security warning**](http://redis.io/topics/security): be sure firewall access to redis - an easy way is to
-include `bind 127.0.0.1` in your `redis.conf` file. Also it's a good idea to learn about and understand software that
+[**Redis warning**](http://redis.io/topics/security): It'sa good idea to learn about and understand software that
 you are using - a good place to start with redis is [data persistence](http://redis.io/topics/persistence).
 
 #### 1) Downloading & Installing
@@ -487,6 +497,14 @@ node init.js -module=api
 
 [Example screenshot](http://i.imgur.com/SEgrI3b.png) of running the pool in single module mode with tmux.
 
+To keep your pool up, on operating system with systemd, you can create add your pool software as a service.  
+Use this [example](https://github.com/VirtuBox/cryptonote-nodejs-pool/blob/master/utils/cryptonote-nodejs-pool.service) and create your service file `/lib/systemd/system/cryptonote-nodejs-pool.service`
+Then enable and start the service with the following commands : 
+
+```
+systemctl enable cryptonote-nodejs-pool.service
+systemctl start cryptonote-nodejs-pool.service
+```
 
 #### 4) Host the front-end
 
