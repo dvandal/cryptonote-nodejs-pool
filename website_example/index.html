@@ -50,6 +50,10 @@
                     <i class="fa fa-money"></i> Payments
                 </a></li>            
 
+                <li><a class="hot_link" data-page="top10miners.html" href="#top10miners">
+                    <i class="fa fa-trophy"></i> Top 10 miners
+                </a></li>
+
                 <li><a class="hot_link" data-page="market.html" href="#market">
                     <i class="fa fa-bank"></i> Market
                 </a></li>
@@ -79,7 +83,7 @@
     <div class="text-muted">
         Powered by <a target="_blank" href="https://github.com/dvandal/cryptonote-nodejs-pool"><i class="fa fa-github"></i> cryptonote-nodejs-pool</a>
         <span id="poolVersion"></span>
-	<span class="hidden-xs">open sourced under the <a href="http://www.gnu.org/licenses/gpl-2.0.html">GPL</a></span>
+        <span class="hidden-xs">open sourced under the <a href="http://www.gnu.org/licenses/gpl-2.0.html">GPL</a></span>
     </div>
 </footer>
 
@@ -141,16 +145,18 @@ $.fn.update = function(txt){
 
 function updateTextClasses(className, text){
     var els = document.getElementsByClassName(className);
-    for (var i = 0; i < els.length; i++){
-        var el = els[i];
-        if (el.textContent !== text)
-            el.textContent = text;
+    if (els) {
+        for (var i = 0; i < els.length; i++){
+            var el = els[i];
+            if (el && el.textContent !== text)
+                el.textContent = text;
+        }
     }
 }
 
 function updateText(elementId, text){
     var el = document.getElementById(elementId);
-    if (el.textContent !== text){
+    if (el && el.textContent !== text){
         el.textContent = text;
     }
     return el;
@@ -192,6 +198,37 @@ function getReadableHashRateString(hashrate){
 function getReadableCoins(coins, digits, withoutSymbol){
     var amount = (parseInt(coins || 0) / lastStats.config.coinUnits).toFixed(digits || lastStats.config.coinUnits.toString().length - 1);
     return amount + (withoutSymbol ? '' : (' ' + lastStats.config.symbol));
+}
+
+function formatNumber(number, delimiter){
+    if(number != '') {
+        number = number.split(delimiter).join('');
+
+        var formatted = '';
+        var sign = '';
+
+        if(number < 0){
+            number = -number;
+            sign = '-';
+        }
+
+        while(number >= 1000){
+            var mod = number % 1000;
+
+            if(formatted != '') formatted = delimiter + formatted;
+            if(mod == 0) formatted = '000' + formatted;
+            else if(mod < 10) formatted = '00' + mod + formatted;
+            else if(mod < 100) formatted = '0' + mod + formatted;
+            else formatted = mod + formatted;
+
+            number = parseInt(number / 1000);
+        }
+
+        if(formatted != '') formatted = sign + number + delimiter + formatted;
+        else formatted = sign + number;
+        return formatted;
+    }
+    return '';
 }
 
 function formatDate(time){
@@ -273,7 +310,7 @@ function pulseLiveUpdate(){
 }
 
 function updateLiveStats(data) {
-    pulseLiveUpdate();	
+    pulseLiveUpdate();   
     lastStats = data;
     if (lastStats && lastStats.pool && lastStats.pool.totalMinersPaid.toString() == '-1'){
         lastStats.pool.totalMinersPaid = 0;
@@ -304,7 +341,7 @@ function loadLiveStats(reload) {
     
     $.get(apiURL, function(data){        
         updateLiveStats(data);
-	if (!reload) routePage(fetchLiveStats);
+        if (!reload) routePage(fetchLiveStats);
     });
 }
 
@@ -374,8 +411,8 @@ function sortTable() {
 function comparer(index) {
     return function(a, b) {
         var valA = getCellValue(a, index), valB = getCellValue(b, index);
-	if (!valA) { valA = 0; }
-	if (!valB) { valB = 0; }
+        if (!valA) { valA = 0; }
+        if (!valB) { valB = 0; }
         return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB : valA.toString().localeCompare(valB.toString())
     }
 }

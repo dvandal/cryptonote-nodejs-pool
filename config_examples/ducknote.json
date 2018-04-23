@@ -1,9 +1,9 @@
 {
-    "coin": "graft",
-    "symbol": "GRFT",
-    "coinUnits": 10000000000,
-    "coinDifficultyTarget": 120,
-    "moneroVariant": false,
+    "coin": "ducknote",
+    "symbol": "XDN",
+    "coinUnits": 100000000,
+    "coinDifficultyTarget": 240,
+    "cnVariant": null,
 
     "logging": {
         "files": {
@@ -20,7 +20,7 @@
     "poolServer": {
         "enabled": true,
         "clusterForks": "auto",
-        "poolAddress": "GBqRuitSoU3PFPBAkXMEnLdBRWXH4iDSD6RDxnQiEFjVJhWUi1UuqfV5EzosmaXgpPGE6JJQjMYhZZgWY8EJQn8jQTsuTit",
+        "poolAddress": "ddehi53dwGSBEXdhTYtga2R3fS4y9hRz4YHAsLABJpH75yUd5EDQmuL3yDBj1mG6MMeDfydY9vp4zFVVNQ99FTYq2PpsFJP2y",
         "blockRefreshInterval": 1000,
         "minerTimeout": 900,
         "sslCert": "./cert.pem",
@@ -63,11 +63,11 @@
             "maxJump": 100
         },
         "paymentId": {
-            "addressSeparator": "."
+            "addressSeparator": "+"
         },
         "fixedDiff": {
             "enabled": true,
-            "addressSeparator": "+"
+            "addressSeparator": "."
         },
         "shareTrust": {
             "enabled": true,
@@ -96,18 +96,18 @@
         "maxAddresses": 50,
         "mixin": 5,
         "priority": 0,
-        "transferFee": 4000000000,
+        "transferFee": 50000000,
         "dynamicTransferFee": true,
         "minerPayFee" : true,
-        "minPayment": 100000000000,
+        "minPayment": 1000000000,
         "maxTransactionAmount": 0,
-        "denomination": 10000000000
+        "denomination": 1000000000
     },
 
     "blockUnlocker": {
         "enabled": true,
         "interval": 30,
-        "depth": 60,
+        "depth": 10,
         "poolFee": 1.8,
         "devDonation": 0.2
     },
@@ -130,18 +130,19 @@
 
     "daemon": {
         "host": "127.0.0.1",
-        "port": 18981
+        "port": 42081
     },
 
     "wallet": {
         "host": "127.0.0.1",
-        "port": 18982
+        "port": 8082
     },
 
     "redis": {
         "host": "127.0.0.1",
         "port": 6379,
-        "auth": null
+        "auth": null,
+        "cleanupInterval": 15
     },
 
     "email": {
@@ -183,13 +184,19 @@
     },
 
     "prices": {
-        "source": "tradeogre",
+        "source": "cryptonator",
         "currency": "USD"
     },
-    
+
     "charts": {
         "pool": {
             "hashrate": {
+                "enabled": true,
+                "updateInterval": 60,
+                "stepInterval": 1800,
+                "maximumPeriod": 86400
+            },
+            "miners": {
                 "enabled": true,
                 "updateInterval": 60,
                 "stepInterval": 1800,

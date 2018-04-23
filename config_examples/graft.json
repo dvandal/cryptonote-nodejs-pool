@@ -1,9 +1,9 @@
 {
-    "coin": "Stellitecoin",
-    "symbol": "XTL",
-    "coinUnits": 10000,
-    "coinDifficultyTarget": 60,
-    "moneroVariant": false,
+    "coin": "graft",
+    "symbol": "GRFT",
+    "coinUnits": 10000000000,
+    "coinDifficultyTarget": 120,
+    "cnVariant": 1,
 
     "logging": {
         "files": {
@@ -20,7 +20,7 @@
     "poolServer": {
         "enabled": true,
         "clusterForks": "auto",
-        "poolAddress": "Se2Ba4fwCSNcYmh8pPDXdvcQGkkszeVK9EiREjXVeBa7UdYUVUMPiyDgnoTE7pPAKB6Jy7jiQYASG31YvUETr2pR1kTTmfjYm",
+        "poolAddress": "GBqRuitSoU3PFPBAkXMEnLdBRWXH4iDSD6RDxnQiEFjVJhWUi1UuqfV5EzosmaXgpPGE6JJQjMYhZZgWY8EJQn8jQTsuTit",
         "blockRefreshInterval": 1000,
         "minerTimeout": 900,
         "sslCert": "./cert.pem",
@@ -63,11 +63,11 @@
             "maxJump": 100
         },
         "paymentId": {
-            "addressSeparator": "."
+            "addressSeparator": "+"
         },
         "fixedDiff": {
             "enabled": true,
-            "addressSeparator": "+"
+            "addressSeparator": "."
         },
         "shareTrust": {
             "enabled": true,
@@ -94,14 +94,14 @@
         "enabled": true,
         "interval": 300,
         "maxAddresses": 50,
-        "mixin": 6,
+        "mixin": 5,
         "priority": 0,
-        "transferFee": 100,
+        "transferFee": 4000000000,
         "dynamicTransferFee": true,
         "minerPayFee" : true,
-        "minPayment": 100000,
+        "minPayment": 100000000000,
         "maxTransactionAmount": 0,
-        "denomination": 10000
+        "denomination": 10000000000
     },
 
     "blockUnlocker": {
@@ -130,18 +130,19 @@
 
     "daemon": {
         "host": "127.0.0.1",
-        "port": 20189
+        "port": 18981
     },
 
     "wallet": {
         "host": "127.0.0.1",
-        "port": 20190
+        "port": 18982
     },
 
     "redis": {
         "host": "127.0.0.1",
         "port": 6379,
-        "auth": null
+        "auth": null,
+        "cleanupInterval": 15
     },
 
     "email": {
@@ -190,6 +191,12 @@
     "charts": {
         "pool": {
             "hashrate": {
+                "enabled": true,
+                "updateInterval": 60,
+                "stepInterval": 1800,
+                "maximumPeriod": 86400
+            },
+            "miners": {
                 "enabled": true,
                 "updateInterval": 60,
                 "stepInterval": 1800,

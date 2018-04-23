@@ -1,7 +1,7 @@
 cryptonote-nodejs-pool
 ======================
 
-High performance Node.js (with native C addons) mining pool for CryptoNote based coins such as Bytecoin, DuckNote, Monero, QuazarCoin, Boolberry, Dashcoin, GRAFT, etc. Comes with lightweight example front-end script which uses the pool's AJAX API.
+High performance Node.js (with native C addons) mining pool for CryptoNote based coins such as Bytecoin, DuckNote, Monero, QuazarCoin, Boolberry, Dashcoin, GRAFT, SUPERIORCOIN etc. Comes with lightweight example front-end script which uses the pool's AJAX API.
 
 
 
@@ -107,6 +107,7 @@ Usage
   * [ByteCoin](https://github.com/amjuarez/bytecoin)
   * [Monero](https://github.com/monero-project/bitmonero)
   * [GRAFT](https://github.com/graft-project/GraftNetwork)
+  * [SUPERIORCOIN](https://github.com/TheSuperiorCoin/TheSuperiorCoin)
 * [Node.js](http://nodejs.org/) v4.0+
   * For Ubuntu: 
  ```
@@ -150,7 +151,7 @@ npm update
 
 *Warning for Cryptonote coins other than Monero:* this software may or may not work with any given cryptonote coin. Be wary of altcoins that change the number of minimum coin units because you will have to reconfigure several config values to account for those changes. Unless you're offering a bounty reward - do not open an issue asking for help getting a coin other than Monero working with this software.
 
-Copy the `config_example.json` file to `config.json` then overview each options and change any to match your preferred setup.
+Copy the `config_examples/COIN.json` file of your choice to `config.json` then overview each options and change any to match your preferred setup.
 
 Explanation for each field:
 ```javascript
@@ -166,8 +167,8 @@ Explanation for each field:
 /* Coin network time to mine one block, see DIFFICULTY_TARGET constant in DAEMON_CODE/src/cryptonote_config.h */
 "coinDifficultyTarget": 120,
 
-/* Enable/Disable support for monero variants */
-"moneroVariant": false,
+/* Set Cryptonight variant. Set 0 for original Cryptonight algorithm and 1 for Cryptonight v1 / Monero v7 algorithm. If empty will use automatic detection. */
+"cnVariant": null,
 
 /* Logging */
 "logging": {
@@ -423,6 +424,12 @@ Explanation for each field:
             "updateInterval": 60, // How often to get current value
             "stepInterval": 1800, // Chart step interval calculated as average of all updated values
             "maximumPeriod": 86400 // Chart maximum periods (chart points number = maximumPeriod / stepInterval = 48)
+        },
+        "miners": {
+            "enabled": true,
+            "updateInterval": 60,
+            "stepInterval": 1800,
+            "maximumPeriod": 86400
         },
         "workers": {
             "enabled": true,

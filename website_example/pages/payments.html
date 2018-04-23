@@ -9,20 +9,7 @@
             </div>
             <div class="content">
                 <div class="text">Total Payments</div>
-                <div class="value"><span id="paymentsTotal"></span></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Total Miners Paid -->
-    <div class="col-lg-3 col-sm-6">
-        <div class="infoBox hoverExpandEffect">
-            <div class="icon">
-                <span class="fa fa-group"></span>
-            </div>
-            <div class="content">
-                <div class="text">Total Miners Paid</div>
-                <div class="value"><span id="paymentsTotalPaid"></span></div>
+                <div class="value"><span id="paymentsTotal"></span> <span class="smallText">(<strong><span id="paymentsTotalPaid"></span></strong> miners)</span></div>
             </div>
         </div>
     </div>
@@ -40,6 +27,19 @@
         </div>
     </div>
 
+    <!-- Payment Interval -->
+    <div class="col-lg-3 col-sm-4">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-clock-o"></span>
+            </div>
+            <div class="content">
+                <div class="text">Payment Interval</div>
+                <div class="value"><span id="paymentsInterval"></span></div>
+            </div>
+        </div>
+    </div>
+    
     <!-- Denomination Unit -->
     <div class="col-lg-3 col-sm-6">
         <div class="infoBox hoverExpandEffect">
@@ -91,6 +91,7 @@ currentPage = {
     update: function(){
         updateText('paymentsTotal', lastStats.pool.totalPayments.toString());
         updateText('paymentsTotalPaid', lastStats.pool.totalMinersPaid.toString());
+        updateText('paymentsInterval', getReadableTime(lastStats.config.paymentsInterval));
         updateText('paymentsMinimum', getReadableCoins(lastStats.config.minPaymentThreshold, 1));
         updateText('paymentsDenomination', getReadableCoins(lastStats.config.denominationUnit, 3));
         renderPayments(lastStats.pool.payments);
