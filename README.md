@@ -1,7 +1,7 @@
 cryptonote-nodejs-pool
 ======================
 
-High performance Node.js (with native C addons) mining pool for CryptoNote based coins such as Bytecoin, DuckNote, Monero, QuazarCoin, Boolberry, Dashcoin, GRAFT, etc. Comes with lightweight example front-end script which uses the pool's AJAX API.
+High performance Node.js (with native C addons) mining pool for CryptoNote based coins such as Bytecoin, DuckNote, Monero, QuazarCoin, Boolberry, Dashcoin, GRAFT, SUPERIORCOIN etc. Comes with lightweight example front-end script which uses the pool's AJAX API.
 
 
 
@@ -107,6 +107,7 @@ Usage
   * [ByteCoin](https://github.com/amjuarez/bytecoin)
   * [Monero](https://github.com/monero-project/bitmonero)
   * [GRAFT](https://github.com/graft-project/GraftNetwork)
+  * [SUPERIORCOIN](https://github.com/TheSuperiorCoin/TheSuperiorCoin)
 * [Node.js](http://nodejs.org/) v4.0+
   * For Ubuntu: 
  ```
