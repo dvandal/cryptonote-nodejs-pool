@@ -174,27 +174,27 @@
 
 <!-- Pool Charts -->
 <div class="row">
-    <div class="col-sm-6 poolChart">
+    <div class="col-sm-6 poolChart push-up-15">
         <h4>Hashrate</h4>
-        <div id="chartHashrate" data-chart="hashrate">
+        <div id="chartHashrate" class="card" data-chart="hashrate">
             <div class="chart"></div>
         </div>        
     </div>
-    <div class="col-sm-6 poolChart">
+    <div class="col-sm-6 poolChart push-up-15">
         <h4>Difficulty</h4>
-        <div id="chartDifficulty" data-chart="diff">
+        <div id="chartDifficulty" class="card" data-chart="diff">
             <div class="chart"></div>
         </div>
     </div>
-    <div class="col-sm-6 poolChart">        
+    <div class="col-sm-6 poolChart push-up-15">
         <h4>Miners</h4>
-        <div id="chartMiners" data-chart="miners">
+        <div id="chartMiners" class="card" data-chart="miners">
             <div class="chart"></div>
         </div> 
     </div>    
-    <div class="col-sm-6 poolChart">        
+    <div class="col-sm-6 poolChart push-up-15">
         <h4>Workers</h4>
-        <div id="chartWorkers" data-chart="workers">
+        <div id="chartWorkers" class="card" data-chart="workers">
             <div class="chart"></div>
         </div> 
     </div>    
@@ -202,6 +202,7 @@
 
 <!-- Javascript -->
 <script>
+// Update current page
 currentPage = {
     destroy: function(){
         $('#networkLastBlockFound,#poolLastBlockFound').timeago('dispose');
@@ -250,10 +251,15 @@ currentPage = {
     }
 };
 
+// Enable timeago on last block found
 $('#networkLastBlockFound,#poolLastBlockFound').timeago();
 
-/* Pool Charts */
-var poolCharts = {
+/**
+ * Charts
+ **/
+
+// Chart settings
+var graphSettings = {
     type: 'line',
     width: '100%',
     height: '120',
@@ -269,10 +275,12 @@ var poolCharts = {
     tooltipFormat: '<b>{{y}}</b> &ndash; {{offset:names}}'
 };
 
+// Handle charts tooltip
 $(function() {
     $('[data-toggle="tooltip"]').tooltip();
 });
 
+// Create charts
 function createCharts(data) {         
     if (data.hasOwnProperty("charts")) {
         var graphData = {
@@ -284,7 +292,7 @@ function createCharts(data) {
             
         for(var graphType in graphData) {
             if(graphData[graphType].values.length > 1) {
-                var settings = jQuery.extend({}, poolCharts);
+                var settings = jQuery.extend({}, graphSettings);
                 settings.tooltipValueLookups = {names: graphData[graphType].names};
                 var $chart = $('[data-chart=' + graphType + '] .chart');
                 $chart.closest('.poolChart').show();
@@ -294,6 +302,7 @@ function createCharts(data) {
     }
 }
 
+// Get chart data
 function getGraphData(rawData, fixValueToCoins) {
     var graphData = {
         names: [],
@@ -309,8 +318,8 @@ function getGraphData(rawData, fixValueToCoins) {
     return graphData;
 }
 
+// Render charts
 var xhrRenderCharts;
-
 $(function(){
     xhrRenderCharts = $.ajax({
         url: api + '/stats',

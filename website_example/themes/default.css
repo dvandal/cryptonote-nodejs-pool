@@ -3,8 +3,7 @@
 @import url(//fonts.googleapis.com/css?family=Inconsolata);
 
 body {  
-  background-color: #fff;
-  background-image: url(/themes/img/bg-light.png);
+  background-color: #f5f5f5;
   font-family: 'Roboto', Helvetica, Arial, sans-serif;
   line-height: 1.428571429;
   color: #262626;
@@ -42,6 +41,55 @@ code {
   border-radius: 0;
 }
 
+.padding-5 { padding: 5px !important; }
+.padding-10 { padding: 10px !important; }
+.padding-15 { padding: 15px !important; }
+.padding-20 { padding: 20px !important; }
+.padding-25 { padding: 25px !important; }
+.padding-30 { padding: 30px !important; }
+
+.padding-t-5 { padding-top: 5px !important; }
+.padding-t-10 { padding-top: 10px !important; }
+.padding-t-15 { padding-top: 15px !important; }
+.padding-t-20 { padding-top: 20px !important; }
+.padding-t-25 { padding-top: 25px !important; }
+.padding-t-30 { padding-top: 30px !important; }
+
+.padding-b-5 { padding-bottom: 5px !important; }
+.padding-b-10 { padding-bottom: 10px !important; }
+.padding-b-15 { padding-bottom: 15px !important; }
+.padding-b-20 { padding-bottom: 20px !important; }
+.padding-b-25 { padding-bottom: 25px !important; }
+.padding-b-30 { padding-bottom: 30px !important; }
+
+.padding-l-5 { padding-left: 5px !important; }
+.padding-l-10 { padding-left: 10px !important; }
+.padding-l-15 { padding-left: 15px !important; }
+.padding-l-20 { padding-left: 20px !important; }
+.padding-l-25 { padding-left: 25px !important; }
+.padding-l-30 { padding-left: 30px !important; }
+
+.padding-r-5 { padding-right: 5px !important; }
+.padding-r-10 { padding-right: 10px !important; }
+.padding-r-15 { padding-right: 15px !important; }
+.padding-r-20 { padding-right: 20px !important; }
+.padding-r-25 { padding-right: 25px !important; }
+.padding-r-30 { padding-right: 30px !important; }
+
+.push-up-5 { margin-top: 5px !important; }
+.push-up-10 { margin-top: 10px !important; }
+.push-up-15 { margin-top: 15px !important; }
+.push-up-20 { margin-top: 20px !important; }
+.push-up-25 { margin-top: 25px !important; }
+.push-up-30 { margin-top: 30px !important; }
+
+.push-down-5 { margin-bottom: 5px !important; }
+.push-down-10 { margin-bottom: 10px !important; }
+.push-down-15 { margin-bottom: 15px !important; }
+.push-down-20 { margin-bottom: 20px !important; }
+.push-down-25 { margin-bottom: 25px !important; }
+.push-down-30 { margin-bottom: 30px !important; }
+
 /* Footer */
 footer{
   position: fixed;
@@ -50,6 +98,7 @@ footer{
   background-color: #262626;
   font-size: 14px;
   color: #efefef;
+  z-index: 9999;
 }
 footer a {
   color: #6ED5EE;
@@ -309,39 +358,8 @@ footer > div{
 }
 
 /* Bootstrap Form Controls */
-.form-control,
-.form-select {
-  background-color: #0274a8;
-  color: #00FF33;
-  border: 1px solid #014e71; 
-  border-radius: 4px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  font-size: 16px;
-}
-.form-control:focus {  
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  border-color: #177086;
-}
-.form-control::placeholder {
-  color: #efefef;
-}
-.form-select {
-  display: inline-block;
-  width: 100%;
-  padding: .5rem 1.75rem .5rem .75rem;
-  background: #0274a8 url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23ffffff' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E") no-repeat right .75rem center;
-  background-size: 8px 10px;
-  vertical-align: middle;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-}
 .input-group-addon {
-  background-color: #014e71;
-  color: #fff;
-  border-color: #014e71;
+  color: #014e71;
 }
 
 /* Bootstrap Tables */
@@ -405,10 +423,27 @@ table th.sort:hover{
   color: #fff;
 }
 
+/* Content Card */
+.card {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+  border-radius: 3px;
+  color: rgba(0, 0, 0, 0.87);
+  background: #fff;
+}
+
+.card table, .card .table {
+  margin-bottom: 0;
+}
+
 /* Info box */
 .infoBox {
   background-color: #03a9f4;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
   height: 80px;  
   cursor: default;
   position: relative;
@@ -509,17 +544,14 @@ table th.sort:hover{
 }
 
 /* Pool and Worker Charts */
-.poolChart,
-.marketChart {
-  padding-top: 15px;
+.poolChart, .marketChart, .userChart {
   display: none;
-  margin-bottom: 10px;
 }
-.userChart {
-  display: none;
+.poolChart .chart, .marketChart .chart {
+  padding: 10px;
 }
 .userChart .chart {
-  margin-bottom: 10px;
+  padding: 10px 0;
 }
 .poolChart h4,
 .marketChart h4,
@@ -613,42 +645,30 @@ table th.sort:hover{
   }  
 }
 
-/* Configuration Generator */
-#configGenerator .form-control,
-#configGenerator .form-select {
-  margin-bottom: 5px;
-}
-#configGenerator .required {
-  color: red;
-}
-#configGenerator #generateConf {
-  margin-top: 10px;
-}
-
 /* Mining Apps */
 #miningApps .table > thead > tr > th {
   white-space: nowrap;
 }
 #miningApps_rows > tr:first-child > td {
-  padding-top: 35px;
+  padding-top: 10px;
 }
 #miningApps_rows > tr > td {
   border-top: none;  
 }
 #miningApps_rows .appInfo td {
-  padding-top: 20px;
+  padding: 10px;
+  margin: 0;
 }
 #miningApps_rows .appConfig td {
-  border-bottom: 1px solid #0274a8;
-  padding-bottom: 20px;
-}
-#miningApps_rows {
-  margin-top: 10px;
+  padding: 0 10px;
 }
 #miningApps_rows tr:hover,
 #miningApps_rows tr:hover > td,
 #miningApps_rows tr:hover > th {
   background-color: transparent;
+}
+#miningApps .btn {
+  width: 100%;
 }
 #miningApps .miningAppTitle {
   font-weight: bold;
@@ -656,12 +676,6 @@ table th.sort:hover{
 #miningApps .exampleAddress,
 #miningApps .exampleWorkerName {
   font-style: italic;
-}
-#miningApps .config {
-  color: #0274a8;
-  background-color: #efefef;
-  padding: 2px 10px;
-  border-radius: 0;
 }
 
 /* Worker Statistics */

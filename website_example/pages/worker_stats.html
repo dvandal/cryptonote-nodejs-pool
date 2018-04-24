@@ -1,7 +1,7 @@
 <!-- Worker Statistics -->
 <h3>Your Stats & Payment History</h3>
 
-<div id="workerStats" class="stats">
+<div id="workerStats">
     <div class="input-group">
         <input class="form-control" id="yourStatsInput" type="text" placeholder="Enter Your Address">
         <span class="input-group-btn"><button class="btn btn-default" type="button" id="lookUp">
@@ -11,75 +11,86 @@
     </div>
     <div id="addressError"></div>
 
-    <!-- Statistics -->
-    <div class="row yourStats">
-        <div class="col-xs-12"><h4>Hash Rate</h4></div>
-        <div class="col-lg-4 col-sm-6 stats">
-            <div><i class="fa fa-tachometer"></i> Current Hash Rate: <span id="yourHashrateHolder"></span></div>
-            <div><i class="fa fa-clock-o"></i> Last Share Submitted: <span id="yourLastShare"></span></div>
-            <div><i class="fa fa-cloud-upload"></i> Total Hashes Submitted: <span id="yourHashes"></span></div>
-        </div>
-        <div class="col-lg-8 col-sm-6">
-            <div class="userChart" data-chart="user_hashrate">
-                <div class="chart">
-                    
-                </div>                
+    <!-- Hashrate -->
+    <div class="yourStats push-up-20">
+        <h4>Hash Rate</h4>
+	<div class="row card">
+            <div class="col-lg-4 col-sm-6 stats push-up-10">
+                <div><i class="fa fa-tachometer"></i> Current Hash Rate: <span id="yourHashrateHolder"></span></div>
+                <div><i class="fa fa-clock-o"></i> Last Share Submitted: <span id="yourLastShare"></span></div>
+                <div><i class="fa fa-cloud-upload"></i> Total Hashes Submitted: <span id="yourHashes"></span></div>
             </div>
-        </div> 
-	<br/>
-	
-        <div class="col-xs-12"><h4>Payments</h4></div>
-        <div class="col-lg-4 col-sm-6 stats">
-            <div><i class="fa fa-bank"></i> Pending Balance: <span id="yourPendingBalance"></span></div>
-            <div><i class="fa fa-money"></i> Total Paid: <span id="yourPaid"></span></div>
-            <div><i class="fa fa-money"></i> Current Payout Estimate: <span id="yourPayoutEstimate"></span></div>
-        </div>
-        <div class="col-lg-8 col-sm-6">
-            <div class="userChart" data-chart="user_payments">
-                <div class="chart">
+            <div class="col-lg-8 col-sm-6">
+                <div class="userChart push-up-10" data-chart="user_hashrate">
+                    <div class="chart">
                     
-                </div> 
+                    </div>                
+                </div>
+            </div> 
+	</div>
+    </div>
+    
+    <!-- Payments -->
+    <div class="yourStats push-up-20">
+        <h4>Payments</h4>
+        <div class="row card">
+            <div class="col-lg-4 col-sm-6 stats push-up-10">
+                <div><i class="fa fa-bank"></i> Pending Balance: <span id="yourPendingBalance"></span></div>
+                <div><i class="fa fa-money"></i> Total Paid: <span id="yourPaid"></span></div>
+                <div><i class="fa fa-money"></i> Current Payout Estimate: <span id="yourPayoutEstimate"></span></div>
+            </div>
+            <div class="col-lg-8 col-sm-6">
+                <div class="userChart push-up-10" data-chart="user_payments">
+                    <div class="chart">
+                    
+                    </div> 
+                </div>
             </div>
         </div>       
     </div>
 
     <!-- Workers -->
-    <h4 class="yourWorkers">Workers Statistics</h4>
-    <div id="workersReport" class="yourWorkers table-responsive">
-        <table class="table table-hover table-striped">
-            <thead>
-            <tr>
-                <th class="col1 sort">Status <i class="fa fa-sort"></i></th>
-                <th class="col2 sort">Worker Name <i class="fa fa-sort"></i></th>
-                <th class="col3 sort">Hash Rate <i class="fa fa-sort"></i></th>
-                <th class="col4 sort">Last Share Submitted <i class="fa fa-sort"></i></th>
-                <th class="col5 sort">Total Hashes Submitted <i class="fa fa-sort"></i></th>
-            </tr>
-            </thead>
-            <tbody id="workersReport_rows">
+    <h4 class="yourStats yourWorkers push-up-20"><i class="fa fa-server"></i>&nbsp; Workers Statistics</h4>
+    <div class="yourStats yourWorkers card">
+        <div id="workersReport" class="table-responsive">
+            <table class="table table-hover table-striped">
+                <thead>
+                <tr>
+                    <th class="col1 sort">Status <i class="fa fa-sort"></i></th>
+                    <th class="col2 sort">Worker Name <i class="fa fa-sort"></i></th>
+                    <th class="col3 sort">Hash Rate <i class="fa fa-sort"></i></th>
+                    <th class="col4 sort">Last Share Submitted <i class="fa fa-sort"></i></th>
+                    <th class="col5 sort">Total Hashes Submitted <i class="fa fa-sort"></i></th>
+                </tr>
+                </thead>
+                <tbody id="workersReport_rows">
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     </div>
     
     <!-- Payments -->
-    <h4 class="yourStats">Payments History</h4>
-    <div id="workerPayments" class="yourStats table-responsive">
-        <table class="table table-hover table-striped">
-            <thead>
-            <tr>
-                <th class="col1">Time Sent</th>
-                <th class="col2">Transaction Hash</th>
-                <th class="col3">Amount</th>
-                <th class="col4">Mixin</th>
-            </tr>
-            </thead>
-            <tbody id="paymentsReport_rows">
+    <h4 class="yourStats push-up-20"><i class="fa fa-money"></i>&nbsp; Payments History</h4>
+    <div class="yourStats card">
+        <div id="workerPayments" class="table-responsive">
+            <table class="table table-hover table-striped">
+                <thead>
+                <tr>
+                    <th class="col1">Time Sent</th>
+                    <th class="col2">Transaction Hash</th>
+                    <th class="col3">Amount</th>
+                    <th class="col4">Mixin</th>
+                </tr>
+                </thead>
+                <tbody id="paymentsReport_rows">
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     </div>
-    <p class="yourStats text-center">
+    
+    <p class="yourStats text-center push-up-10">
         <button type="button" class="btn btn-default" id="loadMorePayments">Load More</button>
     </p>
 
@@ -87,6 +98,7 @@
 
 <!-- Javascript -->
 <script>
+// Update current page
 currentPage = {
     destroy: function(){
         $('#yourLastShare').timeago('dispose');
@@ -94,13 +106,17 @@ currentPage = {
         if (addressTimeout) clearTimeout(addressTimeout);
         if (xhrGetPayments) xhrGetPayments.abort();
     },
-    update: function(){
-    }
+    update: function(){}
 };
 
+/**
+ * Miner statistics
+ **/
+
+// Enable time ago on last submitted share
 $('#yourLastShare').timeago();
 
-
+// Load current miner statistics
 var xhrAddressPoll;
 var addressTimeout;
 
@@ -167,7 +183,7 @@ function fetchAddressStats(longpoll){
             }
 	    
             $('.yourStats').show();
-            createUserCharts(data);                                
+            createCharts(data);                                
 	    
             fetchAddressStats(true);
         },
@@ -182,7 +198,8 @@ function fetchAddressStats(longpoll){
         }
     });
 }
-    
+
+// Click on lookup button
 $('#lookUp').click(function(){
     var address = $('#yourStatsInput').val().trim();
     
@@ -220,57 +237,67 @@ $('#lookUp').click(function(){
     
     fetchAddressStats(false);
 });
-    
-var workerCharts = {
-    hashrate: {
-        type: 'line',
-        width: '100%',
-        height: '120',
-        lineColor: '#03a9f4',
-        fillColor: 'rgba(3, 169, 244, .4)',
-        spotColor: null,
-        minSpotColor: null,
-        maxSpotColor: null,
-        highlightLineColor: '#236d26',
-        spotRadius: 3,
-        drawNormalOnTop: false,
-        chartRangeMin: 0,
-        tooltipFormat: '<b>{{y}}</b> &ndash; {{offset:names}}'
-    },
-    payments: {
-        type: 'line',
-        width: '100%',
-        height: '120',
-        lineColor: '#03a9f4',
-        fillColor: 'rgba(3, 169, 244, .3)',
-        spotColor: null,
-        minSpotColor: null,
-        maxSpotColor: null,
-        highlightLineColor: '#236d26',
-        spotRadius: 3,
-        drawNormalOnTop: false,
-        chartRangeMin: 0,
-        tooltipFormat: '<b>{{y}}</b> &ndash; {{offset:names}}'
-    }
+
+// Lookup if current address is known
+var address = getCurrentAddress();
+if (address){
+    $('#yourStatsInput').val(address);
+    $('#lookUp').click();
+}
+
+// Handler enter key on lookup address text field
+$('#yourStatsInput').keyup(function(e){
+    if(e.keyCode === 13)
+        $('#lookUp').click();
+});
+
+/**
+ * Charts
+ **/
+
+// Charts settings
+var graphSettings = {
+    type: 'line',
+    width: '100%',
+    height: '120',
+    lineColor: '#03a9f4',
+    fillColor: 'rgba(3, 169, 244, .4)',
+    spotColor: null,
+    minSpotColor: null,
+    maxSpotColor: null,
+    highlightLineColor: '#236d26',
+    spotRadius: 3,
+    chartRangeMin: 0,
+    drawNormalOnTop: false,
+    tooltipFormat: '<b>{{y}}</b> &ndash; {{offset:names}}'
 };
 
+// Handle charts tooltip
 $(function() {
     $('[data-toggle="tooltip"]').tooltip();
 });
 
-$('#workersReport th.sort').on('click', sortTable);
-    
-function createUserCharts(data) {
-    for(var chart in workerCharts) {
-        if(data['charts'][chart] && data['charts'][chart].length) {
-            var graphData = getGraphData(data['charts'][chart], chart == 'payments');
-            workerCharts[chart].tooltipValueLookups = {names: graphData.names};
-            $('[data-chart=user_' + chart + ']').show().find('.chart').sparkline(graphData.values, workerCharts[chart]);
+// Create charts
+function createCharts(data) {
+    if (data.hasOwnProperty("charts")) {
+        var graphData = {
+            hashrate: getGraphData(data.charts.hashrate),
+            payments: getGraphData(data.charts.payments)
+        };
+
+        for(var graphType in graphData) {
+            if(graphData[graphType].values.length > 1) {
+                var settings = jQuery.extend({}, graphSettings);
+                settings.tooltipValueLookups = {names: graphData[graphType].names};
+                var $chart = $('[data-chart=user_' + graphType + ']').show().find('.chart');
+                $chart.sparkline(graphData[graphType].values, settings);
+            }
         }
     }
 }
 
-function getGraphData (rawData, fixValueToCoins) {
+// Get chart data
+function getGraphData(rawData, fixValueToCoins) {
     var graphData = {
         names: [],
         values: []
@@ -286,12 +313,18 @@ function getGraphData (rawData, fixValueToCoins) {
     return graphData;
 }
 
+/**
+ * Workers report
+ **/
+ 
+// Get worker row id
 function getWorkerRowId(workerName){
     var id = btoa(workerName);
     id = id.replace(/=/, '');
     return id;
 }
 
+// Get worker row element
 function getWorkerRowElement(worker, jsonString){
     var row = document.createElement('tr');
     row.setAttribute('data-json', jsonString);
@@ -303,6 +336,7 @@ function getWorkerRowElement(worker, jsonString){
     return row;
 }
 
+// Get worker cells
 function getWorkerCells(worker){
     var hashrate = worker.hashrate ? worker.hashrate : 0;
     var lastShare = worker.lastShare ? worker.lastShare : 0;
@@ -316,12 +350,17 @@ function getWorkerCells(worker){
            '<td class="col5" data-sort="' + hashes + '">' + hashes + '</td>';
 }
 
+// Handle sort on workers table
+$('#workersReport th.sort').on('click', sortTable);
+
+// Sort workers
 function sortWorkers(a, b){
-  var aName = a.name.toLowerCase();
-  var bName = b.name.toLowerCase(); 
-  return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
+    var aName = a.name.toLowerCase();
+    var bName = b.name.toLowerCase(); 
+    return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
 }
-      
+
+// Render workers list
 function renderWorkers(workersData){
     workersData = workersData.sort(sortWorkers);
     
@@ -349,6 +388,36 @@ function renderWorkers(workersData){
     }
 }
 
+/**
+ * Payments report
+ **/
+
+// Parse payment data
+function parsePayment(time, serializedPayment){
+    var parts = serializedPayment.split(':');
+    return {
+        time: parseInt(time),
+        hash: parts[0],
+        amount: parts[1],
+        fee: parts[2],
+        mixin: parts[3],
+        recipients: parts[4]
+    };
+}
+
+// Get payment row element
+function getPaymentRowElement(payment, jsonString){
+    var row = document.createElement('tr');
+    row.setAttribute('data-json', jsonString);
+    row.setAttribute('data-time', payment.time);
+    row.setAttribute('id', 'paymentRow' + payment.time);
+
+    row.innerHTML = getPaymentCells(payment);
+
+    return row;
+}
+
+// Get payment cells
 function getPaymentCells(payment){
     return '<td class="col1">' + formatDate(payment.time) + '</td>' +
            '<td class="col2">' + formatPaymentLink(payment.hash) + '</td>' +
@@ -356,6 +425,38 @@ function getPaymentCells(payment){
            '<td class="col4">' + payment.mixin + '</td>';
 }
 
+// Render payments
+function renderPayments(paymentsResults){
+    var $paymentsRows = $('#paymentsReport_rows');
+    for (var i = 0; i < paymentsResults.length; i += 2){
+        var payment = parsePayment(paymentsResults[i + 1], paymentsResults[i]);
+        var paymentJson = JSON.stringify(payment);
+        var existingRow = document.getElementById('paymentRow' + payment.time);
+
+        if (existingRow && existingRow.getAttribute('data-json') !== paymentJson){
+            $(existingRow).replaceWith(getPaymentRowElement(payment, paymentJson));
+        }
+        else if (!existingRow){
+            var paymentElement = getPaymentRowElement(payment, paymentJson);
+
+            var inserted = false;
+            var rows = $paymentsRows.children().get();
+            for (var f = 0; f < rows.length; f++) {
+                var pTime = parseInt(rows[f].getAttribute('data-time'));
+                if (pTime < payment.time){
+                    inserted = true;
+                    $(rows[f]).before(paymentElement);
+                    break;
+                }
+            }
+            if (!inserted) {
+                $paymentsRows.append(paymentElement);
+            }
+        }
+    }
+}
+
+// Load more payments button
 var xhrGetPayments;
 $('#loadMorePayments').click(function(){
     if (xhrGetPayments) xhrGetPayments.abort();
@@ -371,16 +472,5 @@ $('#loadMorePayments').click(function(){
             renderPayments(data);
         }
     });
-});
-
-var address = getCurrentAddress();
-if (address){
-    $('#yourStatsInput').val(address);
-    $('#lookUp').click();
-}
-
-$('#yourStatsInput').keyup(function(e){
-    if(e.keyCode === 13)
-        $('#lookUp').click();
 });
 </script>
