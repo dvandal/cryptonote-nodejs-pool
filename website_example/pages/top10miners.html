@@ -25,21 +25,26 @@ currentPage = {
 };
 
 /* Get top 10 miners */
-var xhrGetTOP = $.ajax({
-    url: api + '/get_top10miners',
-    data: {
-        time: $('#top10_rows').children().last().data('time')
-    },
-    dataType: 'json',
-    cache: 'false',
-    success: function(data){
-        if (!data) return;
-        for (var i=0; i<data.length; ++i) {
-            $( "#top10miners_rows" ).append('<tr>' + getMinerCells(i+1, data[i]) + '</tr>');
+function updateTop10() {
+    var xhrGetTOP = $.ajax({
+        url: api + '/get_top10miners',
+        data: {
+            time: $('#top10_rows').children().last().data('time')
+        },
+        dataType: 'json',
+        cache: 'false',
+        success: function(data){
+            if (!data) return;
+            for (var i=0; i<data.length; ++i) {
+                $( "#top10miners_rows" ).append('<tr>' + getMinerCells(i+1, data[i]) + '</tr>');
+            }
         }
-    }
-});
+    });
+}
 
+updateTop10();
+var intervalUpdateTop10 = setInterval(updateTop10, (60*1000));
+ 
 function getMinerCells(position, data){
     var miner = data.miner;
     var hashrate = data.hashrate ? data.hashrate : 0;
