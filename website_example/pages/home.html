@@ -11,7 +11,7 @@
             </div>
             <div class="content">
                 <div class="text">Pool Hash Rate</div>
-                <div class="value"><span id="poolHashrate"></span></div>
+                <div class="value"><span id="poolHashrate"></span> <span class="smallText">(<span id="hashPower"></span>)</span></div>
             </div>
         </div>
     </div>
@@ -218,6 +218,9 @@ currentPage = {
         updateText('poolHashrate', getReadableHashRateString(lastStats.pool.hashrate) + '/sec');
         updateText('blocksTotal', lastStats.pool.totalBlocks.toString());
         
+        var hashPower = lastStats.pool.hashrate / (lastStats.network.difficulty / lastStats.config.coinDifficultyTarget) * 100;
+        updateText('hashPower', hashPower.toFixed(2) + '%');
+
         if (lastStats.pool.lastBlockFound) {
             var d = new Date(parseInt(lastStats.pool.lastBlockFound)).toISOString();
             $('#poolLastBlockFound').timeago('update', d);
