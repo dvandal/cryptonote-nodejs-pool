@@ -492,7 +492,7 @@ table th.sort:hover{
 /* Hash info box */
 .hashInfo {
   background-color: #014e71;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
   cursor: default;
   padding: 15px;
   border-radius: 3px;
