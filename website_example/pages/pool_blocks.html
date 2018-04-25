@@ -56,69 +56,33 @@
 </div>
 
 <!-- Report -->
-<div id="blocksReport" class="table-responsive">
-    <table class="table table-hover table-striped">
-        <thead>
-        <tr>
-            <th class="col1">Time Found</th>
-            <th class="col2">Reward</th>
-            <th class="col3">Height</th>
-            <th class="col4">Difficulty</th>
-            <th class="col5">Block Hash</th>
-            <th class="col6">Effort</th>
-            <th class="col7" title="How many more blocks network must mine before this block is matured">Status</th>
-        </tr>
-        </thead>
-        <tbody id="blocksReport_rows">
-        </tbody>
-    </table>
+<div class="card push-up-10">
+    <div id="blocksReport" class="table-responsive">
+        <table class="table table-hover table-striped">
+            <thead>
+            <tr>
+                <th class="col1">Time Found</th>
+                <th class="col2">Reward</th>
+                <th class="col3">Height</th>
+                <th class="col4">Difficulty</th>
+                <th class="col5">Block Hash</th>
+                <th class="col6">Effort</th>
+                <th class="col7" title="How many more blocks network must mine before this block is matured">Status</th>
+            </tr>
+            </thead>
+            <tbody id="blocksReport_rows">
+            </tbody>
+        </table>
+    </div>
 </div>
 
-<p class="text-center">
+<p class="text-center push-up-10">
     <button type="button" class="btn btn-default" id="loadMoreBlocks">Load More</button>
 </p>
 
 <!-- Javascript -->
 <script>
-function formatLuck(difficulty, shares) {
-    // Only an approximation to reverse the calculations done in pool.js, because the shares with their respective times are not recorded in redis
-    // Approximation assumes equal pool hashrate for the whole round
-    // Could potentially be replaced by storing the sum of all job.difficulty in the redis db.
-    if (lastStats.config.slushMiningEnabled) {
-        // Uses integral calculus to calculate the average of a dynamic function
-        var accurateShares = 1/lastStats.config.blockTime * (  // 1/blockTime to get the average
-            shares * lastStats.config.weight * (                  // Basically calculates the 'area below the graph' between 0 and blockTime
-                1 - Math.pow( 
-                    Math.E, 
-                    ((- lastStats.config.blockTime) / lastStats.config.weight)  // blockTime is equal to the highest possible result of (dateNowSeconds - scoreTime)
-                )
-            )
-        );
-    }
-    else {
-        var accurateShares = shares;
-    }
-        
-    var percent = Math.round(accurateShares / difficulty * 100);
-    if(!percent){
-        return '<span class="luckGood">?</span>';
-    }
-    else if(percent <= 100){
-        return '<span class="luckGood">' + percent + '%</span>';
-    }
-    else if(percent >= 101 && percent <= 150){
-        return '<span class="luckMid">' + percent + '%</span>';
-    }
-    else{
-        return '<span class="luckBad">' + percent + '%</span>';
-    }    
-}
-
-function formatEfficiency(percent) {
-    return percent + '%';
-}
-
-    
+// Update current page
 currentPage = {
     destroy: function(){
         if (xhrGetBlocks) xhrGetBlocks.abort();
@@ -134,29 +98,14 @@ currentPage = {
         }
         updateText('blocksMaturityCount', lastStats.config.depth.toString());
 
-        $('#efficiency').html(formatEfficiency(lastStats.pool.efficiency));
+        $('#efficiency').html(formatPercent(lastStats.pool.efficiency));
         $('#averageLuck').html(formatLuck(lastStats.pool.totalDiff, lastStats.pool.totalShares));
 
         renderBlocks(lastStats.pool.blocks);	
     }
 };
 
-var xhrGetBlocks;
-$('#loadMoreBlocks').click(function(){
-    if (xhrGetBlocks) xhrGetBlocks.abort();
-    xhrGetBlocks = $.ajax({
-        url: api + '/get_blocks',
-        data: {
-            height: $('#blocksReport_rows').children().last().data('height')
-        },
-        dataType: 'json',
-        cache: 'false',
-        success: function(data){
-            renderBlocks(data);
-        }
-    });
-});
-
+// Parse block data
 function parseBlock(height, serializedBlock){
     var parts = serializedBlock.split(':');
     var block = {
@@ -197,6 +146,7 @@ function parseBlock(height, serializedBlock){
     return block;
 }
 
+// Get block row element
 function getBlockRowElement(block, jsonString){        
     function formatBlockLink(hash){
         return '<a target="_blank" href="' + getBlockchainUrl(hash) + '">' + hash + '</a>';
@@ -237,6 +187,7 @@ function getBlockRowElement(block, jsonString){
     return row;
 }
 
+// Render blocks
 function renderBlocks(blocksResults){
     var $blocksRows = $('#blocksReport_rows');
 
@@ -267,4 +218,21 @@ function renderBlocks(blocksResults){
         }
     }
 }
+
+// Load more blocks button
+var xhrGetBlocks;
+$('#loadMoreBlocks').click(function(){
+    if (xhrGetBlocks) xhrGetBlocks.abort();
+    xhrGetBlocks = $.ajax({
+        url: api + '/get_blocks',
+        data: {
+            height: $('#blocksReport_rows').children().last().data('height')
+        },
+        dataType: 'json',
+        cache: 'false',
+        success: function(data){
+            renderBlocks(data);
+        }
+    });
+});
 </script>

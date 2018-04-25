@@ -4,62 +4,68 @@
         <div class="row">
             <div class="infos col-sm-6">
                 <h3>Daemon</h3>
-                <ul class="list-unstyled">
-                    <li><strong>Last check:</strong> {{monitoringDaemon.lastCheck}}</li>
-                    <li><strong>Last status:</strong>
-                        <span id="daemonStatus">{{monitoringDaemon.lastStatus}}</span>
-                    </li>
-                    <li><strong>Last response:</strong>
-                        <pre>{{monitoringDaemon.lastResponse}}</pre>
-                    </li>
-                    <li><strong>Last fail:</strong>
-                        <span>{{monitoringDaemon.lastFail}}</span>
-                    </li>
-                    <li><strong>Last fail response:</strong>
-                        <pre>{{monitoringDaemon.lastFailResponse}}</pre>
-                    </li>
-                </ul>
+		<div class="card padding-10">
+                    <ul class="list-unstyled">
+                         <li><strong>Last check:</strong> {{monitoringDaemon.lastCheck}}</li>
+                         <li><strong>Last status:</strong>
+                             <span id="daemonStatus">{{monitoringDaemon.lastStatus}}</span>
+                         </li>
+                         <li><strong>Last response:</strong>
+                             <pre>{{monitoringDaemon.lastResponse}}</pre>
+                         </li>
+                         <li><strong>Last fail:</strong>
+                             <span>{{monitoringDaemon.lastFail}}</span>
+                         </li>
+                         <li><strong>Last fail response:</strong>
+                             <pre>{{monitoringDaemon.lastFailResponse}}</pre>
+                         </li>
+                     </ul>
+                </div>
             </div>
             <div class="infos col-sm-6">
                 <h3>Wallet</h3>
-                <ul class="list-unstyled">
-                    <li><strong>Last check:</strong> {{monitoringWallet.lastCheck}}</li>
-                    <li><strong>Last status:</strong>
-                        <span id="walletStatus">{{monitoringWallet.lastStatus}}</span>
-                    </li>
-                    <li><strong>Last response:</strong>
-                        <pre>{{monitoringWallet.lastResponse}}</pre>
-                    </li>
-                    <li><strong>Last fail:</strong>
-                        <span>{{monitoringWallet.lastFail}}</span>
-                    </li>
-                    <li><strong>Last fail response:</strong>
-                        <pre>{{monitoringWallet.lastFailResponse}}</span></pre>
-                </ul>
+                <div class="card padding-10">
+                    <ul class="list-unstyled">
+                        <li><strong>Last check:</strong> {{monitoringWallet.lastCheck}}</li>
+                        <li><strong>Last status:</strong>
+                            <span id="walletStatus">{{monitoringWallet.lastStatus}}</span>
+                        </li>
+                        <li><strong>Last response:</strong>
+                            <pre>{{monitoringWallet.lastResponse}}</pre>
+                        </li>
+                        <li><strong>Last fail:</strong>
+                            <span>{{monitoringWallet.lastFail}}</span>
+                        </li>
+                        <li><strong>Last fail response:</strong>
+                            <pre>{{monitoringWallet.lastFailResponse}}</span></pre>
+                    </ul>
+                </div>
             </div>
         </div>
 
         <h3>Logs</h3>
 
-        <div class="table-responsive">
-            <table class="table table-hover table-striped logList" id="logTable">
-                <thead>
-                <tr>
-                    <th class="sort">Name <i class="fa fa-sort"></i></th>
-                    <th class="sort">Modified <i class="fa fa-sort"></i></th>
-                    <th class="sort">Size <i class="fa fa-sort"></i></th>
-                </tr>
-                </thead>
-                <tbody>
-                {{#each logs}}
-                <tr>
-                    <td data-sort="{{@key}}"><a href="{{this.link}}" target="_blank">{{@key}}</a></td>
-                    <td data-sort="{{this.changed}}">{{this.changed}}</td>
-                    <td data-sort="{{this.size}}">{{this.size}} bytes</td>
-                </tr>
-                {{/each}}
-                </tbody>
-            </table>
+        <div class="card">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped logList" id="logTable">
+                    <thead>
+                    <tr>
+                        <th class="sort">Name <i class="fa fa-sort"></i></th>
+                        <th class="sort">Modified <i class="fa fa-sort"></i></th>
+                        <th class="sort">Size <i class="fa fa-sort"></i></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each logs}}
+                    <tr>
+                        <td data-sort="{{@key}}"><a href="{{this.link}}" target="_blank">{{@key}}</a></td>
+                        <td data-sort="{{this.changed}}">{{this.changed}}</td>
+                        <td data-sort="{{this.size}}">{{this.size}} bytes</td>
+                    </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </script>
