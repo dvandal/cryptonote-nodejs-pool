@@ -1,7 +1,7 @@
 cryptonote-nodejs-pool
 ======================
 
-High performance Node.js (with native C addons) mining pool for CryptoNote based coins such as Bytecoin, DuckNote, Monero, QuazarCoin, Boolberry, Dashcoin, GRAFT, SUPERIORCOIN etc. Comes with lightweight example front-end script which uses the pool's AJAX API.
+High performance Node.js (with native C addons) mining pool for CryptoNote based coins. Comes with lightweight example front-end script which uses the pool's AJAX API.
 
 
 
@@ -85,6 +85,8 @@ Features
 * Onishin's [keepalive function](https://github.com/perl5577/cpuminer-multi/commit/0c8aedb)
 * Support for slush mining system (disabled by default)
 * E-Mail Notifications on worker connected, disconnected (timeout) or banned (support MailGun, SMTP and Sendmail)
+* Top 10 miners report
+* Support translation of the visual interface
 
 
 Community / Support
@@ -98,6 +100,7 @@ Community / Support
 
 * https://graft.blockhashmining.com/
 * https://graft.anypool.net/
+* https://graft.dark-mine.su/
 
 Usage
 ===
@@ -167,7 +170,7 @@ Explanation for each field:
 /* Coin network time to mine one block, see DIFFICULTY_TARGET constant in DAEMON_CODE/src/cryptonote_config.h */
 "coinDifficultyTarget": 120,
 
-/* Set Cryptonight variant. Set 0 for original Cryptonight algorithm and 1 for Cryptonight v1 / Monero v7 algorithm. If empty will use automatic detection. */
+/* Set Cryptonight variant. Set 0 for original Cryptonight algorithm and 1 for Cryptonight v1 / Monero v7 algorithm. If empty will use automatic detection. Set -1 to disable. */
 "cnVariant": null,
 
 /* Logging */

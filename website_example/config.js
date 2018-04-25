@@ -10,4 +10,7 @@ var marketCurrencies = ["{symbol}-BTC", "{symbol}-USD", "{symbol}-EUR", "{symbol
 var blockchainExplorer = "http://chainradar.com/{symbol}/block/{id}";
 var transactionExplorer = "http://chainradar.com/{symbol}/transaction/{id}";
 
-var themeCss = "themes/light.css";
+var themeCss = "themes/default.css";
+
+var langs = { 'en': 'English', 'fr': 'Français' };
+var defaultLang = 'en';

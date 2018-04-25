@@ -1,203 +1,279 @@
 <!-- Connection Details -->
-<h3>Connection Details</h3>
-<div class="stats">
-    <div><i class="fa fa-cloud"></i> Mining Pool Address: <span id="miningPoolHost"></span></div>
+<div class="row">
+    <div class="col-sm-6">
+        <h3><span tkey="connectionDetails">Connection Details</span></h3>
+        <div class="card padding-l-10 padding-r-10">
+            <div class="stats">
+                <div><i class="fa fa-cloud"></i> <span tkey="miningPoolHost">Mining Pool Address</span>: <span id="miningPoolHost"></span></div>
+            </div>
+        </div>
+
+        <h4 class="push-up-15"><span tkey="username">Username<span></h4>
+        <div class="card padding-l-10 padding-r-10">
+            <div class="stats">
+                <div><i class="fa fa-key"></i> <span tkey="usernameDesc">This is your wallet address</span></div>
+                <div id="paymentId"><i class="fa fa-exchange"></i> <span tkey="paymentId">Exchange Payment ID</span>: <span><u tkey="address">address</u><span id="paymentIdSeparator">.</span><u tkey="addrPaymentId">paymentID</u></span></div>
+                <div id="fixedDiff"><i class="fa fa-wrench"></i> <span tkey="fixedDiff">Difficulty locking</span>: <span><u tkey="address">address</u><span id="fixedDiffSeparator">+</span><u tkey="addrDiff">diff</u></span></div>
+            </div>
+        </div>
+	    
+        <h4 class="push-up-15"><span tkey="password">Password</span></h4>
+        <div class="card padding-l-10 padding-r-10">
+            <div class="stats">
+                <div><i class="fa fa-server"></i> <span tkey="passwordDesc">This is your worker id</span></div>
+                <div id="emailsNotification"><i class="fa fa-envelope"></i> <span tkey="emailNotifications">Email Notifications</span>: <span><u>workerID</u>:<u>email</u></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mining ports -->
+    <div class="col-sm-6">
+        <h3><span tkey="miningPorts">Mining Ports</span></h3>
+        <div class="card">
+            <div id="miningPorts" class="table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead>
+                    <tr>
+                        <th class="col1"><span tkey="port">Port</span></th>
+                        <th class="col2"><span tkey="portDiff">Starting Difficulty</span></th>
+                        <th class="col3"><span tkey="description">Description</span></th>
+                    </tr>
+                    </thead>
+                    <tbody id="miningPorts_rows">
+                    <tr>
+                        <td class="col1"><span class="miningPort"></span></td>
+                        <td class="col2"><span class="miningPortDiff"></span></td>
+                        <td class="col3"><span class="miningPortDesc"></span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
     
-    <strong>Username</strong><br/>
-    <div><i class="fa fa-key"></i> <span>Specify your wallet address</span></div>
-    <div id="paymentId"><i class="fa fa-money"></i> Exchange Payment ID: <span><u>address</u><span id="paymentIdSeparator">.</span><u>paymentID</u></span></div>
-    <div id="fixedDiff"><i class="fa fa-lock"></i> Difficulty locking: <span><u>address</u><span id="fixedDiffSeparator">+</span><u>diff</u></span></div>
-    
-    <strong>Password</strong><br/>
-    <div><i class="fa fa-server"></i> Worker Identification: <span>Specify your worker name as the password</span></div>
-    <div id="emailsNotification"><i class="fa fa-envelope"></i> E-mail Notifications: <span><u>workerID</u>:<u>email</u></div>
 </div>
 
-<h3>Mining Ports</h3>
-
-<div id="miningPorts" class="table-responsive">
-    <table class="table table-hover table-striped">
-        <thead>
-        <tr>
-            <th class="col1">Port</th>
-            <th class="col2">Starting Difficulty</th>
-            <th class="col3">Description</th>
-        </tr>
-        </thead>
-        <tbody id="miningPorts_rows">
-        <tr>
-            <td class="col1"><span class="miningPort"></span></td>
-            <td class="col2"><span class="miningPortDiff"></span></td>
-            <td class="col3"><span class="miningPortDesc"></span></td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+<!-- Mining Applications and Configuration Generator -->
+<h3><span tkey="miningApps">Mining Applications</span></h3>
 
 <!-- Configuration Generator -->
-<h3>Configuration Generator</h3>
-
-<div id="configGenerator" class="row">
-    <div class="col-md-12">
-        Mining Port<br/>
-        <select class="form-select" id="gMiningPort"></select>
-    </div>
-    <div class="col-md-12">
-        Wallet Address <span class="required">*</span><br/>
-        <input class="form-control" id="gAddress" type="text" required="required" />
-    </div>
-    <div class="col-sm-9 col-xs-7">
-        Exchange Payment ID<br/>
-        <input class="form-control" id="gPaymentID" type="text" />
-    </div>
-    <div class="col-sm-3 col-xs-5">
-        Static Difficulty<br/>
-        <input class="form-control" id="gDifficulty" type="text" />
-    </div>
-    <div class="col-xs-6">
-        Worker Name<br/>
-        <input class="form-control" id="gWorkerName" type="text" />
-    </div>
-    <div class="col-xs-6">
-        E-mail Address<br/>
-        <input class="form-control" id="gEmail" type="email" />
-    </div>
-    <div class="col-md-12">
-        <input id="generateConf" type="submit" value="Generate configuration" class="btn btn-default" />
+<div class="card padding-15">
+    <p><span tkey="configGeneratorDesc">Generate your custom configuration to mine on our pool</span></p>
+    <div id="configGenerator" class="row">
+        <div class="col-md-12">
+            <div class="input-group push-down-5">
+                <span class="input-group-addon"><i class="fa fa-link"></i></span>
+                <select class="form-control" id="gMiningPort"></select>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="input-group push-down-5">
+                <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                <input class="form-control" id="gAddress" type="text" tplaceholder="addressField" placeholder="Wallet Address" required="required" />
+            </div>
+        </div>
+        <div class="col-sm-8 col-xs-12">
+            <div class="input-group push-down-5">
+                <span class="input-group-addon"><i class="fa fa-exchange"></i></span>
+                <input class="form-control" id="gPaymentID" type="text" tplaceholder="paymentIdField" placeholder="Payment ID for exchanges (optional)" />
+            </div>
+        </div>
+        <div class="col-sm-4 col-xs-12">
+            <div class="input-group push-down-5">
+                <span class="input-group-addon"><i class="fa fa-wrench"></i></span>
+                <input class="form-control" id="gDifficulty" type="text" tplaceholder="fixedDiffField" placeholder="Fixed difficulty (optional)" />
+            </div>
+        </div>
+        <div class="col-sm-6 col-xs-12">
+            <div class="input-group push-down-5">
+                <span class="input-group-addon"><i class="fa fa-server"></i></span>
+                <input class="form-control" id="gWorkerName" tplaceholder="workerNameField" type="text" placeholder="Worker_Name" /> 
+            </div>
+        </div>
+        <div class="col-sm-6 col-xs-12">
+            <div class="input-group push-down-5">
+                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                <input class="form-control" id="gEmail" type="text" tplaceholder="emailNotificationsField" placeholder="Email Notifications (optional)" />
+            </div>
+        </div>
+        <div class="col-md-12 push-up-5">
+            <input id="generateConf" type="submit" tvalue="generateConfig" value="Generate configuration" class="btn btn-default" />
+        </div>
     </div>
 </div>
 
-<!-- Mining Apps -->
-<h3>Mining Apps</h3>
-<div id="miningApps" class="table-responsive">
-    <table class="table">
-        <thead>
-        <tr>
-            <th><i class="fa fa-book"></i> App Name</th>
-            <th><i class="fa fa-car"></i> Architecture</th>
-            <th><i class="fa fa-download"></i> Downloads</th>
-            <th><i class="fa fa-comments"></i> Discussion</th>
-            <th><i class="fa fa-file-code-o"></i> Source Code</th>
-        </tr>
-        </thead>
-        <tbody id="miningApps_rows">
-        <tr class="appInfo">
-            <td class="miningAppTitle">XMR Stak</td>
-            <td>CPU, OpenCL (AMD), CUDA (Nvidia)</td>
-            <td><a target="_blank" href="https://github.com/fireice-uk/xmr-stak/releases">Releases</a></td>
-            <td><a target="_blank" href="https://github.com/fireice-uk/xmr-stak/issues">Issues</a></td>
-            <td><a target="_blank" href="https://github.com/fireice-uk/xmr-stak">Github</a></td>
-        </tr>
-        <tr class="appConfig">
-            <td colspan="5">
-                <span>Example config.txt (replace the relevant lines):</span><br/>        
-                <div class="config">
-                "pool_address": "<span class="exampleHost"></span>:<span class="examplePort"></span>",<br/>
-                "wallet_address": "<span class="exampleLogin">YOUR_WALLET_ADDRESS</span>",<br/>
-                "pool_password": "<span class="examplePassword">YOUR_WORKER_NAME"</span>,</div>
-            </td>
-        </tr>
-        <tr class="appInfo">
-            <td class="miningAppTitle">XMRig</td>
-            <td>CPU</td>
-            <td><a target="_blank" href="https://github.com/xmrig/xmrig/releases">Releases</a></td>
-            <td><a target="_blank" href="https://github.com/xmrig/xmrig/issues">Issues</a></td>
-            <td><a target="_blank" href="https://github.com/xmrig/xmrig">Github</a></td>
-        </tr>
-        <tr class="appInfo2">
-            <td class="miningAppTitle">XMRig-AMD</td>
-            <td>OpenCL (AMD)</td>
-            <td><a target="_blank" href="https://github.com/xmrig/xmrig-amd/releases">Releases</a></td>
-            <td><a target="_blank" href="https://github.com/xmrig/xmrig-amd/issues">Issues</a></td>
-            <td><a target="_blank" href="https://github.com/xmrig/xmrig-amd">Github</a></td>
-        </tr>
-        <tr class="appInfo2">
-            <td class="miningAppTitle">XMRig-NVIDIA</td>
-            <td>Cuda (Nvidia)</td>
-            <td><a target="_blank" href="https://github.com/xmrig/xmrig-nvidia/releases">Releases</a></td>
-            <td><a target="_blank" href="https://github.com/xmrig/xmrig-nvidia/issues">Issues</a></td>
-            <td><a target="_blank" href="https://github.com/xmrig/xmrig-nvidia">Github</a></td>
-        </tr>
-        <tr class="appConfig">
-            <td colspan="5">
-                <span>Example config.txt (replace the relevant lines):</span><br/>        
-                <div class="config">
-                "url": "<span class="exampleHost"></span>:<span class="examplePort"></span>",<br/>
-                "user": "<span class="exampleLogin">YOUR_WALLET_ADDRESS</span>",<br/>
-                "pass": "<span class="examplePassword">YOUR_WORKER_NAME</span>",</div>
-            </td>
-        </tr>
-        <tr class="appInfo">
-            <td class="miningAppTitle">CPUMiner-multi</td>
-            <td>CPU</td>
-            <td><a target="_blank" href="https://github.com/tpruvot/cpuminer-multi/releases">Releases</a></td>
-            <td><a target="_blank" href="https://github.com/tpruvot/cpuminer-multi/issues">Issues</a></td>
-            <td><a target="_blank" href="https://github.com/tpruvot/cpuminer-multi">Github</a></td>
-        </tr>
-        <tr class="appConfig">
-            <td colspan="5">
-                <span>Example:</span>
-                <code>minerd -a cryptonight -o stratum+tcp://<span class="exampleHost"></span>:<span class="examplePort"></span> -u <span class="exampleLogin">YOUR_WALLET_ADDRESS</span> -p <span class="examplePassword">YOUR_WORKER_NAME</span></code>
-            </td>
-        </tr>
-        <tr class="appInfo">
-            <td class="miningAppTitle">ccminer (forked by tsiv)</td>
-            <td>CUDA (Nvidia)</td>
-            <td><a target="_blank" href="https://github.com/tsiv/ccminer-cryptonight/releases">Releases</a></td>
-            <td><a target="_blank" href="https://bitcointalk.org/index.php?topic=656841.msg7487737#msg7487737">BitcoinTalk</a></td>
-            <td><a target="_blank" href="https://github.com/tsiv/ccminer-cryptonight">Github</a></td>
-        </tr>
-        <tr class="appConfig">
-            <td colspan="5">
-                <span>Example:</span>
-                <code>ccminer -o stratum+tcp://<span class="exampleHost"></span>:<span class="examplePort"></span> -u <span class="exampleLogin">YOUR_WALLET_ADDRESS</span> -p <span class="examplePassword">YOUR_WORKER_NAME</span></code>
-            </td>
-        </tr>
-        <tr class="appInfo">
-            <td class="miningAppTitle">YAM Miner (by yvg1900)</td>
-            <td>CPU</td>
-            <td><a target="_blank" href="https://mega.co.nz/#F!UlkU0RyR!E8n4CFkqVu0WoOnsJnQkSg">MEGA</a></td>
-            <td><a target="_blank" href="https://twitter.com/yvg1900">Twitter</a></td>
-            <td>Proprietary <i class="fa fa-frown-o"></i></td>
-        </tr>
-        <tr class="appConfig">
-            <td colspan="5">
-                <span>Example:</span>
-                <code>yam -c x -M stratum+tcp://<span class="exampleLogin">YOUR_WALLET_ADDRESS</span>:<span class="examplePassword">YOUR_WORKER_NAME</span>@<span class="exampleHost"></span>:<span class="examplePort"></span>/xmr</code>
-            </td>
-        </tr>
-        <tr class="appInfo">
-            <td class="miningAppTitle">Claymore CPU Miner</td>
-            <td>CPU</td>
-            <td><a target="_blank" href="https://bitcointalk.org/index.php?topic=647251.0">BitcoinTalk</a></td>
-            <td><a target="_blank" href="https://bitcointalk.org/index.php?topic=647251.0">BitcoinTalk</a></td>
-            <td>Proprietary <i class="fa fa-frown-o"></i></td>
-        </tr>
-        <tr class="appConfig">
-            <td colspan="5">
-                <span>Example:</span>
-                <code>NsCpuCNMiner64 -o stratum+tcp://<span class="exampleHost"></span>:<span class="examplePort"></span> -u <span class="exampleLogin">YOUR_WALLET_ADDRESS</span> -p <span class="examplePassword">YOUR_WORKER_NAME</span></code>
-            </td>
-        </tr>
-        <tr class="appInfo">
-            <td class="miningAppTitle">Claymore GPU Miner</td>
-            <td>OpenCL (AMD)</td>
-            <td><a target="_blank" href="https://bitcointalk.org/index.php?topic=638915.0">BitcoinTalk</a></td>
-            <td><a target="_blank" href="https://bitcointalk.org/index.php?topic=638915.0">BitcoinTalk</a></td>
-            <td>Proprietary <i class="fa fa-frown-o"></i></td>
-        </tr>
-        <tr class="appConfig">
-            <td colspan="5">
-                <span>Example:</span>
-                <code>NsGpuCNMiner -o stratum+tcp://<span class="exampleHost"></span>:<span class="examplePort"></span> -u <span class="exampleLogin">YOUR_WALLET_ADDRESS</span> -p <span class="examplePassword">YOUR_WORKER_NAME</span></code>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+<!-- Mining Applications -->
+<div class="card push-up-5">
+    <div id="miningApps" class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th><i class="fa fa-book"></i> <span tkey="appName">App Name</span></th>
+                <th><i class="fa fa-car"></i> <span tkey="appArch">Architecture</span></th>
+                <th><i class="fa fa-star"></i> <span tkey="appDesc">Features</span></th>
+                <th><i class="fa fa-download"></i> <span tkey="download">Download</span></th>
+                <th><i class="fa fa-file-code-o"></i> <span tkey="configuration">Configuration</span></th>
+            </tr>
+            </thead>
+            <tbody id="miningApps_rows">
+	    
+	    <!-- XMR Stak -->
+            <tr class="appInfo">
+                <td class="miningAppTitle">XMR Stak</td>
+                <td>CPU & GPU (AMD/NVIDIA)</td>
+                <td>Easy to use CPU + GPU Mining App</td>
+                <td><a class="btn btn-success" target="_blank" href="https://github.com/fireice-uk/xmr-stak/releases/latest"><span tkey="download">Download</span></a></td>
+                <td><a class="btn btn-default" role="button" data-toggle="collapse" href="#xmrstak" aria-expanded="true" aria-controls="collapseExample"><span tkey="showConfig">See more</span></a></td>
+            </tr>
+            <tr class="appConfig">
+                <td colspan="5">
+                    <div class="collapse" id="xmrstak">
+		
+<pre><code>"pool_list": [
+    {
+        "pool_address": "<span class="exampleHost">POOL_HOST</span>:<span class="examplePort">PORT</span>",
+        "wallet_address": "<span class="exampleLogin">YOUR_WALLET_ADDRESS</span>",
+        "rig_id": "",
+        "pool_password": "<span class="examplePassword">YOUR_WORKER_NAME</span>",
+        "use_nicehash": false,
+        "use_tls": false,
+        "tls_fingerprint": "",
+        "pool_weight": 1
+    },
+],
+"currency": "<span id="minedCoin"></span>",</code></pre>
+
+                    </div>
+                </td>
+            </tr>
+	    
+	    <!-- XMRig -->
+            <tr class="appInfo">
+                <td class="miningAppTitle">XMRig</td>
+                <td>CPU</td>
+                <td>Ligthweight but powerful CPU Mining App</td>
+                <td><a class="btn btn-success" target="_blank" href="https://github.com/xmrig/xmrig/releases/latest"><span tkey="download">Download</span></a></td>
+                <td><a class="btn btn-default" role="button" data-toggle="collapse" href="#xmrig" aria-expanded="true" aria-controls="collapseExample"><span tkey="showConfig">See more</span></a></td>
+            </tr>
+            <tr class="appConfig">
+                <td colspan="5">
+                    <div class="collapse" id="xmrig">
+		
+<pre><code>"pools": [
+    {
+        "url": "<span class="exampleHost">POOL_HOST</span>:<span class="examplePort">PORT</span>",
+        "user": "<span class="exampleLogin">YOUR_WALLET_ADDRESS</span>",
+        "pass": "<span class="examplePassword">YOUR_WORKER_NAME</span>"
+        "keepalive": true,
+        "nicehash": false,
+        "variant": 1
+    }
+],</code></pre>
+
+                    </div>
+                </td>
+            </tr>
+
+	    <!-- XMRig-AMD -->
+            <tr class="appInfo">
+                <td class="miningAppTitle">XMRig-AMD</td>
+                <td>OpenCL (AMD)</td>
+                <td>XMRIG version for AMD GPU</td>
+                <td><a class="btn btn-success" target="_blank" href="https://github.com/xmrig/xmrig-amd/releases/latest"><span tkey="download">Download</span></a></td>
+                <td><a class="btn btn-default" role="button" data-toggle="collapse" href="#xmrig-amd" aria-expanded="true" aria-controls="collapseExample"><span tkey="showConfig">See more</span></a></td>
+            </tr>
+            <tr class="appConfig">
+                <td colspan="5">
+                    <div class="collapse" id="xmrig-amd">
+		
+<pre><code>"pools": [
+    {
+        "url": "<span class="exampleHost">POOL_HOST</span>:<span class="examplePort">PORT</span>",
+        "user": "<span class="exampleLogin">YOUR_WALLET_ADDRESS</span>",
+        "pass": "<span class="examplePassword">YOUR_WORKER_NAME</span>"
+        "keepalive": true,
+        "nicehash": false,
+        "variant": 1
+    }
+],</code></pre>
+
+                    </div>
+                </td>
+            </tr>
+
+	    <!-- XMRig-NVIDIA -->
+            <tr class="appInfo">
+                <td class="miningAppTitle">XMRig-NVIDIA</td>
+                <td>Cuda (Nvidia)</td>
+                <td>XMRIG version for Nvidia GPU</td>
+                <td><a class="btn btn-success" target="_blank" href="https://github.com/xmrig/xmrig-nvidia/releases/latest"><span tkey="download">Download</span></a></td>
+                <td><a class="btn btn-default" role="button" data-toggle="collapse" href="#xmrig-nvidia" aria-expanded="true" aria-controls="collapseExample"><span tkey="showConfig">See more</span></a></td>
+            </tr>
+            <tr class="appConfig">
+                <td colspan="5">
+                    <div class="collapse" id="xmrig-nvidia">
+		
+<pre><code>"pools": [
+    {
+        "url": "<span class="exampleHost">POOL_HOST</span>:<span class="examplePort">PORT</span>",
+        "user": "<span class="exampleLogin">YOUR_WALLET_ADDRESS</span>",
+        "pass": "<span class="examplePassword">YOUR_WORKER_NAME</span>"
+        "keepalive": true,
+        "nicehash": false,
+        "variant": 1
+    }
+],</code></pre>
+
+                    </div>
+                </td>
+            </tr>
+
+	    <!-- XMRigCC -->
+            <tr class="appInfo">
+                <td class="miningAppTitle">XMRigCC</td>
+                <td>CPU</td>
+                <td>XMRIG Fork, optimized with remote control</td>
+                <td><a class="btn btn-success" target="_blank" href="https://github.com/Bendr0id/xmrigCC/releases/latest"><span tkey="download">Download</span></a></td>
+                <td><a class="btn btn-default" role="button" data-toggle="collapse" href="#xmrig-cc" aria-expanded="true" aria-controls="collapseExample"><span tkey="showConfig">See more</span></a></td>
+            </tr>
+            <tr class="appConfig">
+                <td colspan="5">
+                    <div class="collapse" id="xmrig-cc">
+		
+<pre><code>"pools": [
+    {
+        "url": "<span class="exampleHost">POOL_HOST</span>:<span class="examplePort">PORT</span>",
+        "user": "<span class="exampleLogin">YOUR_WALLET_ADDRESS</span>",
+        "pass": "<span class="examplePassword">YOUR_WORKER_NAME</span>",
+        "keepalive": true,
+        "nicehash": false,
+    },
+],</code></pre>
+
+                    </div>
+                </td>
+            </tr>
+	    
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <!-- Javascript -->
 <script>
+// Set pool host
+updateText('miningPoolHost', poolHost);
+
+// Cleanup mining ports
+var lastPortsJson = '';
+var $miningPorts = $('#miningPorts_rows');
+var miningPortTemplate = $miningPorts.html();
+$miningPorts.empty();
+
+var $miningPortSelect = $('#gMiningPort');
+$miningPortSelect.empty();
+
+// Update current page
 currentPage = {
     destroy: function(){
     },
@@ -229,15 +305,9 @@ currentPage = {
     }
 };
 
-document.getElementById('miningPoolHost').textContent = poolHost;
-
-var lastPortsJson = '';
-var $miningPorts = $('#miningPorts_rows');
-var miningPortTemplate = $miningPorts.html();
-$miningPorts.empty();
-
-var $miningPortSelect = $('#gMiningPort');
-$miningPortSelect.empty();
+/**
+ * Configuration generator
+ **/
 
 $('#generateConf').click(function() {
     // Mining Port
@@ -263,7 +333,4 @@ $('#generateConf').click(function() {
     updateTextClasses('examplePassword', password);    
 });
 
-function formatDifficulty(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-}
 </script>
