@@ -22,7 +22,7 @@
 
     <!-- Navigation -->
     <div class="nav-side-menu">
-        <div class="brand"><a href="/"><span tkey="miningPool">Mining Pool</span></a></div>
+        <div class="brand"><a href="/"><span id="coinSymbol"></span> <span tkey="miningPool">Mining Pool</span></a></div>
         <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>  
         <div class="menu-list">
             <ul id="menu-content" class="menu-content collapsed out">
@@ -124,6 +124,7 @@ function updateLiveStats(data) {
 
 // Update global informations
 function updateIndex(){
+    updateText('coinSymbol', lastStats.config.symbol);
     updateText('g_networkHashrate', getReadableHashRateString(lastStats.network.difficulty / lastStats.config.coinDifficultyTarget) + '/sec');
     updateText('g_poolHashrate', getReadableHashRateString(lastStats.pool.hashrate) + '/sec');    
     if (lastStats.miner && lastStats.miner.hashrate){
