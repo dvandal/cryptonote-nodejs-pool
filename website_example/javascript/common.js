@@ -387,6 +387,7 @@ function loadTranslations() {
 
 // Language selector
 function renderLangSelector() {
+    // Desktop
     var html = '';
     var numLangs = 0;
     if (langs) {
@@ -400,12 +401,37 @@ function renderLangSelector() {
     }
     if (html && numLangs > 1) {
         $('#langSelector').html(html);	
-    
-        $('#newLang').change(function() {
-            var newLang = $(this).val();
-            var url = '?lang=' + newLang;
-            if (window.location.hash) url += window.location.hash;
-            window.location.href = url;
+        $('#newLang').each(function(){
+            $(this).change(function() {
+                var newLang = $(this).val();
+                var url = '?lang=' + newLang;
+                if (window.location.hash) url += window.location.hash;
+                window.location.href = url;
+            });
+        });
+    }	
+
+    // Mobile
+    var html = '';
+    var numLangs = 0;
+    if (langs) {
+        html += '<select id="mNewLang" class="form-control form-control-sm">';
+        for (var lang in langs) {
+            var selected = lang == langCode ? ' selected="selected"' : '';
+            html += '<option value="' + lang + '"' + selected + '>' + langs[lang] + '</option>';
+	    numLangs ++;
+        }
+	html += '</select>';
+    }
+    if (html && numLangs > 1) {
+        $('#mLangSelector').html(html);	
+        $('#mNewLang').each(function(){
+            $(this).change(function() {
+                var newLang = $(this).val();
+                var url = '?lang=' + newLang;
+                if (window.location.hash) url += window.location.hash;
+                window.location.href = url;
+            });
         });
     }	
 }
