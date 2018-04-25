@@ -8,8 +8,8 @@
                 <span class="fa fa-cubes"></span>
             </div>
             <div class="content">
-                <div class="text">Total Blocks Mined</div>
-                <div class="value"><span id="blocksTotal"></span> <span class="smallText">(Last: <span id="lastBlockFound"></span>)</span></div>
+                <div class="text"><span tkey="blocksTotal">Total Blocks Mined</span></div>
+                <div class="value"><span id="blocksTotal"></span> <span class="smallText">(<span id="lastBlockFound"></span>)</span></div>
             </div>
         </div>
     </div>
@@ -21,7 +21,7 @@
                 <span class="fa fa-unlock-alt"></span>
             </div>
             <div class="content">
-                <div class="text">Maturity Requirement</div>
+                <div class="text"><span tkey="blocksMaturityCount">Maturity Requirement</span></div>
                 <div class="value"><span id="blocksMaturityCount"></span></div>
             </div>
         </div>
@@ -34,7 +34,7 @@
                 <span class="fa fa-line-chart"></span>
             </div>
             <div class="content">
-                <div class="text">Efficiency</div>
+                <div class="text"><span tkey="efficiency">Efficiency</span></div>
                 <div class="value"><span id="efficiency"></span></div>
             </div>
         </div>
@@ -47,7 +47,7 @@
                 <span class="fa fa-line-chart"></span>
             </div>
             <div class="content">
-                <div class="text">Average Luck</div>
+                <div class="text"><span tkey="averageLuck">Average Luck</span></div>
                 <div class="value"><span id="averageLuck"></span></div>
             </div>
         </div>
@@ -61,13 +61,13 @@
         <table class="table table-hover table-striped">
             <thead>
             <tr>
-                <th class="col1">Time Found</th>
-                <th class="col2">Reward</th>
-                <th class="col3">Height</th>
-                <th class="col4">Difficulty</th>
-                <th class="col5">Block Hash</th>
-                <th class="col6">Effort</th>
-                <th class="col7" title="How many more blocks network must mine before this block is matured">Status</th>
+                <th class="col1"><span tkey="timeFound">Time Found</span></th>
+                <th class="col2"><span tkey="reward">Reward</span></th>
+                <th class="col3"><span tkey="height">Height</span></th>
+                <th class="col4"><span tkey="difficulty">Difficulty</span></th>
+                <th class="col5"><span tkey="blockHash">Block Hash</span></th>
+                <th class="col6"><span tkey="effort">Effort</span></th>
+                <th class="col7" title="How many more blocks network must mine before this block is matured"><span tkey="status">Status</span></th>
             </tr>
             </thead>
             <tbody id="blocksReport_rows">
@@ -77,7 +77,7 @@
 </div>
 
 <p class="text-center push-up-10">
-    <button type="button" class="btn btn-default" id="loadMoreBlocks">Load More</button>
+    <button type="button" class="btn btn-default" id="loadMoreBlocks"><span tkey="loadMore">Load More</span></button>
 </p>
 
 <!-- Javascript -->

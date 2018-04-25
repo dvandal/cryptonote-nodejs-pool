@@ -76,6 +76,8 @@ function routePage(loadedCallback) {
     
     $link.parent().addClass('active');
     var page = $link.data('page');
+    
+    loadTranslations();
 
     xhrPageLoading = $.ajax({
         url: 'pages/' + page,
@@ -84,6 +86,7 @@ function routePage(loadedCallback) {
             $('#menu-content').collapse('hide');
             $('#loading').hide();
             $('#page').show().html(data);
+	    loadTranslations();
             if (currentPage) currentPage.update();
             if (loadedCallback) loadedCallback();
         }
@@ -179,7 +182,9 @@ function getReadableTime(seconds){
 
     function formatAmounts(amount, unit){
         var rounded = Math.round(amount);
-        return '' + rounded + ' ' + unit + (rounded > 1 ? 's' : '');
+	var unit = unit + (rounded > 1 ? 's' : '');
+        if (getTranslation(unit)) unit = getTranslation(unit);
+        return '' + rounded + ' ' + unit;
     }
 
     var amount = seconds;
@@ -298,4 +303,135 @@ function compareTableRows(index) {
 // Get table cell value
 function getCellValue(row, index) {
     return $(row).children('td').eq(index).data("sort")
+}
+
+/**
+ * Translations
+ **/
+
+if (typeof langs == "undefined") {
+    var langs = { en: 'English' };
+}
+
+if (typeof defaultLang == "undefined") {
+    var defaultLang = 'en';
+}
+
+var langCode = defaultLang;
+var langData = null; 
+
+function getTranslation(key) {
+    if (!langData || !langData[key]) return null;
+    return langData[key];    
+}
+
+var translate = function(data) {
+    langData = data;
+
+    $("[tkey]").each(function(index) {
+        var strTr = data[$(this).attr('tkey')];
+        $(this).html(strTr);
+    });
+
+    $("[tplaceholder]").each(function(index) {
+        var strTr = data[$(this).attr('tplaceholder')];
+	$(this).attr('placeholder', strTr)
+    });
+
+    $("[tvalue]").each(function(index) {
+        var strTr = data[$(this).attr('tvalue')];
+    $(this).attr('value', strTr)
+    });
+
+    jQuery.timeago.settings.strings = {
+        prefixAgo: data['timeagoPrefixAgo'],
+        prefixFromNow: data['timeagoPrefixFromNow'],
+        suffixAgo: data['timeagoSuffixAgo'],
+        suffixFromNow: data['timeagoSuffixFromNow'],
+        seconds: data['timeagoSeconds'],
+        minute: data['timeagoMinute'],
+        minutes: data['timeagoMinutes'],
+        hour: data['timeagoHour'],
+        hours: data['timeagoHours'],
+        day: data['timeagoDay'],
+        days: data['timeagoDays'],
+        month: data['timeagoMonth'],
+        months: data['timeagoMonths'],
+        year: data['timeagoYear'],
+        years: data['timeagoYears']
+    };
+} 
+
+// Get language code from URL
+const $_GET = {};
+const args = location.search.substr(1).split(/&/);
+for (var i=0; i<args.length; ++i) {
+    const tmp = args[i].split(/=/);
+    if (tmp[0] != "") {
+        $_GET[decodeURIComponent(tmp[0])] = decodeURIComponent(tmp.slice(1).join("").replace("+", " "));
+        var langCode = $_GET['lang'];    
+    }
+}
+
+// Load language
+function loadTranslations() {
+    if (langData) {
+        translate(langData);
+    }
+    else if (langs && langs[langCode]) {
+        $.getJSON('lang/'+langCode+'.json', translate);
+    } else {
+        $.getJSON('lang/'+defaultLang+'.json', translate);
+    }
+}
+
+// Language selector
+function renderLangSelector() {
+    // Desktop
+    var html = '';
+    var numLangs = 0;
+    if (langs) {
+        html += '<select id="newLang" class="form-control form-control-sm">';
+        for (var lang in langs) {
+            var selected = lang == langCode ? ' selected="selected"' : '';
+            html += '<option value="' + lang + '"' + selected + '>' + langs[lang] + '</option>';
+	    numLangs ++;
+        }
+	html += '</select>';
+    }
+    if (html && numLangs > 1) {
+        $('#langSelector').html(html);	
+        $('#newLang').each(function(){
+            $(this).change(function() {
+                var newLang = $(this).val();
+                var url = '?lang=' + newLang;
+                if (window.location.hash) url += window.location.hash;
+                window.location.href = url;
+            });
+        });
+    }	
+
+    // Mobile
+    var html = '';
+    var numLangs = 0;
+    if (langs) {
+        html += '<select id="mNewLang" class="form-control form-control-sm">';
+        for (var lang in langs) {
+            var selected = lang == langCode ? ' selected="selected"' : '';
+            html += '<option value="' + lang + '"' + selected + '>' + langs[lang] + '</option>';
+	    numLangs ++;
+        }
+	html += '</select>';
+    }
+    if (html && numLangs > 1) {
+        $('#mLangSelector').html(html);	
+        $('#mNewLang').each(function(){
+            $(this).change(function() {
+                var newLang = $(this).val();
+                var url = '?lang=' + newLang;
+                if (window.location.hash) url += window.location.hash;
+                window.location.href = url;
+            });
+        });
+    }	
 }

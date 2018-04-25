@@ -13,7 +13,8 @@
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="custom.css" rel="stylesheet">
+    <link href="themes/default.css" rel="stylesheet">
+    <link href="themes/custom.css" rel="stylesheet">
 </head>
 <body>
 
@@ -21,53 +22,50 @@
 
     <!-- Navigation -->
     <div class="nav-side-menu">
-        <div class="brand"><a href="/">Mining Pool</a></div>
+        <div class="brand"><a href="/"><span tkey="miningPool">Mining Pool</span></a></div>
         <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>  
         <div class="menu-list">
             <ul id="menu-content" class="menu-content collapsed out">
         
                 <li><a class="hot_link" data-page="home.html" href="#">
-                    <i class="fa fa-home"></i> Dashboard
+                    <i class="fa fa-home"></i> <span tkey="dashboard">Dashboard</span>
                 </a></li>
 
-                <li><a class="hot_link" data-page="about_us.html" href="#about_us">
-                    <i class="fa fa-info-circle"></i> About Us
-                </a></li>
-        
                 <li><a class="hot_link" data-page="getting_started.html" href="#getting_started">
-                    <i class="fa fa-rocket"></i> Getting Started
+                    <i class="fa fa-rocket"></i> <span tkey="gettingStarted">Getting Started</span>
                 </a></li>
 
                 <li><a class="hot_link" data-page="worker_stats.html" href="#worker_stats">
-                    <i class="fa fa-dashboard"></i> Worker Statistics
+                    <i class="fa fa-dashboard"></i> <span tkey="yourStats">Worker Statistics</span>
                 </a></li>
 
                 <li><a class="hot_link" data-page="pool_blocks.html" href="#pool_blocks">
-                    <i class="fa fa-cubes"></i> Pool Blocks
+                    <i class="fa fa-cubes"></i> <span tkey="poolBlocks">Pool Blocks</span>
                 </a></li>
 
                 <li><a class="hot_link" data-page="payments.html" href="#payments">
-                    <i class="fa fa-money"></i> Payments
+                    <i class="fa fa-money"></i> <span tkey="payments">Payments</span>
                 </a></li>            
 
                 <li><a class="hot_link" data-page="top10miners.html" href="#top10miners">
-                    <i class="fa fa-trophy"></i> Top 10 miners
+                    <i class="fa fa-trophy"></i> <span tkey="top10miners">Top 10 miners</span>
                 </a></li>
 
                 <li><a class="hot_link" data-page="market.html" href="#market">
-                    <i class="fa fa-bank"></i> Market
+                    <i class="fa fa-bank"></i> <span tkey="market">Market / Calculator</span>
                 </a></li>
-
             </ul>
         </div>
+	
     </div>
 
     <!-- Top Bar -->
     <div id="top-bar">
-        <div id="section">Network: <span id="g_networkHashrate">N/A</span></div>
-        <div id="section">Pool: <span id="g_poolHashrate">N/A</span></div>
-        <div id="section">You: <span id="g_userHashrate">N/A</span></div>
-        <div id="section"><span id="statsUpdated">Stats Updated &nbsp;<i class="fa fa-bolt"></i></span></div>
+        <div id="section"><span tkey="network">Network</span>: <strong><span id="g_networkHashrate"><span tkey="na">N/A</span></span></strong></div>
+        <div id="section"><span tkey="pool">Pool</span>: <strong><span id="g_poolHashrate"><span tkey="na">N/A</span></span></strong></div>
+        <div id="section"><span tkey="you">You</span>: <strong><span id="g_userHashrate"><span tkey="na">N/A</span></span></strong></div>
+        <div id="section"><span id="statsUpdated"><span tkey="statsUpdated">Stats Updated</span> &nbsp;<i class="fa fa-bolt"></i></span></div>
+	<div id="langSelector"></div>
     </div>
     
     <!-- Page content -->
@@ -81,9 +79,9 @@
 <!-- Footer -->
 <footer>
     <div class="text-muted">
-        Powered by <a target="_blank" href="https://github.com/dvandal/cryptonote-nodejs-pool"><i class="fa fa-github"></i> cryptonote-nodejs-pool</a>
+        <span tkey="poweredBy">Powered by</span> <a target="_blank" href="https://github.com/dvandal/cryptonote-nodejs-pool"><i class="fa fa-github"></i> cryptonote-nodejs-pool</a>
         <span id="poolVersion"></span>
-        <span class="hidden-xs">open sourced under the <a href="http://www.gnu.org/licenses/gpl-2.0.html">GPL</a></span>
+        <span class="hidden-xs"><span tkey="openSource">open sourced under the</span> <a href="http://www.gnu.org/licenses/gpl-2.0.html">GPL</a></span>
     </div>
 </footer>
 
@@ -173,20 +171,26 @@ function fetchLiveStats() {
 
 // Initialize
 $(function(){
-    // Load current theme
-    $("head").append("<link rel='stylesheet' href=" + themeCss + ">");
+    // Load current theme if not default
+    if (themeCss && themeCss != 'themes/default.css') {
+        $("head").append("<link rel='stylesheet' href=" + themeCss + ">");
+    }
     
     // Add support informations to menu    
     if (telegram) {
-        $('#menu-content').append('<li><a target="_new" href="'+telegram+'"><i class="fa fa-telegram"></i> Telegram group</a></li>');
+        $('#menu-content').append('<li><a target="_new" href="'+telegram+'"><i class="fa fa-telegram"></i> <span tkey="telegram">Telegram group</span></a></li>');
     }
     if (discord) {
-        $('#menu-content').append('<li><a target="_new" href="'+discord+'"><i class="fa fa-ticket"></i> Discord</a></li>');
+        $('#menu-content').append('<li><a target="_new" href="'+discord+'"><i class="fa fa-ticket"></i> <span tkey="discord">Discord</span></a></li>');
     }
     if (email) {
-        $('#menu-content').append('<li><a target="_new" href="mailto:'+email+'"><i class="fa fa-envelope"></i> Contact Us</a></li>');
+        $('#menu-content').append('<li><a target="_new" href="mailto:'+email+'"><i class="fa fa-envelope"></i> <span tkey="contactUs">Contact Us</span></a></li>');
     }
-
+    if (langs) {
+        $('#menu-content').append('<div id="mLangSelector"></div>');
+	renderLangSelector();
+    }
+	
     // Load live statistics for the first time
     loadLiveStats();
 });

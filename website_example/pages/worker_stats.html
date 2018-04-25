@@ -1,26 +1,26 @@
 <!-- Worker Statistics -->
-<h3>Your Stats & Payment History</h3>
+<h3><span tkey="minerStats">Your Stats & Payment History</span></h3>
 
 <div id="workerStats">
     <div class="input-group">
-        <input class="form-control" id="yourStatsInput" type="text" placeholder="Enter Your Address">
+        <input class="form-control" id="yourStatsInput" type="text" tplaceholder="enterYourAddress" placeholder="Enter Your Address">
         <span class="input-group-btn"><button class="btn btn-default" type="button" id="lookUp">
-            <span><i class="fa fa-search"></i> Lookup</span>
-            <span><i class="fa fa-refresh fa-spin"></i> Searching...</span>
+            <span><i class="fa fa-search"></i> <span tkey="lookup">Lookup</span></span>
+            <span><i class="fa fa-refresh fa-spin"></i> <spantkey="searching">Searching...</span></span>
         </button></span>
     </div>
     <div id="addressError"></div>
 
     <!-- Hashrate -->
     <div class="yourStats push-up-20">
-        <h4>Hash Rate</h4>
+        <h4><i class="fa fa-dashboard"></i>&nbsp; <span tkey="hashRate">Hash Rate</span></h4>
 	<div class="row card">
-            <div class="col-lg-4 col-sm-6 stats push-up-10">
-                <div><i class="fa fa-tachometer"></i> Current Hash Rate: <span id="yourHashrateHolder"></span></div>
-                <div><i class="fa fa-clock-o"></i> Last Share Submitted: <span id="yourLastShare"></span></div>
-                <div><i class="fa fa-cloud-upload"></i> Total Hashes Submitted: <span id="yourHashes"></span></div>
+            <div class="col-sm-6 stats push-up-10">
+                <div><i class="fa fa-tachometer"></i> <span tkey="currentHashRate">Current Hash Rate</span>: <span id="yourHashrateHolder"></span></div>
+                <div><i class="fa fa-clock-o"></i> <span tkey="lastShare">Last Share Submitted</span>: <span id="yourLastShare"></span></div>
+                <div><i class="fa fa-cloud-upload"></i> <span tkey="totalHashes">Total Hashes Submitted</span>: <span id="yourHashes"></span></div>
             </div>
-            <div class="col-lg-8 col-sm-6">
+            <div class="col-sm-6">
                 <div class="userChart push-up-10" data-chart="user_hashrate">
                     <div class="chart">
                     
@@ -32,14 +32,14 @@
     
     <!-- Payments -->
     <div class="yourStats push-up-20">
-        <h4>Payments</h4>
+        <h4><i class="fa fa-money"></i>&nbsp; <span tkey="payments">Payments</span></h4>
         <div class="row card">
-            <div class="col-lg-4 col-sm-6 stats push-up-10">
-                <div><i class="fa fa-bank"></i> Pending Balance: <span id="yourPendingBalance"></span></div>
-                <div><i class="fa fa-money"></i> Total Paid: <span id="yourPaid"></span></div>
-                <div><i class="fa fa-money"></i> Current Payout Estimate: <span id="yourPayoutEstimate"></span></div>
+            <div class="col-sm-6 stats push-up-10">
+                <div><i class="fa fa-bank"></i> <span tkey="pendingBalance">Pending Balance</span>: <span id="yourPendingBalance"></span></div>
+                <div><i class="fa fa-money"></i> <span tkey="totalPaid">Total Paid</span>: <span id="yourPaid"></span></div>
+                <div><i class="fa fa-money"></i> <span tkey="payoutEstimate">Current Payout Estimate</span>: <span id="yourPayoutEstimate"></span></div>
             </div>
-            <div class="col-lg-8 col-sm-6">
+            <div class="col-sm-6">
                 <div class="userChart push-up-10" data-chart="user_payments">
                     <div class="chart">
                     
@@ -50,17 +50,17 @@
     </div>
 
     <!-- Workers -->
-    <h4 class="yourStats yourWorkers push-up-20"><i class="fa fa-server"></i>&nbsp; Workers Statistics</h4>
+    <h4 class="yourStats yourWorkers push-up-20"><i class="fa fa-server"></i>&nbsp; <span tkey="workerStats">Workers Statistics</span></h4>
     <div class="yourStats yourWorkers card">
         <div id="workersReport" class="table-responsive">
             <table class="table table-hover table-striped">
                 <thead>
                 <tr>
-                    <th class="col1 sort">Status <i class="fa fa-sort"></i></th>
-                    <th class="col2 sort">Worker Name <i class="fa fa-sort"></i></th>
-                    <th class="col3 sort">Hash Rate <i class="fa fa-sort"></i></th>
-                    <th class="col4 sort">Last Share Submitted <i class="fa fa-sort"></i></th>
-                    <th class="col5 sort">Total Hashes Submitted <i class="fa fa-sort"></i></th>
+                    <th class="col1 sort"><span tkey="status">Status</span> <i class="fa fa-sort"></i></th>
+                    <th class="col2 sort"><span tkey="workerName">Worker Name</span> <i class="fa fa-sort"></i></th>
+                    <th class="col3 sort"><span tkey="hashRate">Hash Rate</span> <i class="fa fa-sort"></i></th>
+                    <th class="col4 sort"><span tkey="lastShare">Last Share Submitted</span> <i class="fa fa-sort"></i></th>
+                    <th class="col5 sort"><span tkey="totalHashes">Total Hashes Submitted</span> <i class="fa fa-sort"></i></th>
                 </tr>
                 </thead>
                 <tbody id="workersReport_rows">
@@ -71,16 +71,16 @@
     </div>
     
     <!-- Payments -->
-    <h4 class="yourStats push-up-20"><i class="fa fa-money"></i>&nbsp; Payments History</h4>
+    <h4 class="yourStats push-up-20"><i class="fa fa-money"></i>&nbsp; <span tkey="paymentsHistory">Payments History</span></h4>
     <div class="yourStats card">
         <div id="workerPayments" class="table-responsive">
             <table class="table table-hover table-striped">
                 <thead>
                 <tr>
-                    <th class="col1">Time Sent</th>
-                    <th class="col2">Transaction Hash</th>
-                    <th class="col3">Amount</th>
-                    <th class="col4">Mixin</th>
+                    <th class="col1"><span tkey="timeSent">Time Sent</span></th>
+                    <th class="col2"><span tkey="transactionHash">Transaction Hash</span></th>
+                    <th class="col3"><span tkey="amount">Amount</span></th>
+                    <th class="col4"><span tkey="mixin">Mixin</span></th>
                 </tr>
                 </thead>
                 <tbody id="paymentsReport_rows">
@@ -91,7 +91,7 @@
     </div>
     
     <p class="yourStats text-center push-up-10">
-        <button type="button" class="btn btn-default" id="loadMorePayments">Load More</button>
+        <button type="button" class="btn btn-default" id="loadMorePayments"><span tkey="loadMore">Load More</span></button>
     </p>
 
 </div>
