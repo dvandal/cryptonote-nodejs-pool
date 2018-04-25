@@ -388,20 +388,24 @@ function loadTranslations() {
 // Language selector
 function renderLangSelector() {
     var html = '';
-    if (langs && langs.length > 1) {
+    var numLangs = 0;
+    if (langs) {
         html += '<select id="newLang" class="form-control form-control-sm">';
         for (var lang in langs) {
             var selected = lang == langCode ? ' selected="selected"' : '';
             html += '<option value="' + lang + '"' + selected + '>' + langs[lang] + '</option>';
+	    numLangs ++;
         }
 	html += '</select>';
     }
-    $('#langSelector').html(html);
+    if (html && numLangs > 1) {
+        $('#langSelector').html(html);	
     
-    $('#newLang').change(function() {
-        var newLang = $(this).val();
-	var url = '?lang=' + newLang;
-	if (window.location.hash) url += window.location.hash;
-        window.location.href = url;
-   });
+        $('#newLang').change(function() {
+            var newLang = $(this).val();
+            var url = '?lang=' + newLang;
+            if (window.location.hash) url += window.location.hash;
+            window.location.href = url;
+        });
+    }	
 }
