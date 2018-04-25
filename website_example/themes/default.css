@@ -300,6 +300,11 @@ footer > div{
 #top-bar #statsUpdated {
   font-weight: normal;
 }
+@media (max-width: 1199px) {
+  #top-bar #statsUpdated .text {
+    display: none;
+  }
+}
 @media (min-width: 992px) {
   #top-bar {
     overflow: auto;
@@ -933,4 +938,16 @@ table th.sort:hover{
 #langSelector select {
   display: inline-block;
   width: auto;
+  height: 32px;
+  padding: 6px 10px;
+}
+
+#mLangSelector {
+    display: none;
+    padding: 10px;
+}
+@media (max-width: 767px) {
+  #mLangSelector {
+    display: block;
+  }
 }

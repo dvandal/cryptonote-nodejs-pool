@@ -13,6 +13,7 @@
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
+    <link href="themes/default.css" rel="stylesheet">
     <link href="themes/custom.css" rel="stylesheet">
 </head>
 <body>
@@ -170,8 +171,10 @@ function fetchLiveStats() {
 
 // Initialize
 $(function(){
-    // Load current theme
-    $("head").append("<link rel='stylesheet' href=" + themeCss + ">");
+    // Load current theme if not default
+    if (themeCss && themeCss != 'themes/default.css') {
+        $("head").append("<link rel='stylesheet' href=" + themeCss + ">");
+    }
     
     // Add support informations to menu    
     if (telegram) {
@@ -184,6 +187,7 @@ $(function(){
         $('#menu-content').append('<li><a target="_new" href="mailto:'+email+'"><i class="fa fa-envelope"></i> <span tkey="contactUs">Contact Us</span></a></li>');
     }
     if (langs) {
+        $('#menu-content').append('<div id="mLangSelector"></div>');
 	renderLangSelector();
     }
 	
