@@ -131,8 +131,8 @@
 
     "timeagoPrefixAgo": null,
     "timeagoPrefixFromNow": null,
-    "timeagoSufixAgo": "ago",
-    "timeagoSufixFromNow": "from now",
+    "timeagoSuffixAgo": "ago",
+    "timeagoSuffixFromNow": "from now",
     "timeagoSeconds": "less than a minute",
     "timeagoMinute": "about a minute",
     "timeagoMinutes": "%d minutes",
