@@ -923,3 +923,14 @@ table th.sort:hover{
     width: 210px;
   }
 }
+
+/* Language selector */
+#langSelector {
+  float: right;
+  padding-right: 0 !important;
+}
+
+#langSelector select {
+  display: inline-block;
+  width: auto;
+}

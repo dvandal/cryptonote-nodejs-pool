@@ -10,7 +10,7 @@
                 <span class="fa fa-dashboard"></span>
             </div>
             <div class="content">
-                <div class="text">Pool Hash Rate</div>
+                <div class="text"><span tkey="poolHashrate">Pool Hash Rate</span></div>
                 <div class="value"><span id="poolHashrate"></span> <span class="smallText">(<span id="hashPower"></span>)</span></div>
             </div>
         </div>
@@ -23,8 +23,8 @@
                 <span class="fa fa-cubes"></span>
             </div>
             <div class="content">
-                <div class="text">Blocks Found</div>
-                <div class="value"><span id="blocksTotal"></span> <span class="smallText">(Last: <span id="poolLastBlockFound"></span>)</span></div>
+                <div class="text"><span tkey="blocksTotal">Blocks Found</span></div>
+                <div class="value"><span id="blocksTotal"></span> <span class="smallText">(<span tkey="last">Last:</span> <span id="poolLastBlockFound"></span>)</span></div>
             </div>
         </div>
     </div>
@@ -36,8 +36,8 @@
                 <span class="fa fa-history"></span>
             </div>
             <div class="content">
-                <div class="text">Blocks Found Every</div>
-                <div class="value"><span id="blockSolvedTime"></span> <span class="smallText">(estimated)</span></div>
+                <div class="text"><span tkey="blockSolvedTime">Blocks Found Every</span></div>
+                <div class="value"><span id="blockSolvedTime"></span> <span class="smallText">(<span tkey="estimated">estimated</span>)</span></div>
             </div>
         </div>
     </div>
@@ -49,7 +49,7 @@
                 <span class="fa fa-line-chart"></span>
             </div>
             <div class="content">
-                <div class="text">Current Effort</div>
+                <div class="text"><span tkey="currentEffort">Current Effort</span></div>
                 <div class="value"><span id="currentEffort"></span></div>
             </div>
         </div>
@@ -62,7 +62,7 @@
                 <span class="fa fa-dashboard"></span>
             </div>
             <div class="content">
-                <div class="text">Network Hash Rate</div>
+                <div class="text"><span tkey="networkHashrate">Network Hash Rate</span></div>
                 <div class="value"><span id="networkHashrate"></span></div>
             </div>
         </div>
@@ -75,7 +75,7 @@
                 <span class="fa fa-unlock-alt"></span>
             </div>
             <div class="content">
-                <div class="text">Difficulty</div>
+                <div class="text"><span tkey="networkDifficulty">Difficulty</span></div>
                 <div class="value"><span id="networkDifficulty"></span></div>
             </div>
         </div>
@@ -88,7 +88,7 @@
                 <span class="fa fa-bars"></span>
             </div>
             <div class="content">
-                <div class="text">Blockchain Height</div>
+                <div class="text"><span tkey="blockchainHeight">Blockchain Height</span></div>
                 <div class="value"><span id="blockchainHeight"></span></div>
             </div>
         </div>
@@ -101,7 +101,7 @@
                 <span class="fa fa-dollar"></span>
             </div>
             <div class="content">
-                <div class="text">Last Reward</div>
+                <div class="text"><span tkey="networkLastReward">Last Reward</span></div>
                 <div class="value"><span id="networkLastReward"></span></div>
             </div>
         </div>
@@ -114,8 +114,8 @@
                 <span class="fa fa-group"></span>
             </div>
             <div class="content">
-                <div class="text">Connected Miners</div>
-                <div class="value"><span id="poolMiners"></span> <span class="smallText">(<strong><span id="poolWorkers"></span></strong> workers)</span></div>
+                <div class="text"><span tkey="poolMiners">Connected Miners</span></div>
+                <div class="value"><span id="poolMiners"></span> <span class="smallText">(<strong><span id="poolWorkers"></span></strong> <span tkey="workersCount">workers</span>)</span></div>
             </div>
         </div>
     </div>
@@ -127,7 +127,7 @@
                 <span class="fa fa-dollar"></span>
             </div>
             <div class="content">
-                <div class="text">Pool Fee</div>
+                <div class="text"><span tkey="poolFee">Pool Fee</span></div>
                 <div class="value"><span id="poolFee"></span></div>
             </div>
         </div>
@@ -140,7 +140,7 @@
                 <span class="fa fa-dollar"></span>
             </div>
             <div class="content">
-                <div class="text">Minimum Payout</div>
+                <div class="text"><span tkey="paymentsMinimum">Minimum Payout</span></div>
                 <div class="value"><span id="paymentsMinimum"></span></div>
             </div>
         </div>
@@ -153,7 +153,7 @@
                 <span class="fa fa-clock-o"></span>
             </div>
             <div class="content">
-                <div class="text">Payment Interval</div>
+                <div class="text"><span tkey="paymentsInterval">Payment Interval</span></div>
                 <div class="value"><span id="paymentsInterval"></span></div>
             </div>
         </div>
@@ -162,7 +162,7 @@
     <!-- Last Hash -->
     <div class="col-sm-12">
         <div class="hashInfo hoverExpandEffect">
-            <div class="text">Last Hash</div>
+            <div class="text"><span tkey="lastHash">Last Hash</span></div>
             <div class="content clearfix">
                <div class="value"><a id="lastHash" target="_blank"></a></div>
                <div class="time">(<span id="networkLastBlockFound"></span>)</div>
@@ -175,25 +175,25 @@
 <!-- Pool Charts -->
 <div class="row">
     <div class="col-sm-6 poolChart push-up-15">
-        <h4>Hashrate</h4>
+        <h4><span tkey="hashRate">Hash Rate</span></h4>
         <div id="chartHashrate" class="card" data-chart="hashrate">
             <div class="chart"></div>
         </div>        
     </div>
     <div class="col-sm-6 poolChart push-up-15">
-        <h4>Difficulty</h4>
+        <h4><span tkey="difficulty">Difficulty</span></h4>
         <div id="chartDifficulty" class="card" data-chart="diff">
             <div class="chart"></div>
         </div>
     </div>
     <div class="col-sm-6 poolChart push-up-15">
-        <h4>Miners</h4>
+        <h4><span tkey="miners">Miners</span></h4>
         <div id="chartMiners" class="card" data-chart="miners">
             <div class="chart"></div>
         </div> 
     </div>    
     <div class="col-sm-6 poolChart push-up-15">
-        <h4>Workers</h4>
+        <h4><span tkey="workers">Workers</span></h4>
         <div id="chartWorkers" class="card" data-chart="workers">
             <div class="chart"></div>
         </div> 

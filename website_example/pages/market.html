@@ -1,28 +1,27 @@
 <!-- Market -->
 <div id="marketStats" class="row">
-    <div id="marketInfos" class="clearfix"><div
-class="col-xs-12"><span class="fa fa-spinner fa-spin"></span> Loading market prices</div></div>
+    <div id="marketInfos" class="clearfix"><div class="col-xs-12"><span class="fa fa-spinner fa-spin"></span> <span tkey="loadingMarket">Loading market prices</span></div></div>
     <div class="col-sm-6 marketChart">
-        <h4>Price in <span id="priceChartCurrency">USD</span></h4>
+        <h4><span tkey="priceIn">Price in</span> <span id="priceChartCurrency">USD</span></h4>
         <div id="chartPrice" class="card" data-chart="price">
             <div class="chart"></div>
         </div>        
     </div>
     <div class="col-sm-6 marketChart">
-        <h4>Hash/<span id="profitChartCurrency">USD</span> <span data-toggle="tooltip" data-placement="top" data-original-title="Reward * Rate / Difficulty"><i class="fa fa-question-circle"></i></span></h4>
+        <h4><span tkey="hashPer">Hash/</span><span id="profitChartCurrency">USD</span> <span data-toggle="tooltip" data-placement="top" data-original-title="Reward * Rate / Difficulty"><i class="fa fa-question-circle"></i></span></h4>
         <div id="chartProfit" class="card" data-chart="profit">
             <div class="chart"></div>
         </div>
     </div>
-    <div id="marketUpdate" class="col-xs-12 push-up-10">Updated: <span id="marketLastUpdated" title="Never">Never</span> &ndash; Source: <span id="marketSource">N/A</span></div>
+    <div id="marketUpdate" class="col-xs-12 push-up-10"><span tkey="updated">Updated:</span> <span id="marketLastUpdated" tkey="never">Never</span> &ndash; <span tkey="source">Source:</span> <span id="marketSource"><span tkey="na">N/A</span></span></div>
 </div>
     
 <!-- Mining Profit Calculator -->
 <div id="miningProfitCalc">
-    <h3>Estimate Mining Profits</h3>
+    <h3><span tkey="estimateProfit">Estimate Mining Profits</span></h3>
     <div id="calcHashHolder">
         <div class="input-group">
-            <input class="form-control" id="calcHashRate" placeholder="Enter Your Hash Rate" type="number">
+            <input class="form-control" id="calcHashRate" tplaceholder="enterYourHashrate" placeholder="Enter Your Hash Rate" type="number">
             <div class="input-group-btn">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="calcHashDropdown">
                     <span id="calcHashUnit" data-mul="1">KH/s</span> <span class="caret"></span>
@@ -34,7 +33,7 @@ class="col-xs-12"><span class="fa fa-spinner fa-spin"></span> Loading market pri
                 </ul>
             </div>
             <span class="input-group-addon">=</span>
-            <span class="input-group-addon" id="calcHashResultsHolder"><div id="calcHashAmount"><span id="calcHashAmount1"></span><br/><span id="calcHashAmount2"></span></div> <div id="calcHashPeriod"> per day</div></span>
+            <span class="input-group-addon" id="calcHashResultsHolder"><div id="calcHashAmount"><span id="calcHashAmount1"></span><br/><span id="calcHashAmount2"></span></div> <div id="calcHashPeriod"> <span tkey="perDay">per day</span></div></span>
         </div>
     </div>
 </div>
