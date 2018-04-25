@@ -76,6 +76,8 @@ function routePage(loadedCallback) {
     
     $link.parent().addClass('active');
     var page = $link.data('page');
+    
+    loadTranslations();
 
     xhrPageLoading = $.ajax({
         url: 'pages/' + page,
@@ -84,9 +86,9 @@ function routePage(loadedCallback) {
             $('#menu-content').collapse('hide');
             $('#loading').hide();
             $('#page').show().html(data);
+	    loadTranslations();
             if (currentPage) currentPage.update();
             if (loadedCallback) loadedCallback();
-	    loadTranslations();
         }
     });
 }
@@ -307,6 +309,14 @@ function getCellValue(row, index) {
  * Translations
  **/
 
+if (typeof langs == "undefined") {
+    var langs = { en: 'English' };
+}
+
+if (typeof defaultLang == "undefined") {
+    var defaultLang = 'en';
+}
+
 var langCode = defaultLang;
 var langData = null; 
 
@@ -365,7 +375,10 @@ for (var i=0; i<args.length; ++i) {
 
 // Load language
 function loadTranslations() {
-    if (langs && langs[langCode]) {
+    if (langData) {
+        translate(langData);
+    }
+    else if (langs && langs[langCode]) {
         $.getJSON('lang/'+langCode+'.json', translate);
     } else {
         $.getJSON('lang/'+defaultLang+'.json', translate);
@@ -375,7 +388,7 @@ function loadTranslations() {
 // Language selector
 function renderLangSelector() {
     var html = '';
-    if (langs) {
+    if (langs && langs.length > 1) {
         html += '<select id="newLang" class="form-control form-control-sm">';
         for (var lang in langs) {
             var selected = lang == langCode ? ' selected="selected"' : '';
