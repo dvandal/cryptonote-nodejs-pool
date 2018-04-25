@@ -1,7 +1,7 @@
 cryptonote-nodejs-pool
 ======================
 
-High performance Node.js (with native C addons) mining pool for CryptoNote based coins such as Bytecoin, DuckNote, Monero, QuazarCoin, Boolberry, Dashcoin, GRAFT, SUPERIORCOIN etc. Comes with lightweight example front-end script which uses the pool's AJAX API.
+High performance Node.js (with native C addons) mining pool for CryptoNote based coins. Comes with lightweight example front-end script which uses the pool's AJAX API.
 
 
 
@@ -85,6 +85,8 @@ Features
 * Onishin's [keepalive function](https://github.com/perl5577/cpuminer-multi/commit/0c8aedb)
 * Support for slush mining system (disabled by default)
 * E-Mail Notifications on worker connected, disconnected (timeout) or banned (support MailGun, SMTP and Sendmail)
+* Top 10 miners report
+* Support translation of the visual interface
 
 
 Community / Support
@@ -98,6 +100,7 @@ Community / Support
 
 * https://graft.blockhashmining.com/
 * https://graft.anypool.net/
+* https://graft.dark-mine.su/
 
 Usage
 ===
