@@ -334,8 +334,10 @@ var translate = function(data) {
     });
 
     jQuery.timeago.settings.strings = {
-        prefixAgo: data['timeagoAgo'],
-        prefixFromNow: data['timeagoFromNow'],
+        prefixAgo: data['timeagoPrefixAgo'],
+        prefixFromNow: data['timeagoPrefixFromNow'],
+        suffixAgo: data['timeagoSuffixAgo'],
+        suffixFromNow: data['timeagoSuffixFromNow'],
         seconds: data['timeagoSeconds'],
         minute: data['timeagoMinute'],
         minutes: data['timeagoMinutes'],
