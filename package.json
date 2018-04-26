@@ -15,10 +15,10 @@
         "dateformat": "*",
         "base58-native": "*",
         "nodemailer": "2.7.2",
-        "nodemailer-sendmail-transport" : "*",
+        "nodemailer-sendmail-transport": "*",
         "mailgun.js": "*",
         "cryptonight-hashing": "git://github.com/dvandal/node-cryptonight-hashing",
-        "cryptonote-util": "git://github.com/dvandal/node-cryptonote-util#xmr-Nan-2.0"
+        "cryptonote-util": "git://github.com/dvandal/node-cryptonote-util"
     },
     "engines": {
         "node": ">=4.0"
