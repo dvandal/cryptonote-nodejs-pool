@@ -539,10 +539,7 @@ var telegram = "https://t.me/YourPool";
 var discord = "https://discordapp.com/invite/YourPool";
 
 /* Market stat display params from https://www.cryptonator.com/widget */
-var cryptonatorWidget = ["{symbol}-BTC", "{symbol}-USD", "{symbol}-EUR", "{symbol}-CAD"];
-
-/* Default currency used by Estimate Mining Profit tool */
-var defaultCurrency = 'USD';
+var marketCurrencies = ["{symbol}-BTC", "{symbol}-USD", "{symbol}-EUR", "{symbol}-CAD"];
 
 /* Used for front-end block links. */
 var blockchainExplorer = "http://chainradar.com/{symbol}/block/{id}";
@@ -552,6 +549,12 @@ var transactionExplorer = "http://chainradar.com/{symbol}/transaction/{id}";
 
 /* Any custom CSS theme for pool frontend */
 var themeCss = "themes/light.css";
+
+/* Enabled languages list */
+var langs = { 'en': 'English', 'fr': 'Français', 'ca': 'Català' };
+
+/* Default language */
+var defaultLang = 'en';
 
 ```
 
