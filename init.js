@@ -27,7 +27,7 @@ if (cluster.isWorker){
             break;
         case 'cli':
             require('./lib/cli.js');
-            break
+            break;
         case 'chartsDataCollector':
             require('./lib/chartsDataCollector.js');
             break
