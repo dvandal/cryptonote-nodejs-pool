@@ -1,5 +1,5 @@
-var api = "https://api.xtlpool.com";//or direct with 8117
-var poolHost = "stratum.xtlpool.com";
+var api = "https://testnet.xtlpool.com";//or direct with 8117
+var poolHost = "testnet.xtlpool.com";
 
 var email = false;
 var telegram = false;

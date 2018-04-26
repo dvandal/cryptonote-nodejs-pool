@@ -4,3 +4,4 @@ config.json
 logs/
 website/
 *.log
+public/
