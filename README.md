@@ -397,7 +397,7 @@ Explanation for each field:
 /* Redis connection info (default port is 6379) */
 "redis": {
     "host": "127.0.0.1",
-    "port": 6379,
+    "port": 6379, // To use a unix socket specify the socket here and specify "host": null,
     "auth": null, // If set, client will run redis auth command on connect. Use for remote db
     "db": 0, // Set the REDIS database to use (default to 0)
     "cleanupInterval": 15 // Set the REDIS database cleanup interval (in days)
