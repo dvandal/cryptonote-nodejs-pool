@@ -44,7 +44,7 @@
     <div class="row">
         <label class="col-lg-2 col-sm-3 col-form-label col-form-label-lg" for="yourEmail"><span tkey="emailAddress">Email address</span>:</label>
         <div class="col-sm-5 push-down-5">
-          <input class="form-control" id="yourEmail" type="text" tplaceholder="minerEmailAddress" placeholder="Enter Your E-Mail Address (optional)">
+          <input class="form-control" id="yourEmail" type="text" tplaceholder="enterYourEmail" placeholder="Enter Your E-Mail Address (optional)">
         </div>
 	<div class="col-sm-4 push-down-5">
         <button class="btn btn-success" type="button" id="enableButton">
@@ -76,6 +76,7 @@ if (address){
  * Error Message
  **/
 function showError(id, message, extra) {
+    if (getTranslation(id)) message = getTranslation(id);
     message = message.trim();
     if (extra) message += ' ' + extra;
     $('#action_update_message').text(message);
@@ -86,6 +87,7 @@ function showError(id, message, extra) {
  * Success Message
  **/
 function showSuccess(id, message) {
+    if (getTranslation(id)) message = getTranslation(id);
     $('#action_update_message').text(message);
     $('#action_update_message').removeClass().addClass('alert alert-success');
 }
@@ -125,7 +127,7 @@ function setPayoutLevel(address, ip, level) {
         cache: 'false'
     }).done(function(data){
         if (data.status == 'done') {
-            showSuccess('minerPayoutSet', 'Done! Your payout level was set');
+            showSuccess('minerPayoutSet', 'Done! Your minimum payout level was set');
         } else {
             showError('error', 'Error:', data.status);
         }
@@ -220,9 +222,9 @@ function setEmailNotifications(email, address, ip, enable) {
     }).done(function(data){
         if (data.status == "done") {
             if (enable) {
-                showSuccess('notificationEnabled', 'Email notifications have been enabled');
+                showSuccess('notificationEnabled', 'Done! Email notifications have been enabled');
 	    } else {
-                showSuccess('notificationDisabled', 'Email notifications have been disabled');
+                showSuccess('notificationDisabled', 'Done! Email notifications have been disabled');
 	    }
         } else {
             showError('error', 'Error:', data.status);
