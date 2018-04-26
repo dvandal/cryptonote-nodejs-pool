@@ -42,7 +42,7 @@ function getMinerCells(position, data){
 
 // Update top10 miners report
 function updateTop10() {
-    $("#top10_rows").empty();
+    $("#top10miners_rows").empty();
 
     var xhrGetTOP = $.ajax({
         url: api + '/get_top10miners',

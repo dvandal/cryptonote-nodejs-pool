@@ -294,7 +294,7 @@ footer > div{
   display: inline-block;
   padding: 0 15px;
 }
-#top-bar div > span {
+#top-bar div strong {
   font-weight: 700;
 }
 #top-bar #statsUpdated {

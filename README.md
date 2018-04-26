@@ -86,7 +86,7 @@ Features
 * Support for slush mining system (disabled by default)
 * E-Mail Notifications on worker connected, disconnected (timeout) or banned (support MailGun, SMTP and Sendmail)
 * Top 10 miners report
-* Support translation of the visual interface
+* Multilingual: We support translation of the visual user interface
 
 
 Community / Support
@@ -334,6 +334,7 @@ Explanation for each field:
     "enabled": true,
     "hashrateWindow": 600, // How many second worth of shares used to estimate hash rate
     "updateInterval": 3, // Gather stats and broadcast every this many seconds
+    "bindIp": "0.0.0.0", // Bind API to a specific IP (set to 0.0.0.0 for all)
     "port": 8117, // The API port
     "blocks": 30, // Amount of blocks to send at a time
     "payments": 30, // Amount of payments to send at a time
@@ -362,14 +363,16 @@ Explanation for each field:
 "redis": {
     "host": "127.0.0.1",
     "port": 6379,
-    "auth": null // If set, client will run redis auth command on connect. Use for remote db
+    "auth": null, // If set, client will run redis auth command on connect. Use for remote db
+    "db": 0, // Set the REDIS database to use (default to 0)
+    "cleanupInterval": 15 // Set the REDIS database cleanup interval (in days)
 }
 
 /* Email Notifications */
 "email": {
     "enabled": false,
     "templateDir": "email_templates", // The templates folder
-    "templates": ["worker_connected", "worker_banned", "worker_timeout"], // Specify which templates to enable
+    "templates": ["worker_connected", "worker_banned", "worker_timeout", "email_added", "block_found", "payment"], // Specify which templates to enable
     "variables": { // The variables to replace in templates
         "POOL_HOST": "poolhost.com" // Your pool domain
     },
@@ -536,10 +539,7 @@ var telegram = "https://t.me/YourPool";
 var discord = "https://discordapp.com/invite/YourPool";
 
 /* Market stat display params from https://www.cryptonator.com/widget */
-var cryptonatorWidget = ["{symbol}-BTC", "{symbol}-USD", "{symbol}-EUR", "{symbol}-CAD"];
-
-/* Default currency used by Estimate Mining Profit tool */
-var defaultCurrency = 'USD';
+var marketCurrencies = ["{symbol}-BTC", "{symbol}-USD", "{symbol}-EUR", "{symbol}-CAD"];
 
 /* Used for front-end block links. */
 var blockchainExplorer = "http://chainradar.com/{symbol}/block/{id}";
@@ -549,6 +549,12 @@ var transactionExplorer = "http://chainradar.com/{symbol}/transaction/{id}";
 
 /* Any custom CSS theme for pool frontend */
 var themeCss = "themes/light.css";
+
+/* Enabled languages list */
+var langs = { 'en': 'English', 'fr': 'Français', 'ca': 'Català' };
+
+/* Default language */
+var defaultLang = 'en';
 
 ```
 

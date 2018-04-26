@@ -22,7 +22,7 @@
 
     <!-- Navigation -->
     <div class="nav-side-menu">
-        <div class="brand"><a href="/"><span tkey="miningPool">Mining Pool</span></a></div>
+        <div class="brand"><a href="/"><span id="coinSymbol"></span> <span tkey="miningPool">Mining Pool</span></a></div>
         <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>  
         <div class="menu-list">
             <ul id="menu-content" class="menu-content collapsed out">
@@ -31,12 +31,12 @@
                     <i class="fa fa-home"></i> <span tkey="dashboard">Dashboard</span>
                 </a></li>
 
-                <li><a class="hot_link" data-page="getting_started.html" href="#getting_started">
-                    <i class="fa fa-rocket"></i> <span tkey="gettingStarted">Getting Started</span>
-                </a></li>
-
                 <li><a class="hot_link" data-page="worker_stats.html" href="#worker_stats">
                     <i class="fa fa-dashboard"></i> <span tkey="yourStats">Worker Statistics</span>
+                </a></li>
+
+                <li><a class="hot_link" data-page="getting_started.html" href="#getting_started">
+                    <i class="fa fa-rocket"></i> <span tkey="gettingStarted">Getting Started</span>
                 </a></li>
 
                 <li><a class="hot_link" data-page="pool_blocks.html" href="#pool_blocks">
@@ -54,6 +54,11 @@
                 <li><a class="hot_link" data-page="market.html" href="#market">
                     <i class="fa fa-bank"></i> <span tkey="market">Market / Calculator</span>
                 </a></li>
+
+                <li><a class="hot_link" data-page="settings.html" href="#settings">
+                    <i class="fa fa-gears"></i> <span tkey="settings">Settings</span>
+                </a></li>
+
             </ul>
         </div>
 	
@@ -87,8 +92,8 @@
 
 <!-- Javascript -->
 <script src="config.js"></script>
-<script src="javascript/common.js"></script>
-<script src="javascript/custom.js"></script>
+<script src="js/common.js"></script>
+<script src="js/custom.js"></script>
 <script>
 // Store last pool statistics
 var lastStats;
@@ -124,6 +129,7 @@ function updateLiveStats(data) {
 
 // Update global informations
 function updateIndex(){
+    updateText('coinSymbol', lastStats.config.symbol);
     updateText('g_networkHashrate', getReadableHashRateString(lastStats.network.difficulty / lastStats.config.coinDifficultyTarget) + '/sec');
     updateText('g_poolHashrate', getReadableHashRateString(lastStats.pool.hashrate) + '/sec');    
     if (lastStats.miner && lastStats.miner.hashrate){
