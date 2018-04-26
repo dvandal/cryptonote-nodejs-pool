@@ -143,6 +143,7 @@
         "host": "127.0.0.1",
         "port": 6379,
         "auth": null,
+        "db": 0,
         "cleanupInterval": 15
     },
 
