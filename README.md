@@ -334,6 +334,7 @@ Explanation for each field:
     "enabled": true,
     "hashrateWindow": 600, // How many second worth of shares used to estimate hash rate
     "updateInterval": 3, // Gather stats and broadcast every this many seconds
+    "bindIp": "0.0.0.0", // Bind API to a specific IP (set to 0.0.0.0 for all)
     "port": 8117, // The API port
     "blocks": 30, // Amount of blocks to send at a time
     "payments": 30, // Amount of payments to send at a time
@@ -362,14 +363,16 @@ Explanation for each field:
 "redis": {
     "host": "127.0.0.1",
     "port": 6379,
-    "auth": null // If set, client will run redis auth command on connect. Use for remote db
+    "auth": null, // If set, client will run redis auth command on connect. Use for remote db
+    "db": 0, // Set the REDIS database to use (default to 0)
+    "cleanupInterval": 15 // Set the REDIS database cleanup interval (in days)
 }
 
 /* Email Notifications */
 "email": {
     "enabled": false,
     "templateDir": "email_templates", // The templates folder
-    "templates": ["worker_connected", "worker_banned", "worker_timeout"], // Specify which templates to enable
+    "templates": ["worker_connected", "worker_banned", "worker_timeout", "email_added", "block_found", "payment"], // Specify which templates to enable
     "variables": { // The variables to replace in templates
         "POOL_HOST": "poolhost.com" // Your pool domain
     },
