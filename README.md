@@ -86,7 +86,7 @@ Features
 * Support for slush mining system (disabled by default)
 * E-Mail Notifications on worker connected, disconnected (timeout) or banned (support MailGun, SMTP and Sendmail)
 * Top 10 miners report
-* Support translation of the visual interface
+* Multilingual: We support translation of the visual user interface
 
 
 Community / Support
