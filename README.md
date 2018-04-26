@@ -338,6 +338,7 @@ Explanation for each field:
     "blocks": 30, // Amount of blocks to send at a time
     "payments": 30, // Amount of payments to send at a time
     "password": "your_password", // Password required for admin stats
+    "bindIp":"127.0.0.1", // Bind API instance to spesific ip (eg. 127.0.0.1 or 0.0.0.0 for all)
     "ssl": false, // Enable SSL API
     "sslPort": 8119, // The SSL port
     "sslCert": "./cert.pem", // The SSL certificate
@@ -362,7 +363,8 @@ Explanation for each field:
 "redis": {
     "host": "127.0.0.1",
     "port": 6379,
-    "auth": null // If set, client will run redis auth command on connect. Use for remote db
+    "auth": null, // If set, client will run redis auth command on connect. Use for remote db
+    "db":0 // Allow users to set db instance
 }
 
 /* Email Notifications */
