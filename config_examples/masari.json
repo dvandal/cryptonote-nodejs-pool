@@ -147,7 +147,7 @@
     "email": {
         "enabled": false,
         "templateDir": "email_templates",
-        "templates": ["worker_connected", "worker_banned", "worker_timeout"],
+        "templates": ["worker_connected", "worker_banned", "worker_timeout", "email_added", "block_found", "payment"],
         "variables": {
             "POOL_HOST": "poolhost.com"
         },
