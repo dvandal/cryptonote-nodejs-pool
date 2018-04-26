@@ -7,8 +7,8 @@ body {
   font-family: 'Roboto', Helvetica, Arial, sans-serif;
   line-height: 1.428571429;
   color: #262626;
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
   margin-bottom: 85px;
   font-size: 16px;
   overflow-y: scroll;
@@ -135,7 +135,7 @@ footer > div{
   font-weight: 200;
   background-color: rgba(0, 0, 0, .8);
   position: fixed;
-  top: 0px;
+  top: 0;
   width: 225px;
   height: 100%;
   color: #fff;
@@ -161,8 +161,8 @@ footer > div{
 .nav-side-menu ul,
 .nav-side-menu li {
   list-style: none;
-  padding: 0px;
-  margin: 0px;
+  padding: 0;
+  margin: 0;
   line-height: 35px;
   cursor: pointer;
 }
@@ -204,7 +204,7 @@ footer > div{
   border: none;
   line-height: 28px;
   border-bottom: 1px solid #23282e;
-  margin-left: 0px;
+  margin-left: 0;
 }
 .nav-side-menu ul .sub-menu li:hover,
 .nav-side-menu li .sub-menu li:hover {
@@ -220,7 +220,7 @@ footer > div{
   vertical-align: middle;
 }
 .nav-side-menu li {
-  padding-left: 0px;
+  padding-left: 0;
   border-left: 3px solid #2e353d;
   border-bottom: 1px solid #23282e;
 }
@@ -309,9 +309,9 @@ footer > div{
   #top-bar {
     overflow: auto;
     position: fixed;
-    top: 0px;
+    top: 0;
     left: 225px;
-    right: 0px;
+    right: 0;
     padding: 0 15px;
   }
 }
@@ -469,7 +469,6 @@ table th.sort:hover{
   font-size: 60px;
   line-height: 60px;
   width: 75px;
-  text-align: center;
   color: rgba(255, 255, 255, 0.3);
 }
 .infoBox .content {
@@ -531,7 +530,7 @@ table th.sort:hover{
 /* Pool Statistics */
 .stats > div:not(#addressError) {
   color: #262626; 
-  padding: 10px 0px;
+  padding: 10px 0;
 }
 .stats > div:not(#addressError).marketFooter {
   padding: 5px 0;
