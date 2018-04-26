@@ -1,10 +1,10 @@
 {
-    "coin": "dero",
-    "symbol": "DERO,
+    "coin": "Haven",
+    "symbol": "XHV",
     "coinUnits": 1000000000000,
     "coinDifficultyTarget": 120,
-    "cnAlgorithm": "cryptonight",
-    "cnVariant": 1,
+    "cnAlgorithm": "cryptonight_heavy",
+    "cnVariant": null,
 
     "logging": {
         "files": {
@@ -97,18 +97,18 @@
         "maxAddresses": 50,
         "mixin": 5,
         "priority": 0,
-        "transferFee": 50000000,
+        "transferFee": 5000000000,
         "dynamicTransferFee": true,
         "minerPayFee" : true,
         "minPayment": 1000000000000,
         "maxTransactionAmount": 0,
-        "denomination": 1000000000
+        "denomination": 100000000000
     },
 
     "blockUnlocker": {
         "enabled": true,
         "interval": 30,
-        "depth": 10,
+        "depth": 60,
         "poolFee": 1.8,
         "devDonation": 0.2
     },
@@ -132,12 +132,12 @@
 
     "daemon": {
         "host": "127.0.0.1",
-        "port": 18060
+        "port": 17750
     },
 
     "wallet": {
         "host": "127.0.0.1",
-        "port": 18061
+        "port": 17755
     },
 
     "redis": {

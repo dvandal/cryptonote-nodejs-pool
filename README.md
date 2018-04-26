@@ -1,7 +1,7 @@
 cryptonote-nodejs-pool
 ======================
 
-High performance Node.js (with native C addons) mining pool for CryptoNote based coins. Comes with lightweight example front-end script which uses the pool's AJAX API.
+High performance Node.js (with native C addons) mining pool for CryptoNote based coins. Comes with lightweight example front-end script which uses the pool's AJAX API. Support for Original Cryptonight, Cryptonight v1 (Monero fork), Cryptonight Light (AEON) and Cryptonight Heavy (Sumokoin fork) algorithms.
 
 
 
@@ -43,6 +43,7 @@ Features
 * Set fixed difficulty on miner client by passing "address" param with "+[difficulty]" postfix
 * Modular components for horizontal scaling (pool server, database, stats/API, payment processing, front-end)
 * SSL support for both pool and API servers
+* Support for Original Cryptonight, Cryptonight v1 (Monero fork), Cryptonight Light (AEON) and Cryptonight Heavy (Sumokoin fork) algorithms
 
 #### Live statistics API
 * Currency network/block difficulty
@@ -169,6 +170,9 @@ Explanation for each field:
 
 /* Coin network time to mine one block, see DIFFICULTY_TARGET constant in DAEMON_CODE/src/cryptonote_config.h */
 "coinDifficultyTarget": 120,
+
+/* Set Cryptonight algorithm. Accepted values: cryptonight (default), cryptonight_lite and cryptonight_heavy */
+"cnAlgorithm": "cryptonight",
 
 /* Set Cryptonight variant. Set 0 for original Cryptonight algorithm and 1 for Cryptonight v1 / Monero v7 algorithm. If empty will use automatic detection. Set -1 to disable. */
 "cnVariant": null,

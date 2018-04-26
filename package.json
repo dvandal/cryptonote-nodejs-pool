@@ -17,8 +17,9 @@
         "nodemailer": "2.7.2",
         "nodemailer-sendmail-transport": "*",
         "mailgun.js": "*",
+        "cryptonote-util": "git://github.com/dvandal/node-cryptonote-util",
         "cryptonight-hashing": "git://github.com/dvandal/node-cryptonight-hashing",
-        "cryptonote-util": "git://github.com/dvandal/node-cryptonote-util"
+        "multi-hashing": "git://github.com/dvandal/node-multi-hashing"
     },
     "engines": {
         "node": ">=4.0"

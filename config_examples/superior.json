@@ -3,7 +3,8 @@
     "symbol": "SUP",
     "coinUnits": 100000000,
     "coinDifficultyTarget": 120,
-    "cnVariant": null,
+    "cnAlgorithm": "cryptonight",
+    "cnVariant": 1,
 
     "logging": {
         "files": {
@@ -20,7 +21,7 @@
     "poolServer": {
         "enabled": true,
         "clusterForks": "auto",
-        "poolAddress": "5PNwqrSXyUyfBG8TnrzXDCibV8CRnRALCYuFbuxauSpX7w3cmk4xAXA9EKyafTE889jpW8wAjM2yXerccaWbW6KmE35ihk3",
+        "poolAddress": "** Your pool wallet address **",
         "blockRefreshInterval": 1000,
         "minerTimeout": 900,
         "sslCert": "./cert.pem",

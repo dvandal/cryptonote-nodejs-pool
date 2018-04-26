@@ -3,6 +3,7 @@
     "symbol": "INTU",
     "coinUnits": 100,
     "coinDifficultyTarget": 120,
+    "cnAlgorithm": "cryptonight",
     "cnVariant": null,
 
     "logging": {
@@ -20,7 +21,7 @@
     "poolServer": {
         "enabled": true,
         "clusterForks": "auto",
-        "poolAddress": "intuvUUDjzU2Qr9epoxZF33XSKRX61a4hDtBf135oTQAZiey5sbhzubJ943N4KHsmcaMneMFDwRngM4w5o3BQehQe6AJiWtpDxq",
+        "poolAddress": "** Your pool wallet address **",
         "blockRefreshInterval": 1000,
         "minerTimeout": 900,
         "sslCert": "./cert.pem",
@@ -131,12 +132,12 @@
 
     "daemon": {
         "host": "127.0.0.1",
-        "port": 18981
+        "port": 31570
     },
 
     "wallet": {
         "host": "127.0.0.1",
-        "port": 18982
+        "port": 31571
     },
 
     "redis": {

@@ -3,6 +3,7 @@
     "symbol": "SUMO",
     "coinUnits": 1000000000,
     "coinDifficultyTarget": 240,
+    "cnAlgorithm": "cryptonight_heavy",
     "cnVariant": null,
 
     "logging": {
@@ -20,7 +21,7 @@
     "poolServer": {
         "enabled": true,
         "clusterForks": "auto",
-        "poolAddress": "Sumoo11vF7MEgF1a1kchah2QA7BgE58Mj8sSfRnFxb6o3C25e5nikCsirLb3wAyitX6VJwNTfupBHYccz4iXzKx1QkjHbXVHUhw",
+        "poolAddress": "** Your pool wallet address **",
         "blockRefreshInterval": 1000,
         "minerTimeout": 900,
         "sslCert": "./cert.pem",
