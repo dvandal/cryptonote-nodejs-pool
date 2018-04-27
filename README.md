@@ -171,7 +171,7 @@ Explanation for each field:
 /* Coin network time to mine one block, see DIFFICULTY_TARGET constant in DAEMON_CODE/src/cryptonote_config.h */
 "coinDifficultyTarget": 120,
 
-/* Set Cryptonight algorithm. Accepted values: cryptonight (default), cryptonight_lite and cryptonight_heavy */
+/* Set Cryptonight algorithm. Accepted values: cryptonight (default), cryptonight_light and cryptonight_heavy */
 "cnAlgorithm": "cryptonight",
 
 /* Set Cryptonight variant. Set 0 for original Cryptonight algorithm and 1 for Cryptonight v1 / Monero v7 algorithm. If empty will use automatic detection. Set -1 to disable. */
