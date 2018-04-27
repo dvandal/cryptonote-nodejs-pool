@@ -151,7 +151,7 @@
     "email": {
         "enabled": false,
         "templateDir": "email_templates",
-        "disabledTemplates": [],
+        "disableTemplates": [],
         "variables": {
             "POOL_HOST": "poolhost.com"
         },

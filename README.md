@@ -376,7 +376,7 @@ Explanation for each field:
 "email": {
     "enabled": false,
     "templateDir": "email_templates", // The templates folder
-    "templates": ["worker_connected", "worker_banned", "worker_timeout", "email_added", "block_found", "payment"], // Specify which templates to enable
+    "disableTemplates": ["template_to_disable_1", "template_to_disable_2", "etc"], // Specify which templates you want to disable
     "variables": { // The variables to replace in templates
         "POOL_HOST": "poolhost.com" // Your pool domain
     },
