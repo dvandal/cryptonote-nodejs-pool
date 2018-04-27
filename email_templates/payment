@@ -1,6 +1,6 @@
 Hello,
 
-A payment of %AMOUNT% %COIN_UNIT% has been sent to %ADDRESS%
+A payment of %AMOUNT% has been sent to %ADDRESS%
 
 Thank you,
 Cheers, the allmighty BlockMaster at %POOL_HOST%
