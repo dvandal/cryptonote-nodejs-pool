@@ -174,7 +174,13 @@
             "domain": "mg.yourdomain"
         }
     },
-    
+
+    "telegram": {
+        "enabled": false,
+        "token": "",
+        "channel": ""
+    },
+
     "monitoring": {
         "daemon": {
             "checkInterval": 60,
