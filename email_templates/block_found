@@ -1,6 +1,6 @@
 Hello,
 
-We found block %BLOCK_HEIGHT% on %BLOCK_TIME%
+We found block %HEIGHT% on %TIME%
 
 Thank you,
 Cheers, the allmighty BlockMaster at %POOL_HOST%
