@@ -409,7 +409,8 @@ Explanation for each field:
     }
 },
 
-/* Telegram channel notifications. See Telegram documentation to setup your bot: https://core.telegram.org/bots#3-how-do-i-create-a-bot */
+/* Telegram channel notifications. Currently only send notifications when a block is unlocked.
+   See Telegram documentation to setup your bot: https://core.telegram.org/bots#3-how-do-i-create-a-bot */
 "telegram": {
     "enabled": false,
     "token": "", // The bot unique authorization token
