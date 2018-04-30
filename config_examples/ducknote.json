@@ -150,6 +150,7 @@
 
     "notifications": {
         "poolHost": "your.pool.host",
+        "coinDecimals": 4,
         "emailTemplate": "email_templates/default.txt",
         "emailSubject": {
             "emailAdded": "Your email was registered",
