@@ -1,16 +1,28 @@
+/**
+ * Cryptonite Node.JS Pool
+ * https://github.com/dvandal/cryptonote-nodejs-pool
+ *
+ * Pool initialization script
+ **/
+
+// Load needed modules
 var fs = require('fs');
 var cluster = require('cluster');
 var os = require('os');
 
-var redis = require('redis');
-
+// Load configuration
 require('./lib/configReader.js');
 
+// Load log system
 require('./lib/logger.js');
+
+// Initialize redis database client
+var redis = require('redis');
 
 var redisDB = (config.redis.db && config.redis.db > 0) ? config.redis.db : 0;
 global.redisClient = redis.createClient(config.redis.port, config.redis.host, { db: redisDB, auth_pass: config.redis.auth });
 
+// Load pool modules
 if (cluster.isWorker){
     switch(process.env.workerType){
         case 'pool':
@@ -25,23 +37,26 @@ if (cluster.isWorker){
         case 'api':
             require('./lib/api.js');
             break;
-        case 'cli':
-            require('./lib/cli.js');
-            break;
         case 'chartsDataCollector':
             require('./lib/chartsDataCollector.js');
+            break;
+        case 'telegramBot':
+            require('./lib/telegramBot.js');
             break;
     }
     return;
 }
 
+// Initialize log system
 var logSystem = 'master';
 require('./lib/exceptionWriter.js')(logSystem);
 
-
+// Pool informations
+log('info', logSystem, 'Starting Cryptonote Node.JS pool version %s', [version]);
+ 
+// Run a single module ?
 var singleModule = (function(){
-
-    var validModules = ['pool', 'api', 'unlocker', 'payments', 'chartsDataCollector'];
+    var validModules = ['pool', 'api', 'unlocker', 'payments', 'chartsDataCollector', 'telegramBot'];
 
     for (var i = 0; i < process.argv.length; i++){
         if (process.argv[i].indexOf('-module=') === 0){
@@ -55,11 +70,11 @@ var singleModule = (function(){
     }
 })();
 
-
+/**
+ * Start modules
+ **/
 (function init(){
-
     checkRedisVersion(function(){
-
         if (singleModule){
             log('info', logSystem, 'Running in single module mode: %s', [singleModule]);
 
@@ -79,6 +94,9 @@ var singleModule = (function(){
                 case 'chartsDataCollector':
                     spawnChartsDataCollector();
                     break;
+                case 'telegramBot':
+                    spawnTelegramBot();
+                    break;
             }
         }
         else{
@@ -87,16 +105,15 @@ var singleModule = (function(){
             spawnPaymentProcessor();
             spawnApi();
             spawnChartsDataCollector();
+            spawnTelegramBot();
         }
-
-        spawnCli();
-
     });
 })();
 
-
+/**
+ * Check redis database version
+ **/
 function checkRedisVersion(callback){
-
     redisClient.info(function(error, response){
         if (error){
             log('error', logSystem, 'Redis version check failed');
@@ -127,15 +144,16 @@ function checkRedisVersion(callback){
     });
 }
 
+/**
+ * Spawn pool workers module
+ **/
 function spawnPoolWorkers(){
-
     if (!config.poolServer || !config.poolServer.enabled || !config.poolServer.ports || config.poolServer.ports.length === 0) return;
 
     if (config.poolServer.ports.length === 0){
         log('error', logSystem, 'Pool server enabled but no ports specified');
         return;
     }
-
 
     var numForks = (function(){
         if (!config.poolServer.clusterForks)
@@ -186,8 +204,10 @@ function spawnPoolWorkers(){
     }, 10);
 }
 
+/**
+ * Spawn block unlocker module
+ **/
 function spawnBlockUnlocker(){
-
     if (!config.blockUnlocker || !config.blockUnlocker.enabled) return;
 
     var worker = cluster.fork({
@@ -199,11 +219,12 @@ function spawnBlockUnlocker(){
             spawnBlockUnlocker();
         }, 2000);
     });
-
 }
 
+/**
+ * Spawn payment processor module
+ **/
 function spawnPaymentProcessor(){
-
     if (!config.payments || !config.payments.enabled) return;
 
     var worker = cluster.fork({
@@ -217,6 +238,9 @@ function spawnPaymentProcessor(){
     });
 }
 
+/**
+ * Spawn API module
+ **/
 function spawnApi(){
     if (!config.api || !config.api.enabled) return;
 
@@ -231,10 +255,9 @@ function spawnApi(){
     });
 }
 
-function spawnCli(){
-
-}
-
+/**
+ * Spawn charts data collector module
+ **/
 function spawnChartsDataCollector(){
     if (!config.charts) return;
 
@@ -245,6 +268,23 @@ function spawnChartsDataCollector(){
         log('error', logSystem, 'chartsDataCollector died, spawning replacement...');
         setTimeout(function(){
             spawnChartsDataCollector();
+        }, 2000);
+    });
+}
+
+/**
+ * Spawn telegram bot module
+ **/
+function spawnTelegramBot(){
+    if (!config.telegram || !config.telegram.enabled || !config.telegram.token) return;
+
+    var worker = cluster.fork({
+        workerType: 'telegramBot'
+    });
+    worker.on('exit', function(code, signal){
+        log('error', logSystem, 'telegramBot died, spawning replacement...');
+        setTimeout(function(){
+            spawnTelegramBot();
         }, 2000);
     });
 }

@@ -1,6 +1,0 @@
-Hello,
-
-Your worker %WORKER_NAME% has stopped submitting hashes on %LAST_HASH%
-
-Thank you,
-Cheers, the allmighty BlockMaster at %POOL_HOST%

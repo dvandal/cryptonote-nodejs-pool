@@ -21,6 +21,7 @@
     "poolServer": {
         "enabled": true,
         "clusterForks": "auto",
+        "poolHost": "your.pool.host",
         "poolAddress": "** Your pool wallet address **",
         "blockRefreshInterval": 1000,
         "minerTimeout": 900,
@@ -148,13 +149,41 @@
         "cleanupInterval": 15
     },
 
+    "notifications": {
+        "emailTemplate": "email_templates/default.txt",
+        "emailSubject": {
+            "emailAdded": "Your email was registered",
+            "workerConnected": "Worker %WORKER_NAME% connected",
+            "workerTimeout": "Worker %WORKER_NAME% stopped hashing",
+            "workerBanned": "Worker %WORKER_NAME% banned",
+            "blockFound": "Block %HEIGHT% found !",
+            "blockUnlocked": "Block %HEIGHT% unlocked !",
+            "blockOrphaned": "Block %HEIGHT% orphaned !",
+            "payment": "We sent you a payment !"
+        },
+        "emailMessage": {
+            "emailAdded": "Your email has been registered to receive pool notifications.",
+            "workerConnected": "Your worker %WORKER_NAME% is now connected.",
+            "workerTimeout": "Your worker %WORKER_NAME% has stopped submitting hashes on %LAST_HASH%.",
+            "workerBanned": "Your worker %WORKER_NAME% has been banned.",
+            "blockFound": "Block found at height %HEIGHT% by miner %MINER% on %TIME%. Waiting maturity.",
+            "blockUnlocked": "Block mined at %HEIGHT% with %REWARD% and %EFFORT% effort on %TIME%.",
+            "blockOrphaned": "Block orphaned at height %HEIGHT% :(",
+            "payment": "A payment of %AMOUNT% has been sent to %ADDRESS% wallet."
+        },
+        "telegramMessage": {
+            "workerConnected": "Your worker %WORKER_NAME% is now connected.",
+            "workerTimeout": "Your worker %WORKER_NAME% has stopped submitting hashes on %LAST_HASH%.",
+            "workerBanned": "Your worker %WORKER_NAME% has been banned.",
+            "blockFound": "Block found at height %HEIGHT% by miner %MINER%. Waiting maturity.",
+            "blockUnlocked": "Block mined at %HEIGHT% with %REWARD% and %EFFORT% effort on %TIME%.",
+            "blockOrphaned": "Block orphaned at height %HEIGHT% :(",
+            "payment": "A payment of %AMOUNT% has been sent."
+        }
+    },
+
     "email": {
         "enabled": false,
-        "templateDir": "email_templates",
-        "disableTemplates": [],
-        "variables": {
-            "POOL_HOST": "poolhost.com"
-        },
         "fromAddress": "your@email.com",
         "transport": "sendmail",
         "sendmail": {

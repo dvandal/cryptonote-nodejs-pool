@@ -1,6 +1,6 @@
 Hello,
 
-We found block %HEIGHT% on %TIME%
+%MESSAGE%
 
 Thank you,
 Cheers, the allmighty BlockMaster at %POOL_HOST%

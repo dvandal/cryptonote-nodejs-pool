@@ -1,6 +1,6 @@
 {
     "name": "cryptonote-nodejs-pool",
-    "version": "1.2.10",
+    "version": "1.3.0",
     "license": "GPL-2.0",
     "author": "Daniel Vandal",
     "repository": {
@@ -17,6 +17,7 @@
         "nodemailer": "2.7.2",
         "nodemailer-sendmail-transport": "*",
         "mailgun.js": "*",
+        "node-telegram-bot-api": "*",
         "cryptonote-util": "git://github.com/dvandal/node-cryptonote-util",
         "cryptonight-hashing": "git://github.com/dvandal/node-cryptonight-hashing",
         "multi-hashing": "git://github.com/dvandal/node-multi-hashing"

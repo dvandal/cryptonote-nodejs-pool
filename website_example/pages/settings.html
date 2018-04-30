@@ -15,7 +15,7 @@
     <div class="row push-down-5">
         <label class="col-lg-2 col-sm-3 col-form-label col-form-label-lg" for="yourIP"><span tkey="minerIP">Miner IP address</span>:</label>
         <div class="col-md-4 col-sm-5">
-            <input class="form-control" id="yourIP" type="text" tplaceholder="enterYourMinerIP" placeholder="An IP address your miners use (any)">
+            <input class="form-control" id="yourIP" type="text" tkey="enterYourMinerIP" placeholder="An IP address your miners use (any)">
         </div>
     </div>
 </div>
@@ -38,22 +38,24 @@
 </div>
 
 <!-- Email notifications -->
-<h3><span tkey="enableEmailNotifications">Enable email notifications</span></h3>
-<div class="card padding-15 padding-b-10">
-    <p><span tkey="minerEmailNotify">This pool will send out email notification when a block is found and whenever a payout happens.</span></p>
-    <div class="row">
-        <label class="col-lg-2 col-sm-3 col-form-label col-form-label-lg" for="yourEmail"><span tkey="emailAddress">Email address</span>:</label>
-        <div class="col-sm-5 push-down-5">
-          <input class="form-control" id="yourEmail" type="text" tplaceholder="enterYourEmail" placeholder="Enter Your E-Mail Address (optional)">
+<div id="emailNotifications">
+    <h3><span tkey="enableEmailNotifications">Enable email notifications</span></h3>
+    <div class="card padding-15 padding-b-10">
+        <p><span tkey="minerEmailNotify">This pool will send out email notification when a block is found and whenever a payout happens.</span></p>
+        <div class="row">
+            <label class="col-lg-2 col-sm-3 col-form-label col-form-label-lg" for="yourEmail"><span tkey="emailAddress">Email address</span>:</label>
+            <div class="col-sm-5 push-down-5">
+                <input class="form-control" id="yourEmail" type="text" tplaceholder="enterYourEmail" placeholder="Enter Your E-Mail Address (optional)">
+            </div>
+            <div class="col-sm-4 push-down-5">
+                <button class="btn btn-success" type="button" id="enableButton">
+                    <span><i class="fa fa-check"></i>&nbsp; <span tkey="enable">Enable</span></span>
+                </button>
+                <button class="btn btn-danger" type="button" id="disableButton">
+                    <span><i class="fa fa-ban"></i>&nbsp; <span tkey="disable">Disable</span></span>
+                </button>
+            </div>
         </div>
-	<div class="col-sm-4 push-down-5">
-        <button class="btn btn-success" type="button" id="enableButton">
-            <span><i class="fa fa-check"></i>&nbsp; <span tkey="enable">Enable</span></span>
-        </button>
-        <button class="btn btn-danger" type="button" id="disableButton">
-            <span><i class="fa fa-ban"></i>&nbsp; <span tkey="disable">Disable</span></span>
-        </button>
-	</div>
     </div>
 </div>
 
@@ -61,7 +63,9 @@
 // Update current page
 currentPage = {
     destroy: function(){},
-    update: function(){}
+    update: function(){
+	if (!lastStats.config.sendEmails) $('#emailNotifications').hide();
+    }
 };
 
 // Set current address and load initial values
@@ -139,19 +143,19 @@ $('#payoutSetButton').click(function(){
     var address = $('#yourAddress').val().trim();
     if (!address || address == '') {
         showError('noMinerAddress', 'No miner address specified');
-	return;
+        return;
     }
 
     var ip = $('#yourIP').val().trim();
     if (!ip || ip == '') {
         showError('noMinerIP', 'No miner IP address specified');
-	return;
+        return;
     }
 
     var level = $('#yourPayoutRate').val().trim();
     if (!level || level < 0) {
         showError('noPayoutLevel', 'No payout level specified');
-	return;
+        return;
     }
 
     setPayoutLevel(address, ip, level);
@@ -190,19 +194,19 @@ function setEmailNotifications(email, address, ip, enable) {
     var address = $('#yourAddress').val().trim();
     if (!address || address == '') {
         showError('noMinerAddress', 'No miner address specified');
-	return;
+        return;
     }
 
     var ip = $('#yourIP').val().trim();
     if (!ip || ip == '') {
         showError('noMinerIP', 'No miner IP address specified');
-	return;
+        return;
     }
 
     var email = $('#yourEmail').val().trim();
     if (enable && !email) {
         showError('noEmail', 'No email address specified');
-	return;
+        return;
     }
     if (enable && !isEmail(email)) {
         showError('invalidEmail', 'Invalid email address specified');
@@ -215,7 +219,7 @@ function setEmailNotifications(email, address, ip, enable) {
             address: address,
             ip: ip,
             email: email,
-	    action: enable ? 'enable' : 'disable'
+            action: enable ? 'enable' : 'disable'
         },
         dataType: 'json',
         cache: 'false'
@@ -223,9 +227,9 @@ function setEmailNotifications(email, address, ip, enable) {
         if (data.status == "done") {
             if (enable) {
                 showSuccess('notificationEnabled', 'Done! Email notifications have been enabled');
-	    } else {
+        } else {
                 showSuccess('notificationDisabled', 'Done! Email notifications have been disabled');
-	    }
+            }
         } else {
             showError('error', 'Error:', data.status);
         }
