@@ -8,7 +8,7 @@
             </div>
         </div>
 
-        <h4 class="push-up-15"><span tkey="username">Username</span></h4>
+        <h4 class="push-up-15"><span tkey="username">Username<span></h4>
         <div class="card padding-l-10 padding-r-10">
             <div class="stats">
                 <div><i class="fa fa-key"></i> <span tkey="usernameDesc">This is your wallet address</span></div>
@@ -20,8 +20,7 @@
         <h4 class="push-up-15"><span tkey="password">Password</span></h4>
         <div class="card padding-l-10 padding-r-10">
             <div class="stats">
-                <div><i class="fa fa-server"></i> <span tkey="passwordDesc">This is your worker id</span></div>
-                <div id="emailsNotification"><i class="fa fa-envelope"></i> <span tkey="emailNotifications">Email Notifications</span>: <span><u>workerID</u>:<u>email</u></span></div>
+                <div><i class="fa fa-server"></i> <span tkey="passwordDesc">This is your worker name</span></div>
             </div>
         </div>
     </div>
@@ -66,22 +65,16 @@
                 <select class="form-control" id="gMiningPort"></select>
             </div>
         </div>
-        <div class="col-md-12">
+        <div class="col-sm-6 col-xs-12">
             <div class="input-group push-down-5">
                 <span class="input-group-addon"><i class="fa fa-key"></i></span>
                 <input class="form-control" id="gAddress" type="text" tplaceholder="addressField" placeholder="Wallet Address" required="required" />
             </div>
         </div>
-        <div class="col-sm-8 col-xs-12">
+        <div class="col-sm-6 col-xs-12">
             <div class="input-group push-down-5">
                 <span class="input-group-addon"><i class="fa fa-exchange"></i></span>
                 <input class="form-control" id="gPaymentID" type="text" tplaceholder="paymentIdField" placeholder="Payment ID for exchanges (optional)" />
-            </div>
-        </div>
-        <div class="col-sm-4 col-xs-12">
-            <div class="input-group push-down-5">
-                <span class="input-group-addon"><i class="fa fa-wrench"></i></span>
-                <input class="form-control" id="gDifficulty" type="text" tplaceholder="fixedDiffField" placeholder="Fixed difficulty (optional)" />
             </div>
         </div>
         <div class="col-sm-6 col-xs-12">
@@ -92,12 +85,12 @@
         </div>
         <div class="col-sm-6 col-xs-12">
             <div class="input-group push-down-5">
-                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                <input class="form-control" id="gEmail" type="text" tplaceholder="emailNotificationsField" placeholder="Email Notifications (optional)" />
+                <span class="input-group-addon"><i class="fa fa-wrench"></i></span>
+                <input class="form-control" id="gDifficulty" type="text" tplaceholder="fixedDiffField" placeholder="Fixed difficulty (optional)" />
             </div>
         </div>
         <div class="col-md-12 push-up-5">
-            <input id="generateConf" type="submit" tvalue="generateConfig" data-toggle="collapse" href="#xmrstak" value="Generate configuration" class="btn btn-default" />
+            <input id="generateConf" type="submit" tvalue="generateConfig" value="Generate configuration" class="btn btn-default"  data-toggle="collapse" href="#xmrstak" />
         </div>
     </div>
 </div>
@@ -301,7 +294,6 @@ currentPage = {
 	updateText('paymentIdSeparator', lastStats.config.paymentIdSeparator);
 	updateText('fixedDiffSeparator', lastStats.config.fixedDiffSeparator);
 	if (!lastStats.config.fixedDiffEnabled) $('#fixedDiff').hide();
-	if (!lastStats.config.sendEmails) $('#emailsNotification').hide();
     }
 };
 
@@ -326,11 +318,8 @@ $('#generateConf').click(function() {
 
     // Password
     var workerName = $('#gWorkerName').val().replace(/\s+/g, '').trim();
-    var email = $('#gEmail').val().replace(/\s+/g, '').trim();
 
     var password = workerName ? workerName : 'x';
-    if (email) password = password + ':' + email;
     updateTextClasses('examplePassword', password);    
 });
-
 </script>
