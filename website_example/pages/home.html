@@ -241,7 +241,7 @@ currentPage = {
             }
             totalFee += totalDonation;
         }
-        updateText('poolFee', (totalFee > 0 ? floatToString(totalFee) : '0') + '%');
+        updateText('poolFee', (totalFee > 0 && totalFee != 100 ? floatToString(totalFee) : (totalFee == 100 ? '100' : '0')) + '%');
 
         updateText('paymentsInterval', getReadableTime(lastStats.config.paymentsInterval));
         updateText('paymentsMinimum', getReadableCoins(lastStats.config.minPaymentThreshold, 2));
