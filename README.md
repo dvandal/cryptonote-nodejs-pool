@@ -662,11 +662,17 @@ curl 127.0.0.1:18081/json_rpc -d '{"method":"getblockheaderbyheight","params":{"
 
 Donations
 ---------
-* BTC: `17XRyHm2gWAj2yfbyQgqxm25JGhvjYmQjm`
-* ETH: `0x83ECF65934690D132663F10a2088a550cA201353`
-* LTC: `LS9To9u2C95VPHKauRMEN5BLatC8C1k4F1`
-* XMR: `49WyMy9Q351C59dT913ieEgqWjaN12dWM5aYqJxSTZCZZj1La5twZtC3DyfUsmVD3tj2Zud7m6kqTVDauRz53FqA9zphHaj`
-* GRFT: `GBqRuitSoU3PFPBAkXMEnLdBRWXH4iDSD6RDxnQiEFjVJhWUi1UuqfV5EzosmaXgpPGE6JJQjMYhZZgWY8EJQn8jQTsuTit`
+
+Thanks for supporting my works on this project! If you want to make a donation to Daniel Vandal, the developper of this project, you can send any amount of your choice to one of theses addresses:
+
+* Bitcoin (BTC): `17XRyHm2gWAj2yfbyQgqxm25JGhvjYmQjm`
+* Bitcoin Cash (BCH): `qpl0gr8u3yu7z4nzep955fqy3w8m6w769sec08u3dp`
+* Ethereum (ETH): `0x83ECF65934690D132663F10a2088a550cA201353`
+* Litecoin (LTC): `LS9To9u2C95VPHKauRMEN5BLatC8C1k4F1`
+* Monero (XMR): `49WyMy9Q351C59dT913ieEgqWjaN12dWM5aYqJxSTZCZZj1La5twZtC3DyfUsmVD3tj2Zud7m6kqTVDauRz53FqA9zphHaj`
+* Haven (XHV): `hvxy2RAzE7NfXPLE3AmsuRaZztGDYckCJ14XMoWa6BUqGrGYicLCcjDEjhjGAQaAvHYGgPD7cGUwcYP7nEUs8u6w3uaap9UZTf`
+* Graft (GRFT): `GBqRuitSoU3PFPBAkXMEnLdBRWXH4iDSD6RDxnQiEFjVJhWUi1UuqfV5EzosmaXgpPGE6JJQjMYhZZgWY8EJQn8jQTsuTit`
+
 
 Credits
 ---------
