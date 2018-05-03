@@ -1,6 +1,6 @@
 @import url(//fonts.googleapis.com/css?family=Roboto+Condensed:400,700);
 @import url(//fonts.googleapis.com/css?family=Roboto:400,300,500,700);
-@import url(//fonts.googleapis.com/css?family=Inconsolata);
+@import url(//fonts.googleapis.com/css?family=Inconsolata:400,700);
 
 body {  
   background-color: #f5f5f5;
@@ -753,6 +753,9 @@ table th.sort:hover{
 #workerPayments table .col3,
 #workerPayments table .col4 {
   text-align: center;
+}
+#workerPayments table .summary {
+  font-weight: 700;
 }
 @media (min-width: 768px) {
   #workerPayments table  {
