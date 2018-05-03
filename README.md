@@ -215,6 +215,9 @@ Explanation for each field:
     /* Address where block rewards go, and miner payments come from. */
     "poolAddress": "GBqRuitSoU3PFPBAkXMEnLdBRWXH4iDSD6RDxnQiEFjVJhWUi1UuqfV5EzosmaXgpPGE6JJQjMYhZZgWY8EJQn8jQTsuTit",
 
+    /* This is the integrated address prefix used for miner login validation. */
+    "intAddressPrefix": 91,
+
     /* Poll RPC daemons for new blocks every this many milliseconds. */
     "blockRefreshInterval": 1000,
 
