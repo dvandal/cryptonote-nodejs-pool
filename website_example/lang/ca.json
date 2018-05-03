@@ -157,22 +157,6 @@
     "year": "any",
     "years": "anys",
 
-    "timeagoPrefixAgo": "fa",
-    "timeagoPrefixFromNow": null,
-    "timeagoSuffixAgo": null,
-    "timeagoSuffixFromNow": "des de",
-    "timeagoSeconds": "menys d'un minut",
-    "timeagoMinute": "aproximadament un minut",
-    "timeagoMinutes": "%d minuts",
-    "timeagoHour": "prop d'una hora",
-    "timeagoHours": "prop de %d hores",
-    "timeagoDay": "un dia",
-    "timeagoDays": "%d dies",
-    "timeagoMonth": "prop d'un mes",
-    "timeagoMonths": "%d mesos",
-    "timeagoYear": "prop d'un any",
-    "timeagoYears": "%d anys",
-    
     "poweredBy": "Powered by",
     "openSource": "open sourced under the"
 }

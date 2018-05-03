@@ -340,26 +340,8 @@ var translate = function(data) {
 
     $("[tvalue]").each(function(index) {
         var strTr = data[$(this).attr('tvalue')];
-    $(this).attr('value', strTr)
+        $(this).attr('value', strTr)
     });
-
-    jQuery.timeago.settings.strings = {
-        prefixAgo: data['timeagoPrefixAgo'],
-        prefixFromNow: data['timeagoPrefixFromNow'],
-        suffixAgo: data['timeagoSuffixAgo'],
-        suffixFromNow: data['timeagoSuffixFromNow'],
-        seconds: data['timeagoSeconds'],
-        minute: data['timeagoMinute'],
-        minutes: data['timeagoMinutes'],
-        hour: data['timeagoHour'],
-        hours: data['timeagoHours'],
-        day: data['timeagoDay'],
-        days: data['timeagoDays'],
-        month: data['timeagoMonth'],
-        months: data['timeagoMonths'],
-        year: data['timeagoYear'],
-        years: data['timeagoYears']
-    };
 } 
 
 // Get language code from URL
@@ -380,8 +362,10 @@ function loadTranslations() {
     }
     else if (langs && langs[langCode]) {
         $.getJSON('lang/'+langCode+'.json', translate);
+        $.getScript('lang/timeago/jquery.timeago.'+langCode+'.js');    
     } else {
         $.getJSON('lang/'+defaultLang+'.json', translate);
+        $.getScript('lang/timeago/jquery.timeago.'+langCode+'.js');    
     }
 }
 

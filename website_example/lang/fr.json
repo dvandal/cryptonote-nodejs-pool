@@ -157,22 +157,6 @@
     "year": "année",
     "years": "années",
 
-    "timeagoPrefixAgo": "il y a",
-    "timeagoPrefixFromNow": "d'ici",
-    "timeagoSuffixAgo": null,
-    "timeagoSuffixFromNow": null,
-    "timeagoSeconds": "moins d'une minute",
-    "timeagoMinute": "une minute",
-    "timeagoMinutes": "%d minutes",
-    "timeagoHour": "une heure",
-    "timeagoHours": "%d heures",
-    "timeagoDay": "un jour",
-    "timeagoDays": "%d jours",
-    "timeagoMonth": "un mois",
-    "timeagoMonths": "%d mois",
-    "timeagoYear": "un an",
-    "timeagoYears": "%d ans",
-    
     "poweredBy": "Propulsé par",
     "openSource": "et libre de droits sous licence"
 }
