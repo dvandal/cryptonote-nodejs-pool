@@ -414,7 +414,12 @@ Explanation for each field:
 "telegram": {
     "enabled": false,
     "token": "", // The bot unique authorization token
-    "channel": "" // The telegram channel id (ex: BlockHashMining)
+    "channel": "", // The telegram channel id (ex: BlockHashMining)
+    "botCommands": { // Set the telegram bot commands
+        "stats": "/stats", // Pool statistics
+         "enable": "/enable", // Enable telegram notifications
+        "disable": "/disable" // Disable telegram notifications
+    }    
 },
 
 /* Monitoring RPC services. Statistics will be displayed in Admin panel */

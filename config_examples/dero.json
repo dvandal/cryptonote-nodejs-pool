@@ -214,7 +214,12 @@
     "telegram": {
         "enabled": false,
         "token": "",
-        "channel": ""
+        "channel": "",
+        "botCommands": {
+            "stats": "/stats",
+            "enable": "/enable",
+            "disable": "/disable"
+        }
     },
 
     "monitoring": {
