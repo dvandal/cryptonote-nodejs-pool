@@ -402,6 +402,9 @@ Explanation for each field:
         "auth": {
             "user": "username", // SMTP username
             "pass": "password" // SMTP password
+        },
+        "tls": {
+            "rejectUnauthorized": false // Reject unauthorized TLS/SSL certificate
         }
     },
     
