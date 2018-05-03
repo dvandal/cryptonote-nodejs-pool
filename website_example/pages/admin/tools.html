@@ -34,12 +34,6 @@
 </div>
 
 <script>
-// Update current page
-currentPage = {
-    destroy: function(){},
-    update: function(){}
-};
-
 /**
  * Error Message
  **/
@@ -79,6 +73,7 @@ $('#testEmailButton').click(function() {
     $.ajax({
         url: api + '/test_email_notification',
         data: {
+            password: docCookies.getItem('password'),
             email: email
         },
         dataType: 'json',
@@ -99,7 +94,9 @@ $('#testEmailButton').click(function() {
 $('#testTelegramButton').click(function(){
     $.ajax({
         url: api + '/test_telegram_notification',
-        data: {},
+        data: {
+            password: docCookies.getItem('password'),
+        },
         dataType: 'json',
         cache: 'false'
     }).done(function(data){
