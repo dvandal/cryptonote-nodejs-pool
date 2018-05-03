@@ -418,6 +418,10 @@ Explanation for each field:
     "enabled": false,
     "token": "", // The bot unique authorization token
     "channel": "", // The telegram channel id (ex: BlockHashMining)
+    "channelStats": {
+        "enabled": false, // Enable periodical updater of pool statistics in telegram channel
+        "interval": 5 // Periodical update interval (in minutes)
+    },
     "botCommands": { // Set the telegram bot commands
         "stats": "/stats", // Pool statistics
          "enable": "/enable", // Enable telegram notifications
