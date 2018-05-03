@@ -170,7 +170,6 @@ function fetchAddressStats(longpoll){
 	    
             var payoutEstimatePct = parseFloat(userRoundHashes * 100 / poolRoundHashes)
 	    var payoutEstimate = Math.round(lastReward * (payoutEstimatePct / 100));
-            if (poolFee) payoutEstimate = payoutEstimate - (payoutEstimate * poolFee);
             if (transferFee) payoutEstimate = payoutEstimate - transferFee;
 	    if (payoutEstimate < 0) payoutEstimate = 0;
 	    updateText('yourPayoutEstimate', getReadableCoins(payoutEstimate, 4));
