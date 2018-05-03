@@ -49,6 +49,12 @@
                 "desc": "Cloud-mining / NiceHash"
             },
             {
+                "port": 8888,
+                "difficulty": 25000,
+                "desc": "Hidden port",
+                "hidden": true
+            },
+            {
                 "port": 9999,
                 "difficulty": 20000,
                 "desc": "SSL connection",
