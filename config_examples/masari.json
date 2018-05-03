@@ -93,9 +93,9 @@
 
     "payments": {
         "enabled": true,
-        "interval": 300,
+        "interval": 600,
         "maxAddresses": 50,
-        "mixin": 5,
+        "mixin": 12,
         "priority": 0,
         "transferFee": 5000000000,
         "dynamicTransferFee": true,
