@@ -76,7 +76,7 @@
     "addrPaymentId": "paymentID",
     "addrDiff": "diff",
     "password": "Password",
-    "passwordDesc": "This is your wallet address",
+    "passwordDesc": "This is your worker name",
     "emailNotifications": "Email Notifications",
     "miningPorts": "Mining Ports",
     "port": "Port",
