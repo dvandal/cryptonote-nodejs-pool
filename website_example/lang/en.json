@@ -65,6 +65,8 @@
     "pendingBalance": "Pending Balance",
     "totalPaid": "Total Paid",
     "payoutEstimate": "Current Payout Estimate",
+    "paymentSummarySingle": "On %DATE% you have received %AMOUNT%",
+    "paymentSummaryMulti": "On %DATE% you have received %AMOUNT% in %COUNT% payments",
 
     "connectionDetails": "Connection Details",
     "miningPoolHost": "Mining Pool Address",

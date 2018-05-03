@@ -424,13 +424,54 @@ function getPaymentCells(payment){
            '<td class="col4">' + payment.mixin + '</td>';
 }
 
+// Get summary row element
+function getSummaryRowElement(summary, jsonString){
+    var row = document.createElement('tr');
+    row.setAttribute('data-json', jsonString);
+    row.setAttribute('data-date', summary.date);
+    row.setAttribute('id', 'summaryRow' + summary.date);
+    row.setAttribute('class', 'summary');
+
+    row.innerHTML = getSummaryCells(summary);
+
+    return row;
+}
+
+// Get summary cells
+function getSummaryCells(summary){
+    var text = getTranslation('paymentSummaryMulti') ? getTranslation('paymentSummaryMulti') : 'On %DATE% you have received %AMOUNT% in %COUNT% payments';
+    if (summary.count <= 1) text = getTranslation('paymentSummarySingle') ? getTranslation('paymentSummarySingle') : 'On %DATE% you have received %AMOUNT%';
+    text = text.replace(/%DATE%/g, summary.date);
+    text = text.replace(/%COUNT%/g, summary.count);
+    text = text.replace(/%AMOUNT%/g, getReadableCoins(summary.amount, 4, false));
+    return '<td colspan="4">' + text + '</td>';
+}
+
 // Render payments
 function renderPayments(paymentsResults){
     var $paymentsRows = $('#paymentsReport_rows');
+    var lastPaymentDate = null;
+    var summaryData = { date: null, count: 0, amount: 0 };
     for (var i = 0; i < paymentsResults.length; i += 2){
         var payment = parsePayment(paymentsResults[i + 1], paymentsResults[i]);
         var paymentJson = JSON.stringify(payment);
         var existingRow = document.getElementById('paymentRow' + payment.time);
+        var paymentDate = new Date(parseInt(payment.time) * 1000).toLocaleDateString();
+
+        if (lastPaymentDate && paymentDate != lastPaymentDate) {
+            var summaryJson = JSON.stringify(summaryData);
+	    if (summaryData.count > 0) {
+                var existingSummary = document.getElementById('summaryRow' + summaryData.date);
+                if (existingSummary && existingSummary.getAttribute('data-json') !== summaryJson){
+                    $(existingSummary).replaceWith(getSummaryRowElement(summary, summaryJson));
+                }
+                else if (!existingSummary){
+                    var summaryElement = getSummaryRowElement(summaryData, summaryJson);
+                    $paymentsRows.append(summaryElement);
+                }
+	    }
+            summaryData = { date: null, count: 0, amount: 0 };
+        }
 
         if (existingRow && existingRow.getAttribute('data-json') !== paymentJson){
             $(existingRow).replaceWith(getPaymentRowElement(payment, paymentJson));
@@ -442,7 +483,7 @@ function renderPayments(paymentsResults){
             var rows = $paymentsRows.children().get();
             for (var f = 0; f < rows.length; f++) {
                 var pTime = parseInt(rows[f].getAttribute('data-time'));
-                if (pTime < payment.time){
+                if (pTime && pTime < payment.time){
                     inserted = true;
                     $(rows[f]).before(paymentElement);
                     break;
@@ -452,6 +493,11 @@ function renderPayments(paymentsResults){
                 $paymentsRows.append(paymentElement);
             }
         }
+    
+        summaryData.date = paymentDate;
+        summaryData.count ++;
+        summaryData.amount += parseInt(payment.amount);
+        lastPaymentDate = paymentDate;
     }
 }
 

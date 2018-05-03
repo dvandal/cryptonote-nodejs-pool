@@ -65,6 +65,8 @@
     "pendingBalance": "Balance en attente",
     "totalPaid": "Total payé",
     "payoutEstimate": "Estimation de paiement",
+    "paymentSummarySingle": "Le %DATE% vous avez reçu %AMOUNT%",
+    "paymentSummaryMulti": "Le %DATE% vous avez reçu %AMOUNT% en %COUNT% paiements",
 
     "connectionDetails": "Détails de connexion",
     "miningPoolHost": "Adresse du pool",
