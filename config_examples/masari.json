@@ -204,6 +204,9 @@
             "auth": {
                 "user": "username",
                 "pass": "password"
+            },
+            "tls": {
+                "rejectUnauthorized": false
             }
         },
         "mailgun": {
