@@ -216,6 +216,10 @@
         "enabled": false,
         "token": "",
         "channel": "",
+        "channelStats": {
+            "enabled": false,
+            "interval": 30
+        },
         "botCommands": {
             "stats": "/stats",
             "enable": "/enable",
