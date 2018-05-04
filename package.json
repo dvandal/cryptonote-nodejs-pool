@@ -13,6 +13,7 @@
         "redis": "*",
         "cli-color": "*",
         "dateformat": "*",
+        "time-ago": "*",
         "base58-native": "*",
         "nodemailer": "2.7.2",
         "nodemailer-sendmail-transport": "*",
