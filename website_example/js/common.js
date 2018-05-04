@@ -365,7 +365,7 @@ function loadTranslations() {
         $.getScript('lang/timeago/jquery.timeago.'+langCode+'.js');    
     } else {
         $.getJSON('lang/'+defaultLang+'.json', translate);
-        $.getScript('lang/timeago/jquery.timeago.'+langCode+'.js');    
+        $.getScript('lang/timeago/jquery.timeago.'+defaultLang+'.js');    
     }
 }
 
