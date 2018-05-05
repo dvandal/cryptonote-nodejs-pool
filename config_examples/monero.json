@@ -183,9 +183,9 @@
             "workerConnected": "Your worker _%WORKER_NAME%_ for address _%MINER%_ is now connected from ip _%IP%_.",
             "workerTimeout": "Your worker _%WORKER_NAME%_ for address _%MINER%_ has stopped submitting hashes on _%LAST_HASH%_.",
             "workerBanned": "Your worker _%WORKER_NAME%_ for address _%MINER%_ has been banned.",
-            "blockFound": "*Block found at height _%HEIGHT%_ by miner _%MINER%_. Waiting maturity.*",
-            "blockUnlocked": "*Block mined at _%HEIGHT%_ with _%REWARD%_ and _%EFFORT%_ effort on _%TIME%_.*",
-            "blockOrphaned": "*Block orphaned at height _%HEIGHT%_ :(*",
+            "blockFound": "*Block found at height* _%HEIGHT%_ *by miner* _%MINER%_*! Waiting maturity.*",
+            "blockUnlocked": "*Block mined at* _%HEIGHT%_ *with* _%REWARD%_ *and* _%EFFORT%_ *effort on* _%TIME%_*.*",
+            "blockOrphaned": "*Block orphaned at height* _%HEIGHT%_ *:(*",
             "payment": "A payment of _%AMOUNT%_ has been sent."
         }
     },
