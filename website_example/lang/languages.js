@@ -1,0 +1,1 @@
+var langs = { 'en': 'English', 'es': 'Español', 'fr': 'Français', 'ru': 'Русский', 'ca': 'Català' };

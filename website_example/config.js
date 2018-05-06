@@ -11,6 +11,4 @@ var blockchainExplorer = "http://chainradar.com/{symbol}/block/{id}";
 var transactionExplorer = "http://chainradar.com/{symbol}/transaction/{id}";
 
 var themeCss = "themes/default.css";
-
-var langs = { 'en': 'English', 'es': 'Español', 'fr': 'Français', 'ru': 'Русский', 'ca': 'Català' };
 var defaultLang = 'en';
