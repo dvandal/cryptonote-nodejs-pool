@@ -103,6 +103,7 @@ Community / Support
 * https://graft.blockhashmining.com/
 * https://graft.anypool.net/
 * https://graft.dark-mine.su/
+* http://itns.proxpool.com/
 
 Usage
 ===
@@ -113,6 +114,7 @@ Usage
   * [Monero](https://github.com/monero-project/bitmonero)
   * [GRAFT](https://github.com/graft-project/GraftNetwork)
   * [SUPERIORCOIN](https://github.com/TheSuperiorCoin/TheSuperiorCoin)
+  * [INTENSECOIN](https://github.com/valiant1x/intensecoin)
 * [Node.js](http://nodejs.org/) v4.0+
   * For Ubuntu: 
  ```
