@@ -93,9 +93,8 @@ Features
 Community / Support
 ===
 
+* [GitHub Wiki for cryptonote-nodejs-pool](https://github.com/dvandal/cryptonote-nodejs-pool/wiki)
 * [GitHub Issues for cryptonote-nodejs-pool](https://github.com/dvandal/cryptonote-nodejs-pool/issues)
-* [CryptoNote Technology](https://cryptonote.org)
-* [CryptoNote Forum](https://forum.cryptonote.org/)
 
 #### Pools Using This Software
 
