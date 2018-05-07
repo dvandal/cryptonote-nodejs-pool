@@ -1,8 +1,7 @@
 cryptonote-nodejs-pool
 ======================
 
-High performance Node.js (with native C addons) mining pool for CryptoNote based coins. Comes with lightweight example front-end script which uses the pool's AJAX API. Support for Original Cryptonight, Cryptonight v1 (Monero fork), Cryptonight Light (AEON) and Cryptonight Heavy (Sumokoin fork) algorithms.
-
+High performance Node.js (with native C addons) mining pool for CryptoNote based coins. Comes with lightweight example front-end script which uses the pool's AJAX API. Support for Cryptonight (Original, Monero v7, Stellite v7), Cryptonight Light (Original, Aeon v7, IPBC) and Cryptonight Heavy (Sumokoin) algorithms.
 
 
 #### Table of Contents
@@ -43,7 +42,7 @@ Features
 * Set fixed difficulty on miner client by passing "address" param with "+[difficulty]" postfix
 * Modular components for horizontal scaling (pool server, database, stats/API, payment processing, front-end)
 * SSL support for both pool and API servers
-* Support for Original Cryptonight, Cryptonight v1 (Monero fork), Cryptonight Light (AEON) and Cryptonight Heavy (Sumokoin fork) algorithms
+* Support for Cryptonight (Original, Monero v7, Stellite v7), Cryptonight Light (Original, Aeon v7, IPBC) and Cryptonight Heavy (Sumokoin) algorithms.
 
 #### Live statistics API
 * Currency network/block difficulty
@@ -88,7 +87,7 @@ Features
 * E-Mail Notifications on worker connected, disconnected (timeout) or banned (support MailGun, SMTP and Sendmail)
 * Telegram channel notifications when a block is unlocked
 * Top 10 miners report
-* Multilingual: We support translation of the visual user interface
+* Multilingual user interface
 
 
 Community / Support
@@ -131,7 +130,7 @@ sudo apt-get install redis-server
 * libssl required for the node-multi-hashing module
   * For Ubuntu: `sudo apt-get install libssl-dev`
 
-* Boost is required for the cryptonote-util module
+* Boost is required for the cryptoforknote-util module
   * For Ubuntu: `sudo apt-get install libboost-all-dev`
 
 
@@ -174,11 +173,13 @@ Explanation for each field:
 /* Coin network time to mine one block, see DIFFICULTY_TARGET constant in DAEMON_CODE/src/cryptonote_config.h */
 "coinDifficultyTarget": 120,
 
-/* Set Cryptonight algorithm. Accepted values: cryptonight (default), cryptonight_light and cryptonight_heavy */
+/* Set Cryptonight algorithm and variant.
+   Supported algorithms: cryptonight (default). cryptonight_light and cryptonight_heavy
+   Supported variants for "cryptonight": 0 (Original), 1 (Monero v7), 3 (Stellite / XTL)
+   Supported variants for "cryptonight_light": 0 (Original), 1 (Aeon v7), 2 (IPBC)
+*/
 "cnAlgorithm": "cryptonight",
-
-/* Set Cryptonight variant. Set 0 for original Cryptonight algorithm and 1 for Cryptonight v1 / Monero v7 algorithm. If empty will use automatic detection. Set -1 to disable. */
-"cnVariant": null,
+"cnVariant": 1,
 
 /* Logging */
 "logging": {

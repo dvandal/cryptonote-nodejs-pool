@@ -1,6 +1,6 @@
 {
     "name": "cryptonote-nodejs-pool",
-    "version": "1.3.1",
+    "version": "1.3.2",
     "license": "GPL-2.0",
     "author": "Daniel Vandal",
     "repository": {
@@ -15,13 +15,13 @@
         "dateformat": "*",
         "time-ago": "*",
         "base58-native": "*",
+        "socket.io": "*",
         "nodemailer": "2.7.2",
         "nodemailer-sendmail-transport": "*",
         "mailgun.js": "*",
         "node-telegram-bot-api": "*",
-        "cryptonote-util": "git://github.com/dvandal/node-cryptonote-util",
-        "cryptonight-hashing": "git://github.com/dvandal/node-cryptonight-hashing",
-        "multi-hashing": "git://github.com/dvandal/node-multi-hashing"
+        "cryptoforknote-util": "git://github.com/MoneroOcean/node-cryptoforknote-util",
+        "cryptonight-hashing": "git://github.com/MoneroOcean/node-cryptonight-hashing"
     },
     "engines": {
         "node": ">=4.0"

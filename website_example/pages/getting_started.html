@@ -298,29 +298,30 @@ currentPage = {
 
         var coin = lastStats.config.coin.toLowerCase() || null;
         var cnAlgorithm = lastStats.config.cnAlgorithm || "cryptonight";
-        var cnVariant = (lastStats.config.cnVariant || lastStats.config.cnVariant === 0) ? lastStats.config.cnVariant : null;
+        var cnVariant = lastStats.config.cnVariant || 0;
 
         algorithm = '';
         xmrstakAlgo = '';
 
         if (cnAlgorithm == "cryptonight_light") {
-            if (cnVariant && cnVariant >= 1) {
-                algorithm = 'Cryptonight Light v1';
+            if (cnVariant === 1) {
+                algorithm = 'Cryptonight Light (Aeon v7)';
                 xmrstakAlgo = 'cryptonight_lite_v7';
-                if (coin == 'aeon') xmrstakAlgo = 'aeon7';
+            } else if (cnVariant === 2) {
+                algorithm = 'Cryptonight Light (IPBC)';
+                xmrstakAlgo = 'cryptonight_lite_v7_xor';
             } else {
-                algorithm = 'Cryptonight Light v0 (Original)';
+                algorithm = 'Cryptonight Light (Original)';
                 xmrstakAlgo = 'cryptonight_lite';
             }
         }
         else if (cnAlgorithm == "cryptonight_heavy") {
             algorithm = 'Cryptonight Heavy';
             xmrstakAlgo = 'cryptonight_heavy';
-            if (coin == 'sumokoin') xmrstakAlgo = 'sumokoin';
         }
         else {
-            if (cnVariant && cnVariant >= 1) {
-                algorithm = 'Cryptonight v1 (Monero v7)';
+            if (cnVariant === 1) {
+                algorithm = 'Cryptonight (Monero v7)';
                 xmrstakAlgo = 'cryptonight_v7';
                 if (coin == 'monero') xmrstakAlgo = 'monero7';
                 else if (coin == 'bbscoin') xmrstakAlgo = 'bbscoin';
@@ -331,11 +332,30 @@ currentPage = {
                 else if (coin == 'haven') xmrstakAlgo = 'haven';
                 else if (coin == 'intense') xmrstakAlgo = 'intense';
                 else if (coin == 'karbo') xmrstakAlgo = 'karbo';
+            } else if (cnVariant === 3) {
+                algorithm = 'Cryptonight (Stellite v7)';
+                xmrstakAlgo = 'cryptonight_v7_stellite';
             } else {
-                algorithm = 'Cryptonight v0 (Original)';
+                algorithm = 'Cryptonight (Original)';
                 xmrstakAlgo = 'cryptonight';
             }
         }
+
+        if (coin == 'aeon') xmrstakAlgo = 'aeon7';
+        if (coin == 'bbscoin') xmrstakAlgo = 'bbscoin';
+        if (coin == 'croat') xmrstakAlgo = 'croat';
+        if (coin == 'edollar') xmrstakAlgo = 'edollar';
+        if (coin == 'electroneum') xmrstakAlgo = 'electroneum';
+        if (coin == 'graft') xmrstakAlgo = 'graft';
+        if (coin == 'haven') xmrstakAlgo = 'haven';
+        if (coin == 'intense') xmrstakAlgo = 'intense';
+        if (coin == 'ipbc') xmrstakAlgo = 'ipbc';
+        if (coin == 'karbo') xmrstakAlgo = 'karbo';
+        if (coin == 'masari') xmrstakAlgo = 'masari';
+        if (coin == 'monero') xmrstakAlgo = 'monero7';
+        if (coin == 'stellite') xmrstakAlgo = 'stellite';
+        if (coin == 'sumokoin') xmrstakAlgo = 'sumokoin';
+        if (coin == 'turtlecoin') xmrstakAlgo = 'turtlecoin';
 
         updateText('cnAlgorithm', algorithm);
         updateText('xmrstakAlgo', xmrstakAlgo);
