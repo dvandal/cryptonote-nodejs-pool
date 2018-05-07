@@ -5,6 +5,7 @@
         <div class="card padding-l-10 padding-r-10">
             <div class="stats">
                 <div><i class="fa fa-cloud"></i> <span tkey="miningPoolHost">Mining Pool Address</span>: <span id="miningPoolHost"></span></div>
+                <div><i class="fa fa-cubes"></i> <span tkey="cnAlgorithm">Algorithm</span>: <span id="cnAlgorithm"></span></div>
             </div>
         </div>
 
@@ -134,7 +135,7 @@
         "pool_weight": 1
     },
 ],
-"currency": "<span id="minedCoin"></span>",</code></pre>
+"currency": "<span id="xmrstakAlgo"></span>",</code></pre>
 
                     </div>
                 </td>
@@ -239,7 +240,7 @@
         "user": "<span class="exampleLogin">YOUR_WALLET_ADDRESS</span>",
         "pass": "<span class="examplePassword">YOUR_WORKER_NAME</span>",
         "keepalive": true,
-        "nicehash": false,
+        "nicehash": false
     },
 ],</code></pre>
 
@@ -294,6 +295,50 @@ currentPage = {
 	updateText('paymentIdSeparator', lastStats.config.paymentIdSeparator);
 	updateText('fixedDiffSeparator', lastStats.config.fixedDiffSeparator);
 	if (!lastStats.config.fixedDiffEnabled) $('#fixedDiff').hide();
+
+        var coin = lastStats.config.coin.toLowerCase() || null;
+        var cnAlgorithm = lastStats.config.cnAlgorithm || "cryptonight";
+        var cnVariant = (lastStats.config.cnVariant || lastStats.config.cnVariant === 0) ? lastStats.config.cnVariant : null;
+
+        algorithm = '';
+        xmrstakAlgo = '';
+
+        if (cnAlgorithm == "cryptonight_light") {
+            if (cnVariant && cnVariant >= 1) {
+                algorithm = 'Cryptonight Light v1';
+                xmrstakAlgo = 'cryptonight_lite_v7';
+                if (coin == 'aeon') xmrstakAlgo = 'aeon7';
+            } else {
+                algorithm = 'Cryptonight Light v0 (Original)';
+                xmrstakAlgo = 'cryptonight_lite';
+            }
+        }
+        else if (cnAlgorithm == "cryptonight_heavy") {
+            algorithm = 'Cryptonight Heavy';
+            xmrstakAlgo = 'cryptonight_heavy';
+            if (coin == 'sumokoin') xmrstakAlgo = 'sumokoin';
+        }
+        else {
+            if (cnVariant && cnVariant >= 1) {
+                algorithm = 'Cryptonight v1 (Monero v7)';
+                xmrstakAlgo = 'cryptonight_v7';
+                if (coin == 'monero') xmrstakAlgo = 'monero7';
+                else if (coin == 'bbscoin') xmrstakAlgo = 'bbscoin';
+                else if (coin == 'croat') xmrstakAlgo = 'croat';
+                else if (coin == 'edollar') xmrstakAlgo = 'edollar';
+                else if (coin == 'electroneum') xmrstakAlgo = 'electroneum';
+                else if (coin == 'graft') xmrstakAlgo = 'graft';
+                else if (coin == 'haven') xmrstakAlgo = 'haven';
+                else if (coin == 'intense') xmrstakAlgo = 'intense';
+                else if (coin == 'karbo') xmrstakAlgo = 'karbo';
+            } else {
+                algorithm = 'Cryptonight v0 (Original)';
+                xmrstakAlgo = 'cryptonight';
+            }
+        }
+
+        updateText('cnAlgorithm', algorithm);
+        updateText('xmrstakAlgo', xmrstakAlgo);
     }
 };
 
