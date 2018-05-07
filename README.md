@@ -155,8 +155,6 @@ npm update
 
 #### 2) Configuration
 
-*Warning for Cryptonote coins other than Monero:* this software may or may not work with any given cryptonote coin. Be wary of altcoins that change the number of minimum coin units because you will have to reconfigure several config values to account for those changes. Unless you're offering a bounty reward - do not open an issue asking for help getting a coin other than Monero working with this software.
-
 Copy the `config_examples/COIN.json` file of your choice to `config.json` then overview each options and change any to match your preferred setup.
 
 Explanation for each field:
@@ -253,6 +251,12 @@ Explanation for each field:
             "desc": "Cloud-mining / NiceHash"
         },
         {
+            "port": 8888,
+            "difficulty": 25000,
+            "desc": "Hidden port",
+            "hidden": true // Hide this port in the front-end
+        },
+        {
             "port": 9999,
             "difficulty": 20000,
             "desc": "SSL connection",
@@ -271,16 +275,16 @@ Explanation for each field:
         "variancePercent": 30, // Allow time to vary this % from target without retargeting
         "maxJump": 100 // Limit diff percent increase/decrease in a single retargeting
     },
-
-    /* Set payment ID on miner client side by passing <address>.<paymentID> */
-    "paymentId": {
-        "addressSeparator": "." // Character separator between <address> and <paymentID>
-    },
 	
     /* Set difficulty on miner client side by passing <address> param with +<difficulty> postfix */
     "fixedDiff": {
         "enabled": true,
         "separator": "+", // Character separator between <address> and <difficulty>
+    },
+
+    /* Set payment ID on miner client side by passing <address>.<paymentID> */
+    "paymentId": {
+        "addressSeparator": "." // Character separator between <address> and <paymentID>
     },
 
     /* Feature to trust share difficulties from miners which can
@@ -380,14 +384,45 @@ Explanation for each field:
     "cleanupInterval": 15 // Set the REDIS database cleanup interval (in days)
 }
 
+/* Pool Notifications */
+"notifications": {
+    "poolHost": "your.pool.host",
+    "coinDecimals": 4,
+    "emailTemplate": "email_templates/default.txt",
+    "emailSubject": {
+        "emailAdded": "Your email was registered",
+        "workerConnected": "Worker %WORKER_NAME% connected",
+        "workerTimeout": "Worker %WORKER_NAME% stopped hashing",
+        "workerBanned": "Worker %WORKER_NAME% banned",
+        "blockFound": "Block %HEIGHT% found !",
+        "blockUnlocked": "Block %HEIGHT% unlocked !",
+        "blockOrphaned": "Block %HEIGHT% orphaned !",
+        "payment": "We sent you a payment !"
+    },
+    "emailMessage": {
+        "emailAdded": "Your email has been registered to receive pool notifications.",
+        "workerConnected": "Your worker %WORKER_NAME% for address %MINER% is now connected from ip %IP%.",
+        "workerTimeout": "Your worker %WORKER_NAME% for address %MINER% has stopped submitting hashes on %LAST_HASH%.",
+        "workerBanned": "Your worker %WORKER_NAME% for address %MINER% has been banned.",
+        "blockFound": "Block found at height %HEIGHT% by miner %MINER% on %TIME%. Waiting maturity.",
+        "blockUnlocked": "Block mined at height %HEIGHT% with %REWARD% and %EFFORT% effort on %TIME%.",
+        "blockOrphaned": "Block orphaned at height %HEIGHT% :(",
+        "payment": "A payment of %AMOUNT% has been sent to %ADDRESS% wallet."
+    },
+    "telegramMessage": {
+        "workerConnected": "Your worker _%WORKER_NAME%_ for address _%MINER%_ is now connected from ip _%IP%_.",
+        "workerTimeout": "Your worker _%WORKER_NAME%_ for address _%MINER%_ has stopped submitting hashes on _%LAST_HASH%_.",
+        "workerBanned": "Your worker _%WORKER_NAME%_ for address _%MINER%_ has been banned.",
+        "blockFound": "*Block found at height* _%HEIGHT%_ *by miner* _%MINER%_*! Waiting maturity.*",
+        "blockUnlocked": "*Block mined at height* _%HEIGHT%_ *with* _%REWARD%_ *and* _%EFFORT%_ *effort on* _%TIME%_*.*",
+        "blockOrphaned": "*Block orphaned at height* _%HEIGHT%_ *:(*",
+        "payment": "A payment of _%AMOUNT%_ has been sent."
+    }
+},
+
 /* Email Notifications */
 "email": {
     "enabled": false,
-    "templateDir": "email_templates", // The templates folder
-    "disableTemplates": ["template_to_disable_1", "template_to_disable_2", "etc"], // Specify which templates you want to disable
-    "variables": { // The variables to replace in templates
-        "POOL_HOST": "poolhost.com" // Your pool domain
-    },
     "fromAddress": "your@email.com", // Your sender email
     "transport": "sendmail", // The transport mode (sendmail, smtp or mailgun)
     
@@ -419,7 +454,7 @@ Explanation for each field:
     }
 },
 
-/* Telegram channel notifications. Currently only send notifications when a block is unlocked.
+/* Telegram channel notifications.
    See Telegram documentation to setup your bot: https://core.telegram.org/bots#3-how-do-i-create-a-bot */
 "telegram": {
     "enabled": false,
@@ -581,9 +616,6 @@ var transactionExplorer = "http://chainradar.com/{symbol}/transaction/{id}";
 
 /* Any custom CSS theme for pool frontend */
 var themeCss = "themes/light.css";
-
-/* Enabled languages list */
-var langs = { 'en': 'English', 'fr': 'Français', 'ca': 'Català' };
 
 /* Default language */
 var defaultLang = 'en';
