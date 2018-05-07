@@ -109,11 +109,7 @@ Usage
 
 #### Requirements
 * Coin daemon(s) (find the coin's repo and build latest version from source)
-  * [ByteCoin](https://github.com/amjuarez/bytecoin)
-  * [Monero](https://github.com/monero-project/bitmonero)
-  * [GRAFT](https://github.com/graft-project/GraftNetwork)
-  * [SUPERIORCOIN](https://github.com/TheSuperiorCoin/TheSuperiorCoin)
-  * [INTENSECOIN](https://github.com/valiant1x/intensecoin)
+  * [List of Cryptonote coins](https://github.com/dvandal/cryptonote-nodejs-pool/wiki/Cryptonote-Coins)
 * [Node.js](http://nodejs.org/) v4.0+
   * For Ubuntu: 
  ```
@@ -693,7 +689,8 @@ the Node.js modules, and any config files that may have been changed.
 ### JSON-RPC Commands from CLI
 
 Documentation for JSON-RPC commands can be found here:
-* Daemon https://wiki.bytecoin.org/wiki/Daemon_JSON_RPC_API
+* Daemon https://wiki.bytecoin.org/wiki/
+_JSON_RPC_API
 * Wallet https://wiki.bytecoin.org/wiki/Wallet_JSON_RPC_API
 
 
