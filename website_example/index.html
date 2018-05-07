@@ -92,7 +92,6 @@
 
 <!-- Javascript -->
 <script src="config.js"></script>
-<script src="lang/languages.js"></script>
 <script src="js/common.js"></script>
 <script src="js/custom.js"></script>
 <script>
@@ -184,16 +183,16 @@ $(function(){
     }
     
     // Add support informations to menu    
-    if (telegram) {
+    if (typeof telegram !== 'undefined' && telegram) {
         $('#menu-content').append('<li><a target="_new" href="'+telegram+'"><i class="fa fa-telegram"></i> <span tkey="telegram">Telegram group</span></a></li>');
     }
-    if (discord) {
+    if (typeof discord !== 'undefined' && discord) {
         $('#menu-content').append('<li><a target="_new" href="'+discord+'"><i class="fa fa-ticket"></i> <span tkey="discord">Discord</span></a></li>');
     }
-    if (email) {
+    if (typeof email !== 'undefined' && email) {
         $('#menu-content').append('<li><a target="_new" href="mailto:'+email+'"><i class="fa fa-envelope"></i> <span tkey="contactUs">Contact Us</span></a></li>');
     }
-    if (langs) {
+    if (typeof langs !== 'undefined' && langs) {
         $('#menu-content').append('<div id="mLangSelector"></div>');
 	renderLangSelector();
     }
