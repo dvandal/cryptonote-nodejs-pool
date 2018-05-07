@@ -117,7 +117,7 @@ Usage
 * [Node.js](http://nodejs.org/) v4.0+
   * For Ubuntu: 
  ```
-  curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash
+  curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash
   sudo apt-get install -y nodejs
 ```
 * [Redis](http://redis.io/) key-value store v2.6+ 
