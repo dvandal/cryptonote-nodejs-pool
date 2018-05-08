@@ -102,6 +102,7 @@ Community / Support
 * https://graft.anypool.net/
 * https://graft.dark-mine.su/
 * http://itns.proxpool.com/
+* https://bytecoin.pt
 
 Usage
 ===
