@@ -1,10 +1,10 @@
 {
-    "coin": "ducknote",
+    "coin": "digitalnote",
     "symbol": "XDN",
     "coinUnits": 100000000,
     "coinDifficultyTarget": 240,
     "cnAlgorithm": "cryptonight",
-    "cnVariant": null,
+    "cnVariant": 0,
 
     "logging": {
         "files": {
