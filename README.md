@@ -370,7 +370,7 @@ Explanation for each field:
     "port": 18982
 },
 
-/* Redis connection into (default port is 6379) */
+/* Redis connection info (default port is 6379) */
 "redis": {
     "host": "127.0.0.1",
     "port": 6379,
@@ -688,8 +688,7 @@ the Node.js modules, and any config files that may have been changed.
 ### JSON-RPC Commands from CLI
 
 Documentation for JSON-RPC commands can be found here:
-* Daemon https://wiki.bytecoin.org/wiki/
-_JSON_RPC_API
+* Daemon https://wiki.bytecoin.org/wiki/JSON_RPC_API
 * Wallet https://wiki.bytecoin.org/wiki/Wallet_JSON_RPC_API
 
 
