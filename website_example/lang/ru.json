@@ -67,6 +67,7 @@
 
     "connectionDetails": "Детали подключения",
     "miningPoolHost": "Адрес майнинг пула",
+    "cnAlgorithm": "Алгоритм",
     "username": "Имя пользователя",
     "usernameDesc": "Это адрес вашего кошелька",
     "paymentId": "Биржевой Payment ID",

@@ -68,6 +68,7 @@
     "paymentSummaryMulti": "El %DATE% has rebut %AMOUNT% en %COUNT% pagaments",	
 
     "connectionDetails": "Detalls de connexió",
+    "cnAlgorithm": "Algoritme",
     "miningPoolHost": "Adreça de la Pool",
     "username": "Usuari",
     "usernameDesc": "La teva adreça del wallet",

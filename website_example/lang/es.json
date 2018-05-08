@@ -70,6 +70,7 @@
 
     "connectionDetails": "Detalles de conexión",
     "miningPoolHost": "Dirección de la Pool",
+    "cnAlgorithm": "Algoritmo",
     "username": "Usuario",
     "usernameDesc": "Tu dirección del wallet",
     "paymentId": "ID de pago (Exchanges)",
