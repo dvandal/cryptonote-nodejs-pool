@@ -56,14 +56,24 @@ function parsePorts(ports) {
     return properObject;
 }
 
-function createPortsTable() {
+function createPortsTable(promptPassword) {
+    var password = docCookies.getItem('password');
+
+    if(!password || promptPassword) {
+        password = prompt('Enter admin password');
+    }
+
     $.ajax({
         url: api + '/admin_ports',
-        data: {password: docCookies.getItem('password')},
+        data: {password: password},
         cache: false,
         dataType: 'json',
         success: function(data) {
+            docCookies.setItem('password', password, Infinity);
             renderTemplate(parsePorts(data), '#portsListTable', '#template');
+        },
+        error: function(e) {
+            docCookies.removeItem('password');
         }
     });
 }

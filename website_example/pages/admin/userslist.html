@@ -66,14 +66,24 @@ function parseUsers(wallets) {
     return properObject;
 }
 
-function createUserTable() {
+function createUserTable(promptPassword) {
+    var password = docCookies.getItem('password');
+
+    if(!password || promptPassword) {
+        password = prompt('Enter admin password');
+    }
+    
     $.ajax({
         url: api + '/admin_users',
-        data: {password: docCookies.getItem('password')},
+        data: {password: password},
         dataType: 'json',
         cache: false,
         success: function(data) {
+            docCookies.setItem('password', password, Infinity);
             renderTemplate(parseUsers(data), '#usersListTable', '#template');
+        },
+        error: function(e) {
+            docCookies.removeItem('password');
         }
     });
 }

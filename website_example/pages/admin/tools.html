@@ -60,6 +60,12 @@ function isEmail(email) {
 }
 
 $('#testEmailButton').click(function() {
+    var password = docCookies.getItem('password');
+
+    if(!password) {
+        password = prompt('Enter admin password');
+    }
+    
     var email = $('#emailAddress').val().trim();
     if (!email) {
         showError('email', 'No email address specified');
@@ -73,12 +79,13 @@ $('#testEmailButton').click(function() {
     $.ajax({
         url: api + '/test_email_notification',
         data: {
-            password: docCookies.getItem('password'),
+            password: password,
             email: email
         },
         dataType: 'json',
         cache: 'false'
     }).done(function(data){
+        docCookies.setItem('password', password, Infinity);
         if (data.status == "done") {
             showSuccess('email', 'Done! Test is successful.');
         } else {
@@ -92,15 +99,21 @@ $('#testEmailButton').click(function() {
  **/
 
 $('#testTelegramButton').click(function(){
+    var password = docCookies.getItem('password');
+
+    if(!password) {
+        password = prompt('Enter admin password');
+    }
+    
     $.ajax({
         url: api + '/test_telegram_notification',
         data: {
-            password: docCookies.getItem('password'),
+            password: password,
         },
         dataType: 'json',
         cache: 'false'
     }).done(function(data){
-        console.log(data);
+        docCookies.setItem('password', password, Infinity);
         if (data.status == "done") {
             showSuccess('telegram', 'Test done! Check pool logs for more debugging informations.');
         } else {

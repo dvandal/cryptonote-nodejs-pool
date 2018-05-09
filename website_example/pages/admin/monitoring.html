@@ -113,19 +113,29 @@ function monitoringInfoParse(data) {
     return properData;
 }
 
-function renderLogInfo() {
+function renderLogInfo(promptPassword) {
+    var password = docCookies.getItem('password');
+
+    if(!password || promptPassword) {
+        password = prompt('Enter admin password');
+    }
+    
     $.ajax({
         url: api + '/admin_monitoring',
-        data: {password: docCookies.getItem('password')},
+        data: {password: password},
         dataType: 'json',
         cache: false,
         success: function(data) {
+            docCookies.setItem('password', password, Infinity);
             renderTemplate(monitoringInfoParse(data), '#monitoringInfo', '#monitoringInfoView');
 	    
             $('#daemonStatus').addClass(data['monitoring'].daemon.lastStatus == 'ok' ? 'text-success' : 'text-danger');
             $('#walletStatus').addClass(data['monitoring'].wallet.lastStatus == 'ok' ? 'text-success' : 'text-danger');
 
             $('#logTable th.sort').on('click', sortTable);
+        },
+        error: function(e) {
+            docCookies.removeItem('password');
         }
     });
 }
