@@ -109,7 +109,7 @@
         "minerPayFee" : true,
         "minPayment": 100000000000,
         "maxTransactionAmount": 0,
-        "denomination": 10000000000
+        "denomination": 1000000000
     },
 
     "blockUnlocker": {
