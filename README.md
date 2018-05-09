@@ -724,8 +724,10 @@ Thanks for supporting my works on this project! If you want to make a donation t
 * Ethereum (ETH): `0x83ECF65934690D132663F10a2088a550cA201353`
 * Litecoin (LTC): `LS9To9u2C95VPHKauRMEN5BLatC8C1k4F1`
 * Monero (XMR): `49WyMy9Q351C59dT913ieEgqWjaN12dWM5aYqJxSTZCZZj1La5twZtC3DyfUsmVD3tj2Zud7m6kqTVDauRz53FqA9zphHaj`
-* Haven (XHV): `hvxy2RAzE7NfXPLE3AmsuRaZztGDYckCJ14XMoWa6BUqGrGYicLCcjDEjhjGAQaAvHYGgPD7cGUwcYP7nEUs8u6w3uaap9UZTf`
 * Graft (GRFT): `GBqRuitSoU3PFPBAkXMEnLdBRWXH4iDSD6RDxnQiEFjVJhWUi1UuqfV5EzosmaXgpPGE6JJQjMYhZZgWY8EJQn8jQTsuTit`
+* Haven (XHV): `hvxy2RAzE7NfXPLE3AmsuRaZztGDYckCJ14XMoWa6BUqGrGYicLCcjDEjhjGAQaAvHYGgPD7cGUwcYP7nEUs8u6w3uaap9UZTf`
+* Masari (MSR): `5n7mffxVT9USrq7tcG3TM8HL5yAz7MirUWypXXJfHrNfTcjNtDouLAAGex8s8htu4vBpmMXFzay8KG3jYGMFhYPr2aMbN6i`
+* Stellite (XTL): `Se45GzgpFG3CnvYNwEFnxiRHD2x7YzRnhFLdxjUqXdbv3ysNbfW5U7aUdn87RgMRPM7xwN6CTbXNc7nL5QUgcww11bDeypTe1`
 
 
 Credits
