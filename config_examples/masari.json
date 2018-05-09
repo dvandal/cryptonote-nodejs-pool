@@ -5,6 +5,7 @@
     "coinDifficultyTarget": 120,
     "cnAlgorithm": "cryptonight",
     "cnVariant": 1,
+    "cnBlobType": 3,
 
     "logging": {
         "files": {
