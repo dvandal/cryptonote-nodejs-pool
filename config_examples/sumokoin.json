@@ -136,7 +136,7 @@
         "sslCert": "./cert.pem",
         "sslKey": "./privkey.pem",
         "sslCA": "./chain.pem",
-        "trustProxyIP": false
+        "trustProxyIP": true
     },
 
     "daemon": {
