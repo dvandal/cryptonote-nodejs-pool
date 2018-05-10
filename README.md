@@ -102,11 +102,13 @@ Community / Support
 * https://haven.blockhashmining.com/
 * https://loki.blockhashmining.com/
 * https://masari.blockhashmining.com/
+* https://stellite.blockhashmining.com/
 * https://graft.anypool.net/
 * https://graft.dark-mine.su/
 * http://itns.proxpool.com/
 * https://bytecoin.pt
 * http://ita.minexmr24.ru/
+* https://pool.croatpirineus.cat
 
 Usage
 ===
