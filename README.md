@@ -108,6 +108,7 @@ Community / Support
 * http://itns.proxpool.com/
 * https://bytecoin.pt
 * http://ita.minexmr24.ru/
+* https://pool.croatpirineus.cat
 
 Usage
 ===
