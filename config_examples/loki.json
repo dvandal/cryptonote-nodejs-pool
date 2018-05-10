@@ -1,6 +1,6 @@
 {
     "coin": "loki",
-    "symbol": "LOK",
+    "symbol": "LOKI",
     "coinUnits": 1000000000,
     "coinDifficultyTarget": 120,
     "cnAlgorithm": "cryptonight",
