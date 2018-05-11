@@ -161,7 +161,7 @@ Copy the `config_examples/COIN.json` file of your choice to `config.json` then o
 
 Explanation for each field:
 ```javascript
-/* Pool Host displayed in notifications and front-end */
+/* Pool host displayed in notifications and front-end */
 "poolHost": "your.pool.host",
 
 /* Used for storage in redis so multiple coins can share the same redis instance. */
@@ -174,7 +174,7 @@ Explanation for each field:
 "coinUnits": 10000000000,
 
 /* Number of coin decimals places for notifications and front-end */
-"coinDecimals": 4,
+"coinDecimalPlaces": 4,
   
 /* Coin network time to mine one block, see DIFFICULTY_TARGET constant in DAEMON_CODE/src/cryptonote_config.h */
 "coinDifficultyTarget": 120,
