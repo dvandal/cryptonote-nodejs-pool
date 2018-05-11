@@ -210,7 +210,8 @@ function getReadableHashRateString(hashrate){
     
 // Get readable coins
 function getReadableCoins(coins, digits, withoutSymbol){
-    var amount = (parseInt(coins || 0) / lastStats.config.coinUnits).toFixed(digits || lastStats.config.coinUnits.toString().length - 1);
+    var coinDecimalPlaces = lastStats.config.coinDecimalPlaces || lastStats.config.coinUnits.toString().length - 1;
+    var amount = (parseInt(coins || 0) / lastStats.config.coinUnits).toFixed(digits || coinDecimalPlaces);
     return amount + (withoutSymbol ? '' : (' ' + lastStats.config.symbol));
 }
 

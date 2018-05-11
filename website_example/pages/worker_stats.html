@@ -172,7 +172,7 @@ function fetchAddressStats(longpoll){
 	    var payoutEstimate = Math.round(lastReward * (payoutEstimatePct / 100));
             if (transferFee) payoutEstimate = payoutEstimate - transferFee;
 	    if (payoutEstimate < 0) payoutEstimate = 0;
-	    updateText('yourPayoutEstimate', getReadableCoins(payoutEstimate, 4));
+	    updateText('yourPayoutEstimate', getReadableCoins(payoutEstimate));
 	    
             renderPayments(data.payments);
 	    
@@ -305,7 +305,7 @@ function getGraphData(rawData, fixValueToCoins) {
     if(rawData) {
         for (var i = 0, xy; xy = rawData[i]; i++) {
             graphData.names.push(new Date(xy[0]*1000).toLocaleString());
-            graphData.values.push(fixValueToCoins ? getReadableCoins(xy[1], 4, true) : xy[1]);
+            graphData.values.push(fixValueToCoins ? getReadableCoins(xy[1], null, true) : xy[1]);
         }
     }
     
@@ -420,7 +420,7 @@ function getPaymentRowElement(payment, jsonString){
 function getPaymentCells(payment){
     return '<td class="col1">' + formatDate(payment.time) + '</td>' +
            '<td class="col2">' + formatPaymentLink(payment.hash) + '</td>' +
-           '<td class="col3">' + getReadableCoins(payment.amount, 4, false) + '</td>' +
+           '<td class="col3">' + getReadableCoins(payment.amount) + '</td>' +
            '<td class="col4">' + payment.mixin + '</td>';
 }
 
@@ -443,7 +443,7 @@ function getSummaryCells(summary){
     if (summary.count <= 1) text = getTranslation('paymentSummarySingle') ? getTranslation('paymentSummarySingle') : 'On %DATE% you have received %AMOUNT%';
     text = text.replace(/%DATE%/g, summary.date);
     text = text.replace(/%COUNT%/g, summary.count);
-    text = text.replace(/%AMOUNT%/g, getReadableCoins(summary.amount, 4, false));
+    text = text.replace(/%AMOUNT%/g, getReadableCoins(summary.amount));
     return '<td colspan="4">' + text + '</td>';
 }
 

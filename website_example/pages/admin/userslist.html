@@ -49,8 +49,8 @@ function parseUsers(wallets) {
                 miner: wallet,
                 wallet: userData,
                 timeago: $.timeago(new Date(userData.lastShare * 1000).toISOString()),
-                readablePending: getReadableCoins(userData.pending, 4, true),
-                readablePaid: getReadableCoins(userData.paid, 4, true),
+                readablePending: getReadableCoins(userData.pending, null, true),
+                readablePaid: getReadableCoins(userData.paid, null, true),
                 readableHashrate: getReadableHashRateString(userData.hashrate) + '/s',
                 readableHashes: getReadableHashRateString(userData.hashes)
             });

@@ -296,7 +296,7 @@ function getGraphData(rawData, fixValueToCoins) {
     if(rawData) {
         for (var i = 0, xy; xy = rawData[i]; i++) {
             graphData.names.push(new Date(xy[0]*1000).toLocaleString());
-            graphData.values.push(fixValueToCoins ? getReadableCoins(xy[1], 4, true) : xy[1]);
+            graphData.values.push(fixValueToCoins ? getReadableCoins(xy[1], null, true) : xy[1]);
         }
     }        
         
@@ -324,7 +324,7 @@ function calcEstimateProfit(){
         var hashRate = parseFloat($('#calcHashRate').val()) * rateUnit;
         var profit = (hashRate * 86400 / lastStats.network.difficulty) * lastStats.network.reward;
         if (profit) {
-            updateText('calcHashAmount1', getReadableCoins(profit, 2, false));
+            updateText('calcHashAmount1', getReadableCoins(profit));
             updateText('calcHashAmount2', getCurrencyPriceText(profit));
             return;
         }
@@ -337,7 +337,7 @@ function calcEstimateProfit(){
 // Get price in specified currency
 function getCurrencyPriceText(coinsRaw) {    
     if (!priceCurrency || !marketPrices || !marketPrices[priceCurrency]) return ;    
-    var priceInCurrency = (Math.trunc(getReadableCoins(coinsRaw, 4, true) * marketPrices[priceCurrency] * 100) / 100);
+    var priceInCurrency = (Math.trunc(getReadableCoins(coinsRaw, 2, true) * marketPrices[priceCurrency] * 100) / 100);
     return  priceInCurrency + ' ' + priceCurrency;
 }
 </script>

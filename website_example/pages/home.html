@@ -213,7 +213,7 @@ currentPage = {
         updateText('networkHashrate', getReadableHashRateString(lastStats.network.difficulty / lastStats.config.coinDifficultyTarget) + '/sec');
         updateText('networkDifficulty', formatNumber(lastStats.network.difficulty.toString(), ' '));
         updateText('blockchainHeight', formatNumber(lastStats.network.height.toString(), ' '));
-        updateText('networkLastReward', getReadableCoins(lastStats.network.reward, 2));
+        updateText('networkLastReward', getReadableCoins(lastStats.network.reward));
         updateText('lastHash', lastStats.network.hash).setAttribute('href', getBlockchainUrl(lastStats.network.hash));
 
         updateText('poolHashrate', getReadableHashRateString(lastStats.pool.hashrate) + '/sec');
@@ -244,7 +244,7 @@ currentPage = {
         updateText('poolFee', (totalFee > 0 && totalFee != 100 ? floatToString(totalFee) : (totalFee == 100 ? '100' : '0')) + '%');
 
         updateText('paymentsInterval', getReadableTime(lastStats.config.paymentsInterval));
-        updateText('paymentsMinimum', getReadableCoins(lastStats.config.minPaymentThreshold, 2));
+        updateText('paymentsMinimum', getReadableCoins(lastStats.config.minPaymentThreshold));
 
         updateText('blockSolvedTime', getReadableTime(lastStats.network.difficulty / lastStats.pool.hashrate));
         updateText('currentEffort', (lastStats.pool.roundHashes / lastStats.network.difficulty * 100).toFixed(1) + '%');
@@ -311,7 +311,7 @@ function getGraphData(rawData, fixValueToCoins) {
     if(rawData) {
         for (var i = 0, xy; xy = rawData[i]; i++) {
             graphData.names.push(new Date(xy[0]*1000).toLocaleString());
-            graphData.values.push(fixValueToCoins ? getReadableCoins(xy[1], 4, true) : xy[1]);
+            graphData.values.push(fixValueToCoins ? getReadableCoins(xy[1], null, true) : xy[1]);
         }
     }        
         

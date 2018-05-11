@@ -91,7 +91,7 @@ currentPage = {
         updateText('paymentsTotal', lastStats.pool.totalPayments.toString());
         updateText('paymentsTotalPaid', lastStats.pool.totalMinersPaid.toString());
         updateText('paymentsInterval', getReadableTime(lastStats.config.paymentsInterval));
-        updateText('paymentsMinimum', getReadableCoins(lastStats.config.minPaymentThreshold, 1));
+        updateText('paymentsMinimum', getReadableCoins(lastStats.config.minPaymentThreshold));
         updateText('paymentsDenomination', getReadableCoins(lastStats.config.denominationUnit, 3));
         renderPayments(lastStats.pool.payments);
     }
@@ -114,8 +114,8 @@ function parsePayment(time, serializedPayment){
 function getPaymentCells(payment){
     return '<td class="col1">' + formatDate(payment.time) + '</td>' +
            '<td class="col2">' + formatPaymentLink(payment.hash) + '</td>' +
-           '<td class="col3">' + getReadableCoins(payment.amount, 4, false) + '</td>' +
-           '<td class="col4">' + getReadableCoins(payment.fee, 4, false) + '</td>' +
+           '<td class="col3">' + getReadableCoins(payment.amount) + '</td>' +
+           '<td class="col4">' + getReadableCoins(payment.fee) + '</td>' +
            '<td class="col5">' + payment.mixin + '</td>' +
            '<td class="col6">' + payment.recipients + '</td>';
 }

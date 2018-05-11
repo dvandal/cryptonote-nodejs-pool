@@ -171,10 +171,10 @@ function getStats(promptPassword) {
 }
 
 function renderData(data) {
-    $('#totalOwed').text(getReadableCoins(data.totalOwed, 4, true));
-    $('#totalPaid').text(getReadableCoins(data.totalPaid, 4, true));
-    $('#totalMined').text(getReadableCoins(data.totalRevenue, 4, true));
-    $('#profit').text(getReadableCoins(data.totalRevenue - data.totalOwed - data.totalPaid, 4, true));
+    $('#totalOwed').text(getReadableCoins(data.totalOwed));
+    $('#totalPaid').text(getReadableCoins(data.totalPaid));
+    $('#totalMined').text(getReadableCoins(data.totalRevenue));
+    $('#profit').text(getReadableCoins(data.totalRevenue - data.totalOwed - data.totalPaid));
     $('#blocksUnlocked').text(data.blocksUnlocked);
     $('#averageLuck').html(formatLuck(data.totalDiff, data.totalShares));
     $('#blocksOrphaned').text(data.blocksOrphaned);

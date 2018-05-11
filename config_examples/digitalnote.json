@@ -1,8 +1,12 @@
 {
+    "poolHost": "your.pool.host",
+
     "coin": "digitalnote",
     "symbol": "XDN",
     "coinUnits": 100000000,
+    "coinDecimalPlaces": 4,
     "coinDifficultyTarget": 240,
+
     "cnAlgorithm": "cryptonight",
     "cnVariant": 0,
     "cnBlobType": 0,
@@ -158,8 +162,6 @@
     },
 
     "notifications": {
-        "poolHost": "your.pool.host",
-        "coinDecimals": 4,
         "emailTemplate": "email_templates/default.txt",
         "emailSubject": {
             "emailAdded": "Your email was registered",
