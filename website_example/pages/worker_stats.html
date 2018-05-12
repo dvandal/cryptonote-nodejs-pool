@@ -281,7 +281,7 @@ function createCharts(data) {
     if (data.hasOwnProperty("charts")) {
         var graphData = {
             hashrate: getGraphData(data.charts.hashrate),
-            payments: getGraphData(data.charts.payments)
+            payments: getGraphData(data.charts.payments, true)
         };
 
         for(var graphType in graphData) {
