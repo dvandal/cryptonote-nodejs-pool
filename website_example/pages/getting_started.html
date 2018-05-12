@@ -256,6 +256,7 @@
 <!-- Javascript -->
 <script>
 // Set pool host
+if (typeof poolHost == "undefined") poolHost = null;
 updateText('miningPoolHost', poolHost || lastStats.config.poolHost);
 
 // Cleanup mining ports
