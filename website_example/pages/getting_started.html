@@ -256,8 +256,7 @@
 <!-- Javascript -->
 <script>
 // Set pool host
-if (typeof poolHost == "undefined") poolHost = null;
-updateText('miningPoolHost', poolHost || lastStats.config.poolHost);
+updateText('miningPoolHost', lastStats.config.poolHost);
 
 // Cleanup mining ports
 var lastPortsJson = '';
@@ -292,7 +291,7 @@ currentPage = {
             updateTextClasses('examplePort', lastStats.config.ports[0].port.toString());
         }
 
-        updateTextClasses('exampleHost', poolHost || lastStats.config.poolHost);
+        updateTextClasses('exampleHost', lastStats.config.poolHost);
         updateText('paymentIdSeparator', lastStats.config.paymentIdSeparator);
         updateText('fixedDiffSeparator', lastStats.config.fixedDiffSeparator);
         if (!lastStats.config.fixedDiffEnabled) $('#fixedDiff').hide();
