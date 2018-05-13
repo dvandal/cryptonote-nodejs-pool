@@ -600,8 +600,11 @@ Variable explanations:
 /* Must point to the API setup in your config.json file. */
 var api = "http://poolhost:8117";
 
-/* Pool server host to instruct your miners to point to.  */
+/* Pool server host to instruct your miners to point to (override daemon setting if set) */
 var poolHost = "poolhost.com";
+
+/* Number of coin decimals places (override daemon setting if set) */
+"coinDecimalPlaces": 4,
 
 /* Contact email address. */
 var email = "support@poolhost.com";
