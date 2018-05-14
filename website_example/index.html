@@ -146,7 +146,7 @@ function loadLiveStats(reload) {
     var apiURL = api + '/stats';
     
     var address = getCurrentAddress();
-    if (address) { apiURL = apiURL + '?address=' + address; }
+    if (address) { apiURL = apiURL + '?address=' + encodeURIComponent(address); }
 
     if (xhrLiveStats) xhrLiveStats.abort();
     
@@ -162,7 +162,7 @@ function fetchLiveStats() {
     var apiURL = api + '/live_stats';
 
     var address = getCurrentAddress();
-    if (address) { apiURL = apiURL + '?address=' + address; }
+    if (address) { apiURL = apiURL + '?address=' + encodeURIComponent(address); }
     
     xhrLiveStats = $.ajax({
         url: apiURL,
