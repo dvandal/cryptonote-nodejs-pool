@@ -127,10 +127,10 @@
     {
         "pool_address": "<span class="exampleHost">POOL_HOST</span>:<span class="examplePort">PORT</span>",
         "wallet_address": "<span class="exampleLogin">YOUR_WALLET_ADDRESS</span>",
-        "rig_id": "",
-        "pool_password": "<span class="examplePassword">YOUR_WORKER_NAME</span>",
+        "rig_id": "<span class="examplePassword">YOUR_WORKER_NAME</span>",
+        "pool_password": "x",
         "use_nicehash": false,
-        "use_tls": false,
+        "use_tls": false, /* Set to true if you are using an SSL port */
         "tls_fingerprint": "",
         "pool_weight": 1
     },
@@ -321,15 +321,6 @@ currentPage = {
             if (cnVariant === 1) {
                 algorithm = 'Cryptonight (Monero v7)';
                 xmrstakAlgo = 'cryptonight_v7';
-                if (coin == 'monero') xmrstakAlgo = 'monero7';
-                else if (coin == 'bbscoin') xmrstakAlgo = 'bbscoin';
-                else if (coin == 'croat') xmrstakAlgo = 'croat';
-                else if (coin == 'edollar') xmrstakAlgo = 'edollar';
-                else if (coin == 'electroneum') xmrstakAlgo = 'electroneum';
-                else if (coin == 'graft') xmrstakAlgo = 'graft';
-                else if (coin == 'haven') xmrstakAlgo = 'haven';
-                else if (coin == 'intense') xmrstakAlgo = 'intense';
-                else if (coin == 'karbo') xmrstakAlgo = 'karbo';
             } else if (cnVariant === 3) {
                 algorithm = 'Cryptonight (Stellite v7)';
                 xmrstakAlgo = 'cryptonight_v7_stellite';
@@ -339,6 +330,7 @@ currentPage = {
             }
         }
 
+        /*
         if (coin == 'aeon') xmrstakAlgo = 'aeon7';
         if (coin == 'bbscoin') xmrstakAlgo = 'bbscoin';
         if (coin == 'croat') xmrstakAlgo = 'croat';
@@ -354,6 +346,7 @@ currentPage = {
         if (coin == 'stellite') xmrstakAlgo = 'stellite';
         if (coin == 'sumokoin') xmrstakAlgo = 'sumokoin';
         if (coin == 'turtlecoin') xmrstakAlgo = 'turtlecoin';
+        */
 
         updateText('cnAlgorithm', algorithm);
         updateText('xmrstakAlgo', xmrstakAlgo);
