@@ -351,7 +351,10 @@ Explanation for each field:
     "depth": 60,
     "poolFee": 0.8, // 0.8% pool fee (1% total fee total including donations)
     "devDonation": 0.2, // 0.2% donation to send to pool dev
-    "networkFee": 0.0 // Network/Governance fee (used by some coins like Loki)
+    "networkFee": 0.0, // Network/Governance fee (used by some coins like Loki)
+    
+    /* Some forknote coins have an issue with block height in RPC request, to fix you can enable this option. See: https://github.com/forknote/forknote-pool/issues/48 */
+    "fixBlockHeightRPC": false
 },
 
 /* AJAX API used for front-end website. */
