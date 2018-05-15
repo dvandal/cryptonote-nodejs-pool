@@ -214,19 +214,21 @@ function renderMarketPrice(base, target, price) {
     if (target == 'EUR') icon = 'fa-eur';
     if (target == 'GBP') icon = 'fa-gbp';
     if (target == 'JPY') icon = 'fa-jpy';
-            
-    if (price > 1 || target == 'USD' || target == 'CAD' ||  target == 'EUR' || target == 'GBP' || target == 'JPY') {
-        price = Math.round(price * 10000) / 10000;
-    }
 
     if (base == lastStats.config.symbol.toUpperCase()) {
         marketPrices[target] = price;
+    }
+    
+    if (target == 'USD' || target == 'CAD' ||  target == 'EUR' || target == 'GBP' || target == 'JPY') {
+        price = price.toFixed(4);
+    } else {
+        price = price.toFixed(8);
     }
 
     $('#marketInfos').append(
         '<div class="col-lg-3 col-md-4 col-sm-6 marketTicker"><div class="infoBox hoverExpandEffect">' +
 	    '<div class="icon"><span class="fa '+ icon + '"></span></div>' +
-            '<div class="content"><div class="text">' + base + ' to ' + target + '</div><div class="value">' + price + '</div></div>' +
+            '<div class="content"><div class="text">' + base + ' to ' + target + '</div><div class="value">' + price.toString() + '</div></div>' +
         '</div></div>'
     );
 }
