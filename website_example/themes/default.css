@@ -493,6 +493,18 @@ table th.sort:hover{
   font-size: 16px;
   font-weight: normal;
 }
+#marketInfos .infoBox {
+  height: 100px;
+}
+#marketInfos .infoBox .source {
+  font-size: 13px;
+  font-style: italic;
+  color: #fff;
+}
+#marketInfos .infoBox .source a, #marketInfos .infoBox .source a:hover {
+  color: #fff;
+}
+
 
 /* Hash info box */
 .hashInfo {
