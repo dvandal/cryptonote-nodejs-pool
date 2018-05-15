@@ -118,7 +118,7 @@ function parseBlock(height, serializedBlock){
         reward: parts[5]
     };
 
-    var toGo = lastStats.config.depth - (lastStats.network.height - block.height);
+    var toGo = lastStats.config.depth - (lastStats.network.height - 1 - block.height);
     if(toGo > 1){
         block.maturity = toGo + ' to go';
     } 
