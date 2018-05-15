@@ -155,8 +155,8 @@ function fetchAddressStats(longpoll){
             updateText('yourPendingBalance', getReadableCoins(data.stats.balance));
 
             var userRoundHashes = parseInt(data.stats.roundHashes || 0);
-	    var poolRoundHashes = parseInt(lastStats.pool.roundHashes || 0);
-	    var lastReward = parseFloat(lastStats.lastblock.reward || 0);
+            var poolRoundHashes = parseInt(lastStats.pool.roundHashes || 0);
+            var lastReward = parseFloat(lastStats.lastblock.reward || 0);
 	    
             var poolFee = lastStats.config.fee;
             if (Object.keys(lastStats.config.donation).length) {
