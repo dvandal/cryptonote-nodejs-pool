@@ -353,7 +353,8 @@ Explanation for each field:
     "devDonation": 0.2, // 0.2% donation to send to pool dev
     "networkFee": 0.0, // Network/Governance fee (used by some coins like Loki)
     
-    /* Some forknote coins have an issue with block height in RPC request, to fix you can enable this option. See: https://github.com/forknote/forknote-pool/issues/48 */
+    /* Some forknote coins have an issue with block height in RPC request, to fix you can enable this option.
+       See: https://github.com/forknote/forknote-pool/issues/48 */
     "fixBlockHeightRPC": false
 },
 
