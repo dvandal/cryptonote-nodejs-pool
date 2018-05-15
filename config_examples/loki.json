@@ -6,8 +6,8 @@
     "coinUnits": 1000000000,
     "coinDecimalPlaces": 4,
     "coinDifficultyTarget": 120,
-    "cnAlgorithm": "cryptonight",
-    "cnVariant": 1,
+    "cnAlgorithm": "cryptonight_heavy",
+    "cnVariant": null,
     "cnBlobType": 0,
 
     "logging": {
@@ -106,7 +106,7 @@
         "enabled": true,
         "interval": 1800,
         "maxAddresses": 50,
-        "mixin": 5,
+        "mixin": 10,
         "priority": 0,
         "transferFee": 50000000,
         "dynamicTransferFee": true,
