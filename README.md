@@ -95,6 +95,7 @@ Community / Support
 
 * [GitHub Wiki](https://github.com/dvandal/cryptonote-nodejs-pool/wiki)
 * [GitHub Issues](https://github.com/dvandal/cryptonote-nodejs-pool/issues)
+* [Telegram Group](http://t.me/CryptonotePool)
 
 #### Pools Using This Software
 
