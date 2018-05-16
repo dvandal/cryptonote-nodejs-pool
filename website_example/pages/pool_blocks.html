@@ -27,6 +27,19 @@
         </div>
     </div>
 
+    <!-- Efficiency -->
+    <div class="col-lg-3 col-sm-4">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-line-chart"></span>
+            </div>
+            <div class="content">
+                <div class="text"><span tkey="efficiency">Efficiency</span></div>
+                <div class="value"><span id="efficiency">N/A</span></div>
+            </div>
+        </div>
+    </div>
+    
     <!-- Average Luck -->
     <div class="col-lg-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
@@ -85,6 +98,7 @@ currentPage = {
         }
         updateText('blocksMaturityCount', lastStats.config.depth.toString());
 
+        $('#efficiency').html(formatPercent(lastStats.pool.efficiency));
         $('#averageLuck').html(formatLuck(lastStats.pool.totalDiff, lastStats.pool.totalShares));
 
         renderBlocks(lastStats.pool.blocks);	
