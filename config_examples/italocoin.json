@@ -5,10 +5,10 @@
     "symbol": "ITA",
     "coinUnits": 1000000000000,
     "coinDecimalPlaces": 4,
-    "coinDifficultyTarget": 180,
+    "coinDifficultyTarget": 120,
 
-    "cnAlgorithm": "cryptonight",
-    "cnVariant": 1,
+    "cnAlgorithm": "cryptonight_heavy",
+    "cnVariant": null,
     "cnBlobType": 0,
 
     "logging": {
