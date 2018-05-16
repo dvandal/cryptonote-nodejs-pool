@@ -1,0 +1,74 @@
+<h3>Frequently Asked Questions (FAQ)</h3>
+
+<h4 class="push-up-20" tkey="faq1_title">What is difficulty?</h4>
+<div class="card padding-15 push-down-10" tkey="faq1_text">Difficulty is a measure of how difficult it is to find a hash below a given target.</div>
+
+<h4 tkey="faq2_title">What is luck?</h4>
+<div class="card padding-15 push-down-10" tkey="faq2_text">Mining is probabilistic in nature: if you find a block earlier than you statistically should on average you are lucky if it takes longer, you are unlucky. In a perfect World pool would find a block on 100% luck value. Less then 100% means the pool was lucky. More then 100% means the pool was unlucky.</div>
+
+<h4 tkey="faq3_title">What is share?</h4>
+<div class="card padding-15 push-down-10" tkey="faq3_text">Share is a possible valid hash for the block. Shares are beings sent by your rigs to the pool to prove their work.</div>
+
+<h4 tkey="faq4_title">What is block?<h4>
+<div class="card padding-15 push-down-10" tkey="faq4_text">Transaction data is recorded in blocks. New transactions are being processes by miners into new blocks which are added to the end of the blockchain.</div>
+
+<h4 tkey="faq5_title">How long does it take to find a block?</h4>
+<div class="card padding-15 push-down-10" tkey="faq5_text">It depends on amount of active miners. The more miners work on pool &rarr; the more hashrate pool has &rarr; the more blocks are found by the pool. However the more miners are active &rarr; the less reward you get from each block found.</div>
+
+<h4 tkey="faq6_title">Which payouts scheme is used?</h4>
+<div class="card padding-15 push-down-10" tkey="faq6_text">Proportional (Share-based): Every time a block is found, its reward is split between miners according to the number of shares they submitted.</div>
+
+<h4 tkey="faq7_title">How current payout estimate is calculated?</h4>
+<div class="card padding-15 push-down-10" tkey="faq7_text">The estimated payout is a calculated using your percentage of valid shares on the total for current round. This percentage is then applied to the reward of the last block found by the network.</div>
+
+<h4 tkey="faq8_title">I have been mining on this pool for 1 hour but still have not received any payouts. WTF?</h4>
+<div class="card padding-15 push-down-10" tkey="faq8_text">As soon as the block is found you will get your reward. Please wait a little bit more time.</div>
+
+<h4 tkey="faq9_title">My hashrate is wrong! Why?</h4>
+<div class="card padding-15 push-down-10" tkey="faq9_text">Since you start to mine your hashrate grows gradually. Please wait. The pool determines your hashrate based on the amount of shares sent by your mining rigs (workers). This value could be a little bit different from reported hasrate (in your mining software).</div>
+
+<div id="telegramBot">
+    <h4 tkey="faq10_title">How to use the Telegram Bot?</h4>
+    <div class="card padding-15">
+        <div tkey="faq10_text">Telegram bot will report via Telegram, when your worker is connected, disconnected or banned, and payments have been made to your wallet. Also you can check pool stats directly from him.</div>
+        <br/>
+
+        <span tkey="botName">Bot name</span>: <a id="telegramBotURL" target="_blank" rel="nofollow" href="https://t.me/Pool_bot">@<span id="telegramBotName">Pool_bot</span></a><br/>
+        <br/>
+
+        <span tkey="botCommands">Commands</span>:</br/>
+        <span id="botStats">/stats</span> - <span tkey="botStats">Pool statistics</span><br />
+        <span id="botEnable">/enable</span> <em><span tkey="botAddress">address</span></em> - <span tkey="botNotifyON">Notifications ON</span><br />
+        <span id="botDisable">/disable</span> <em><span tkey="botAddress">address</span></em> - <span tkey="botNotifyOFF">Notifications OFF</span><br />
+        <br />
+
+        <span tkey="botMultiAddresses">Multiple addresses monitoring available.</span></div>
+    </div>
+</div>
+
+<!-- Javascript -->
+<script>
+// Update current page
+currentPage = {
+    destroy: function(){},
+    update: function(){
+        if (!lastStats.config.telegramBotName) {
+            $('#telegramBot').hide();
+        } else {
+            var botName = lastStats.config.telegramBotName;
+            var botURL = 'https://t.me/'+botName;
+            $('#telegramBotURL').attr('href', botURL);
+            updateText('telegramBotName', botName);
+	    
+            var botStats = lastStats.config.telegramBotStats;
+            if (botStats) updateText('botStats', botStats);
+	    
+            var botEnable = lastStats.config.telegramBotEnable;
+            if (botEnable) updateText('botEnable', botEnable);
+
+            var botDisable = lastStats.config.telegramBotDisable;
+            if (botDisable) updateText('botDisable', botDisable);
+        }	
+    }
+};
+</script>

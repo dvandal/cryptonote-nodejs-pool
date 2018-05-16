@@ -222,6 +222,7 @@
 
     "telegram": {
         "enabled": false,
+        "botName": "",
         "token": "",
         "channel": "",
         "channelStats": {
