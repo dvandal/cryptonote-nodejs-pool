@@ -471,6 +471,7 @@ Explanation for each field:
    See Telegram documentation to setup your bot: https://core.telegram.org/bots#3-how-do-i-create-a-bot */
 "telegram": {
     "enabled": false,
+    "botName": "", // The bot user name.
     "token": "", // The bot unique authorization token
     "channel": "", // The telegram channel id (ex: BlockHashMining)
     "channelStats": {
