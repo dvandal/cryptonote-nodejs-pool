@@ -1,16 +1,19 @@
 [Unit]
-Description=Cryptonote-nodejs-pool Service
+Description=Mining Pool Service
 After=network.target
 
 [Service]
 Type=simple
-# Edit WorkingDirectory, User and Group as needed
+Restart=always
+SyslogIdentifier=cryptonote-nodejs-pool
+ExecStart=/usr/bin/node init.js
+
+# Change to the location of cryptonote-node-js-pool
 WorkingDirectory=/path/to/your/cryptonote-nodejs-pool/pool
+
+# Set user and group that will run the pool
 User=pool-user
 Group=pool-user
-ExecStart=/usr/bin/node init.js
-Restart=always
-SyslogIdentifier=Cryptonote-nodejs-pool
 
 [Install]
 WantedBy=multi-user.target
