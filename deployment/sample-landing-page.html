@@ -97,7 +97,7 @@
  
 // Get stats from pool API
 function getPoolStats(poolID, poolURL) {
-    var apiURL = poolURL + '/api/stats';
+    var apiURL = poolURL + '/stats';
     $.get(apiURL, function(data){
         if (!data) return ;
         
@@ -161,12 +161,12 @@ function getPoolStats(poolID, poolURL) {
 
 // Update pools
 function updatePools() {
-    getPoolStats('graft', 'https://graft.blockhashmining.com/');
-    getPoolStats('haven', 'https://haven.blockhashmining.com/');
-    getPoolStats('intense', 'https://intense.blockhashmining.com/');
-    getPoolStats('loki', 'https://loki.blockhashmining.com/');
-    getPoolStats('masari', 'https://masari.blockhashmining.com/');
-    getPoolStats('stellite', 'https://stellite.blockhashmining.com/');
+    getPoolStats('graft', 'https://graft.blockhashmining.com/api');
+    getPoolStats('haven', 'https://haven.blockhashmining.com/api');
+    getPoolStats('intense', 'https://intense.blockhashmining.com/api');
+    getPoolStats('loki', 'https://loki.blockhashmining.com/api');
+    getPoolStats('masari', 'https://masari.blockhashmining.com/api');
+    getPoolStats('stellite', 'https://stellite.blockhashmining.com/api');
 }
 
 // Initialize
