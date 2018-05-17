@@ -1,7 +1,7 @@
 {
     "poolHost": "your.pool.host",
 
-    "coin": "bbscoin,
+    "coin": "bbscoin",
     "symbol": "BBS",
     "coinUnits": 100000000,
     "coinDecimalPlaces": 4,
