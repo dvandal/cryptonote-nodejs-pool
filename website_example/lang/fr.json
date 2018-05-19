@@ -50,6 +50,7 @@
     "difficulty": "Difficulté",
     "blockHash": "Hash du bloc",
     "effort": "Effort",    
+    "blocksFoundLast24": "Blocs trouvés dans les 24 dernières heures",
 
     "payments": "Paiements",
     "paymentsHistory": "Historique des paiements",

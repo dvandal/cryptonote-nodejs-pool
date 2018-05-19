@@ -20,11 +20,9 @@
                 <div><i class="fa fa-clock-o"></i> <span tkey="lastShare">Last Share Submitted</span>: <span id="yourLastShare"></span></div>
                 <div><i class="fa fa-cloud-upload"></i> <span tkey="totalHashes">Total Hashes Submitted</span>: <span id="yourHashes"></span></div>
             </div>
-            <div class="col-sm-6">
-                <div class="userChart push-up-10" data-chart="user_hashrate">
-                    <div class="chart">
-                    
-                    </div>                
+            <div class="col-sm-6 userChart">
+                <div class="chart">
+                    <canvas id="chart_hashrate"></canvas">
                 </div>
             </div> 
 	</div>
@@ -39,11 +37,9 @@
                 <div><i class="fa fa-money"></i> <span tkey="totalPaid">Total Paid</span>: <span id="yourPaid"></span></div>
                 <div><i class="fa fa-money"></i> <span tkey="payoutEstimate">Current Payout Estimate</span>: <span id="yourPayoutEstimate"></span></div>
             </div>
-            <div class="col-sm-6">
-                <div class="userChart push-up-10" data-chart="user_payments">
-                    <div class="chart">
-                    
-                    </div> 
+            <div class="col-sm-6 userChart">
+                <div class="chart">
+                    <canvas id="chart_payments"></canvas">
                 </div>
             </div>
         </div>       
@@ -98,6 +94,10 @@
 
 <!-- Javascript -->
 <script>
+// Charts
+var userChartsData = null;
+var chartsInitialized = false;
+
 // Update current page
 currentPage = {
     destroy: function(){
@@ -182,7 +182,15 @@ function fetchAddressStats(longpoll){
             }
 	    
             $('.yourStats').show();
-            createCharts(data);                                
+
+            if (data.charts) {
+                userChartsData = data.charts;
+                if (!chartsInitialized) {
+                    var intervalChartsUpdate = setInterval(createCharts, 60*1000);
+                    createCharts();
+                    chartsInitialized = true;
+                }
+            }	    
 	    
             fetchAddressStats(true);
         },
@@ -254,43 +262,73 @@ $('#yourStatsInput').keyup(function(e){
  * Charts
  **/
 
-// Charts settings
-var graphSettings = {
-    type: 'line',
-    width: '100%',
-    height: '120',
-    lineColor: '#03a9f4',
-    fillColor: 'rgba(3, 169, 244, .4)',
-    spotColor: null,
-    minSpotColor: null,
-    maxSpotColor: null,
-    highlightLineColor: '#236d26',
-    spotRadius: 3,
-    chartRangeMin: 0,
-    drawNormalOnTop: false,
-    tooltipFormat: '<b>{{y}}</b> &ndash; {{offset:names}}'
-};
-
-// Handle charts tooltip
-$(function() {
-    $('[data-toggle="tooltip"]').tooltip();
-});
-
 // Create charts
-function createCharts(data) {
-    if (data.hasOwnProperty("charts")) {
-        var graphData = {
-            hashrate: getGraphData(data.charts.hashrate),
-            payments: getGraphData(data.charts.payments, true)
-        };
+function createCharts() {
+    if (!userChartsData) return ;
+    var data = userChartsData;
 
-        for(var graphType in graphData) {
-            if(graphData[graphType].values.length > 1) {
-                var settings = jQuery.extend({}, graphSettings);
-                settings.tooltipValueLookups = {names: graphData[graphType].names};
-                var $chart = $('[data-chart=user_' + graphType + ']').show().find('.chart');
-                $chart.sparkline(graphData[graphType].values, settings);
-            }
+    var graphData = {
+        hashrate: getGraphData(data.hashrate),
+        payments: getGraphData(data.payments)
+    };
+
+    for (var graphType in graphData) {
+        if (graphData[graphType].values.length > 1) {
+            $chart = $('#chart_'+graphType);
+            var chartObj = new Chart(document.getElementById('chart_'+graphType), {
+                type: 'line',
+                data: {
+                    labels: graphData[graphType].names,
+                    datasets: [{
+                        data: graphData[graphType].values,
+                        dataType: graphType,
+                        fill: true,
+                        backgroundColor: 'rgba(3, 169, 244, .4)',
+                        borderColor: '#03a9f4',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    animation: false,
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    legend: { display: false },
+                    elements: { point: { radius: 0, hitRadius: 10, hoverRadius: 5 } },
+                    scales: {
+                        xAxes: [{
+                            display: false,
+                            ticks: { display: false },
+                            gridLines: { display: false }
+                        }],
+                        yAxes: [{
+                            display: false,
+                            ticks: {
+                                display: false,
+                                beginAtZero: true,
+                                userCallback: function(label, index, labels) {
+                                    if (Math.floor(label) === label) return label;
+                                }
+                            },
+                            gridLines: { display: false }
+                        }]
+                    },
+                    layout: {
+                        padding: { top: 15, left: 0, right: 0, bottom: 15 }
+                    },
+                    tooltips: {
+                        callbacks: {
+                            label: function(tooltipItem, data) {
+                                var dataType = data.datasets[tooltipItem.datasetIndex].dataType || '';
+                                var label = tooltipItem.yLabel;
+                                if (dataType == 'hashrate') label = getReadableHashRateString(tooltipItem.yLabel)+'/sec';
+                                else if (dataType == 'payments') label = getReadableCoins(tooltipItem.yLabel);
+                                return ' ' + label;
+                            }
+                        }
+                    }
+                }
+            });
+            $chart.closest('.userChart').show();
         }
     }
 }
@@ -305,7 +343,7 @@ function getGraphData(rawData, fixValueToCoins) {
     if(rawData) {
         for (var i = 0, xy; xy = rawData[i]; i++) {
             graphData.names.push(new Date(xy[0]*1000).toLocaleString());
-            graphData.values.push(fixValueToCoins ? getReadableCoins(xy[1], null, true) : xy[1]);
+            graphData.values.push(xy[1]);
         }
     }
     

@@ -49,7 +49,8 @@
     "height": "Height",
     "difficulty": "Difficulty",
     "blockHash": "Block Hash",
-    "effort": "Effort",    
+    "effort": "Effort",
+    "blocksFoundLast24": "Blocks found in the last 24 hours",
 
     "payments": "Payments",
     "paymentsHistory": "Payments History",

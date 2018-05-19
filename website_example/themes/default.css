@@ -514,6 +514,12 @@ table th.sort:hover{
   padding: 15px;
   border-radius: 3px;
   color: #fff;
+  margin-bottom: 30px;
+}
+@media (max-width: 767px){
+  .hashInfo {
+    margin-bottom: 15px;
+  }
 }
 .hashInfo .text {
   font-size: 13px;
@@ -564,11 +570,16 @@ table th.sort:hover{
 .poolChart, .marketChart, .userChart {
   display: none;
 }
-.poolChart .chart, .marketChart .chart {
-  padding: 10px;
+.poolChart .chart, .marketChart .chart, .userChart .chart {
+  height: 140px;
 }
-.userChart .chart {
-  padding: 10px 0;
+.poolChart, .marketChart {
+  margin-bottom: 30px;
+}
+@media (max-width: 767px){
+  .poolChart, .marketChart {
+    margin-bottom: 15px;
+  }
 }
 .poolChart h4,
 .marketChart h4,
@@ -580,9 +591,6 @@ table th.sort:hover{
 /* Market Rates */
 #marketStats  {
   margin-top: 20px;
-}
-#marketStats .infoBox  {
-  margin-bottom: 15px;
 }
 #marketUpdate {
     display: none;

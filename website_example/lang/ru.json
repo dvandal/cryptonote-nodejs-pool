@@ -49,6 +49,7 @@
     "difficulty": "Сложность",
     "blockHash": "Хеш блока",
     "effort": "Усилие",    
+    "blocksFoundLast24": "Blocks found in the last 24 hours",
 
     "payments": "Платежи",
     "paymentsHistory": "История платежей",

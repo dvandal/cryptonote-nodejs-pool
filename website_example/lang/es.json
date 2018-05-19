@@ -50,6 +50,7 @@
     "difficulty": "Dificultad",
     "blockHash": "Bloque Hash",
     "effort": "Esfuerzo",    
+    "blocksFoundLast24": "Blocks found in the last 24 hours",
 
     "payments": "Pagos",
     "paymentsHistory": "Historial de pagos",
