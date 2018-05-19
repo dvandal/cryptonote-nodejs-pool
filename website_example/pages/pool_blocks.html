@@ -42,6 +42,14 @@
     
 </div>
 
+<!-- Chart -->
+<div id="blocksChart" class="card padding-15 padding-t-5 padding-b-5">
+    <h4 class="blocksFoundLast24">Blocks found in the last 24 hours</h4>
+    <div class="chart" style="height:200px;">
+        <canvas id="blocksChartObj"></canvas>
+    </div>
+</div>
+
 <!-- Report -->
 <div class="card push-up-10">
     <div id="blocksReport" class="table-responsive">
@@ -69,6 +77,9 @@
 
 <!-- Javascript -->
 <script>
+// Hide blocks chart on load
+$('#blocksChart').hide();
+
 // Update current page
 currentPage = {
     destroy: function(){
@@ -87,9 +98,62 @@ currentPage = {
 
         $('#averageLuck').html(formatLuck(lastStats.pool.totalDiff, lastStats.pool.totalShares));
 
-        renderBlocks(lastStats.pool.blocks);	
+        if (lastStats.charts.blocks) {
+            generateChart(lastStats.charts.blocks);
+        }
+        renderBlocks(lastStats.pool.blocks);
     }
 };
+
+// Chart
+var displayedChart = false;
+function generateChart(data) {
+    if (displayedChart || !data || data === "undefined") return ;
+
+    var labels = [];
+    var values = [];
+
+    for (var key in data) {
+        var keyParts = key.split(' ');
+        labels.push(keyParts[1].replace(':00', ''));
+        values.push(data[key]);
+    }
+
+    var chart = new Chart(document.getElementById('blocksChartObj'), {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Blocks',
+                data: values,
+                fill: false,
+                backgroundColor: 'rgba(3, 169, 244, .4)',
+                borderColor: '#03a9f4',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: { display: false },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        userCallback: function(label, index, labels) {
+                            if (Math.floor(label) === label) return label;
+                        }
+                    }
+                }],
+            },
+            layout: {
+                padding: { top: 0, left: 0, right: 0, bottom: 0 }
+            }
+        }
+    });
+    $('#blocksChart').show();
+    displayedChart = true;
+}
 
 // Parse block data
 function parseBlock(height, serializedBlock){
@@ -180,7 +244,7 @@ function renderBlocks(blocksResults){
     for (var i = 0; i < blocksResults.length; i += 2){
         var block = parseBlock(blocksResults[i + 1], blocksResults[i]);
         var blockJson = JSON.stringify(block);
-        
+
         var existingRow = document.getElementById('blockRow' + block.height);
         if (existingRow && existingRow.getAttribute('data-json') !== blockJson){
             $(existingRow).replaceWith(getBlockRowElement(block, blockJson));
