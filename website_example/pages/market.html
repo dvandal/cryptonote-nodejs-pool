@@ -96,7 +96,7 @@ function loadMarketData() {
     if (loadedData) return ;
         
     if (typeof marketCurrencies !== 'undefined' && marketCurrencies.length > 0){
-        var intervalMarketPolling = setInterval(updateMarkets, 300000);
+        var intervalMarketPolling = setInterval(updateMarkets, lastStats.config.prices.interval);
         updateMarkets();
     } else {
         $('#marketInfos').hide();
