@@ -500,7 +500,8 @@ Explanation for each field:
 /* Prices settings for market and price charts */
 "prices": {
     "source": "cryptonator", // Exchange (supported values: cryptonator, altex, crex24, cryptopia, stocks.exchange, tradeogre)
-    "currency": "USD" // Default currency
+    "currency": "USD", // Default currency
+    "interval": 300000 // Set default intervalto trigger.
 },
 	    
 /* Collect pool statistics to display in frontend charts  */
