@@ -284,12 +284,12 @@ function getPoolHost() {
 
 // Return transaction URL
 function getTransactionUrl(id) {
-    return transactionExplorer.replace('{symbol}', lastStats.config.symbol.toLowerCase()).replace('{id}', id);
+    return transactionExplorer.replace(new RegExp('{symbol}', 'g'), lastStats.config.symbol.toLowerCase()).replace(new RegExp('{id}', 'g'), id);
 }
 
 // Return blockchain explorer URL
 function getBlockchainUrl(id) {
-    return blockchainExplorer.replace('{symbol}', lastStats.config.symbol.toLowerCase()).replace('{id}', id);    
+    return blockchainExplorer.replace(new RegExp('{symbol}', 'g'), lastStats.config.symbol.toLowerCase()).replace(new RegExp('{id}', 'g'), id);    
 }
  
 /**
