@@ -122,9 +122,14 @@ function generateChart(data) {
     var labels = [];
     var values = [];
 
+    console.log(data);
     for (var key in data) {
-        var keyParts = key.split(' ');
-        labels.push(keyParts[1].replace(':00', ''));
+        var label = key;
+        if (chartDays && chartDays === 1) {
+            var keyParts = key.split(' ');
+            label = keyParts[1].replace(':00', '');
+        }
+        labels.push(label);
         values.push(data[key]);
     }
 
