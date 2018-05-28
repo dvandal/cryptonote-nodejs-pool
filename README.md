@@ -554,7 +554,12 @@ Explanation for each field:
         "payments": { // Payment chart uses all user payments data stored in DB
             "enabled": true
         }
+    },
+    "blocks": {
+        "enabled": true,
+        "days": 30 // Number of days displayed in chart (if value is 1, display last 24 hours)
     }
+}
 ```
 
 #### 3) Start the pool
