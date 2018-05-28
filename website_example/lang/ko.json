@@ -50,6 +50,7 @@
     "blockHash": "블럭 해시",
     "effort": "풀의노력",    
     "blocksFoundLast24": "Blocks found in the last 24 hours",
+    "blocksFoundLastDays": "Blocks found in the last {DAYS} days",
 
     "payments": "출금상황",
     "paymentsHistory": "출금 내역",

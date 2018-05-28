@@ -51,6 +51,7 @@
     "blockHash": "Hash du bloc",
     "effort": "Effort",    
     "blocksFoundLast24": "Blocs trouvés dans les 24 dernières heures",
+    "blocksFoundLastDays": "Blocs trouvés dans les derniers {DAYS} jours",
 
     "payments": "Paiements",
     "paymentsHistory": "Historique des paiements",

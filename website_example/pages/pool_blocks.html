@@ -44,7 +44,7 @@
 
 <!-- Chart -->
 <div id="blocksChart" class="card padding-15 padding-t-5 padding-b-5">
-    <h4 class="blocksFoundLast24">Blocks found in the last 24 hours</h4>
+    <h4 id="blocksChartTitle">Blocks found</h4>
     <div class="chart" style="height:200px;">
         <canvas id="blocksChartObj"></canvas>
     </div>
@@ -109,6 +109,15 @@ currentPage = {
 var displayedChart = false;
 function generateChart(data) {
     if (displayedChart || !data || data === "undefined") return ;
+
+    var chartDays = lastStats.config.blocksChartDays || null;
+    var title = getTranslation('poolBlocks') ? getTranslation('poolBlocks') : 'Blocks found';
+    if (chartDays) {
+        if (chartDays === 1) title = getTranslation('blocksFoundLast24') ? getTranslation('blocksFoundLast24') : 'Blocks found in the last 24 hours';
+        else title = getTranslation('blocksFoundLastDays') ? getTranslation('blocksFoundLastDays') : 'Blocks found in the last {DAYS} days';
+        title = title.replace('{DAYS}', chartDays);
+    }
+    updateText('blocksChartTitle', title);
 
     var labels = [];
     var values = [];
