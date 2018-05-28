@@ -388,7 +388,8 @@ Explanation for each field:
 /* Wallet daemon connection details (default port is 18980) */
 "wallet": {
     "host": "127.0.0.1",
-    "port": 18982
+    "port": 18982,
+    "bytecoin": false // Use Bytecoin Wallet RPC API
 },
 
 /* Redis connection info (default port is 6379) */

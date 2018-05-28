@@ -152,7 +152,8 @@
 
     "wallet": {
         "host": "127.0.0.1",
-        "port": 31571
+        "port": 31571,
+        "bytecoin": false
     },
 
     "redis": {
