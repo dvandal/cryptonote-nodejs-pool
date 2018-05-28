@@ -112,6 +112,7 @@
         "dynamicTransferFee": true,
         "minerPayFee" : true,
         "minPayment": 5000000000,
+        "maxPayment": null,
         "maxTransactionAmount": 0,
         "denomination": 100000000
     },
