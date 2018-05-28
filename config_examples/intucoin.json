@@ -7,6 +7,7 @@
     "coinDecimalPlaces": 4,
     "coinDifficultyTarget": 120,
 
+    "daemonType": "forknote",
     "cnAlgorithm": "cryptonight",
     "cnVariant": 0,
     "cnBlobType": 0,
@@ -152,8 +153,7 @@
 
     "wallet": {
         "host": "127.0.0.1",
-        "port": 31571,
-        "bytecoin": false
+        "port": 31571
     },
 
     "redis": {

@@ -7,6 +7,7 @@
     "coinDecimalPlaces": 4,
     "coinDifficultyTarget": 120,
 
+    "daemonType": "default",
     "cnAlgorithm": "cryptonight_heavy",
     "cnVariant": null,
     "cnBlobType": 0,
@@ -151,8 +152,7 @@
 
     "wallet": {
         "host": "127.0.0.1",
-        "port": 13103,
-        "bytecoin": false
+        "port": 13103
     },
 
     "redis": {
