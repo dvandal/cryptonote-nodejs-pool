@@ -224,8 +224,14 @@ currentPage = {
         updateText('networkHashrate', getReadableHashRateString(lastStats.network.difficulty / lastStats.config.coinDifficultyTarget) + '/sec');
         updateText('networkDifficulty', formatNumber(lastStats.network.difficulty.toString(), ' '));
         updateText('blockchainHeight', formatNumber(lastStats.network.height.toString(), ' '));
-        updateText('networkLastReward', getReadableCoins(lastStats.lastblock.reward));
         updateText('lastHash', lastStats.lastblock.hash).setAttribute('href', getBlockchainUrl(lastStats.lastblock.hash));
+
+        if (lastStats.config.networkFee) {
+            var networkFeePercent = lastStats.config.networkFee / 100;
+            updateText('networkLastReward', getReadableCoins(lastStats.lastblock.reward - (lastStats.lastblock.reward * networkFeePercent)));
+        } else {
+            updateText('networkLastReward', getReadableCoins(lastStats.lastblock.reward));
+        }
 
         updateText('poolHashrate', getReadableHashRateString(lastStats.pool.hashrate) + '/sec');
         updateText('blocksTotal', lastStats.pool.totalBlocks.toString());
