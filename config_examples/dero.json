@@ -9,7 +9,7 @@
 
     "daemonType": "default",
     "cnAlgorithm": "cryptonight",
-    "cnVariant": 1,
+    "cnVariant": 0,
     "cnBlobType": 0,
 
     "logging": {
@@ -232,8 +232,9 @@
         },
         "botCommands": {
             "stats": "/stats",
-            "enable": "/enable",
-            "disable": "/disable"
+            "report": "/report",
+            "notify": "/notify",
+            "blocks": "/blocks"
         }
     },
 
