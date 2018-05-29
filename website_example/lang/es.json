@@ -40,7 +40,7 @@
     "top10miners": "Top 10 Mineros",
 
     "blocksTotal": "Bloques encontrados",
-    "blockSolvedTime": "Blque encontrado cada",
+    "blockSolvedTime": "Bloque encontrado cada",
     "blocksMaturityCount": "Madurez requerida",
     "efficiency": "Eficiencia",
     "averageLuck": "Promedio de suerte",
@@ -50,12 +50,12 @@
     "difficulty": "Dificultad",
     "blockHash": "Bloque Hash",
     "effort": "Esfuerzo",    
-    "blocksFoundLast24": "Blocks found in the last 24 hours",
-    "blocksFoundLastDays": "Blocks found in the last {DAYS} days",
+    "blocksFoundLast24": "Bloques encontrados en las últimas 24 horas",
+    "blocksFoundLastDays": "Bloques encontrados en los últimos {DAYS} días",
 
     "payments": "Pagos",
     "paymentsHistory": "Historial de pagos",
-    "paymentsTotal": "Total de pagaos",
+    "paymentsTotal": "Total de pagos",
     "paymentsMinimum": "Pago mínimo",
     "paymentsInterval": "Intervalo de pagos",
     "paymentsDenomination": "Unidad de denominación",
@@ -164,5 +164,5 @@
     "years": "años",
 
     "poweredBy": "Powered by",
-    "openSource": "open sourced under the"
+    "openSource": "open sourced bajo "
 }
