@@ -2,7 +2,7 @@ var api = "https://imaginary.stream/api";
 var poolHost = "graft.imaginary.stream";
 
 var email = "graft@imaginary.stream";
-var telegram = "https://t.me/joinchat/GwEWWhDJhf56Orqzn5TUFA";
+var telegram = "https://t.me/ImaginaryStream";
 var discord = "";
 
 var marketCurrencies = ["{symbol}-BTC", "{symbol}-USD", "{symbol}-EUR", "{symbol}-CAD"];
