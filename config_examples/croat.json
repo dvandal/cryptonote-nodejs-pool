@@ -1,7 +1,7 @@
 {
     "poolHost": "your.pool.host",
 
-    "coin": "Croat",
+    "coin": "croat",
     "symbol": "CROAT",
     "coinUnits": 100000000000,
     "coinDecimalPlaces": 4,
