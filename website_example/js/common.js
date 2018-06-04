@@ -128,7 +128,7 @@ function updateText(elementId, text){
 
 // Convert float to string
 function floatToString(float) {
-    return float.toFixed(6).replace(/[0\.]+$/, '');
+    return float.toFixed(6).replace(/\.0+$|0+$/, '');
 }
 
 // Format number
