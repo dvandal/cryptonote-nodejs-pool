@@ -141,9 +141,17 @@ sudo apt-get install redis-server
 ##### Seriously
 Those are legitimate requirements. If you use old versions of Node.js or Redis that may come with your system package manager then you will have problems. Follow the linked instructions to get the last stable versions.
 
-
 [**Redis warning**](http://redis.io/topics/security): It'sa good idea to learn about and understand software that
 you are using - a good place to start with redis is [data persistence](http://redis.io/topics/persistence).
+
+**Do not run the pool as root** : create a new user without ssh access to avoid security issues :
+```bash
+sudo adduser --disabled-password --disabled-login your-user
+```
+To login with this user : 
+```
+sudo su - your-user
+```
 
 #### 1) Downloading & Installing
 
@@ -595,12 +603,12 @@ node init.js -module=api
 [Example screenshot](http://i.imgur.com/SEgrI3b.png) of running the pool in single module mode with tmux.
 
 To keep your pool up, on operating system with systemd, you can create add your pool software as a service.  
-Use this [example](https://github.com/VirtuBox/cryptonote-nodejs-pool/blob/master/utils/cryptonote-nodejs-pool.service) and create your service file `/lib/systemd/system/cryptonote-nodejs-pool.service`
+Use this [example](https://github.com/dvandal/cryptonote-nodejs-pool/blob/master/deployment/cryptonote-nodejs-pool.service) to create the systemd service `/lib/systemd/system/cryptonote-nodejs-pool.service`
 Then enable and start the service with the following commands : 
 
 ```
-systemctl enable cryptonote-nodejs-pool.service
-systemctl start cryptonote-nodejs-pool.service
+sudo systemctl enable cryptonote-nodejs-pool.service
+sudo systemctl start cryptonote-nodejs-pool.service
 ```
 
 #### 4) Host the front-end
@@ -687,7 +695,8 @@ You no longer need to include the port in the variable because of the proxy conn
 server {
     server_name api.poolhost.com
     listen 443 ssl http2;
-
+    listen [::]:443 ssl http2;
+    
     ssl_certificate /your/ssl/certificate;
     ssl_certificate_key /your/ssl/certificate_key;
 
@@ -735,7 +744,7 @@ curl 127.0.0.1:18081/json_rpc -d '{"method":"getblockheaderbyheight","params":{"
 ### Monitoring Your Pool
 
 * To inspect and make changes to redis I suggest using [redis-commander](https://github.com/joeferner/redis-commander)
-* To monitor server load for CPU, Network, IO, etc - I suggest using [New Relic](http://newrelic.com/)
+* To monitor server load for CPU, Network, IO, etc - I suggest using [Netdata](https://github.com/firehol/netdata)
 * To keep your pool node script running in background, logging to file, and automatically restarting if it crashes - I suggest using [forever](https://github.com/nodejitsu/forever) or [PM2](https://github.com/Unitech/pm2)
 
 
