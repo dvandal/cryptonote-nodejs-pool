@@ -151,14 +151,14 @@ function updateMarkets(){
 
 // Render market price
 function renderMarketPrice(base, target, price, source) {
-    var icon = 'fa-money';
-    if (target == 'BTC') icon = 'fa-btc';
-    if (target == 'BCH') icon = 'fa-btc';
-    if (target == 'USD') icon = 'fa-dollar';
-    if (target == 'CAD') icon = 'fa-dollar';
-    if (target == 'EUR') icon = 'fa-eur';
-    if (target == 'GBP') icon = 'fa-gbp';
-    if (target == 'JPY') icon = 'fa-jpy';
+    var icon = 'fa fa-money-bill-alt';
+    if (target == 'BTC') icon = 'fab fa-bitcoin';
+    if (target == 'BCH') icon = 'fab fa-bitcoin';
+    if (target == 'USD') icon = 'fa fa-dollar-sign';
+    if (target == 'CAD') icon = 'fa fa-dollar-sign';
+    if (target == 'EUR') icon = 'fa fa-euro-sign';
+    if (target == 'GBP') icon = 'fa fa-pound-sign';
+    if (target == 'JPY') icon = 'fa fa-yen-sign';
             
     if (base == lastStats.config.symbol.toUpperCase()) {
         marketPrices[target] = price;
@@ -183,7 +183,7 @@ function renderMarketPrice(base, target, price, source) {
 
     $('#marketInfos').append(
         '<div class="col-lg-3 col-md-4 col-sm-6 marketTicker"><div class="infoBox hoverExpandEffect">' +
-	    '<div class="icon"><span class="fa '+ icon + '"></span></div>' +
+	    '<div class="icon"><span class="' + icon + '"></span></div>' +
 	    '<div class="content">' + 
                 '<div class="text">' + base + ' to ' + target + '</div>' +
                 '<div class="value">' + price + '</div>' +

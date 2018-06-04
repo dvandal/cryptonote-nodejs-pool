@@ -59,14 +59,26 @@
     </div>
 </div>
 
-<div id="telegramNotifications">
-    <h3>Telegram notifications</h3>
-    <div class="card padding-15 padding-b-10">
-        <div class="stats">
-            <div>Bot name: <a target="_blank" href="http://telegram.me/ImaginaryStreamBot">@ImaginaryStreamBot</a></div>
-            <div>The pool's Telegram bot will report via Telegram when a worker connects or disconnects, and when payments have been made to your wallet.</div>
-            <div>Bot commands: <br /><br />/help - ask the box what it can do<br />/stats - Pool statistics<br />/enable <i>address</i> - Notifications ON<br />/disable <i>address</i> - Notifications OFF</div>
-        </div>
+<div id="telegramBot">
+    <h3 tkey="faq10_title">How to use the Telegram Bot?</h3>
+    <div class="card padding-15">
+        <div tkey="faq10_text">Telegram bot will report via Telegram, when your worker is connected, disconnected or banned, and payments have been made to your wallet. Also you can check pool stats directly from him.</div>
+        <br/>
+
+        <span tkey="botName">Bot name</span>: <a id="telegramBotURL" target="_blank" rel="nofollow" href="https://t.me/Pool_bot">@<span id="telegramBotName">Pool_bot</span></a><br/>
+        <br/>
+
+        <span tkey="botCommands">Commands</span>:</br/>
+        <span id="botStats">/stats</span> - <span tkey="botStats">Pool statistics</span><br />
+        <span id="botBlocks">/blocks</span> - <span tkey="botBlocks">Blocks notifications (enable or disable)</span><br />
+        <span id="botReport">/report</span> <em><span tkey="botAddress">address</span></em> - <span tkey="botReport">Miner statistics</span><br />
+        <span id="botNotify">/notify</span> <em><span tkey="botAddress">address</span></em> - <span tkey="botNotify">Miner notifications (enable or disable)</span><br />
+        <br />
+
+        <span tkey="botMultiAddresses">Multiple addresses monitoring available.</span></div>
+        <br />
+
+        The bot also announces new blocks and status updates in the <a target="_blank" rel="nofollow" href="https://t.me/GraftDonationPool">GraftDonationPool</a> group.
     </div>
 </div>
 
@@ -75,7 +87,28 @@
 currentPage = {
     destroy: function(){},
     update: function(){
-	if (!lastStats.config.sendEmails) $('#emailNotifications').hide();
+	    if (!lastStats.config.sendEmails) $('#emailNotifications').hide();
+
+        if (!lastStats.config.telegramBotName) {
+            $('#telegramBot').hide();
+        } else {
+            var botName = lastStats.config.telegramBotName;
+            var botURL = 'https://t.me/'+botName;
+            $('#telegramBotURL').attr('href', botURL);
+            updateText('telegramBotName', botName);
+	    
+            var botStats = lastStats.config.telegramBotStats;
+            if (botStats) updateText('botStats', botStats);
+
+            var botReport = lastReport.config.telegramBotReport;
+            if (botReport) updateText('botReport', botReport);
+
+            var botNotify = lastNotify.config.telegramBotNotify;
+            if (botNotify) updateText('botNotify', botNotify);
+
+            var botBlocks = lastBlocks.config.telegramBotBlocks;
+            if (botBlocks) updateText('botBlocks', botBlocks);
+        }	
     }
 };
 

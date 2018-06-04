@@ -1,8 +1,8 @@
-var api = "https://imaginary.stream/api";
-var poolHost = "graft.imaginary.stream";
+var api = "https://pool.graft.community/api";
+var poolHost = "pool.graft.community";
 
-var email = "graft@imaginary.stream";
-var telegram = "https://t.me/ImaginaryStream";
+var email = "pool@graft.community";
+var telegram = "https://t.me/GraftDonationPool";
 var discord = "";
 
 var marketCurrencies = ["{symbol}-BTC", "{symbol}-USD", "{symbol}-EUR", "{symbol}-CAD"];
