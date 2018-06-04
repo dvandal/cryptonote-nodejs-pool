@@ -4,7 +4,7 @@
     "coin": "qwertycoin",
     "symbol": "QWC",
     "coinUnits": 100000000,
-    "coinDecimalPlaces": 8,
+    "coinDecimalPlaces": 4,
     "coinDifficultyTarget": 120,
 
     "cnAlgorithm": "cryptonight_heavy",
@@ -112,9 +112,9 @@
         "transferFee": 1000,
         "dynamicTransferFee": true,
         "minerPayFee" : true,
-        "minPayment": 10000000000,
+        "minPayment": 1000000000000,
         "maxTransactionAmount": 0,
-        "denomination": 10000000
+        "denomination": 100000000
     },
 
     "blockUnlocker": {
@@ -247,7 +247,7 @@
     },
 
     "prices": {
-        "source": "tradeogre",
+        "source": "crex24",
         "currency": "USD"
     },
     
