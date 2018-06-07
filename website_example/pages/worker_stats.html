@@ -57,9 +57,9 @@
                     <th class="col1 sort"><span tkey="status">Status</span> <i class="fa fa-sort"></i></th>
                     <th class="col2 sort"><span tkey="workerName">Worker Name</span> <i class="fa fa-sort"></i></th>
                     <th class="col3 sort"><span tkey="hashRate">Hash Rate</span> <i class="fa fa-sort"></i></th>
-                    <th class="col4 sort"><span tkey="hashRate1h">HR (1h)</span> <i class="fa fa-sort"></i></th>
-                    <th class="col5 sort"><span tkey="hashRate6h">HR (6h)</span> <i class="fa fa-sort"></i></th>
-                    <th class="col6 sort"><span tkey="hashRate24h">HR (24h)</span> <i class="fa fa-sort"></i></th>
+                    <th class="col4 sort" title="Average hashrate over the last hour (only includes times the worker was active)"><span tkey="hashRate1h">HR (1h)</span> <i class="fa fa-sort"></i></th>
+                    <th class="col5 sort" title="Average hashrate over the last six hours (only includes times the worker was active)"><span tkey="hashRate6h">HR (6h)</span> <i class="fa fa-sort"></i></th>
+                    <th class="col6 sort" title="Average hashrate over the last day (only includes times the worker was active)"><span tkey="hashRate24h">HR (24h)</span> <i class="fa fa-sort"></i></th>
                     <th class="col7 sort"><span tkey="lastShare">Last Share Submitted</span> <i class="fa fa-sort"></i></th>
                     <th class="col8 sort"><span tkey="totalHashes">Total Hashes Submitted</span> <i class="fa fa-sort"></i></th>
                 </tr>
@@ -393,9 +393,9 @@ function getWorkerRowElement(worker, jsonString){
 // Get worker cells
 function getWorkerCells(worker){
     var hashrate = worker.hashrate ? worker.hashrate : 0;
-    var hashrate1h = worker.hashrate1h || 0;
-    var hashrate6h = worker.hashrate6h || 0;
-    var hashrate24h = worker.hashrate24h || 0;
+    var hashrate1h = worker.hashrate_1h || 0;
+    var hashrate6h = worker.hashrate_6h || 0;
+    var hashrate24h = worker.hashrate_24h || 0;
     var lastShare = worker.lastShare ? worker.lastShare : 0;
     var hashes = (worker.hashes || 0).toString();
     var status = (hashrate <= 0) ? 'error' : 'ok';
