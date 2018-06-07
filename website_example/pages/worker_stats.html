@@ -17,6 +17,8 @@
 	<div class="row card">
             <div class="col-sm-6 stats push-up-10">
                 <div><i class="fa fa-fighter-jet"></i> <span tkey="currentHashRate">Current Hash Rate</span>: <span id="yourHashrateHolder"></span></div>
+                <div><i class="fa fa-tachometer-alt"></i> <span tkey="averageHashRate">Average 1/6/24-hour Hash Rate</span>:
+                    <span id="yourHR1h"></span> / <span id="yourHR6h"></span> / <span id="yourHR24h"></span></div>
                 <div><i class="fa fa-user-clock"></i> <span tkey="lastShare">Last Share Submitted</span>: <span id="yourLastShare"></span></div>
                 <div><i class="fa fa-cloud-upload-alt"></i> <span tkey="totalHashes">Total Hashes Submitted</span>: <span id="yourHashes"></span></div>
             </div>
@@ -155,6 +157,9 @@ function fetchAddressStats(longpoll){
             }
 
             updateText('yourHashrateHolder', (getReadableHashRateString(data.stats.hashrate) || '0 H') + '/sec');
+            updateText('yourHR1h', (getReadableHashRateString(data.stats.hashrate_1h) || '0 H') + '/s');
+            updateText('yourHR6h', (getReadableHashRateString(data.stats.hashrate_6h) || '0 H') + '/s');
+            updateText('yourHR24h', (getReadableHashRateString(data.stats.hashrate_24h) || '0 H') + '/s');
             updateText('yourHashes', (data.stats.hashes || 0).toString());
             updateText('yourPaid', getReadableCoins(data.stats.paid));
             updateText('yourPendingBalance', getReadableCoins(data.stats.balance));
