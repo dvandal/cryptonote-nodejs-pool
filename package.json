@@ -13,7 +13,6 @@
         "bignum": "*",
         "cli-color": "*",
 	"cryptonight-hashing": "git+https://github.com/hayzamjs/node-cryptonight-hashing.git",
-	"multi-hashing": "git+https://github.com/ahmyi/xtlpool-multi-hashing.git",
         "cryptonote-util": "git+https://github.com/ahmyi/xtlpool-cryptonote-util.git",
         "dateformat": "*",
         "mailgun.js": "*",
