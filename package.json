@@ -1,19 +1,20 @@
 {
-    "name": "cryptonote-nodejs-pool",
-    "version": "1.2.5",
+    "name": "cryptonote-stellite-pool",
+    "version": "1.2.10.5",
     "license": "GPL-2.0",
-    "author": "Daniel Vandal",
+    "author": "@ahmyi",
     "repository": {
         "type": "git",
-        "url": "https://github.com/dvandal/cryptonote-nodejs-pool.git"
+        "url": "https://github.com/ahmyi/cryptonote-stellite-pool.git"
     },
     "dependencies": {
         "async": "1",
         "base58-native": "*",
         "bignum": "*",
         "cli-color": "*",
-	"multi-hashing": "git+https://github.com/Snipa22/node-multi-hashing-aesni.git#CN-Variant",
-        "cryptonote-util": "git://github.com/dvandal/node-cryptonote-util.git#xmr-Nan-2.0",
+	"cryptonight-hashing": "git+https://github.com/hayzamjs/node-cryptonight-hashing.git",
+	"multi-hashing": "git+https://github.com/ahmyi/xtlpool-multi-hashing.git",
+        "cryptonote-util": "git+https://github.com/ahmyi/xtlpool-cryptonote-util.git",
         "dateformat": "*",
         "mailgun.js": "*",
         "nodemailer": "2.7.2",
