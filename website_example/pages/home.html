@@ -229,11 +229,16 @@
 <script>
 // Charts initialized
 var chartsInitialized = false;
+var intervalChartsUpdate;
 
 // Update current page
 currentPage = {
     destroy: function(){
         $('#networkLastBlockFound,#poolLastBlockFound').timeago('dispose');
+        if (chartsInitialized) {
+            chartsInitialized = false;
+            clearInterval(intervalChartsUpdate);
+        }
     },
     update: function(){
         $('#networkLastBlockFound').timeago('update', new Date(lastStats.lastblock.timestamp * 1000).toISOString());
@@ -284,7 +289,7 @@ currentPage = {
         updateText('currentEffort', (lastStats.pool.roundHashes / lastStats.network.difficulty * 100).toFixed(1) + '%');
 
         if (lastStats.charts && !chartsInitialized) {
-            var intervalChartsUpdate = setInterval(createCharts, 60*1000);
+            intervalChartsUpdate = setInterval(createCharts, 60*1000);
             createCharts();
             chartsInitialized = true;
         }

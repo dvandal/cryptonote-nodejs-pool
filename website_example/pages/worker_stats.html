@@ -104,6 +104,7 @@
 // Charts
 var userChartsData = null;
 var chartsInitialized = false;
+var intervalChartsUpdate;
 
 // Update current page
 currentPage = {
@@ -112,6 +113,10 @@ currentPage = {
         if (xhrAddressPoll) xhrAddressPoll.abort();
         if (addressTimeout) clearTimeout(addressTimeout);
         if (xhrGetPayments) xhrGetPayments.abort();
+        if (chartsInitialized) {
+            chartsInitialized = false;
+            clearInterval(intervalChartsUpdate);
+        }
     },
     update: function(){}
 };
@@ -197,7 +202,7 @@ function fetchAddressStats(longpoll){
             if (data.charts) {
                 userChartsData = data.charts;
                 if (!chartsInitialized) {
-                    var intervalChartsUpdate = setInterval(createCharts, 60*1000);
+                    intervalChartsUpdate = setInterval(createCharts, 60*1000);
                     createCharts();
                     chartsInitialized = true;
                 }
