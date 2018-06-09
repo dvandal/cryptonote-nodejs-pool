@@ -100,11 +100,7 @@ Community / Support
 
 #### Pools Using This Software
 
-* https://graft.blockhashmining.com/
-* https://haven.blockhashmining.com/
-* https://loki.blockhashmining.com/
-* https://masari.blockhashmining.com/
-* https://stellite.blockhashmining.com/
+* https://imaginary.stream/
 * https://graft.anypool.net/
 * https://graft.dark-mine.su/
 * http://itns.proxpool.com/
