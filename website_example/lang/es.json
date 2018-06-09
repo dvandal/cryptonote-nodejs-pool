@@ -16,7 +16,7 @@
     "statsUpdated": "Estadísticas actualizadas",
     
     "poolHashrate": "Tasa Pool (hash)",
-    "currentEffort": "Esfuerzo actual",
+    "currentEffort": "Ronda actual",
     "networkHashrate": "Tasa Red (hash)",
     "networkDifficulty": "Dificultad",
     "blockchainHeight": "Altura",
