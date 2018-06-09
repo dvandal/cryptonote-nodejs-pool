@@ -56,10 +56,16 @@ if (typeof cryptonatorWidget !== 'undefined' && typeof marketCurrencies === 'und
 
 // Charts initialized
 var chartsInitialized = false;
+var intervalChartsUpdate;
 
 // Update current page
 currentPage = {
-    destroy: function(){},
+    destroy: function(){
+        if (chartsInitialized) {
+            chartsInitialized = false;
+            clearInterval(intervalChartsUpdate);
+        }
+    },
     update: function(){
         priceSource = lastStats.config.priceSource || 'cryptonator';
         priceCurrency = lastStats.config.priceCurrency || 'USD';
@@ -71,7 +77,7 @@ currentPage = {
         calcEstimateProfit();
 	
         if (lastStats.charts && !chartsInitialized) {
-            var intervalChartsUpdate = setInterval(createCharts, 60*1000);
+            intervalChartsUpdate = setInterval(createCharts, 60*1000);
             createCharts();
             chartsInitialized = true;
         }	
