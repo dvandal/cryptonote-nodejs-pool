@@ -271,6 +271,14 @@ function formatLuck(difficulty, shares) {
     }    
 }
 
+function getDonationSmiley(level) {
+    return (
+        level <= 0 ? '😢' :
+        level <= 5 ? '😎' :
+        level <= 10 ? '😄' :
+        '😂');
+}
+
 /**
  * URLs
  **/

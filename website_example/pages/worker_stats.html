@@ -38,7 +38,10 @@
             <div class="col-sm-6 stats push-up-10">
                 <div><i class="fa fa-money-bill-alt"></i> <span tkey="pendingBalance">Pending Balance</span>: <span id="yourPendingBalance"></span></div>
                 <div><i class="fa fa-credit-card"></i> <span tkey="totalPaid">Total Paid</span>: <span id="yourPaid"></span></div>
-                <div><i class="fa fa-money-bill-wave"></i> <span tkey="payoutEstimate">Current Payout Estimate</span>: <span id="yourPayoutEstimate"></span></div>
+                <div><i class="fa fa-hand-holding-heart"></i> <span tkey="donationLevel">Donation Level</span>: <span id="yourDonationLevel"></span>%</div>
+                <div><i class="fa fa-hand-holding-heart"></i> <span tkey="totalDonations">Total Donations</span>: <span id="yourTotalDonations"></span></div>
+                <div><i class="fa fa-money-bill-wave"></i> <span tkey="payoutEstimate">Current Payout Estimate</span>: <span id="yourPayoutEstimate"></span>
+                    + <span id="yourDonationEstimate"></span> donation</div>
             </div>
             <div class="col-sm-6 userChart">
                 <div class="chart">
@@ -168,6 +171,8 @@ function fetchAddressStats(longpoll){
             updateText('yourHashes', (data.stats.hashes || 0).toString());
             updateText('yourPaid', getReadableCoins(data.stats.paid));
             updateText('yourPendingBalance', getReadableCoins(data.stats.balance));
+            updateText('yourDonationLevel', data.stats.donation_level);
+            updateText('yourTotalDonations', getReadableCoins(data.stats.donations));
 
             var userRoundHashes = parseInt(data.stats.roundHashes || 0);
             var poolRoundHashes = parseInt(lastStats.pool.roundHashes || 0);
@@ -185,10 +190,19 @@ function fetchAddressStats(longpoll){
 	    
             var payoutEstimatePct = parseFloat(userRoundHashes * 100 / poolRoundHashes)
 	    var payoutEstimate = Math.round(lastReward * (payoutEstimatePct / 100));
-            if (poolFee) payoutEstimate -= (payoutEstimate * poolFee / 100);
+            var donationEstimate = 0;
+            var donate_and_fees = 0;
+            if (poolFee) donate_and_fees += poolFee;
+            if (data.stats.donation_level) {
+                donate_and_fees += data.stats.donation_level;
+                donationEstimate = payoutEstimate * data.stats.donation_level / 100.;
+            }
+
+            if (donate_and_fees) payoutEstimate *= (1 - donate_and_fees / 100.);
             if (transferFee) payoutEstimate = payoutEstimate - transferFee;
 	    if (payoutEstimate < 0) payoutEstimate = 0;
 	    updateText('yourPayoutEstimate', getReadableCoins(payoutEstimate));
+            updateText('yourDonationEstimate', getReadableCoins(donationEstimate));
 	    
             renderPayments(data.payments);
 	    

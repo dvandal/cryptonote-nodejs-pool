@@ -100,3 +100,10 @@
     border-color: rgba(53, 67, 91, 1);
 }
 #coinSymbol { display: none; }
+
+#miningPorts_rows tr.donation-subheader td {
+  color: #014e71;
+  border-bottom: 2px solid #014e71;
+  border-top: 2px solid #014e71;
+  font-weight: 400;
+}

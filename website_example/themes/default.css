@@ -940,7 +940,12 @@ table th.sort:hover{
 #top10miners table .col1,
 #top10miners table .col3,
 #top10miners table .col4,
-#top10miners table .col5 {
+#top10miners table .col5,
+#top10miners table .col6,
+#top10donators table .col1,
+#top10donators table .col3,
+#top10donators table .col4,
+#top10donators table .col5 {
   text-align: center;
 }
 @media (min-width: 768px) {
@@ -983,3 +988,12 @@ table th.sort:hover{
     display: block;
   }
 }
+
+.community-donations i.fa-hand-holding-heart {
+    display: block;
+    float: left;
+    font-size: 240% !important;
+    width: 55px !important;
+    color: #ef4723 !important;
+}
+

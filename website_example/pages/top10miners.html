@@ -8,8 +8,9 @@
                 <th class="col1 sort">#</th>
                 <th class="col2 sort"><span tkey="miner">Miner</span></th>
                 <th class="col3 sort"><span tkey="hashRate">Hash Rate</span></th>
-                <th class="col4 sort"><span tkey="lastShare">Last Share Submitted</span></th>
-                <th class="col5 sort"><span tkey="totalHashes">Total Hashes Submitted</span></th>
+                <th class="col4 sort"><span tkey="donationLevel">Donation Level</span></th>
+                <th class="col5 sort"><span tkey="lastShare">Last Share Submitted</span></th>
+                <th class="col6 sort"><span tkey="totalHashes">Total Hashes Submitted</span></th>
             </tr>
             </thead>
             <tbody id="top10miners_rows">
@@ -18,11 +19,36 @@
     </div>
 </div>
 
+<h3><span tkey="top10donators">Top 10 donators</span></h3>
+<div class="card">
+    <div id="top10donators" class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th class="col1 sort">#</th>
+                <th class="col2 sort"><span tkey="miner">Miner</span></th>
+                <th class="col3 sort"><span tkey="donationLevel">Donation Level</span></th>
+                <th class="col4 sort"><span tkey="donations">Donations</span></th>
+                <th class="col5 sort"><span tkey="lastShare">Last Share Submitted</span></th>
+            </tr>
+            </thead>
+            <tbody id="top10donators_rows">
+            </tbody>
+        </table>
+    </div>
+</div>
+
 <!-- Javascript -->
 <script>
+var intervalUpdateTop10;
 // Update current page
 currentPage = {
-    destroy: function(){},
+    destroy: function(){
+        if (intervalUpdateTop10) {
+            clearInterval(intervalUpdateTop10);
+            intervalUpdateTop10 = undefined;
+        }
+    },
     update: function(){}
 };
 
@@ -32,18 +58,32 @@ function getMinerCells(position, data){
     var hashrate = data.hashrate ? data.hashrate : 0;
     var lastShare = data.lastShare ? data.lastShare : 0;
     var hashes = (data.hashes || 0).toString();
+    var donateLvl = (data.donationLevel || 0).toString();
     
     return '<td class="col1" data-sort="' + position + '">' + position + '</td>' +
            '<td class="col2" data-sort="' + miner + '">' + miner + '</td>' +
            '<td class="col3" data-sort="' + hashrate + '">' + getReadableHashRateString(hashrate) + '/sec</td>' +
-           '<td class="col4" data-sort="' + lastShare + '">' + (lastShare ? $.timeago(new Date(parseInt(lastShare) * 1000).toISOString()) : 'Never') + '</td>' +
-           '<td class="col5" data-sort="' + hashes + '">' + hashes + '</td>';
+           '<td class="col4" data-sort="' + donateLvl + '">' + Math.round(donateLvl * 100) / 100. + '% ' + getDonationSmiley(donateLvl) + '</td>' +
+           '<td class="col5" data-sort="' + lastShare + '">' + (lastShare ? $.timeago(new Date(parseInt(lastShare) * 1000).toISOString()) : 'Never') + '</td>' +
+           '<td class="col6" data-sort="' + hashes + '">' + hashes + '</td>';
+}
+
+// Get donator cells
+function getDonatorCells(position, data){
+    var miner = data.miner;
+    var lastShare = data.lastShare ? data.lastShare : 0;
+    var donations = (data.donations || 0).toString();
+    var donateLvl = (data.donationLevel || 0).toString();
+
+    return '<td class="col1" data-sort="' + position + '">' + position + '</td>' +
+           '<td class="col2" data-sort="' + miner + '">' + miner + '</td>' +
+           '<td class="col3" data-sort="' + donations + '">' + getReadableCoins(donations) + '</td>' +
+           '<td class="col4" data-sort="' + donateLvl + '">' + Math.round(donateLvl * 100) / 100. + '% ' + getDonationSmiley(donateLvl) + '</td>' +
+           '<td class="col5" data-sort="' + lastShare + '">' + (lastShare ? $.timeago(new Date(parseInt(lastShare) * 1000).toISOString()) : 'Never') + '</td>';
 }
 
 // Update top10 miners report
 function updateTop10() {
-    $("#top10miners_rows").empty();
-
     var xhrGetTOP = $.ajax({
         url: api + '/get_top10miners',
         data: {
@@ -53,8 +93,27 @@ function updateTop10() {
         cache: 'false',
         success: function(data){
             if (!data) return;
+            var minerrows = $("#top10miners_rows");
+            minerrows.empty();
             for (var i=0; i<data.length; ++i) {
-                $( "#top10miners_rows" ).append('<tr>' + getMinerCells(i+1, data[i]) + '</tr>');
+                minerrows.append('<tr>' + getMinerCells(i+1, data[i]) + '</tr>');
+            }
+        }
+    });
+
+    var xhrGetTOP = $.ajax({
+        url: api + '/get_top10donators',
+        data: {
+            time: $('#top10_rows').children().last().data('time')
+        },
+        dataType: 'json',
+        cache: 'false',
+        success: function(data){
+            if (!data) return;
+            var minerrows = $("#top10donators_rows");
+            minerrows.empty();
+            for (var i=0; i<data.length; ++i) {
+                minerrows.append('<tr>' + getDonatorCells(i+1, data[i]) + '</tr>');
             }
         }
     });
@@ -64,5 +123,5 @@ function updateTop10() {
 updateTop10();
 
 // Start updates once per minute
-var intervalUpdateTop10 = setInterval(updateTop10, (60*1000));
+intervalUpdateTop10 = setInterval(updateTop10, (60*1000));
 </script>

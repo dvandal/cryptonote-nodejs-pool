@@ -15,6 +15,11 @@
                 <div><i class="fa fa-key"></i> <span tkey="usernameDesc">This is your wallet address</span></div>
                 <div id="paymentId"><i class="fa fa-sign-in-alt"></i> <span tkey="paymentId">Exchange Payment ID</span>: <span><u tkey="address">address</u><span id="paymentIdSeparator">.</span><u tkey="addrPaymentId">paymentID</u></span></div>
                 <div id="fixedDiff"><i class="fa fa-wrench"></i> <span tkey="fixedDiff">Difficulty locking</span>: <span><u tkey="address">address</u><span id="fixedDiffSeparator">+</span><u tkey="addrDiff">diff</u></span></div>
+                <div id="customDonation"><i class="fa fa-hand-holding-heart"></i> <span tkey="customDonation">Custom <a href="https://graft.community/#about" target="_blank" style="text-decoration: underline">donation</a> level</span>:
+                    <span><u tkey="address">address</u><span class="customDonationDelimiter">%</span><span><u tkey="donationPercent">donationPercent</u></span><span class="customDonationDelimiter">%</span></span><br />
+                    <i style="padding-left: 36px">(Note that a donation level specified this way <u>includes</u> the <span id="poolFee"></span> pool fee)</i>
+                </div>
+                <div id="usernameMultiple"><i class="fa fa-fast-forward"></i> <span tkey="usernameMultiple">Multiple options</span>: <span><u tkey="address">address</u>+<u tkey="addrPaymentId">paymentID</u>.<u tkey="addrDiff">diff</u>%<u tkey="donationPercent">donationPercent</u>%</span></div>
             </div>
         </div>
 	    
@@ -22,6 +27,23 @@
         <div class="card padding-l-10 padding-r-10">
             <div class="stats">
                 <div><i class="fa fa-server"></i> <span tkey="passwordDesc">This is your worker name</span></div>
+            </div>
+        </div>
+
+        <h4 class="push-up-15">Community Donations</h4>
+        <div class="card padding-l-10 padding-r-10 community-donations">
+            <div class="stats">
+                <div><i class="fa fa-hand-holding-heart"></i> Community donations (selected by either a port or the <code>%percent%</code> tag described above)
+                    go to a Graft community donation pool which uses the funds to advance Graft.  For more details see the <a href="//graft.community">graft.community</a> main site.
+
+                    <br /><br />
+                    While we encourage donations to support the Graft community, you are <b>not</b> required to donate to use this pool.
+
+                    <br /><br />
+                    Note that donation levels are set per <i>address</i>, not per <i>worker</i>: if
+                    you have multiple workers with conflicting donation levels there is no guarantee
+                    of which one will be used.  You can check your current donation level on the <a href="#worker_stats">Worker Statistics</a> page or on Telegram through the <a href="//t.me/graftdonationpoolbot">Graft Donation Pool Bot</a>.
+                </div>
             </div>
         </div>
     </div>
@@ -274,8 +296,22 @@ currentPage = {
             lastPortsJson = portsJson;
             var $miningPortChildren = [];
 	    var $miningPortOptions = [];
+            var lastPortDonation = -1;
+            var donation_header_rows = 0;
             for (var i = 0; i < lastStats.config.ports.length; i++) {
                 var portData = lastStats.config.ports[i];
+                if (lastStats.config.donationsEnabled && lastPortDonation != portData.donation) {
+                    if ((i + donation_header_rows) % 2 == 0) {
+                        $miningPortChildren.push($('<tr style="display: none"><td colspan="3"></td></tr>'));
+                        donation_header_rows++;
+                    }
+                    $miningPortChildren.push($('<tr class="donation-subheader"><td colspan="3">Ports with <b>' + (portData.donation == 0 ? 'NO' : portData.donation + '%') + '</b> ' +
+                        '<a href="https://graft.community/#about" target="_blank" style="text-decoration: underline">community donation</a>: ' +
+                        getDonationSmiley(portData.donation) + ' </td></tr>'));
+                    donation_header_rows++;
+                    lastPortDonation = portData.donation;
+                }
+
                 var $portChild = $(miningPortTemplate);
                 $portChild.find('.miningPort').text(portData.port);
                 $portChild.find('.miningPortDiff').text(formatDifficulty(portData.difficulty));
@@ -283,9 +319,21 @@ currentPage = {
                 $miningPortChildren.push($portChild);
 		$miningPortOptions.push('<option value="'+portData.port+'">'+portData.port+' &ndash; '+portData.desc+'</option>');
             }
+            if (lastPortDonation != -1 && lastStats.config.customDonationsEnabled) {
+                if ((i + donation_header_rows) % 2 == 0) {
+                    $miningPortChildren.push($('<tr style="display: none"><td colspan="3"></td></tr>'));
+                    donation_header_rows++;
+                }
+                $miningPortChildren.push($('<tr class="donation-subheader"><td colspan="3">Custom <a href="https://graft.community/#about" target="_blank" style="text-decoration: underline">donation</a> level: use any port with <u>%percent%</u> in your username</td>'));
+            }
+
             $miningPorts.empty().append($miningPortChildren);
             $miningPortSelect.empty().append($miningPortOptions);
             updateTextClasses('examplePort', lastStats.config.ports[0].port.toString());
+        }
+        updateText('poolFee', lastStats.config.fee + '%');
+        if (!lastStats.config.customDonationsEnabled) {
+            $('#customDonation').hide();
         }
 
         updateText('miningPoolHost', getPoolHost());
