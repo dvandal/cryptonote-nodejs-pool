@@ -276,7 +276,8 @@ function getDonationSmiley(level) {
         level <= 0 ? '😢' :
         level <= 5 ? '😎' :
         level <= 10 ? '😄' :
-        '😂');
+        level <= 25 ? '😂' :
+        '💖');
 }
 
 /**

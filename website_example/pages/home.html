@@ -167,7 +167,7 @@
             </div>
             <div class="content">
                 <div class="text">Community Donation</div>
-                <div class="value">0 — 20%+</div>
+                <div class="value"><a href="#getting_started" style="color: white">0 — 20%+</a></div>
             </div>
         </div>
     </div>
@@ -176,11 +176,24 @@
     <div class="col-lg-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
             <div class="icon">
-                <span class="fa fa-hand-holding-heart"></span>
+                <span class="fa fa-users"></span>
             </div>
             <div class="content">
                 <div class="text">Community Website</div>
                 <div class="value"><a href="//graft.community">graft.community</a></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Community Donations -->
+    <div class="col-lg-3 col-sm-4" title="Total donations contributed via pool donations since community donations were added to the pool (2018-06-12)">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-coins"></span>
+            </div>
+            <div class="content">
+                <div class="text">Total Donations</div>
+                <div class="value"><span id="totalDonations">N/A</span></div>
             </div>
         </div>
     </div>
@@ -300,6 +313,8 @@ currentPage = {
 
         updateText('blockSolvedTime', getReadableTime(lastStats.network.difficulty / lastStats.pool.hashrate));
         updateText('currentEffort', (lastStats.pool.roundHashes / lastStats.network.difficulty * 100).toFixed(1) + '%');
+
+        updateText('totalDonations', getReadableCoins(lastStats.pool.totalDonations));
 
         if (lastStats.charts && !chartsInitialized) {
             intervalChartsUpdate = setInterval(createCharts, 60*1000);
