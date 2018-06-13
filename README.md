@@ -389,13 +389,15 @@ Explanation for each field:
 /* Coin daemon connection details (default port is 18981) */
 "daemon": {
     "host": "127.0.0.1",
-    "port": 18981
+    "port": 18981,
+    "auth": null // optional: can be set to 'user:pass' to use daemon rpc authentication
 },
 
 /* Wallet daemon connection details (default port is 18980) */
 "wallet": {
     "host": "127.0.0.1",
-    "port": 18982
+    "port": 18982,
+    "auth": null // optional: can be set to 'user:pass' to use wallet rpc authentication
 },
 
 /* Redis connection info (default port is 6379) */
