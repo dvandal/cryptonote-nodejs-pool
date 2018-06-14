@@ -209,7 +209,7 @@ function getReadableHashRateString(hashrate){
             i++;
         }
     }
-    return hashrate.toFixed(2) + byteUnits[i];
+    return parseFloat(hashrate).toFixed(2) + byteUnits[i];
 }
     
 // Get coin decimal places
