@@ -4,8 +4,8 @@
 <script id="portsListTable" type="text/x-handlebars-template">
     {{#each ports}}
     <tr>
-        <td class="col1" data-sort="{{this.port.port}}">{{this.port}}</td>
-        <td class="col2" data-sort="{{this.port.users}}">{{this.users}}</td>
+        <td class="col1" data-sort="{{this.node}}{{this.port}}">{{this.port}}{{#if this.node}} ({{this.node}}){{/if}}</td>
+        <td class="col2" data-sort="{{this.users}}">{{this.users}}</td>
         <td class="col3">&nbsp;</td>
     </tr>
     {{/each}}
@@ -34,15 +34,21 @@ function parsePorts(ports) {
     var totalUsers = 0;
     var portsArray = [];
     var properObject = {};
+    var multipool = false;
     for (var port in ports) {
         if (ports.hasOwnProperty(port)) {
             var portsData = ports[port];
 	    var usersCount = portsData.users ?parseInt(portsData.users) : 0;
 	    if (usersCount > 0) {
                 portsArray.push({
-                    port: portsData.port,
+                    port: parseInt(portsData.port),
                     users: usersCount
                 });
+                var m = port.match(/:ports:([^:]+):\d+$/);
+                if (m) {
+                    portsArray[portsArray.length-1].node = m[1];
+                    multipool = true;
+                }
                 totalUsers += usersCount;
 	    }
         }
@@ -50,8 +56,8 @@ function parsePorts(ports) {
     $('#totalUsers').html(totalUsers);
 
     properObject['ports'] = portsArray.sort(function(a, b) {
-        return a.port.port - b.port.port
-    }).reverse();
+        return (a.node || '').localeCompare(b.node || '') || a.port - b.port;
+    });
 
     return properObject;
 }

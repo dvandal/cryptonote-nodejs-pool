@@ -43,6 +43,9 @@ if (cluster.isWorker){
         case 'telegramBot':
             require('./lib/telegramBot.js');
             break;
+        case 'notifyRelay':
+            require('./lib/notifyRelay.js');
+            break;
     }
     return;
 }
@@ -56,7 +59,7 @@ log('info', logSystem, 'Starting Cryptonote Node.JS pool version %s', [version])
  
 // Run a single module ?
 var singleModule = (function(){
-    var validModules = ['pool', 'api', 'unlocker', 'payments', 'chartsDataCollector', 'telegramBot'];
+    var validModules = ['pool', 'api', 'unlocker', 'payments', 'chartsDataCollector', 'telegramBot', 'notifyRelay'];
 
     for (var i = 0; i < process.argv.length; i++){
         if (process.argv[i].indexOf('-module=') === 0){
@@ -97,6 +100,9 @@ var singleModule = (function(){
                 case 'telegramBot':
                     spawnTelegramBot();
                     break;
+                case 'notifyRelay':
+                    spawnNotifyRelay();
+                    break;
             }
         }
         else{
@@ -106,6 +112,7 @@ var singleModule = (function(){
             spawnApi();
             spawnChartsDataCollector();
             spawnTelegramBot();
+            spawnNotifyRelay();
         }
     });
 })();
@@ -277,6 +284,10 @@ function spawnChartsDataCollector(){
  **/
 function spawnTelegramBot(){
     if (!config.telegram || !config.telegram.enabled || !config.telegram.token) return;
+    if (config.telegram.remote) {
+        log('info', 'telegram', 'Telegram relay mode enabled; not starting a telegram bot on this node');
+        return;
+    }
 
     var worker = cluster.fork({
         workerType: 'telegramBot'
@@ -285,6 +296,30 @@ function spawnTelegramBot(){
         log('error', logSystem, 'telegramBot died, spawning replacement...');
         setTimeout(function(){
             spawnTelegramBot();
+        }, 2000);
+    });
+}
+
+/**
+ * Spawn telegram/email multi-pool relay
+ **/
+function spawnNotifyRelay() {
+    var telegram = config.telegram && config.telegram.enabled && config.telegram.token && config.telegram.relay && !config.telegram.remote;
+    var email    = config.email && config.email.enabled && config.email.relay && !config.email.remote;
+
+    if (!telegram && !email) {
+        log('info', 'telegram', 'Not starting notification relaying; multipool relaying not enabled (or this isn\'t the master pool)');
+        return;
+    }
+
+    log('info', 'telegram', 'Starting telegram/email notification relay');
+    var worker = cluster.fork({
+        workerType: 'notifyRelay'
+    });
+    worker.on('exit', function(code, signal){
+        log('error', logSystem, 'notifyRelay died, spawning replacement...');
+        setTimeout(function(){
+            spawnNotifyRelay();
         }, 2000);
     });
 }
