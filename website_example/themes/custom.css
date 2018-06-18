@@ -107,3 +107,16 @@
   border-top: 2px solid #014e71;
   font-weight: 400;
 }
+ul.connect-addrs li {
+    list-style: none;
+}
+ul.connect-addrs li code {
+    font-weight: bold;
+}
+
+#slush_description a {
+    text-decoration: underline;
+}
+#slush_description a:hover {
+    text-decoration: none;
+}
