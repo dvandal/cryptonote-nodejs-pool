@@ -327,9 +327,7 @@ Explanation for each field:
     More about it here: https://mining.bitcoin.cz/help/#!/manual/rewards */
     "slushMining": {
         "enabled": false, // Enables slush mining. Recommended for pools catering to professional miners
-        "weight": 300, // Defines how fast the score assigned to a share declines in time. The value should roughly be equivalent to the average round duration in seconds divided by 8. When deviating by too much numbers may get too high for JS.
-        "blockTime": 60
-        "lastBlockCheckRate": 1 // How often the pool checks the timestamp of the last block. Lower numbers increase load but raise precision of the share value
+        "weight": 300 // Defines how fast the score assigned to a share declines in time. The value should roughly be equivalent to the average round duration in seconds divided by 8. When deviating by too much numbers may get too high for JS.
     }
 },
 

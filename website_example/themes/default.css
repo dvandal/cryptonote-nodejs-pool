@@ -546,6 +546,37 @@ table th.sort:hover{
   font-weight: normal;
 }
 
+/* Slush payment info box */
+.slushInfo {
+  background-color: #014e71;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+  cursor: default;
+  padding: 15px;
+  border-radius: 3px;
+  color: #fff;
+  margin-bottom: 30px;
+}
+.slushInfo .text {
+  font-size: 13px;
+  color: #fff;
+  text-transform: uppercase;
+}
+@media (max-width: 767px){
+  .slushInfo {
+    margin-bottom: 15px;
+  }
+}
+.slushInfo .content .value {
+  float: left;
+  font-size: 16px;
+  font-weight: 400;
+  color: #fff;
+  padding: 8px 8px 0 0;
+}
+.slushInfo .content .value a {
+    color: #fff;
+}
+
 /* Pool Statistics */
 .stats > div:not(#addressError) {
   color: #262626; 
