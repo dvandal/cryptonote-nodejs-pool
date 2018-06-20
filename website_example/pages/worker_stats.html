@@ -35,6 +35,8 @@
             <div class="col-sm-6 stats push-up-10">
                 <div><i class="fa fa-bank"></i> <span tkey="pendingBalance">Pending Balance</span>: <span id="yourPendingBalance"></span></div>
                 <div><i class="fa fa-money"></i> <span tkey="totalPaid">Total Paid</span>: <span id="yourPaid"></span></div>
+                <div><i class="fa fa-star"></i> <span>Round contribution</span>: <span id="yourRoundShareProportion"></span>%
+                    <span id="slush_round_info"> (shares), <span id="yourRoundScoreProportion"></span>% (<a target="_blank" href="#payments">score</a>)</span></span></div>
                 <div><i class="fa fa-money"></i> <span tkey="payoutEstimate">Current Payout Estimate</span>: <span id="yourPayoutEstimate"></span></div>
             </div>
             <div class="col-sm-6 userChart">
@@ -161,6 +163,8 @@ function fetchAddressStats(longpoll){
 
             var userRoundHashes = parseInt(data.stats.roundHashes || 0);
             var poolRoundHashes = parseInt(lastStats.pool.roundHashes || 0);
+            var userRoundScore = parseFloat(data.stats.roundScore || 0);
+            var poolRoundScore = parseFloat(lastStats.pool.roundScore || 0);
             var lastReward = parseFloat(lastStats.lastblock.reward || 0);
 	    
             var poolFee = lastStats.config.fee;
@@ -173,8 +177,15 @@ function fetchAddressStats(longpoll){
             }
 	    var transferFee = lastStats.config.transferFee;
 	    
-            var payoutEstimatePct = parseFloat(userRoundHashes * 100 / poolRoundHashes)
-	    var payoutEstimate = Math.round(lastReward * (payoutEstimatePct / 100));
+            var share_pct = userRoundHashes * 100 / poolRoundHashes;
+            var score_pct = userRoundScore * 100 / poolRoundScore;
+            updateText('yourRoundShareProportion', Math.round(share_pct * 1000) / 1000);
+            updateText('yourRoundScoreProportion', Math.round(score_pct * 1000) / 1000);
+            if (!lastStats.config.slushMiningEnabled) {
+                $('#slush_round_info').hide();
+            }
+
+            var payoutEstimate = Math.round(lastReward * (score_pct / 100));
             if (transferFee) payoutEstimate = payoutEstimate - transferFee;
 	    if (payoutEstimate < 0) payoutEstimate = 0;
 	    updateText('yourPayoutEstimate', getReadableCoins(payoutEstimate));
