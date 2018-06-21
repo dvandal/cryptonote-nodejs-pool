@@ -21,6 +21,7 @@
                     <span id="yourHR1h"></span> / <span id="yourHR6h"></span> / <span id="yourHR24h"></span></div>
                 <div><i class="fa fa-user-clock"></i> <span tkey="lastShare">Last Share Submitted</span>: <span id="yourLastShare"></span></div>
                 <div><i class="fa fa-cloud-upload-alt"></i> <span tkey="totalHashes">Total Hashes Submitted</span>: <span id="yourHashes"></span></div>
+                <div><i class="fa fa-cubes"></i> <span tkey="blocksFound">Blocks Found</span>: <span id="yourBlocksFound"></span></div>
             </div>
             <div class="col-sm-6 userChart">
                 <div class="chart">
@@ -171,6 +172,7 @@ function fetchAddressStats(longpoll){
             updateText('yourHR6h', (getReadableHashRateString(data.stats.hashrate_6h) || '0 H') + '/s');
             updateText('yourHR24h', (getReadableHashRateString(data.stats.hashrate_24h) || '0 H') + '/s');
             updateText('yourHashes', (data.stats.hashes || 0).toString());
+            updateText('yourBlocksFound', (data.stats.blocksFound || 0).toString());
             updateText('yourPaid', getReadableCoins(data.stats.paid));
             updateText('yourPendingBalance', getReadableCoins(data.stats.balance));
             updateText('yourDonationLevel', data.stats.donation_level);
