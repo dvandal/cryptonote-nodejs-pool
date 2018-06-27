@@ -179,6 +179,7 @@
             <h4><span tkey="hashRate">Hash Rate</span></h4>
             <div class="chart">
                 <canvas id="chart_hashrate"></canvas>
+                <a class="chart-style"></a>
             </div> 
         </div>        
     </div>
@@ -187,6 +188,7 @@
             <h4><span tkey="difficulty">Difficulty</span></h4>
             <div class="chart">
                 <canvas id="chart_diff"></canvas>
+                <a class="chart-style"></a>
             </div> 
         </div>
     </div>
@@ -195,6 +197,7 @@
             <h4><span tkey="miners">Miners</span></h4>
             <div class="chart">
                 <canvas id="chart_miners"></canvas>
+                <a class="chart-style"></a>
             </div> 
         </div> 
     </div>    
@@ -203,6 +206,7 @@
             <h4><span tkey="workers">Workers</span></h4>
             <div class="chart">
                 <canvas id="chart_workers"></canvas>
+                <a class="chart-style"></a>
             </div> 
         </div> 
     </div>    
@@ -300,7 +304,18 @@ function createCharts() {
 
     for (var graphType in graphData) {
         if (graphData[graphType].values.length > 1) {
-            $chart = $('#chart_'+graphType);
+            var $chart = $('#chart_'+graphType);
+            var bgcolor = null, bordercolor = null, borderwidth = null;
+            var colorelem = $chart.siblings('a.chart-style');
+            if (colorelem.length == 1) {
+                bgcolor = colorelem.css('background-color');
+                bordercolor = colorelem.css('border-left-color');
+                borderwidth = parseFloat(colorelem.css('width'));
+            }
+            if (bgcolor === null) bgcolor = 'rgba(3, 169, 244, .4)';
+            if (bordercolor === null) bordercolor = '#03a9f4';
+            if (borderwidth === null || isNaN(borderwidth)) borderwidth = 1;
+
             var chartObj = new Chart(document.getElementById('chart_'+graphType), {
                 type: 'line',
                 data: {
@@ -309,9 +324,9 @@ function createCharts() {
                         data: graphData[graphType].values,
                         dataType: graphType,
                         fill: true,
-                        backgroundColor: 'rgba(3, 169, 244, .4)',
-                        borderColor: '#03a9f4',
-                        borderWidth: 1
+                        backgroundColor: bgcolor,
+                        borderColor: bordercolor,
+                        borderWidth: borderwidth
                     }]
                 },
                 options: {
