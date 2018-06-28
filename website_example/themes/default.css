@@ -618,6 +618,12 @@ table th.sort:hover{
   text-align: center;
   font-size: 21px;
 }
+.chart a.chart-style {
+  display: none; /* never displayed; we just use it to store the following colors: */
+  background-color: rgba(3, 169, 244, .4);
+  border-color: #03a9f4;
+  width: 1px; /* controls the chart border width (must be specified in px) */
+}
 
 /* Market Rates */
 #marketStats  {
