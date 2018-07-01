@@ -4,10 +4,10 @@
     "coin": "electronero",
     "symbol": "ETNX",
     "coinUnits": 100,
-    "block_reward": 4722590,
     "coinDecimalPlaces": 2,
     "coinDifficultyTarget": 120,
 
+    "daemonType": "default",
     "cnAlgorithm": "cryptonight",
     "cnVariant": 1,
     "cnBlobType": 0,
@@ -28,7 +28,7 @@
         "enabled": true,
         "clusterForks": "auto",
         "poolAddress": "etnkHfFuanNeTe3q9dux4d9cRiLkUR4hDffvhfTp6nbhEJ5R8TY4vdyZjT4BtWxnvSJ5nfD64eCAQfKMJHSym2dj8PQqeiKmBM",
-        "intAddressPrefix": 19,
+        "intAddressPrefix": 18019,
         "blockRefreshInterval": 1000,
         "minerTimeout": 900,
         "sslCert": "cert.pem",
@@ -57,7 +57,7 @@
             },
             {
                 "port": 6666,
-                "difficulty": 2500,
+                "difficulty": 3000,
                 "desc": "Hidden port",
                 "hidden": true
             },
@@ -69,9 +69,9 @@
             }
         ],
         "varDiff": {
-            "minDiff": 3000,
-            "maxDiff": 100000000,
-            "targetTime": 120,
+            "minDiff": 100,
+            "maxDiff": 1000000000,
+            "targetTime": 60,
             "retargetTime": 30,
             "variancePercent": 30,
             "maxJump": 100
@@ -108,13 +108,14 @@
         "enabled": true,
         "interval": 2160,
         "maxAddresses": 50,
-        "mixin": 6,
+        "mixin": 2,
         "priority": 0,
         "transferFee": 20000,
         "dynamicTransferFee": true,
         "minerPayFee" : true,
         "minPayment": 100000,
-        "maxTransactionAmount": 50000000,
+        "maxPayment": 100000000,
+        "maxTransactionAmount": 500000000,
         "denomination": 100
     },
 
@@ -135,7 +136,7 @@
         "port": 8117,
         "blocks": 30,
         "payments": 30,
-        "password": "electronero_admin_dash",
+        "password": "vsend_admin_dash",
         "ssl": true,
         "sslPort": 8119,
         "sslCert": "cert.pem",
@@ -158,7 +159,8 @@
         "host": "127.0.0.1",
         "port": 3279,
         "auth": null,
-        "db": 0
+        "db": 0,
+        "cleanupInterval": 15
     },
 
     "notifications": {
@@ -184,7 +186,7 @@
             "payment": "A payment of %AMOUNT% has been sent to %ADDRESS% wallet."
         },
         "telegramMessage": {
-            "workerConnected": "Your worker _%WORKER_NAME%_ for address _%MINER%_ is now connected since %LAST_HASH%.",
+            "workerConnected": "Your worker _%WORKER_NAME%_ for address _%MINER%_ is now connected from ip _%IP%_.",
             "workerTimeout": "Your worker _%WORKER_NAME%_ for address _%MINER%_ has stopped submitting hashes on _%LAST_HASH%_.",
             "workerBanned": "Your worker _%WORKER_NAME%_ for address _%MINER%_ has been banned.",
             "blockFound": "*Block found at height* _%HEIGHT%_ *by miner* _%MINER%_*! Waiting maturity.*",
@@ -225,13 +227,14 @@
         "token": "578231235:AAEMc0jDP8hD12yffDOJKxnewkX-MygBcQY",
         "channel": "etnxpoolnews",
         "channelStats": {
-            "enabled": true,
+            "enabled": false,
             "interval": 30
         },
         "botCommands": {
             "stats": "/stats",
-            "enable": "/enable",
-            "disable": "/disable"
+            "report": "/report",
+            "notify": "/notify",
+            "blocks": "/blocks"
         }
     },
     
@@ -300,6 +303,10 @@
             "payments": {
                 "enabled": true
             }
+        },
+        "blocks": {
+            "enabled": true,
+            "days": 30
         }
     }
 }
