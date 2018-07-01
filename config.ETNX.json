@@ -1,5 +1,5 @@
 {
-    "poolHost": "uspool.electronero.org",
+    "poolHost": "POOL_HOST",
 
     "coin": "electronero",
     "symbol": "ETNX",
