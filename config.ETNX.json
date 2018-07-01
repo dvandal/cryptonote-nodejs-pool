@@ -27,7 +27,7 @@
     "poolServer": {
         "enabled": true,
         "clusterForks": "auto",
-        "poolAddress": "etnkHfFuanNeTe3q9dux4d9cRiLkUR4hDffvhfTp6nbhEJ5R8TY4vdyZjT4BtWxnvSJ5nfD64eCAQfKMJHSym2dj8PQqeiKmBM",
+        "poolAddress": "ETNX_ADDRESS",
         "intAddressPrefix": 18019,
         "blockRefreshInterval": 1000,
         "minerTimeout": 900,
@@ -136,7 +136,7 @@
         "port": 8117,
         "blocks": 30,
         "payments": 30,
-        "password": "vsend_admin_dash",
+        "password": "admin_dash_pass",
         "ssl": true,
         "sslPort": 8119,
         "sslCert": "cert.pem",
@@ -223,9 +223,9 @@
 
     "telegram": {
         "enabled": true,
-        "botName": "uspool_etnxBot",
-        "token": "578231235:AAEMc0jDP8hD12yffDOJKxnewkX-MygBcQY",
-        "channel": "etnxpoolnews",
+        "botName": "BOT_NAME",
+        "token": "BOT_TOKEN",
+        "channel": "BOT_CHANNEL",
         "channelStats": {
             "enabled": false,
             "interval": 30
