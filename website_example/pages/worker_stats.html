@@ -39,6 +39,7 @@
             <div class="col-sm-6 stats push-up-10">
                 <div><i class="fa fa-money-bill-alt"></i> <span tkey="pendingBalance">Pending Balance</span>: <span id="yourPendingBalance"></span></div>
                 <div><i class="fa fa-credit-card"></i> <span tkey="totalPaid">Total Paid</span>: <span id="yourPaid"></span></div>
+                <div><i class="fa fa-hand-holding-usd"></i> <span tkey="paidRecently">Recent Payments</span>: <span id="yourPaid24h"></span> (last 24h), <span id="yourPaid7d"></span> (last week)</div>
                 <div><i class="fa fa-hand-holding-heart"></i> <span tkey="donationLevel">Donation Level</span>: <span id="yourDonationLevel"></span>%</div>
                 <div><i class="fa fa-hand-holding-heart"></i> <span tkey="totalDonations">Total Donations</span>: <span id="yourTotalDonations"></span></div>
                 <div><i class="fa fa-star"></i> <span>Round contribution</span>: <span id="yourRoundShareProportion"></span>%
@@ -550,6 +551,9 @@ function renderPayments(paymentsResults){
     var $paymentsRows = $('#paymentsReport_rows');
     var lastPaymentDate = null;
     var summaryData = { date: null, time: null, count: 0, amount: 0 };
+    var last24h = 0;
+    var last7d = 0;
+    var now = new Date().getTime();
     for (var i = 0; i < paymentsResults.length; i += 2){
         var payment = parsePayment(paymentsResults[i + 1], paymentsResults[i]);
         var paymentJson = JSON.stringify(payment);
@@ -559,6 +563,11 @@ function renderPayments(paymentsResults){
         if (!lastPaymentDate || lastPaymentDate && paymentDate != lastPaymentDate) {
             summaryData = { date: paymentDate, time: payment.time, count: 0, amount: 0 };
         }
+
+        var ago = now - parseInt(payment.time) * 1000;
+        console.log("ago = " + ago);
+        if (ago < 86400000) last24h += parseInt(payment.amount);
+        if (ago < 7*86400000) last7d += parseInt(payment.amount);
 
         var existingRow = document.getElementById('paymentRow' + payment.time);
         if (existingRow && existingRow.getAttribute('data-json') !== paymentJson){
@@ -607,6 +616,9 @@ function renderPayments(paymentsResults){
         }
         lastPaymentDate = paymentDate;
     }
+
+    updateText('yourPaid24h', getReadableCoins(last24h));
+    updateText('yourPaid7d', getReadableCoins(last7d));
 }
 
 // Load more payments button
