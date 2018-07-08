@@ -7,9 +7,10 @@
     "coinDecimalPlaces": 4,
     "coinDifficultyTarget": 120,
 
+    "daemonType": "default",
     "cnAlgorithm": "cryptonight_heavy",
-    "cnVariant": null,
-    "cnBlobType": 0,
+    "cnVariant": 0,
+    "cnBlobType": 4,
 
     "logging": {
         "files": {
