@@ -1,5 +1,5 @@
 {
-    "poolHost": "uspool.electronero.org",
+    "poolHost": "POOL_URL",
 
     "coin": "electronero",
     "symbol": "ETNX",
@@ -27,7 +27,7 @@
     "poolServer": {
         "enabled": true,
         "clusterForks": "auto",
-        "poolAddress": "etnkHfFuanNeTe3q9dux4d9cRiLkUR4hDffvhfTp6nbhEJ5R8TY4vdyZjT4BtWxnvSJ5nfD64eCAQfKMJHSym2dj8PQqeiKmBM",
+        "poolAddress": "POOL_ADDRESS",
         "intAddressPrefix": 18019,
         "subAddressPrefix": 42,
         "blockRefreshInterval": 1000,
@@ -126,7 +126,7 @@
         "depth": 30,
         "poolFee": 0.0,
         "devDonation": 0.0,
-        "networkFee": 0.5
+        "networkFee": 0.0
     },
 
     "api": {
@@ -137,7 +137,7 @@
         "port": 8117,
         "blocks": 30,
         "payments": 30,
-        "password": "vsend_admin_dash",
+        "password": "admin_pass",
         "ssl": true,
         "sslPort": 8119,
         "sslCert": "cert.pem",
@@ -148,12 +148,12 @@
 
     "daemon": {
         "host": "127.0.0.1",
-        "port": 20393
+        "port": 3000
     },
 
     "wallet": {
         "host": "127.0.0.1",
-        "port": 1030
+        "port": 3000
     },
 
     "redis": {
@@ -224,9 +224,9 @@
 
     "telegram": {
         "enabled": true,
-        "botName": "uspool_etnxBot",
-        "token": "578231235:AAEMc0jDP8hD12yffDOJKxnewkX-MygBcQY",
-        "channel": "etnxpoolnews",
+        "botName": "POOL_BOT",
+        "token": "POOL_BOT_TOKEN",
+        "channel": "POOL_BOT_CHANNEL",
         "channelStats": {
             "enabled": false,
             "interval": 30
