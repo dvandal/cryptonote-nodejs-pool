@@ -442,6 +442,7 @@ function renderWorkers(workersData){
     
     for (var i = 0; i < workersData.length; i++){
         var worker = workersData[i];
+	if (Date.now()/1000 - parseInt(worker.lastShare) > 2 * 86400) continue;
         var workerJson = JSON.stringify(worker);
         var existingRow = document.getElementById('workerRow_' + getWorkerRowId(worker.name));    
         if (existingRow && existingRow.getAttribute('data-json') !== workerJson){

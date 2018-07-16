@@ -9,7 +9,7 @@
 
     "daemonType": "default",
     "cnAlgorithm": "cryptonight",
-    "cnVariant": 1,
+    "cnVariant": 4,
     "cnBlobType": 3,
 
     "logging": {
@@ -152,7 +152,7 @@
 
     "wallet": {
         "host": "127.0.0.1",
-        "port": 38082
+        "port": 38083
     },
 
     "redis": {
