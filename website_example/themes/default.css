@@ -792,13 +792,16 @@ table th.sort:hover{
   #workersReport table .col1 {
     width:80px;
   }
-  #workersReport table .col3 {
-    width:150px;
+  #workersReport table .col3,
+  #workersReport table .col4,
+  #workersReport table .col5,
+  #workersReport table .col6 {
+    width:120px;
   }  
-  #workersReport table .col4 {
+  #workersReport table .col7 {
     width: 210px;
   }
-  #workersReport table .col5 {
+  #workersReport table .col8 {
     width: 210px;
   }
 }
