@@ -668,7 +668,6 @@ function renderPayments(paymentsResults){
         }
 
         var ago = now - parseInt(payment.time) * 1000;
-        console.log("ago = " + ago);
         if (ago < 86400000) last24h += parseInt(payment.amount);
         if (ago < 7*86400000) last7d += parseInt(payment.amount);
 
