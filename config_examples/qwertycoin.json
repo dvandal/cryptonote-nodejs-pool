@@ -1,16 +1,16 @@
 {
     "poolHost": "your.pool.host",
 
-    "coin": "dero",
-    "symbol": "DERO,
-    "coinUnits": 1000000000000,
-    "coinDecimalPlaces": 4,
+    "coin": "Qwertycoin",
+    "symbol": "QWC",
+    "coinUnits": 100000000,
+    "coinDecimalPlaces": 8,
     "coinDifficultyTarget": 120,
 
     "daemonType": "default",
-    "cnAlgorithm": "cryptonight",
+    "cnAlgorithm": "cryptonight_heavy",
     "cnVariant": 0,
-    "cnBlobType": 0,
+    "cnBlobType": 4,
 
     "logging": {
         "files": {
@@ -28,7 +28,7 @@
         "enabled": true,
         "clusterForks": "auto",
         "poolAddress": "** Your pool wallet address **",
-        "intAddressPrefix": 659160,
+        "intAddressPrefix": 1344012,
         "blockRefreshInterval": 1000,
         "minerTimeout": 900,
         "sslCert": "./cert.pem",
@@ -106,23 +106,22 @@
 
     "payments": {
         "enabled": true,
-        "interval": 1800,
+        "interval": 600,
         "maxAddresses": 50,
         "mixin": 5,
         "priority": 0,
-        "transferFee": 50000000,
+        "transferFee": 500000000,
         "dynamicTransferFee": true,
         "minerPayFee" : true,
-        "minPayment": 1000000000000,
-        "maxPayment": null,
+        "minPayment": 10000000000,
         "maxTransactionAmount": 0,
-        "denomination": 1000000000
+        "denomination": 100000000
     },
 
     "blockUnlocker": {
         "enabled": true,
         "interval": 30,
-        "depth": 10,
+        "depth": 60,
         "poolFee": 0.8,
         "devDonation": 0.2,
         "networkFee": 0.0
@@ -147,12 +146,12 @@
 
     "daemon": {
         "host": "127.0.0.1",
-        "port": 18091
+        "port": 8197
     },
 
     "wallet": {
         "host": "127.0.0.1",
-        "port": 18092
+        "port": 8198
     },
 
     "redis": {
@@ -232,12 +231,11 @@
         },
         "botCommands": {
             "stats": "/stats",
-            "report": "/report",
-            "notify": "/notify",
-            "blocks": "/blocks"
+            "enable": "/enable",
+            "disable": "/disable"
         }
     },
-
+    
     "monitoring": {
         "daemon": {
             "checkInterval": 60,
@@ -250,7 +248,7 @@
     },
 
     "prices": {
-        "source": "tradeogre",
+        "source": "crex24",
         "currency": "USD"
     },
     
@@ -309,10 +307,6 @@
             "payments": {
                 "enabled": true
             }
-        },
-        "blocks": {
-            "enabled": true,
-            "days": 30
         }
     }
 }

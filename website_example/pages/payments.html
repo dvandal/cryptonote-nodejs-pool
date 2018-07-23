@@ -143,7 +143,7 @@ function getPaymentRowElement(payment, jsonString){
     var row = document.createElement('tr');
     row.setAttribute('data-json', jsonString);
     row.setAttribute('data-time', payment.time);
-    row.setAttribute('id', 'paymentRow' + payment.time);
+    row.setAttribute('id', 'paymentRow' + payment.hash);
 
     row.innerHTML = getPaymentCells(payment);
 
@@ -156,7 +156,7 @@ function renderPayments(paymentsResults){
     for (var i = 0; i < paymentsResults.length; i += 2){
         var payment = parsePayment(paymentsResults[i + 1], paymentsResults[i]);
         var paymentJson = JSON.stringify(payment);
-        var existingRow = document.getElementById('paymentRow' + payment.time);
+        var existingRow = document.getElementById('paymentRow' + payment.hash);
 
         if (existingRow && existingRow.getAttribute('data-json') !== paymentJson){
             $(existingRow).replaceWith(getPaymentRowElement(payment, paymentJson));

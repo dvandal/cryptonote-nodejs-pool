@@ -186,7 +186,7 @@ Explanation for each field:
 "coinDifficultyTarget": 120,
 
 /* Set daemon type. Supported values: default, forknote (Fix block height + 1), bytecoin (ByteCoin Wallet RPC API) */
-"deamonType": "default",
+"daemonType": "default",
 
 /* Set Cryptonight algorithm settings.
    Supported algorithms: cryptonight (default). cryptonight_light and cryptonight_heavy

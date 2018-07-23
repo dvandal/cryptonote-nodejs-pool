@@ -17,7 +17,7 @@
 	<div class="row card">
             <div class="col-sm-6 stats push-up-10">
                 <div><i class="fa fa-fighter-jet"></i> <span tkey="currentHashRate">Current Hash Rate</span>: <span id="yourHashrateHolder"></span></div>
-                <div><i class="fa fa-tachometer-alt"></i> <span tkey="averageHashRate">Average 1/6/24-hour Hash Rate</span>:
+                <div id="minerAvgHR"><i class="fa fa-tachometer-alt"></i> <span tkey="averageHashRate">Average 1/6/24-hour Hash Rate</span>:
                     <span id="yourHR1h"></span> / <span id="yourHR6h"></span> / <span id="yourHR24h"></span></div>
                 <div><i class="fa fa-user-clock"></i> <span tkey="lastShare">Last Share Submitted</span>: <span id="yourLastShare"></span></div>
                 <div><i class="fa fa-cloud-upload-alt"></i> <span tkey="totalHashes">Total Hashes Submitted</span>: <span id="yourHashes"></span></div>
@@ -66,9 +66,9 @@
                     <th class="col1 sort"><span tkey="status">Status</span> <i class="fa fa-sort"></i></th>
                     <th class="col2 sort"><span tkey="workerName">Worker Name</span> <i class="fa fa-sort"></i></th>
                     <th class="col3 sort"><span tkey="hashRate">Hash Rate</span> <i class="fa fa-sort"></i></th>
-                    <th class="col4 sort" title="Average hashrate over the last hour (only includes times the worker was active)"><span tkey="hashRate1h">HR (1h)</span> <i class="fa fa-sort"></i></th>
-                    <th class="col5 sort" title="Average hashrate over the last six hours (only includes times the worker was active)"><span tkey="hashRate6h">HR (6h)</span> <i class="fa fa-sort"></i></th>
-                    <th class="col6 sort" title="Average hashrate over the last day (only includes times the worker was active)"><span tkey="hashRate24h">HR (24h)</span> <i class="fa fa-sort"></i></th>
+                    <th class="col4 sort avghr" title="Average hashrate over the last hour (only includes times the worker was active)"><span tkey="hashRate1h">HR (1h)</span> <i class="fa fa-sort"></i></th>
+                    <th class="col5 sort avghr" title="Average hashrate over the last six hours (only includes times the worker was active)"><span tkey="hashRate6h">HR (6h)</span> <i class="fa fa-sort"></i></th>
+                    <th class="col6 sort avghr" title="Average hashrate over the last day (only includes times the worker was active)"><span tkey="hashRate24h">HR (24h)</span> <i class="fa fa-sort"></i></th>
                     <th class="col7 sort"><span tkey="lastShare">Last Share Submitted</span> <i class="fa fa-sort"></i></th>
                     <th class="col8 sort"><span tkey="totalHashes">Total Hashes Submitted</span> <i class="fa fa-sort"></i></th>
                 </tr>
@@ -169,9 +169,14 @@ function fetchAddressStats(longpoll){
             }
 
             updateText('yourHashrateHolder', (getReadableHashRateString(data.stats.hashrate) || '0 H') + '/sec');
-            updateText('yourHR1h', (getReadableHashRateString(data.stats.hashrate_1h) || '0 H') + '/s');
-            updateText('yourHR6h', (getReadableHashRateString(data.stats.hashrate_6h) || '0 H') + '/s');
-            updateText('yourHR24h', (getReadableHashRateString(data.stats.hashrate_24h) || '0 H') + '/s');
+            if ('hashrate_1h' in data.stats) {
+                $('#minerAvgHR').show();
+                updateText('yourHR1h', (getReadableHashRateString(data.stats.hashrate_1h) || '0 H') + '/s');
+                updateText('yourHR6h', (getReadableHashRateString(data.stats.hashrate_6h) || '0 H') + '/s');
+                updateText('yourHR24h', (getReadableHashRateString(data.stats.hashrate_24h) || '0 H') + '/s');
+            } else {
+                $('#minerAvgHR').hide();
+            }
             updateText('yourHashes', (data.stats.hashes || 0).toString());
             updateText('yourBlocksFound', (data.stats.blocksFound || 0).toString());
             updateText('yourPaid', getReadableCoins(data.stats.paid));
@@ -179,8 +184,8 @@ function fetchAddressStats(longpoll){
             updateText('yourDonationLevel', data.stats.donation_level);
             updateText('yourTotalDonations', getReadableCoins(data.stats.donations));
 
-            var userRoundShares = parseInt(data.stats.roundHashes || 0);
-            var poolRoundShares = parseInt(lastStats.pool.roundHashes || 0);
+            var userRoundHashes = parseInt(data.stats.roundHashes || 0);
+            var poolRoundHashes = parseInt(lastStats.pool.roundHashes || 0);
             var userRoundScore = parseFloat(data.stats.roundScore || 0);
             var poolRoundScore = parseFloat(lastStats.pool.roundScore || 0);
             var lastReward = parseFloat(lastStats.lastblock.reward || 0);
@@ -195,7 +200,7 @@ function fetchAddressStats(longpoll){
             }
 	    var transferFee = lastStats.config.transferFee;
 	    
-            var share_pct = userRoundShares * 100 / poolRoundShares;
+            var share_pct = userRoundHashes * 100 / poolRoundHashes;
             var score_pct = userRoundScore * 100 / poolRoundScore;
             updateText('yourRoundShareProportion', Math.round(share_pct * 1000) / 1000);
             updateText('yourRoundScoreProportion', Math.round(score_pct * 1000) / 1000);
@@ -437,13 +442,13 @@ function getWorkerCells(worker){
     var lastShare = worker.lastShare ? worker.lastShare : 0;
     var hashes = (worker.hashes || 0).toString();
     var status = (hashrate <= 0) ? 'error' : 'ok';
-    
+
     return '<td class="col1" data-sort="' + status + '"><i class="fa fa-' + (status == 'ok' ? 'check status-ok' : 'times status-error') + '"></i></td>' +
            '<td class="col2" data-sort="' + (worker.name != 'undefined' ? worker.name : '') + '">' + (worker.name != 'undefined' ? worker.name : '<em>Undefined</em>') + '</td>' +
            '<td class="col3" data-sort="' + hashrate + '">' + getReadableHashRateString(hashrate) + '/s</td>' +
-           '<td class="col4" data-sort="' + hashrate1h + '">' + getReadableHashRateString(hashrate1h) + '/s</td>' +
-           '<td class="col5" data-sort="' + hashrate6h + '">' + getReadableHashRateString(hashrate6h) + '/s</td>' +
-           '<td class="col6" data-sort="' + hashrate24h + '">' + getReadableHashRateString(hashrate24h) + '/s</td>' +
+           '<td class="col4 avghr" data-sort="' + hashrate1h + '">' + getReadableHashRateString(hashrate1h) + '/s</td>' +
+           '<td class="col5 avghr" data-sort="' + hashrate6h + '">' + getReadableHashRateString(hashrate6h) + '/s</td>' +
+           '<td class="col6 avghr" data-sort="' + hashrate24h + '">' + getReadableHashRateString(hashrate24h) + '/s</td>' +
            '<td class="col7" data-sort="' + lastShare + '">' + (lastShare ? $.timeago(new Date(parseInt(lastShare) * 1000).toISOString()) : 'Never') + '</td>' +
            '<td class="col8" data-sort="' + hashes + '">' + hashes + '</td>';
 }
@@ -471,9 +476,13 @@ function renderWorkers(workersData){
             break;
         }
     }
-    
+
+    var have_avg_hr = false;
+
     for (var i = 0; i < workersData.length; i++){
         var worker = workersData[i];
+	if (Date.now()/1000 - parseInt(worker.lastShare) > 2 * 86400) continue;
+        if (!have_avg_hr && 'hashrate_1h' in worker) have_avg_hr = true;
         var workerJson = JSON.stringify(worker);
         var existingRow = document.getElementById('workerRow_' + getWorkerRowId(worker.name));    
         if (existingRow && existingRow.getAttribute('data-json') !== workerJson){
@@ -484,6 +493,9 @@ function renderWorkers(workersData){
             $workersRows.append(workerElement);
         }
     }
+
+    if (!have_avg_hr) $('#workersReport .avghr').hide();
+    else $('#workersReport .avghr').show();
 }
 
 /**

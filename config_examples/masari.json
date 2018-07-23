@@ -9,7 +9,7 @@
 
     "daemonType": "default",
     "cnAlgorithm": "cryptonight",
-    "cnVariant": 1,
+    "cnVariant": 4,
     "cnBlobType": 3,
 
     "logging": {
@@ -152,7 +152,7 @@
 
     "wallet": {
         "host": "127.0.0.1",
-        "port": 38082
+        "port": 38083
     },
 
     "redis": {
@@ -292,6 +292,12 @@
                 "enabled": true,
                 "updateInterval": 180,
                 "stepInterval": 1800,
+                "maximumPeriod": 86400
+            },
+            "worker_hashrate": {
+                "enabled": true,
+                "updateInterval": 60,
+                "stepInterval": 60,
                 "maximumPeriod": 86400
             },
             "payments": {
