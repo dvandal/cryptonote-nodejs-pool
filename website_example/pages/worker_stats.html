@@ -250,7 +250,7 @@ function fetchAddressStats(longpoll){
                 $('.yourWorkers').show();
             }
 
-            if (data.unlocked.length > 0 || data.unconfirmed.length > 0) {
+            if ((data.unlocked && data.unlocked.length > 0) || (data.unconfirmed && data.unconfirmed.length > 0)) {
                 renderRecentBlocks(data.unlocked, data.unconfirmed);
             }
 	    
@@ -544,26 +544,30 @@ function renderRecentBlocks(recentBlocks, unconfirmedBlocks) {
     $recentRows.empty();
 
     var count = 0;
-    for (var i in unconfirmedBlocks) {
-        if (++count > 10) break;
-        var b = unconfirmedBlocks[i];
-        var row = document.createElement('tr');
-        row.innerHTML = getRecentBlockCells(b.height, b.hash, b.reward, b.shares, b.totalShares, b.score, b.totalScore, 'locked');
-        $recentRows.append(row);
+    if (unconfirmedBlocks) {
+        for (var i in unconfirmedBlocks) {
+            if (++count > 10) break;
+            var b = unconfirmedBlocks[i];
+            var row = document.createElement('tr');
+            row.innerHTML = getRecentBlockCells(b.height, b.hash, b.reward, b.shares, b.totalShares, b.score, b.totalScore, 'locked');
+            $recentRows.append(row);
+        }
     }
 
-    for (var i = 0; i < recentBlocks.length; i += 2) {
-        if (++count > 10) break;
-        var b = recentBlocks[i].split(':');
-        var row = document.createElement('tr');
-        var reward = b[1] == 'orphan' ? 0 : parseFloat(b[1]);
-        var shares = parseFloat(b[2]);
-        var totalShares = parseFloat(b[3]);
-        var score = b.length > 4 ? parseFloat(b[4]) : shares;
-        var totalScore = b.length > 5 ? parseFloat(b[5]) : totalShares;
-        row.innerHTML = getRecentBlockCells(recentBlocks[i+1], b[0], reward, shares, totalShares, score, totalScore,
-            b[1] == 'orphan' ? 'orphan' : 'unlocked');
-        $recentRows.append(row);
+    if (recentBlocks) {
+        for (var i = 0; i < recentBlocks.length; i += 2) {
+            if (++count > 10) break;
+            var b = recentBlocks[i].split(':');
+            var row = document.createElement('tr');
+            var reward = b[1] == 'orphan' ? 0 : parseFloat(b[1]);
+            var shares = parseFloat(b[2]);
+            var totalShares = parseFloat(b[3]);
+            var score = b.length > 4 ? parseFloat(b[4]) : shares;
+            var totalScore = b.length > 5 ? parseFloat(b[5]) : totalShares;
+            row.innerHTML = getRecentBlockCells(recentBlocks[i+1], b[0], reward, shares, totalShares, score, totalScore,
+                b[1] == 'orphan' ? 'orphan' : 'unlocked');
+            $recentRows.append(row);
+        }
     }
 }
 
