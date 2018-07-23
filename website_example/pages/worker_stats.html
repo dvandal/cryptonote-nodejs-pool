@@ -590,7 +590,6 @@ function renderRecentBlocks(recentBlocks, unconfirmedBlocks) {
 
     if (recentBlocks) {
         for (var i = 0; i < recentBlocks.length; i += 2) {
-                                             console.log("recent block!");
             if (++count > 20) break;
 
             var row = $recentRows.find('tr#recent-block-' + b[1])
@@ -614,7 +613,6 @@ function renderRecentBlocks(recentBlocks, unconfirmedBlocks) {
                 score:       parseFloat(b[b.length > 7 ? 7 : 5]),
                 totalScore:  parseFloat(b[b.length > 8 ? 8 : 6])
             }, b[4] == 'orphan' ? 'orphan' : 'unlocked');
-                                             console.log("recent block z");
         }
     }
 
