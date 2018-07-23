@@ -864,7 +864,8 @@ table th.sort:hover{
 #blocksReport table .col3,
 #blocksReport table .col4,
 #blocksReport table .col6,
-#blocksReport table .col7 {
+#blocksReport table .col7,
+#workerStats table .col7 {
   text-align: center;
 }  
 @media (min-width: 768px) {
@@ -907,14 +908,20 @@ table th.sort:hover{
   background-color:rgba(255, 0, 0, .1);
 }
 #blocksReport .luckGood,
-#blocksReport .unlocked .col7 {
+#blocksReport .unlocked .col7,
+#workerStats .luckGood,
+#workerStats .col7.unlocked {
   color: #17a600;
 }
 #blocksReport .luckBad,
-#blocksReport .orphaned .col7 {
+#blocksReport .orphaned .col7,
+#workerStats .luckBad,
+#workerStats .col7.orphaned {
   color: #a60000;
 }
-#blocksReport .luckMid {
+
+#blocksReport .luckMid,
+#workerStats .luckMid {
   color: #df9d00;
 }
 

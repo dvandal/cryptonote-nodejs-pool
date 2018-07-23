@@ -88,9 +88,12 @@
                 <thead>
                 <tr>
                     <th class="col1"><span tkey="height">Height</span></th>
-                    <th class="col2"><span tkey="reward">Reward</span></th>
-                    <th class="col3"><span tkey="rewardShare">Reward Share</span></th>
-                    <th class="col4"><span tkey="status">Status</span></th>
+                    <th class="col2"><span tkey="timeFound">Time Found</span></th>
+                    <th class="col3"><span tkey="difficulty">Difficulty</span></th>
+                    <th class="col4"><span tkey="effort">Effort</span></th>
+                    <th class="col5"><span tkey="blockReward">Block Reward</span></th>
+                    <th class="col6"><span tkey="reward">Reward</span></th>
+                    <th class="col7"><span tkey="status">Status</span></th>
                 </tr>
                 </thead>
                 <tbody id="recentBlocks_rows">
@@ -522,20 +525,29 @@ function renderWorkers(workersData){
     else $('#workersReport .avghr').show();
 }
 
-function getRecentBlockCells(height, hash, reward, shares, totalShares, score, totalScore, status) {
+function getRecentBlockCells(height, hash, time, diff, blockReward, reward, shares, totalShares, score, totalScore, status) {
+
+    var maturity;
+    if (status == 'orphaned') maturity = "<i class='fa fa-times'></i>";
+    else if (status == 'unlocked') maturity = "<i class='fa fa-unlock-alt'></i>";
+    else {
+        var toGo = lastStats.config.depth - (lastStats.network.height - height) + 1;
+        if (toGo > 1) maturity = toGo + ' to go';
+        else if(toGo == 1) maturity = "<i class='fa fa-spinner fa-spin'></i>";
+        else maturity = "<i class='fa fa-unlock-alt'></i>";
+    }
+
     return  '<td class="col1"><a target="_blank" href="' + getBlockchainUrl(hash) + '">' +  height + '</a></td>' +
-            '<td class="col2">' + getReadableCoins(reward) + '</td>' +
-            (lastStats.config.slushMiningEnabled
-                ? '<td class="col3" title="' +
-                    score + ' / ' + totalScore + ' score;  ' + shares + ' / ' + totalShares + ' shares">' +
-                    (score / totalScore * 100).toPrecision(3) + '% score (' +
-                    (shares / totalShares * 100).toPrecision(3) + '% shares)</td>'
-                : '<td class="col3">' + (score / totalScore * 100).toPrecision(3) + '% (' + score + ' / ' + totalScore + ' shares)</td>') +
-            '<td class="col4">' + (
-                status == 'unlocked' ? '<span tkey="paid">Paid</span>' :
-                status == 'locked' ? '<span tkey="confirming">Confirming</span>' :
-                status == 'orphan' ? '<span tkey="orphan">Orphan</span>' :
-                status) + '</td>';
+            '<td class="col2">' + formatDate(time) + '</td>' +
+            '<td class="col3">' + diff + '</td>' +
+            '<td class="col4">' + formatLuck(diff, totalShares) + '</td>' +
+            '<td class="col5">' + getReadableCoins(blockReward) + '</td>' +
+            '<td class="col6">' + getReadableCoins(reward) + ' (= <a href="javascript:alert(\'Your block ' + height + ' round contribution:\\n\\n' +
+                (totalScore == totalShares ? '' :
+                 (score  / totalScore  * 100).toPrecision(3) + '% (' + Math.round(score)  + ' / ' + Math.round(totalScore)  + ') score-weighted shares\\n') +
+                (shares / totalShares * 100).toPrecision(3) + '% (' + Math.round(shares) + ' / ' + Math.round(totalShares) + ') shares' +
+                '\')">' + (score / totalScore * 100).toPrecision(3) + '%</a>)</td>' +
+            '<td class="col7 ' + status + '" title="' + status + '">' + maturity + '</td>';
 }
 
 // Render recent block rewards
@@ -546,26 +558,31 @@ function renderRecentBlocks(recentBlocks, unconfirmedBlocks) {
     var count = 0;
     if (unconfirmedBlocks) {
         for (var i in unconfirmedBlocks) {
-            if (++count > 10) break;
+            if (++count > 20) break;
             var b = unconfirmedBlocks[i];
             var row = document.createElement('tr');
-            row.innerHTML = getRecentBlockCells(b.height, b.hash, b.reward, b.shares, b.totalShares, b.score, b.totalScore, 'locked');
+            row.innerHTML = getRecentBlockCells(b.height, b.hash, b.time, b.difficulty, b.blockReward, b.reward, b.shares, b.totalShares, b.score, b.totalScore, 'locked');
             $recentRows.append(row);
         }
     }
 
     if (recentBlocks) {
         for (var i = 0; i < recentBlocks.length; i += 2) {
-            if (++count > 10) break;
+            if (++count > 20) break;
             var b = recentBlocks[i].split(':');
             var row = document.createElement('tr');
-            var reward = b[1] == 'orphan' ? 0 : parseFloat(b[1]);
-            var shares = parseFloat(b[2]);
-            var totalShares = parseFloat(b[3]);
-            var score = b.length > 4 ? parseFloat(b[4]) : shares;
-            var totalScore = b.length > 5 ? parseFloat(b[5]) : totalShares;
-            row.innerHTML = getRecentBlockCells(recentBlocks[i+1], b[0], reward, shares, totalShares, score, totalScore,
-                b[1] == 'orphan' ? 'orphan' : 'unlocked');
+            var time = parseFloat(recentBlocks[i+1]);
+            var height = parseFloat(b[0])
+            var hash = b[1]
+            var diff = parseFloat(b[2]);
+            var blockReward = b[3] == 'orphan' ? 0 : parseFloat(b[3]);
+            var reward = b[4] == 'orphan' ? 0 : parseFloat(b[4]);
+            var shares = parseFloat(b[5]);
+            var totalShares = parseFloat(b[6]);
+            var score = b.length > 7 ? parseFloat(b[7]) : shares;
+            var totalScore = b.length > 8 ? parseFloat(b[8]) : totalShares;
+            row.innerHTML = getRecentBlockCells(height, hash, time, diff, blockReward, reward, shares, totalShares, score, totalScore,
+                b[4] == 'orphan' ? 'orphan' : 'unlocked');
             $recentRows.append(row);
         }
     }
