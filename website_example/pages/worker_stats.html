@@ -79,6 +79,26 @@
             </table>
         </div>
     </div>
+
+    <!-- Recent block rewards -->
+    <h4 class="yourStats push-up-20"><i class="fa fa-pie-chart"></i>&nbsp; <span tkey="recentRewards">Recent Block Rewards</span></h4>
+    <div class="yourStats card">
+        <div id="recentBlocks" class="table-responsive">
+            <table class="table table-hover table-striped">
+                <thead>
+                <tr>
+                    <th class="col1"><span tkey="height">Height</span></th>
+                    <th class="col2"><span tkey="reward">Reward</span></th>
+                    <th class="col3"><span tkey="rewardShare">Reward Share</span></th>
+                    <th class="col4"><span tkey="status">Status</span></th>
+                </tr>
+                </thead>
+                <tbody id="recentBlocks_rows">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
     
     <!-- Payments -->
     <h4 class="yourStats push-up-20"><i class="fa fa-credit-card"></i>&nbsp; <span tkey="paymentsHistory">Payments History</span></h4>
@@ -228,6 +248,10 @@ function fetchAddressStats(longpoll){
             if (data.workers && data.workers.length > 0) {
                 renderWorkers(data.workers);
                 $('.yourWorkers').show();
+            }
+
+            if (data.unlocked.length > 0 || data.unconfirmed.length > 0) {
+                renderRecentBlocks(data.unlocked, data.unconfirmed);
             }
 	    
             $('.yourStats').show();
@@ -497,6 +521,52 @@ function renderWorkers(workersData){
     if (!have_avg_hr) $('#workersReport .avghr').hide();
     else $('#workersReport .avghr').show();
 }
+
+function getRecentBlockCells(height, hash, reward, shares, totalShares, score, totalScore, status) {
+    return  '<td class="col1"><a target="_blank" href="' + getBlockchainUrl(hash) + '">' +  height + '</a></td>' +
+            '<td class="col2">' + getReadableCoins(reward) + '</td>' +
+            (lastStats.config.slushMiningEnabled
+                ? '<td class="col3" title="' +
+                    score + ' / ' + totalScore + ' score;  ' + shares + ' / ' + totalShares + ' shares">' +
+                    (score / totalScore * 100).toPrecision(3) + '% score (' +
+                    (shares / totalShares * 100).toPrecision(3) + '% shares)</td>'
+                : '<td class="col3">' + (score / totalScore * 100).toPrecision(3) + '% (' + score + ' / ' + totalScore + ' shares)</td>') +
+            '<td class="col4">' + (
+                status == 'unlocked' ? '<span tkey="paid">Paid</span>' :
+                status == 'locked' ? '<span tkey="confirming">Confirming</span>' :
+                status == 'orphan' ? '<span tkey="orphan">Orphan</span>' :
+                status) + '</td>';
+}
+
+// Render recent block rewards
+function renderRecentBlocks(recentBlocks, unconfirmedBlocks) {
+    var $recentRows = $('#recentBlocks_rows');
+    $recentRows.empty();
+
+    var count = 0;
+    for (var i in unconfirmedBlocks) {
+        if (++count > 10) break;
+        var b = unconfirmedBlocks[i];
+        var row = document.createElement('tr');
+        row.innerHTML = getRecentBlockCells(b.height, b.hash, b.reward, b.shares, b.totalShares, b.score, b.totalScore, 'locked');
+        $recentRows.append(row);
+    }
+
+    for (var i = 0; i < recentBlocks.length; i += 2) {
+        if (++count > 10) break;
+        var b = recentBlocks[i].split(':');
+        var row = document.createElement('tr');
+        var reward = b[1] == 'orphan' ? 0 : parseFloat(b[1]);
+        var shares = parseFloat(b[2]);
+        var totalShares = parseFloat(b[3]);
+        var score = b.length > 4 ? parseFloat(b[4]) : shares;
+        var totalScore = b.length > 5 ? parseFloat(b[5]) : totalShares;
+        row.innerHTML = getRecentBlockCells(recentBlocks[i+1], b[0], reward, shares, totalShares, score, totalScore,
+            b[1] == 'orphan' ? 'orphan' : 'unlocked');
+        $recentRows.append(row);
+    }
+}
+
 
 /**
  * Payments report
