@@ -592,6 +592,7 @@ function renderRecentBlocks(recentBlocks, unconfirmedBlocks) {
         for (var i = 0; i < recentBlocks.length; i += 2) {
             if (++count > 20) break;
 
+            var b = recentBlocks[i].split(':');
             var row = $recentRows.find('tr#recent-block-' + b[1])
             if (row.length == 0) {
                 row = $('<tr></tr>');
@@ -600,7 +601,6 @@ function renderRecentBlocks(recentBlocks, unconfirmedBlocks) {
                 else $recentRows.append(row);
             }
 
-            var b = recentBlocks[i].split(':');
             updateRecentBlockCells(row, {
                 time:        parseFloat(recentBlocks[i+1]),
                 height:      parseFloat(b[0]),
