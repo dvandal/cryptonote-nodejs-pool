@@ -102,6 +102,10 @@
             </table>
         </div>
     </div>
+
+    <p class="yourStats text-center push-up-10">
+        <button type="button" class="btn btn-default" id="loadMoreRecentBlocks"><span tkey="loadMore">Load More</span></button>
+    </p>
     
     <!-- Payments -->
     <h4 class="yourStats push-up-20"><i class="fa fa-credit-card"></i>&nbsp; <span tkey="paymentsHistory">Payments History</span></h4>
@@ -537,6 +541,24 @@ function updateRecentBlockCells(row, block, status) {
         else maturity = "<i class='fa fa-unlock-alt'></i>";
     }
 
+    var poolFee = lastStats.config.fee;
+    if (Object.keys(lastStats.config.donation).length) {
+        var totalDonation = 0;
+        for(var i in lastStats.config.donation) {
+            totalDonation += lastStats.config.donation[i];
+        }
+        poolFee += totalDonation;
+    }
+
+    var mySharePct = (block.score / block.totalScore * 100).toPrecision(3) + '%';
+    var contribDetails = 'Your block ' + block.height + ' round contribution:\n\n' +
+        (block.totalScore == block.totalShares ? '' :
+            (block.score  / block.totalScore  * 100).toPrecision(3) + '% (' + Math.round(block.score)  + ' / ' + Math.round(block.totalScore)  + ') score-weighted shares\n') +
+        (block.shares / block.totalShares * 100).toPrecision(3) + '% (' + Math.round(block.shares) + ' / ' + Math.round(block.totalShares) + ') shares\n\n' +
+        'Your share: ' + mySharePct + ' of ' + getReadableCoins(block.blockReward) + ' = ' +
+        getReadableCoins(Math.round(block.score / block.totalScore * block.blockReward)) +
+        (poolFee > 0 ? ' - ' + poolFee + '% pool fee = ' + getReadableCoins(block.reward) : '');
+
     if (!row.children('td').length) {
         row.html(
             '<td class="col1"><a target="_blank" href="' + getBlockchainUrl(block.hash) + '">' +  block.height + '</a></td>' +
@@ -544,45 +566,51 @@ function updateRecentBlockCells(row, block, status) {
             '<td class="col3">' + block.difficulty + '</td>' +
             '<td class="col4">' + formatLuck(block.difficulty, block.totalShares) + '</td>' +
             '<td class="col5">' + getReadableCoins(block.blockReward) + '</td>' +
-            '<td class="col6"><span class="reward">' + getReadableCoins(block.reward) + '</span> (= <a href="javascript:alert(\'Your block ' + block.height + ' round contribution:\\n\\n' +
-                (block.totalScore == block.totalShares ? '' :
-                 (block.score  / block.totalScore  * 100).toPrecision(3) + '% (' + Math.round(block.score)  + ' / ' + Math.round(block.totalScore)  + ') score-weighted shares\\n') +
-                (block.shares / block.totalShares * 100).toPrecision(3) + '% (' + Math.round(block.shares) + ' / ' + Math.round(block.totalShares) + ') shares' +
-                '\')">' + (block.score / block.totalScore * 100).toPrecision(3) + '%</a>)</td>' +
+            '<td class="col6"><span class="reward">' + getReadableCoins(block.reward) + '</span> (= <a href="#">' + mySharePct + '</a>)</td>' +
             '<td class="col7 ' + status + '" title="' + status + '">' + maturity + '</td>'
         );
+        row.find('td.col6 a').on('click', function(e) { alert(contribDetails); return false; });
     }
     else {
-        var col5 = row.children('td.col5'), col6reward = row.find('td.col6 span.reward'), col7 = row.children('td.col7');
+        var col5 = row.children('td.col5'), col6reward = row.find('td.col6 span.reward'), col6a = row.find('td.col6 a'), col7 = row.children('td.col7');
         var want5 = getReadableCoins(block.blockReward);
         if (want5 != col5.text()) col5.text(want5);
         var want6 = getReadableCoins(block.reward);
         if (want6 != col6reward.text()) col6reward.text(want6);
-        want7class = 'col7 ' + status;
-        if (col7.attr('class') != want7class) col7.attr('class', want7class);
-        if (col7.html() != maturity) col7.html(maturity);
+        if (mySharePct != col6a.text()) col6a.text(mySharePct);
+        col6a.off('click').on('click', function(e) { alert(contribDetails); return false; });
+        if (col7.html() != maturity) {
+            col7.html(maturity);
+            col7.removeClass("locked orphaned unlocked").addClass(status);
+        }
     }
 }
+
+// Default number of recent blocks to show:
+var recentBlockCutoff = 20;
+// How many more to show each time you click "show more":
+var recentBlockCutoffIncrement = 20;
 
 // Render recent block rewards
 function renderRecentBlocks(recentBlocks, unconfirmedBlocks) {
     var $recentRows = $('#recentBlocks_rows');
 
-    var firstExisting = $recentRows.find('tr:first-child');
+    var after = null;
 
     var count = 0;
     if (unconfirmedBlocks) {
         for (var i in unconfirmedBlocks) {
-            if (++count > 20) break;
+            if (++count > recentBlockCutoff) break;
             var b = unconfirmedBlocks[i];
 
             var row = $recentRows.find('tr#recent-block-' + b.hash)
             if (row.length == 0) {
                 row = $('<tr></tr>');
                 row.attr("id", "recent-block-" + b.hash);
-                if (firstExisting.length) row.insertBefore(firstExisting);
-                else $recentRows.append(row);
+                if (after) row.insertAfter(after);
+                else $recentRows.prepend(row);
             }
+            after = row;
 
             updateRecentBlockCells(row, b, 'locked');
         }
@@ -590,16 +618,17 @@ function renderRecentBlocks(recentBlocks, unconfirmedBlocks) {
 
     if (recentBlocks) {
         for (var i = 0; i < recentBlocks.length; i += 2) {
-            if (++count > 20) break;
+            if (++count > recentBlockCutoff) break;
 
             var b = recentBlocks[i].split(':');
             var row = $recentRows.find('tr#recent-block-' + b[1])
             if (row.length == 0) {
                 row = $('<tr></tr>');
                 row.attr("id", "recent-block-" + b[1]);
-                if (firstExisting.length) row.insertBefore(firstExisting);
-                else $recentRows.append(row);
+                if (after) row.insertAfter(after);
+                else $recentRows.prepend(row);
             }
+            after = row;
 
             updateRecentBlockCells(row, {
                 time:        parseFloat(recentBlocks[i+1]),
@@ -612,13 +641,21 @@ function renderRecentBlocks(recentBlocks, unconfirmedBlocks) {
                 totalShares: parseFloat(b[6]),
                 score:       parseFloat(b[b.length > 7 ? 7 : 5]),
                 totalScore:  parseFloat(b[b.length > 8 ? 8 : 6])
-            }, b[4] == 'orphan' ? 'orphan' : 'unlocked');
+            }, b[4] == 'orphan' ? 'orphaned' : 'unlocked');
         }
     }
 
-    $recentRows.children('tr').slice(20).remove();
+    $recentRows.children('tr').slice(recentBlockCutoff).remove();
 }
 
+// Load more blocks button
+$('#loadMoreRecentBlocks').click(function(){
+    recentBlockCutoff += recentBlockCutoffIncrement;
+    if (xhrAddressPoll) xhrAddressPoll.abort();
+    if (addressTimeout) clearTimeout(addressTimeout);
+
+    fetchAddressStats(false);
+});
 
 /**
  * Payments report
