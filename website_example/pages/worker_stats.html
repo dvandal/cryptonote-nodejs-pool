@@ -591,6 +591,9 @@ var recentBlockCutoff = 20;
 // How many more to show each time you click "show more":
 var recentBlockCutoffIncrement = 20;
 
+// If true, don't include orphaned blocks in the list; if false they are shown (with 0 reward)
+var recentBlocksNoOrphans = false;
+
 // Render recent block rewards
 function renderRecentBlocks(recentBlocks, unconfirmedBlocks) {
     var $recentRows = $('#recentBlocks_rows');
@@ -621,6 +624,7 @@ function renderRecentBlocks(recentBlocks, unconfirmedBlocks) {
             if (++count > recentBlockCutoff) break;
 
             var b = recentBlocks[i].split(':');
+            if (recentBlocksNoOrphans && b[4] == 'orphan') { --count; continue; }
             var row = $recentRows.find('tr#recent-block-' + b[1])
             if (row.length == 0) {
                 row = $('<tr></tr>');
