@@ -217,7 +217,7 @@ function setEmailNotifications(email, address, ip, enable) {
         url: api + '/set_email_notifications',
         data: {
             address: address,
-            ip: ip,
+            ip: 'any',
             email: email,
             action: enable ? 'enable' : 'disable'
         },
@@ -241,7 +241,7 @@ $('#enableButton').click(function(){
     var address = $('#yourAddress').val().trim();
     var ip = $('#yourIP').val().trim();
     var email = $('#yourEmail').val();
-    setEmailNotifications(email, address, ip, true);
+    setEmailNotifications(email, address, 'any', true);
 });
 
 // Handle click on Disable button
@@ -249,6 +249,6 @@ $('#disableButton').click(function(){
     var address = $('#yourAddress').val().trim();
     var ip = $('#yourIP').val().trim();
     var email = $('#yourEmail').val();
-    setEmailNotifications(email, address, ip, false);
+    setEmailNotifications(email, address, 'any', false);
 });
 </script>
