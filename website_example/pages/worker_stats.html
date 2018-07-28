@@ -250,6 +250,9 @@ function fetchAddressStats(longpoll){
 	    updateText('yourPayoutEstimate', getReadableCoins(payoutEstimate));
             updateText('yourDonationEstimate', getReadableCoins(donationEstimate));
 	    
+            updateText('yourPaid24h', getReadableCoins(data.stats.payments_24h || 0));
+            updateText('yourPaid7d', getReadableCoins(data.stats.payments_7d || 0));
+
             renderPayments(data.payments);
 	    
             if (data.workers && data.workers.length > 0) {
@@ -726,8 +729,6 @@ function renderPayments(paymentsResults){
     var $paymentsRows = $('#paymentsReport_rows');
     var lastPaymentDate = null;
     var summaryData = { date: null, time: null, count: 0, amount: 0 };
-    var last24h = 0;
-    var last7d = 0;
     var now = new Date().getTime();
     for (var i = 0; i < paymentsResults.length; i += 2){
         var payment = parsePayment(paymentsResults[i + 1], paymentsResults[i]);
@@ -738,10 +739,6 @@ function renderPayments(paymentsResults){
         if (!lastPaymentDate || lastPaymentDate && paymentDate != lastPaymentDate) {
             summaryData = { date: paymentDate, time: payment.time, count: 0, amount: 0 };
         }
-
-        var ago = now - parseInt(payment.time) * 1000;
-        if (ago < 86400000) last24h += parseInt(payment.amount);
-        if (ago < 7*86400000) last7d += parseInt(payment.amount);
 
         var existingRow = document.getElementById('paymentRow' + payment.time);
         if (existingRow && existingRow.getAttribute('data-json') !== paymentJson){
@@ -790,9 +787,6 @@ function renderPayments(paymentsResults){
         }
         lastPaymentDate = paymentDate;
     }
-
-    updateText('yourPaid24h', getReadableCoins(last24h));
-    updateText('yourPaid7d', getReadableCoins(last7d));
 }
 
 // Load more payments button
