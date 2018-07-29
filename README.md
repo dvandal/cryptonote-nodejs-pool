@@ -328,6 +328,16 @@ Explanation for each field:
     "slushMining": {
         "enabled": false, // Enables slush mining. Recommended for pools catering to professional miners
         "weight": 300 // Defines how fast the score assigned to a share declines in time. The value should roughly be equivalent to the average round duration in seconds divided by 8. When deviating by too much numbers may get too high for JS.
+    },
+
+    /* Anti-pool hopping protection can penalize the score for the first N minutes of a high-diff
+       connection. */
+    "antiHopping": {
+        "enabled": false, // Enables pool hopping penalties
+        "triggerDiff": 400000, // Only triggers for an initial connection difficulty of at least this much
+        "triggerMinutes": 15, // Only triggers if the connecting miner hasn't submitted in share in this many minutes
+        "penaltyMinutes": 10, // Penalizes the miner scores for this many minutes
+        "penaltyPercent": 50 // Reduces the miner scores by this percent
     }
 },
 
