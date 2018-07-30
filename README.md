@@ -107,6 +107,7 @@ Community / Support
 * https://bytecoin.pt
 * http://ita.minexmr24.ru/
 * https://pool.croatpirineus.cat
+* https://trtl.heigh-ho.funkypenguin.co.nz
 
 Usage
 ===
@@ -185,7 +186,7 @@ Explanation for each field:
 /* Coin network time to mine one block, see DIFFICULTY_TARGET constant in DAEMON_CODE/src/cryptonote_config.h */
 "coinDifficultyTarget": 120,
 
-/* Set daemon type. Supported values: default, forknote (Fix block height + 1), bytecoin (ByteCoin Wallet RPC API) */
+/* Set daemon type. Supported values: default, forknote (Fix block height + 1), bytecoin (ByteCoin Wallet RPC API, w/ block height fix), turtlecoin (ByteCoin Wallet RPC API but no block height fix required)  */
 "daemonType": "default",
 
 /* Set Cryptonight algorithm settings.
