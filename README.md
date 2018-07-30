@@ -382,6 +382,7 @@ Explanation for each field:
     "sslKey": "./privkey.pem", // The SSL private key
     "sslCA": "./chain.pem", // The SSL certificate authority chain
     "trustProxyIP": false // Proxy X-Forwarded-For support
+    "ignoreSrcIP": false // Silently ignore source IP when changing min payments, or notification settings
 },
 
 /* Coin daemon connection details (default port is 18981) */
