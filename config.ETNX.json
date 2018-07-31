@@ -5,7 +5,7 @@
     "symbol": "ETNX",
     "coinUnits": 100,
     "coinDecimalPlaces": 2,
-    "coinDifficultyTarget": 120,
+    "coinDifficultyTarget": 60,
 
     "daemonType": "default",
     "cnAlgorithm": "cryptonight",
