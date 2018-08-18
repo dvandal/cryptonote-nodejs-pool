@@ -5,7 +5,7 @@
     "symbol": "DERO,
     "coinUnits": 1000000000000,
     "coinDecimalPlaces": 4,
-    "coinDifficultyTarget": 120,
+    "coinDifficultyTarget": 12,
 
     "daemonType": "default",
     "cnAlgorithm": "cryptonight",
