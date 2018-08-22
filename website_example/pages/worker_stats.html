@@ -240,8 +240,9 @@ function fetchAddressStats(longpoll){
             var donate_and_fees = 0;
             if (poolFee) donate_and_fees += poolFee;
             if (data.stats.donation_level) {
-                donate_and_fees += data.stats.donation_level;
-                donationEstimate = payoutEstimate * data.stats.donation_level / 100.;
+                var donate_lvl = parseFloat(data.stats.donation_level);
+                donate_and_fees += donate_lvl;
+                donationEstimate = payoutEstimate * donate_lvl / 100.;
             }
 
             if (donate_and_fees) payoutEstimate *= (1 - donate_and_fees / 100.);
