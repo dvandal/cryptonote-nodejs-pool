@@ -47,6 +47,9 @@
   }
   .usersList .col1 {
     white-space: normal;
+    text-align: left;
+    font-family: monospace;
+    font-size: 15px;
   }
   .usersList .col2 {
     width: 100px;
@@ -61,8 +64,11 @@
     width: 100px;
   }
   .usersList .col6 {
-    width: 120px;
+    width: 180px;
     white-space: normal;
+  }
+  .usersList .col7 {
+      width: 100px;
   }
 }
 
