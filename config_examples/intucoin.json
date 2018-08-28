@@ -8,9 +8,9 @@
     "coinDifficultyTarget": 120,
 
     "daemonType": "forknote",
-    "cnAlgorithm": "cryptonight",
-    "cnVariant": 0,
-    "cnBlobType": 0,
+    "cnAlgorithm": "cryptonight_light",
+    "cnVariant": 1,
+    "cnBlobType": 2,
 
     "logging": {
         "files": {
