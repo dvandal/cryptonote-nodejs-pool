@@ -393,7 +393,8 @@ Explanation for each field:
 /* Wallet daemon connection details (default port is 18980) */
 "wallet": {
     "host": "127.0.0.1",
-    "port": 18982
+    "port": 18982,
+    "password": "--rpc-password"
 },
 
 /* Redis connection info (default port is 6379) */
@@ -505,7 +506,7 @@ Explanation for each field:
 
 /* Prices settings for market and price charts */
 "prices": {
-    "source": "cryptonator", // Exchange (supported values: cryptonator, altex, crex24, cryptopia, stocks.exchange, tradeogre)
+    "source": "cryptonator", // Exchange (supported values: cryptonator, altex, crex24, cryptopia, stocks.exchange, tradeogre, maplechange)
     "currency": "USD" // Default currency
 },
 	    

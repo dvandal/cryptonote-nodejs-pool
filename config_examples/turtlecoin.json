@@ -1,13 +1,13 @@
 {
     "poolHost": "your.pool.host",
 
-    "coin": "intuCoin",
-    "symbol": "INTU",
-    "coinUnits": 100,
+    "coin": "turtlecoin",
+    "symbol": "TRTL",
+    "coinUnits": 100000000,
     "coinDecimalPlaces": 4,
-    "coinDifficultyTarget": 120,
+    "coinDifficultyTarget": 240,
 
-    "daemonType": "forknote",
+    "daemonType": "bytecoin",
     "cnAlgorithm": "cryptonight_light",
     "cnVariant": 1,
     "cnBlobType": 2,
@@ -108,25 +108,24 @@
         "enabled": true,
         "interval": 1800,
         "maxAddresses": 50,
-        "mixin": 3,
+        "mixin": 7,
         "priority": 0,
-        "transferFee": 10,
+        "transferFee": 100,
         "dynamicTransferFee": true,
         "minerPayFee" : true,
-        "minPayment": 1000,
-        "maxPayment": null,
-        "maxTransactionAmount": 0,
-        "denomination": 1
+        "minPayment": 50000,
+        "maxTransactionAmount": 50000000000000,
+        "denomination": 100
     },
 
     "blockUnlocker": {
         "enabled": true,
         "interval": 30,
-        "depth": 10,
+        "depth": 40,
         "poolFee": 0.8,
         "devDonation": 0.2,
         "networkFee": 0.0,
-	"fixBlockHeightRPC": true
+        "fixBlockHeightRPC": false
     },
 
     "api": {
@@ -148,12 +147,13 @@
 
     "daemon": {
         "host": "127.0.0.1",
-        "port": 31570
+        "port": 11989
     },
 
     "wallet": {
         "host": "127.0.0.1",
-        "port": 31571
+        "port": 11990,
+        "password": "rpc_password"
     },
 
     "redis": {
@@ -224,7 +224,6 @@
 
     "telegram": {
         "enabled": false,
-        "botName": "",
         "token": "",
         "channel": "",
         "channelStats": {
@@ -233,8 +232,8 @@
         },
         "botCommands": {
             "stats": "/stats",
-            "report": "/report",
-            "notify": "/notify"
+            "enable": "/enable",
+            "disable": "/disable"
         }
     },
     
@@ -250,10 +249,10 @@
     },
 
     "prices": {
-        "source": "tradeogre",
+        "source": "cryptonator",
         "currency": "USD"
     },
-    
+
     "charts": {
         "pool": {
             "hashrate": {
@@ -309,10 +308,6 @@
             "payments": {
                 "enabled": true
             }
-        },
-        "blocks": {
-            "enabled": true,
-            "days": 30
         }
     }
 }
