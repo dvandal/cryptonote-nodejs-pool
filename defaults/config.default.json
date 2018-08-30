@@ -1,12 +1,13 @@
 {
-    "coin": "StelliteCoin",
+    "coin": "Stellitecoin",
     "symbol": "XTL",
     "coinUnits":100,
     "coinDifficultyTarget": 60,
 
     "logging": {
         "files": {
-            "level": "info",
+        	"enabled":false,
+            "level": "error",
             "directory": "logs",
             "flushInterval": 5
         },
@@ -17,46 +18,28 @@
     },
 
     "poolServer": {
+    	"timeout":1000,
         "enabled": true,
         "clusterForks": "auto",
-        "poolAddress": "Se2WEgKarYw84Cc4JDY86t5HB42kKmvRd1ncLDcdkBYc1y3JEEmWVFrjDNJvcxEKVhXvWurnav1TJZB1XH4mxBuS34cU6nhvv",
-        "blockRefreshInterval": 600,
-        "minerTimeout": 900,
+		"poolAddress":"Se4EaQbQt9dWocr5RGWuRqdJcxaatTwydbfio8mBUNWuE5iYeZJzcHC3S5M3Jn5kBQdwB6w7kFE2yC6nrNtvXQ1E2oFPis9fF",
+        "blockRefreshInterval": 500,
+        "minerTimeout": 750,
         "sslCert": "./cert.pem",
         "sslKey": "./privkey.pem",
         "sslCA": "./chain.pem",
         "ports": [
             {
                 "port": 3333,
-                "difficulty": 4000,
-                "desc": "Low end hardware (1 ~ 100H/s) diff: 4000"
-            },
-            {
-                "port": 4444,
-                "difficulty": 40000,
-                "desc": "Medium end hardware (~ 1000H/s) diff: 40000"
-            },
-            {
-                "port": 5555,
-                "difficulty": 80000,
-                "desc": "High end hardware (~ 2000H/s) diff: 80000"
-            },
-            {
-                "port": 6666,
-                "difficulty": 200000,
-                "desc": "Low end rigs (~ 5000H/s) diff: 200000"
-            },
-            {
-                "port": 7777,
-                "difficulty": 400000,
-                "desc": "High end rigs (~ 10000H/s) diff: 400000"
+                "difficulty": 50,
+                "desc": "Low end hardware (1 ~ 100H/s) diff: 4000",
+				"donation":0
             }
-        ],
+		],
         "varDiff": {
             "minDiff": 100,
             "maxDiff": 100000000,
-            "targetTime": 60,
-            "retargetTime": 30,
+            "targetTime": 45,
+            "retargetTime": 35,
             "variancePercent": 30,
             "maxJump": 100
         },
@@ -68,6 +51,11 @@
             "enabled": true,
             "addressSeparator": "+"
         },
+        "donations":{
+			"enabled": true,
+			"addressSeparator":"%",
+			"address":"Se3dRf8ZTUXKYivaTFU4KYczPcmMcwPZWEQ5HZmj3RRviFJ3w1mNhtgCWkn6VsnQcMBX1hyCUjZVuSo8X7yJTSYj1joP84WoT"
+		},
         "shareTrust": {
             "enabled": true,
             "min": 10,
@@ -88,43 +76,51 @@
             "lastBlockCheckRate": 1
          }
     },
-
     "payments": {
-        "enabled": false,
+        "enabled": true,
         "interval": 900,
-        "maxAddresses": 10,
+        "maxAddresses": 100,
         "mixin": 1,
         "priority": 0,
-        "transferFee": 10,
+        "transferFee": 15,
         "dynamicTransferFee": true,
         "minerPayFee" : true,
-        "minPayment": 10000,
+        "minPayment": 1000,
+		"networkFee":0,
+        "minPaymentIntegratedAddress":100000,
         "maxTransactionAmount": 1000000,
         "denomination": 100
     },
-
+	"contributions":{
+		"Se2ef2vWfM5je9M9p9RXnb3YG1Bxm7eLJb4np1TdJmbTfo5VAo43g2EFikEG7wenV2BihjyWmoDL1efXafFfDJoE2GcxJtvH7": {
+			"percent":0.5,
+			"desc":"Pool Contributions",
+			"hidden":false
+		}
+	},
     "blockUnlocker": {
         "enabled": true,
-        "interval": 30,
-        "depth": 18,
-        "poolFee": 0.4,
-        "devDonation": 0.1
+        "interval": 60,
+        "depth": 20
+        
     },
 
     "api": {
         "enabled": true,
         "hashrateWindow": 600,
-        "updateInterval": 5,
-        "port": "8117",
-	"bindIp":"127.0.0.1",
+        "updateInterval": 10,
+        "port": 8118,
+		"bindIp":"127.0.0.1",
         "blocks": 30,
         "payments": 30,
         "password": "password",
-        "ssl": false,
-        "sslPort": 2889,
-        "sslCert": "./cert.pem",
-        "sslKey": "./privkey.pem",
-        "sslCA": "./chain.pem",
+        "ssl": {
+        	"enabled":false,
+        	"port": 2889,
+        	"cert": "./cert.pem",
+        	"key": "./privkey.pem",
+        	"ca": "./chain.pem"
+        },
         "trustProxyIP": false
     },
 
@@ -135,54 +131,23 @@
 
     "wallet": {
         "host": "127.0.0.1",
-        "port": 8082
+        "port": 18081
     },
 
     "redis": {
         "host": "127.0.0.1",
         "port": 6379,
         "auth": null,
-	    "db":0
+		"db":1
     },
- 
-    "email": {
-        "enabled": false,
-        "templateDir": "email_templates",
-        "templates": ["worker_connected", "worker_banned", "worker_timeout"],
-        "variables": {
-            "POOL_HOST": "poolhost.com"
-        },
-        "fromAddress": "your@email.com",
-        "transport": "sendmail",
-        "sendmail": {
-            "path": "/usr/sbin/sendmail"
-        },
-        "smtp": {
-            "host": "smtp.example.com",
-            "port": 587,
-            "secure": false,
-            "auth": {
-                "user": "username",
-                "pass": "password"
-            }
-        },
-        "mailgun": {
-            "key": "your-private-key",
-            "domain": "mg.yourdomain"
-        }
-    },
-    "telegram":{
-        "enabled":false,
-        "token":"your_telegram_token",
-        "channel":"your_telegram_channel",
-    },
+
     "monitoring": {
         "daemon": {
-            "checkInterval": 60,
+            "checkInterval": 900,
             "rpcMethod": "getblockcount"
         },
         "wallet": {
-            "checkInterval": 60,
+            "checkInterval": 900,
             "rpcMethod": "getbalance"
         }
     },
@@ -193,38 +158,36 @@
     },
     
     "charts": {
+		"blocks":{
+			"enabled":true,
+			"days":30
+		},
         "pool": {
+        	"difficulty": {
+                "enabled": true,
+                "updateInterval": 60,
+                "stepInterval": 1800,
+                "maximumPeriod": 86400
+            },
             "hashrate": {
                 "enabled": true,
                 "updateInterval": 60,
                 "stepInterval": 1800,
                 "maximumPeriod": 86400
             },
-            "workers": {
+             "workers": {
                 "enabled": true,
                 "updateInterval": 60,
                 "stepInterval": 1800,
                 "maximumPeriod": 86400
             },
-            "miners": {
+	 	    "miners": {
                 "enabled": true,
                 "updateInterval": 60,
                 "stepInterval": 1800,
                 "maximumPeriod": 86400
-            },
-            "difficulty": {
-                "enabled": true,
-                "updateInterval": 1800,
-                "stepInterval": 10800,
-                "maximumPeriod": 604800
             },
             "price": {
-                "enabled": true,
-                "updateInterval": 1800,
-                "stepInterval": 10800,
-                "maximumPeriod": 604800
-            },
-            "profit": {
                 "enabled": true,
                 "updateInterval": 1800,
                 "stepInterval": 10800,
@@ -232,6 +195,12 @@
             }
         },
         "user": {
+        	"worker_hashrate": {
+                "enabled": true,
+                "updateInterval": 180,
+                "stepInterval": 1800,
+                "maximumPeriod": 86400
+            },
             "hashrate": {
                 "enabled": true,
                 "updateInterval": 180,

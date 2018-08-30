@@ -5,3 +5,4 @@ logs/
 website/
 *.log
 public/
+package-lock.json

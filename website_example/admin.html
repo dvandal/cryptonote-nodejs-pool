@@ -4,14 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
 
-    <title>Mining Pool Admin Panel</title>
-
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.4.0/jquery.timeago.min.js"></script>
+    <title>Stellite Pool Admin Panel</title>
+   <link rel="icon" type="image/png" sizes="32x32" href="/logo.png">
+       <link rel="icon" type="image/png" sizes="16x16" href="/logo.png">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.6.3/jquery.timeago.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.3.0/handlebars.min.js"></script>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/admin.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
 </head>
 <body>
 
@@ -19,7 +24,9 @@
 
     <!-- Navigation -->
     <div class="nav-side-menu">
-        <div class="brand"><a href="/">Admin Panel</a></div>
+        <div class="brand">
+			<a href="/"><img src="img/logo.png"></a><br>Stellite Pool (Admin)
+        </div>
         <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>  
         <div class="menu-list">
             <ul id="menu-content" class="menu-content collapsed out">
@@ -40,6 +47,8 @@
                     <i class="fa fa-link"></i> Ports Usage
                 </a></li>
 		
+               
+
                 <li class="sign-out"><a class="hot_link" href="/">
                     <i class="fa fa-sign-out"></i> Return to Pool
                 </a></li>
@@ -59,7 +68,7 @@
 <!-- Footer -->
 <footer>
     <div class="text-muted">
-        Powered by <a target="_blank" href="https://github.com/ahmyi/cryptonote-stellite-pool"><i class="fa fa-github"></i> cryptonote-stellite-pool</a>
+        <span tkey="poweredBy">Powered by</span> <a target="_blank" href="https://github.com/stellitecash/xtl-nodejs-pool"><i class="fa fa-github"></i>xtl-nodejs-pool</a>
         <span id="poolVersion"></span>
 	<span class="hidden-xs">open sourced under the <a href="http://www.gnu.org/licenses/gpl-2.0.html">GPL</a></span>
     </div>
@@ -67,9 +76,9 @@
 
 <!-- Javascript -->
 <script src="config.js"></script>
+<script src="js/common.js"></script>
 <script>
-$('#menu-content').collapse('hide');
-
+// Fetch pool statistics
 lastStats = {};
 $(function() {
     $.get(api + '/stats', function(data) {
@@ -78,87 +87,6 @@ $(function() {
         routePage();
     });
 });
-
-var docCookies = {
-    getItem: function(sKey) {
-        return decodeURIComponent(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*" + encodeURIComponent(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1")) || null;
-    },
-    setItem: function(sKey, sValue, vEnd, sPath, sDomain, bSecure) {
-        if(!sKey || /^(?:expires|max\-age|path|domain|secure)$/i.test(sKey)) {
-            return false;
-        }
-        var sExpires = "";
-        if(vEnd) {
-            switch(vEnd.constructor) {
-                case Number:
-                    sExpires = vEnd === Infinity ? "; expires=Fri, 31 Dec 9999 23:59:59 GMT" : "; max-age=" + vEnd;
-                    break;
-                case String:
-                    sExpires = "; expires=" + vEnd;
-                    break;
-                case Date:
-                    sExpires = "; expires=" + vEnd.toUTCString();
-                    break;
-            }
-        }
-        document.cookie = encodeURIComponent(sKey) + "=" + encodeURIComponent(sValue) + sExpires + (sDomain ? "; domain=" + sDomain : "") + (sPath ? "; path=" + sPath : "") + (bSecure ? "; secure" : "");
-        return true;
-    },
-    removeItem: function(sKey, sPath, sDomain) {
-        if(!sKey || !this.hasItem(sKey)) {
-            return false;
-        }
-        document.cookie = encodeURIComponent(sKey) + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT" + ( sDomain ? "; domain=" + sDomain : "") + ( sPath ? "; path=" + sPath : "");
-        return true;
-    },
-    hasItem: function(sKey) {
-        return (new RegExp("(?:^|;\\s*)" + encodeURIComponent(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=")).test(document.cookie);
-    }
-};
-
-function getReadableTime(seconds){
-    var units = [ [60, 'second'], [60, 'minute'], [24, 'hour'],
-                [7, 'day'], [4, 'week'], [12, 'month'], [1, 'year'] ];
-
-    function formatAmounts(amount, unit){
-        var rounded = Math.round(amount);
-        return '' + rounded + ' ' + unit + (rounded > 1 ? 's' : '');
-    }
-
-    var amount = seconds;
-    for (var i = 0; i < units.length; i++){
-        if (amount < units[i][0]) {
-            return formatAmounts(amount, units[i][1]);
-	}
-        amount = amount / units[i][0];
-    }
-    return formatAmounts(amount,  units[units.length - 1][1]);
-}
-
-function getReadableHashRateString(hashrate){
-    var i = 0;
-    var byteUnits = [' H', ' KH', ' MH', ' GH', ' TH', ' PH' ];
-    while (hashrate > 1000){
-        hashrate = hashrate / 1000;
-        i++;
-    }
-    if (hashrate > 0) hashrate = hashrate.toFixed(2);
-    return hashrate + byteUnits[i];
-}
-    
-function getReadableCoins(coins, digits, withoutSymbol){
-    var amount = (parseInt(coins || 0) / lastStats.config.coinUnits).toFixed(digits || lastStats.config.coinUnits.toString().length - 1);
-    return amount + (withoutSymbol ? '' : (' ' + lastStats.config.symbol));
-}
-
-function formatDate(time){
-    if (!time) return '';
-    return new Date(parseInt(time) * 1000).toLocaleString();
-}
-
-window.onhashchange = function() {
-    routePage();
-};
 
 function fetchLiveStats() {
     $.ajax({
@@ -174,6 +102,7 @@ function fetchLiveStats() {
     });
 }
 
+// Render template function
 function renderTemplate(usersData, templateId, view) {
     var source = $(templateId).html(),
         template = Handlebars.compile(source),
@@ -182,69 +111,6 @@ function renderTemplate(usersData, templateId, view) {
     $(view).html(html);
 }
 
-function sortTable() {
-    var table = $(this).parents('table').eq(0),
-        rows = table.find('tr:gt(0)').toArray().sort(comparer($(this).index()));
-    this.asc = !this.asc;
-    if(!this.asc) {
-        rows = rows.reverse()
-    }
-    for(var i = 0; i < rows.length; i++) {
-        table.append(rows[i])
-    }
-}
-
-function comparer(index) {
-    return function(a, b) {
-        var valA = getCellValue(a, index), valB = getCellValue(b, index);
-	if (!valA) { valA = 0; }
-	if (!valB) { valB = 0; }
-        return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB : valA.toString().localeCompare(valB.toString())
-    }
-}
-
-function getCellValue(row, index) {
-    return $(row).children('td').eq(index).data("sort")
-}
-
-var currentPage;
-var xhrPageLoading;
-
-function routePage(loadedCallback) {
-    if(currentPage && currentPage.destroy) {
-        currentPage.destroy();
-    }
-    $('#page').html('');
-    $('#loading').show();
-
-    if(xhrPageLoading) {
-        xhrPageLoading.abort();
-    }
-
-    $('.hot_link').parent().removeClass('active');
-    var $link = $('a.hot_link[href="' + (window.location.hash || '#') + '"]');
-
-    $link.parent().addClass('active');
-    var page = $link.data('page');
-
-    xhrPageLoading = $.ajax({
-        url: 'pages/' + page,
-        cache: false,
-        success: function(data) {
-            $('#loading').hide();
-            $('#page').show().html(data);
-            currentPage && currentPage.update && currentPage.update();
-            if(loadedCallback) {
-                loadedCallback();
-            }
-        }
-    });
-}
-
-$(function(){
-    $("head").append("<link rel='stylesheet' href=" + themeCss + ">");
-    $("head").append("<link rel='stylesheet' href=themes/admin.css>");
-});
 </script>
 
 </body>

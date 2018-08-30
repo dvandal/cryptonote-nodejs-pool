@@ -2,128 +2,155 @@
 <div id="blocksStats" class="row">
 
     <!-- Total Blocks Mined -->
-    <div class="col-lg-3 col-sm-4">
+    <div class="col-lg-2 col-md-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
             <div class="icon">
                 <span class="fa fa-cubes"></span>
             </div>
             <div class="content">
-                <div class="text">Total Blocks Mined</div>
-                <div class="value"><span id="blocksTotal"></span> <span class="smallText">(Last: <span id="lastBlockFound"></span>)</span></div>
+                <div class="text"><span tkey="blocksTotal">Total Blocks Mined</span></div>
+                <div class="value"><span id="blocksTotal">N/A</span> <span class="smallText">(<span id="lastBlockFound">Never</span>)</span></div>
             </div>
         </div>
     </div>
 
     <!-- Maturity Depth Requirement -->
-    <div class="col-lg-3 col-sm-4">
+    <div class="col-lg-2 col-md-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
             <div class="icon">
                 <span class="fa fa-unlock-alt"></span>
             </div>
             <div class="content">
-                <div class="text">Maturity Requirement</div>
-                <div class="value"><span id="blocksMaturityCount"></span></div>
+                <div class="text"><span tkey="blocksMaturityCount">Maturity Requirement</span></div>
+                <div class="value"><span id="blocksMaturityCount">N/A</span></div>
             </div>
         </div>
     </div>
 
-    <!-- Efficiency -->
-    <div class="col-lg-3 col-sm-4">
-        <div class="infoBox hoverExpandEffect">
-            <div class="icon">
-                <span class="fa fa-line-chart"></span>
-            </div>
-            <div class="content">
-                <div class="text">Efficiency</div>
-                <div class="value"><span id="efficiency"></span></div>
-            </div>
-        </div>
-    </div>
-    
     <!-- Average Luck -->
-    <div class="col-lg-3 col-sm-4">
+    <div class="col-lg-2 col-md-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
             <div class="icon">
-                <span class="fa fa-line-chart"></span>
+                <span class="fa fa-chart-line"></span>
             </div>
             <div class="content">
-                <div class="text">Average Luck</div>
-                <div class="value"><span id="averageLuck"></span></div>
+                <div class="text"><span tkey="averageLuck">Average Luck</span></div>
+                <div class="value"><span id="averageLuck">N/A</span></div>
             </div>
         </div>
     </div>
     
+     <!-- Current Effort -->
+    <div class="col-lg-2 col-md-3 col-sm-4">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-chart-line"></span>
+            </div>
+            <div class="content">
+                <div class="text"><span tkey="currentEffort">Current Effort</span></div>
+                <div class="value"><span id="currentEffort">N/A</span></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Avg Block -->
+    <div class="col-lg-2 col-md-3 col-sm-4">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-chart-line"></span>
+            </div>
+            <div class="content">
+                <div class="text"><span tkey="averageBlockDay">Avg Block Per Day</span></div>
+                <div class="value"><span id="averageBlockDay">N/A</span></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Average Income -->
+    <div class="col-lg-2 col-md-3 col-sm-4">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-chart-line"></span>
+            </div>
+            <div class="content">
+                <div class="text"><span tkey="averageIncomeDay">Avg Reward Per Day</span></div>
+                <div class="value"><span id="averageIncomeDay">N/A</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Chart -->
+<div id="blocksChart" class="card padding-15 padding-t-5 padding-b-5">
+    <h4 id="blocksChartTitle">Blocks found</h4>
+    <div class="chart" style="height:200px;">
+        <canvas id="blocksChartObj"></canvas>
+        <a class="chart-style"></a>
+    </div>
 </div>
 
 <!-- Report -->
-<div id="blocksReport" class="table-responsive">
-    <table class="table table-hover table-striped">
-        <thead>
-        <tr>
-            <th class="col1">Time Found</th>
-            <th class="col2">Reward</th>
-            <th class="col3">Height</th>
-            <th class="col4">Difficulty</th>
-            <th class="col5">Block Hash</th>
-            <th class="col6">Effort</th>
-            <th class="col7" title="How many more blocks network must mine before this block is matured">Status</th>
-        </tr>
-        </thead>
-        <tbody id="blocksReport_rows">
-        </tbody>
-    </table>
+<div class='row'>
+	<div class='col-sm-5'>
+		<h3><span tkey="currentBlockMiners">Current Block Miners</span></h3>
+		<div class="card">
+		    <div class="table-responsive">
+		        <table class="table table-striped">
+		            <thead>
+		            <tr>
+		                <th class="col1 sort">#</th>
+		                <th class="col2 sort"><span tkey="miner">Miner</span></th>
+		                <th class="col3 sort"><span tkey="hashRate">Hash Rate</span></th>
+		                <th class="col4 sort"><span tkey="totalHashes">Total Hashes Submitted</span></th>
+						<th class="col5 sort"><span tkey="roundShare">Round Shares (%)</span></th>
+		            </tr>
+		            </thead>
+		            <tbody id="currentBlockMiners"></tbody>
+		        </table>
+		    </div>
+		</div>
+	</div>
+	<div class='col-sm-7'>
+		<div class="card push-up-10">
+		    <div id="blocksReport" class="table-responsive">
+		        <table class="table table-hover table-striped">
+		            <thead>
+		            <tr>
+						<th class="col1"><span tkey="height">Height</span></th>
+		                <th class="col2"><span tkey="timeFound">Time Found</span></th>
+		                <th class="col3"><span tkey="reward">Reward</span></th>
+		                <th class="col4"><span tkey="difficulty">Difficulty</span></th>
+		                <th class="col5"><span tkey="blockHash">Block Hash</span></th>
+		                <th class="col6"><span tkey="effort">Effort</span></th>
+		                <th class="col7" title="How many more blocks network must mine before this block is matured"><span tkey="status">Status</span></th>
+		            </tr>
+		            </thead>
+		            <tbody id="blocksReport_rows">
+		            </tbody>
+		        </table>
+		    </div>
+		</div>
+		
+		<p class="text-center push-up-10">
+		    <button type="button" class="btn btn-default" id="loadMoreBlocks"><span tkey="loadMore">Load More</span></button>
+		</p>
+	</div>
+	
 </div>
 
-<p class="text-center">
-    <button type="button" class="btn btn-default" id="loadMoreBlocks">Load More</button>
-</p>
 
 <!-- Javascript -->
 <script>
-function formatLuck(difficulty, shares) {
-    // Only an approximation to reverse the calculations done in pool.js, because the shares with their respective times are not recorded in redis
-    // Approximation assumes equal pool hashrate for the whole round
-    // Could potentially be replaced by storing the sum of all job.difficulty in the redis db.
-    if (lastStats.config.slushMiningEnabled) {
-        // Uses integral calculus to calculate the average of a dynamic function
-        var accurateShares = 1/lastStats.config.blockTime * (  // 1/blockTime to get the average
-            shares * lastStats.config.weight * (                  // Basically calculates the 'area below the graph' between 0 and blockTime
-                1 - Math.pow( 
-                    Math.E, 
-                    ((- lastStats.config.blockTime) / lastStats.config.weight)  // blockTime is equal to the highest possible result of (dateNowSeconds - scoreTime)
-                )
-            )
-        );
-    }
-    else {
-        var accurateShares = shares;
-    }
-        
-    var percent = Math.round(accurateShares / difficulty * 100);
-    if(!percent){
-        return '<span class="luckGood">?</span>';
-    }
-    else if(percent <= 100){
-        return '<span class="luckGood">' + percent + '%</span>';
-    }
-    else if(percent >= 101 && percent <= 150){
-        return '<span class="luckMid">' + percent + '%</span>';
-    }
-    else{
-        return '<span class="luckBad">' + percent + '%</span>';
-    }    
-}
+// Hide blocks chart on load
+// $('#blocksChart').hide();
 
-function formatEfficiency(percent) {
-    return percent + '%';
-}
-
-    
+// Update current page
 currentPage = {
     destroy: function(){
         if (xhrGetBlocks) xhrGetBlocks.abort();
     },
     update: function(){
+    	updateText('currentEffort', (lastStats.pool.roundHashes / lastStats.network.difficulty * 100).toFixed(1) + '%');
         updateText('blocksTotal', lastStats.pool.totalBlocks.toString());
         if (lastStats.pool.lastBlockFound) {
             var d = new Date(parseInt(lastStats.pool.lastBlockFound)).toISOString();
@@ -134,29 +161,120 @@ currentPage = {
         }
         updateText('blocksMaturityCount', lastStats.config.depth.toString());
 
-        $('#efficiency').html(formatEfficiency(lastStats.pool.efficiency));
         $('#averageLuck').html(formatLuck(lastStats.pool.totalDiff, lastStats.pool.totalShares));
 
-        renderBlocks(lastStats.pool.blocks);	
+        if (lastStats.charts.blocks) {
+            generateChart(lastStats.charts.blocks);
+        }
+        renderBlocks(lastStats.pool.blocks);
+        // $('currentRoundMiners
+        renderCurrentRoundMiners(lastStats.pool.currentRoundMiners);
     }
 };
 
-var xhrGetBlocks;
-$('#loadMoreBlocks').click(function(){
-    if (xhrGetBlocks) xhrGetBlocks.abort();
-    xhrGetBlocks = $.ajax({
-        url: api + '/get_blocks',
+var renderCurrentRoundMiners = function(data){
+	var tr = document.getElementById("currentBlockMiners");
+	var html = "";
+	var row =
+		'<tr style="text-align:center;"><td class="col1">%ID%</td>' +
+    	'<td class="col1">%MINER%</td>' +
+        '<td class="col2">%HASHRATE%</td>' +
+        '<td class="col3">%HASHES%</td>' +
+        '<td class="col4">%PERCENT%</td></tr>';
+    var totalPoolScore = lastStats.pool.roundHashes;
+    for(var i in data){
+
+    	var percent = (data[i].roundHashes * 100/ totalPoolScore).toFixed(3);
+    	html += row
+    	.replace("%ID%",parseInt(i)+1)
+    	.replace("%MINER%",data[i].miner)
+    	.replace("%HASHRATE%",data[i].hashrate)
+    	.replace("%HASHES%",data[i].roundHashes)
+    	.replace("%PERCENT%",percent);
+    }
+    
+	tr.innerHTML = html;
+};
+
+// Chart
+var displayedChart = false;
+function generateChart(data) {
+    if (displayedChart || !data || data === "undefined") return ;
+
+    var chartDays = lastStats.config.blocksChartDays || null;
+    var title = getTranslation('poolBlocks') ? getTranslation('poolBlocks') : 'Blocks found';
+    if (chartDays) {
+        if (chartDays === 1) title = getTranslation('blocksFoundLast24') ? getTranslation('blocksFoundLast24') : 'Blocks found in the last 24 hours';
+        else title = getTranslation('blocksFoundLastDays') ? getTranslation('blocksFoundLastDays') : 'Blocks found in the last {DAYS} days';
+        title = title.replace('{DAYS}', chartDays);
+    }
+    updateText('blocksChartTitle', title);
+
+    var labels = [];
+    var values = [];
+	var avgDay = 0;
+    for (var key in data) {
+        var label = key;
+        if (chartDays && chartDays === 1) {
+            var keyParts = key.split(' ');
+            label = keyParts[1].replace(':00', '');
+        }
+        labels.push(label);
+        var value = data[key];
+        values.push(value);
+        avgDay+=value;
+    }
+    avgDay = Math.round(avgDay / lastStats.config.blocksChartDays);
+	updateText('averageBlockDay',avgDay);
+    var $chart = $('#blocksChartObj');
+    var bgcolor = null, bordercolor = null, borderwidth = null;
+    var colorelem = $chart.siblings('a.chart-style');
+    if (colorelem.length == 1) {
+        bgcolor = colorelem.css('background-color');
+        bordercolor = colorelem.css('border-left-color');
+        borderwidth = parseFloat(colorelem.css('width'));
+    }
+    if (bgcolor === null) bgcolor = 'rgba(3, 169, 244, .4)';
+    if (bordercolor === null) bordercolor = '#03a9f4';
+    if (borderwidth === null || isNaN(borderwidth)) borderwidth = 1;
+
+    var chart = new Chart(document.getElementById('blocksChartObj'), {
+        type: 'bar',
         data: {
-            height: $('#blocksReport_rows').children().last().data('height')
+            labels: labels,
+            datasets: [{
+                label: 'Blocks',
+                data: values,
+                fill: false,
+                backgroundColor: bgcolor,
+                borderColor: bordercolor,
+                borderWidth: borderwidth
+            }]
         },
-        dataType: 'json',
-        cache: 'false',
-        success: function(data){
-            renderBlocks(data);
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: { display: false },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        userCallback: function(label, index, labels) {
+                            if (Math.floor(label) === label) return label;
+                        }
+                    }
+                }],
+            },
+            layout: {
+                padding: { top: 0, left: 0, right: 0, bottom: 0 }
+            }
         }
     });
-});
+    $chart.show();
+    displayedChart = true;
+}
 
+// Parse block data
 function parseBlock(height, serializedBlock){
     var parts = serializedBlock.split(':');
     var block = {
@@ -169,7 +287,7 @@ function parseBlock(height, serializedBlock){
         reward: parts[5]
     };
 
-    var toGo = lastStats.config.depth - (lastStats.network.height - block.height);
+    var toGo = lastStats.config.depth - (lastStats.network.height - block.height) + 1;
     if(toGo > 1){
         block.maturity = toGo + ' to go';
     } 
@@ -179,7 +297,7 @@ function parseBlock(height, serializedBlock){
     else if(toGo <= 0){
         block.maturity = "<i class='fa fa-unlock-alt'></i>";
     }
-        
+
     switch (block.orphaned){
         case '0':
             block.status = 'unlocked';
@@ -197,6 +315,7 @@ function parseBlock(height, serializedBlock){
     return block;
 }
 
+// Get block row element
 function getBlockRowElement(block, jsonString){        
     function formatBlockLink(hash){
         return '<a target="_blank" href="' + getBlockchainUrl(hash) + '">' + hash + '</a>';
@@ -220,13 +339,13 @@ function getBlockRowElement(block, jsonString){
         reward = "Waiting...";
     }
     else{
-        reward = getReadableCoins(block.reward, 4, true);
+        reward = getReadableCoins(block.reward, null, true);
     }
     
     var columns =
-        '<td class="col1">' + formatDate(block.time) + '</td>' +
-        '<td class="col2">' + reward + '</td>' +
-        '<td class="col3">' + block.height + '</td>' +
+    	'<td class="col1">' + block.height + '</td>' +
+        '<td class="col2">' + formatDate(block.time) + '</td>' +
+        '<td class="col3">' + parseFloat(reward).toFixed(2) + '</td>' +
         '<td class="col4">' + block.difficulty + '</td>' +
         '<td class="col5">' + formatBlockLink(block.hash) + '</td>' +
         '<td class="col6" title="' + block.shares + ' shares submitted">' + formatLuck(block.difficulty, block.shares) + '</td>' +
@@ -237,18 +356,56 @@ function getBlockRowElement(block, jsonString){
     return row;
 }
 
+const summaries = [];
+// Render blocks
 function renderBlocks(blocksResults){
     var $blocksRows = $('#blocksReport_rows');
-
+	var incomes = {};
+	var pastDae = (new Date()).toLocaleDateString();
+	const summaryTR = "<tr style='font-weight:900;text-align:center;background:#e9dff1;' id='sum%ID%'>%TD%</tr>";
+	const summaryTD = "<td colspan='7' style='background:#e9dff1 !important;'>%DATE% we have mined %BLOCK% block(s) total reward of %REWARD% XTL</td>";
+	var blockCount =-1;
     for (var i = 0; i < blocksResults.length; i += 2){
+    	
         var block = parseBlock(blocksResults[i + 1], blocksResults[i]);
+    	var dIndex = formatDate(block.time).split(",")[0];
         var blockJson = JSON.stringify(block);
+    	
+    	if(block.orphaned == 0){
+        	if(!incomes[dIndex]){
+        		incomes[dIndex] = 0;
+        	}
+        	incomes[dIndex]+=parseFloat(block.reward);
+        	blockCount++;
+        }
         
+        if(pastDae != dIndex){
+        	var dated = "On "+pastDae;
+        	if((new Date()).toLocaleDateString() === pastDae){
+        		dated = "Today";
+        	}
+    		var sumID = pastDae.replace(new RegExp("/","g"),"_");
+
+    		var td = summaryTD
+	    			.replace("%REWARD%",parseFloat(getReadableCoins(incomes[pastDae], null, true)).toFixed(2))
+	    			.replace("%BLOCK%",blockCount)
+	    			.replace("%DATE%",dated);
+			var sumRow = document.getElementById("sum"+sumID);
+    		if(sumRow){
+    			sumRow.innerHTML = td;
+    		}else{
+	    		$blocksRows.append(summaryTR.replace("%TD%",td).replace("%ID%",sumID));
+    		}
+        	
+        	blockCount=0;
+        	pastDae = dIndex;
+        }
+    	
+		
         var existingRow = document.getElementById('blockRow' + block.height);
         if (existingRow && existingRow.getAttribute('data-json') !== blockJson){
             $(existingRow).replaceWith(getBlockRowElement(block, blockJson));
-        }
-        else if (!existingRow){
+        } else if (!existingRow){
             var blockElement = getBlockRowElement(block, blockJson);
 
             var inserted = false;
@@ -265,6 +422,37 @@ function renderBlocks(blocksResults){
                 $blocksRows.append(blockElement);
             }
         }
+        
+        
+		
+        
+                        
+        
     }
+    var incomeValue = 0;
+    var incomeCount = 0;
+    for(var dae in incomes){
+    	var v = incomes[dae];
+    	incomeCount++;
+    	incomeValue+=v;
+    }
+    updateText("averageIncomeDay",parseFloat(getReadableCoins(incomeValue/incomeCount, null, true)).toFixed(2)+" XTL");
 }
+
+// Load more blocks button
+var xhrGetBlocks;
+$('#loadMoreBlocks').click(function(){
+    if (xhrGetBlocks) xhrGetBlocks.abort();
+    xhrGetBlocks = $.ajax({
+        url: api + '/get_blocks',
+        data: {
+            height: $('#blocksReport_rows').children().last().data('height')
+        },
+        dataType: 'json',
+        cache: 'false',
+        success: function(data){
+            renderBlocks(data);
+        }
+    });
+});
 </script>
