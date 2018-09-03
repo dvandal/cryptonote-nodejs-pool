@@ -238,8 +238,9 @@ function formatDifficulty(x) {
 
 // Format luck / current effort
 function formatLuck(difficulty, shares) {
-    var percent = Math.round(shares / difficulty * 100);
-    if(!percent){
+    var percent_raw = shares / difficulty * 100;
+    var percent = percent_raw < 9.5 ? Math.round(shares / difficulty * 1000) / 10 : Math.round(shares / difficulty * 100);
+    if(!shares){
         return '<span class="luckGood">?</span>';
     }
     else if(percent <= 100){
