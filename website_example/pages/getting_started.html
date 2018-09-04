@@ -68,7 +68,7 @@
 		    <h4 class="push-up-15">Community Donations</h4>
         	<div class="card padding-l-10 padding-r-10 community-donations">
             <div class="stats">
-                <div><i class="fa fa-hand-holding-heart"></i> Community donations (selected by either a port or the <code>%percent%</code> tag described above)
+                <div><i class="fa fa-hand-holding-heart"></i> Community donations (selected by <code><span class="customDonationDelimiter">%</span>percent<span class="customDonationDelimiter">%</span></code> tag described)
                     go to a Stellite community donation pool which uses the funds to advance Stellite.
 
                     <br /><br />
@@ -78,7 +78,8 @@
                     Note that donation levels are set per <i>address</i>, not per <i>worker</i>: if
                     you have multiple workers with conflicting donation levels there is no guarantee
                     of which one will be used.  
-                    <!--You can check your current donation level on the <a href="#worker_stats">Worker Statistics</a> page or on Telegram through the <a href="//t.me/graftdonationpoolbot">Graft Donation Pool Bot</a>.-->
+                    <br /><br />
+                    Donation Address : <span style='word-wrap: break-word;' id='donationAddress'></span>
                 </div>
             </div>
         </div>
@@ -303,6 +304,8 @@ currentPage = {
     destroy: function(){
     },
     update: function(){
+    	
+    	document.getElementById("donationAddress").innerHTML = lastStats.config.donations.address;
         var portsJson = JSON.stringify(lastStats.config.ports);
         if (lastPortsJson !== portsJson) {
             lastPortsJson = portsJson;

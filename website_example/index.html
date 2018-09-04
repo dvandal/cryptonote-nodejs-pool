@@ -6,8 +6,46 @@
 
     <title>Stellite Pool</title>
 
-   <link rel="icon" type="image/png" sizes="32x32" href="logo.png">
-   <link rel="icon" type="image/png" sizes="16x16" href="logo.png">
+    <meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="mobile-web-app-capable" content="yes">
+
+	
+	<link rel="manifest" href="https://xtlpool.com/manifest.json">
+	<link rel="icon" type="image/png" href="https://xtlpool.com/favicon/icon-16x16.png" sizes="16x16">
+	<link rel="icon" type="image/png" href="https://xtlpool.com/favicon/icon-32x32.png" sizes="32x32">
+	<link rel="icon" type="image/png" href="https://xtlpool.com/favicon/icon-96x96.png" sizes="96x96">
+	<link rel="icon" type="image/png" href="https://xtlpool.com/favicon/icon-144x144.png" sizes="128x128">
+	<link rel="icon" type="image/png" href="https://xtlpool.com/favicon/icon-144x144.png" sizes="144x144">
+	<link rel="icon" type="image/png" href="https://xtlpool.com/favicon/icon-192x192.png" sizes="192x192">
+	<link rel="icon" type="image/png" href="https://xtlpool.com/favicon/icon-196x196.png" sizes="196x196">
+	<link rel="apple-touch-icon" href="https://xtlpool.com/favicon/icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="https://xtlpool.com/favicon/icon-180x180.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="https://xtlpool.com/favicon/icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="167x167" href="https://xtlpool.com/favicon/icon-167x167.png">
+	
+	<meta name="theme-color" content="#06071D" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta property="og:title" content="Stellite Pool" />
+	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content="Stellite Pool" />
+	<meta property="og:url" content="https://xtlpool.com" />
+	<meta property="og:image" content="https://xtlpool.com/img/logo-large.png" />
+	<meta property="og:image:type" content="image/png" />
+	<meta property="og:image:alt" content="Stellite Pool Logo" />
+	<meta property="og:image:width" content="332" />
+	<meta property="og:image:height" content="331" />
+	<meta property="og:description" content="Community driven mining pool for the Stellite communities" />
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:site" content="@ahmyi" />
+	<meta name="twitter:creator" content="@ahmyi" />
+	<meta name="twitter:title" content="Stellite Pool" />
+	<meta name="twitter:description" content="Community driven mining pool for the Stellite communities" />
+	<meta name="twitter:image" content="https://xtlpool.com/img/logo-large.png" />
+
+
+   <link rel="icon" type="image/png" sizes="32x32" href="img/logo-large.png">
+   <link rel="icon" type="image/png" sizes="16x16" href="img/logo-large.png">
 
 	<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
@@ -51,7 +89,7 @@
                 </a></li>            
 
                 <li><a class="hot_link" data-page="top10miners.html" href="#top10miners">
-                    <i class="fa fa-trophy"></i> <span tkey="top10miners">Top 10 miners</span>
+                    <i class="fa fa-trophy"></i> <span tkey="top25miners">Top 25 miners</span>
                 </a></li>
 
                 <li><a class="hot_link" data-page="settings.html" href="#settings">
@@ -64,6 +102,14 @@
                 
                 <li><a class="hot_link" data-page="changelog.html" href="#changelog">
                     <i class="fa fa-road"></i> <span tkey="changelog">Change Log</span>
+                </a></li>
+                
+                <li><a class="hot_link" data-page="live.html" href="#networks">
+                    <i class="fa fa-sitemap"></i> <span tkey="network">Network</span>
+                </a></li>
+                
+                <li><a class="hot_link" href="daemon.html">
+                    <i class="fas fa-laptop-code"></i> <span>Daemon API</span>
                 </a></li>
 
             </ul>
@@ -94,9 +140,12 @@
         <span tkey="poweredBy">Powered by</span> <a target="_blank" href="https://github.com/stellitecoin/xtl-nodejs-pool"><i class="fab fa-github"></i>&nbsp;xtl-nodejs-pool</a>
         <span id="poolVersion"></span>
         <span class="hidden-xs"><span tkey="openSource">open sourced under the</span> <a href="http://www.gnu.org/licenses/gpl-2.0.html">GPL</a></span>
+        <span>Sound by </span><a target='_blank' href="https://notificationsounds.com">Notification Sounds</a>
     </div>
 </footer>
-
+<div style='display:none'>
+	 <audio id='blockAudioAlert' src="audio/gentle-alarm.ogg" type="audio/ogg" preload="auto"></audio>
+</div>
 <!-- Javascript -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.6.3/jquery.timeago.min.js"></script>
@@ -107,7 +156,7 @@
 <script src="lang/languages.js"></script>
 <script src="js/common.js"></script>
 <script src="js/custom.js"></script>
-<script src='js/script.js'></script>
+<script src='js/script.js?v1.4.1'></script>
 
 </body>
 </html>

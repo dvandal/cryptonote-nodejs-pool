@@ -1,0 +1,2711 @@
+<div class="site-wrap">
+    <!-- FULL WIDTH BLOCK -->
+        <section class="container full">
+                <div class="info-block text-adapt">
+                    <div>
+                        
+<p><!-- Do nothing for English --></p>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>This is a list of the monerod daemon RPC calls, their inputs and outputs, and examples of each.</p>
+
+<p>Many RPC calls use the daemon's JSON RPC interface while others use their own interfaces, as demonstrated below.</p>
+
+<p>Note: "<a data-tooltip="Atomic Units refer to the smallest fraction of 1 XMR." href="/resources/moneropedia/atomic-units.html">atomic units</a>" refer to the smallest fraction of 1 XMR according to the monerod implementation. <strong>1 XMR = 1e12 <a data-tooltip="Atomic Units refer to the smallest fraction of 1 XMR." href="/resources/moneropedia/atomic-units.html">atomic units</a>.</strong></p>
+
+<p>Note2: Guide updated as of network height of 1,562,465.</p>
+
+<h3 id="json-rpc-methods"><a href="#json-rpc-methods">JSON RPC Methods</a>:</h3>
+
+<ul>
+  <li><a href="#get_block_count">get_block_count</a></li>
+  <li><a href="#on_get_block_hash">on_get_block_hash</a></li>
+  <li><a href="#get_block_template">get_block_template</a></li>
+  <li><a href="#submit_block">submit_block</a></li>
+  <li><a href="#get_last_block_header">get_last_block_header</a></li>
+  <li><a href="#get_block_header_by_hash">get_block_header_by_hash</a></li>
+  <li><a href="#get_block_header_by_height">get_block_header_by_height</a></li>
+  <li><a href="#get_block_headers_range">get_block_headers_range</a></li>
+  <li><a href="#get_block">get_block</a></li>
+  <li><a href="#get_connections">get_connections</a></li>
+  <li><a href="#get_info">get_info</a></li>
+  <li><a href="#hard_fork_info">hard_fork_info</a></li>
+  <li><a href="#set_bans">set_bans</a></li>
+  <li><a href="#get_bans">get_bans</a></li>
+  <li><a href="#flush_txpool">flush_txpool</a></li>
+  <li><a href="#get_output_histogram">get_output_histogram</a></li>
+  <li><a href="#get_version">get_version</a></li>
+  <li><a href="#get_coinbase_tx_sum">get_coinbase_tx_sum</a></li>
+  <li><a href="#get_fee_estimate">get_fee_estimate</a></li>
+  <li><a href="#get_alternate_chains">get_alternate_chains</a></li>
+  <li><a href="#relay_tx">relay_tx</a></li>
+  <li><a href="#sync_info">sync_info</a></li>
+  <li><a href="#get_txpool_backlog">get_txpool_backlog</a></li>
+  <li><a href="#get_output_distribution">get_output_distribution</a></li>
+</ul>
+
+<h3 id="other-rpc-methods"><a href="#other-daemon-rpc-calls">Other RPC Methods</a>:</h3>
+
+<ul>
+  <li><a href="#get_height">/get_height</a></li>
+  <li><a href="#get_blocksbin">/get_blocks.bin</a></li>
+  <li><a href="#get_blocks_by_heightbin">/get_blocks_by_height.bin</a></li>
+  <li><a href="#get_hashesbin">/get_hashes.bin</a></li>
+  <li><a href="#get_o_indexesbin">/get_o_indexes.bin</a></li>
+  <li><a href="#get_random_outsbin">/get_random_outs.bin</a></li>
+  <li><a href="#get_outsbin">/get_outs.bin</a></li>
+  <li><a href="#get_random_rctoutsbin">/get_random_rctouts.bin</a></li>
+  <li><a href="#get_transactions">/get_transactions</a></li>
+  <li><a href="#get_alt_blocks_hashes">/get_alt_blocks_hashes</a></li>
+  <li><a href="#is_key_image_spent">/is_key_image_spent</a></li>
+  <li><a href="#send_raw_transaction">/send_raw_transaction</a></li>
+  <li><a href="#start_mining">/start_mining</a></li>
+  <li><a href="#stop_mining">/stop_mining</a></li>
+  <li><a href="#mining_status">/mining_status</a></li>
+  <li><a href="#save_bc">/save_bc</a></li>
+  <li><a href="#get_peer_list">/get_peer_list</a></li>
+  <li><a href="#set_log_hash_rate">/set_log_hash_rate</a></li>
+  <li><a href="#set_log_level">/set_log_level</a></li>
+  <li><a href="#set_log_categories">/set_log_categories</a></li>
+  <li><a href="#get_transaction_pool">/get_transaction_pool</a></li>
+  <li><a href="#get_transaction_pool_hashesbin">/get_transaction_pool_hashes.bin</a></li>
+  <li><a href="#get_transaction_pool_stats">/get_transaction_pool_stats</a></li>
+  <li><a href="#stop_daemon">/stop_daemon</a></li>
+  <li><a href="#get_info-not-json">/get_info (not JSON)</a></li>
+  <li><a href="#get_limit">/get_limit</a></li>
+  <li><a href="#set_limit">/set_limit</a></li>
+  <li><a href="#out_peers">/out_peers</a></li>
+  <li><a href="#in_peers">/in_peers</a></li>
+  <li><a href="#start_save_graph">/start_save_graph</a></li>
+  <li><a href="#stop_save_graph">/stop_save_graph</a></li>
+  <li><a href="#get_outs">/get_outs</a></li>
+  <li><a href="#update">/update</a></li>
+</ul>
+
+<hr>
+
+<h2 id="json-rpc-methods-1">JSON RPC Methods</h2>
+
+<p>The majority of monerod RPC calls use the daemon's <code class="highlighter-rouge">json_rpc</code> interface to request various bits of information. These methods all follow a similar structure, for example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>IP=127.0.0.1
+PORT=18081
+METHOD='get_block_header_by_height'
+ALIAS='getblockheaderbyheight'
+PARAMS='{"height":912345}'
+curl \
+    -X POST http://$IP:$PORT/json_rpc \
+    -d '{"jsonrpc":"2.0","id":"0","method":"'$METHOD'","params":'$PARAMS'}' \
+    -H 'Content-Type: application/json'
+</code></pre>
+</div>
+
+<p>Some methods include parameters, while others do not. Examples of each JSON RPC method follow.</p>
+
+<h3 id="get_block_count"><strong>get_block_count</strong></h3>
+
+<p>Look up how many blocks are in the longest chain known to the node.</p>
+
+<p>Alias: <em>getblockcount</em>.</p>
+
+<p>Inputs: <em>None</em>.</p>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>count</em> - unsigned int; Number of blocks in longest chain seen by the node.</li>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good.</li>
+</ul>
+
+<p>Example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"get_block_count"}' -H 'Content-Type: application/json'  
+
+{  
+  "id": "0",  
+  "jsonrpc": "2.0",  
+  "result": {  
+    "count": 993163,  
+    "status": "OK"  
+  }  
+}  
+</code></pre>
+</div>
+
+<h3 id="on_get_block_hash"><strong>on_get_block_hash</strong></h3>
+
+<p>Look up a block's hash by its height.</p>
+
+<p>Alias: <em>on_getblockhash</em>.</p>
+
+<p>Inputs:</p>
+
+<ul>
+  <li>block height (int array of length 1)</li>
+</ul>
+
+<p>Outputs:</p>
+
+<ul>
+  <li>block hash (string)</li>
+</ul>
+
+<p>Example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"on_get_block_hash","params":[912345]}' -H 'Content-Type: application/json'
+
+{
+  "id": "0",
+  "jsonrpc": "2.0",
+  "result": "e22cf75f39ae720e8b71b3d120a5ac03f0db50bba6379e2850975b4859190bc6"
+}
+</code></pre>
+</div>
+
+<h3 id="get_block_template"><strong>get_block_template</strong></h3>
+
+<p>Get a block template on which mining a new block.</p>
+
+<p>Alias: <em>getblocktemplate</em>.</p>
+
+<p>Inputs:</p>
+
+<ul>
+  <li><em>wallet_address</em> - string; Address of wallet to receive coinbase transactions if block is successfully mined.</li>
+  <li><em>reserve_size</em> - unsigned int; Reserve size.</li>
+</ul>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>blocktemplate_blob</em> - string; Blob on which to try to mine a new block.</li>
+  <li><em>blockhashing_blob</em> - string; Blob on which to try to find a valid nonce.</li>
+  <li><em>difficulty</em> - unsigned int; Difficulty of next block.</li>
+  <li><em>expected_reward</em> - unsigned int; Coinbase reward expected to be received if block is successfully mined.</li>
+  <li><em>height</em> - unsigned int; Height on which to mine.</li>
+  <li><em>prev_hash</em> - string; Hash of the most recent block on which to mine the next block.</li>
+  <li><em>reserved_offset</em> - unsigned int; Reserved offset.</li>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good.</li>
+  <li><em>untrusted</em> - boolean; States if the result is obtained using the bootstrap mode, and is therefore not trusted (<code class="highlighter-rouge">true</code>), or when the daemon is fully synced (<code class="highlighter-rouge">false</code>).</li>
+</ul>
+
+<p>Example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"get_block_template","params":{"wallet_address":"44GBHzv6ZyQdJkjqZje6KLZ3xSyN1hBSFAnLP6EAqJtCRVzMzZmeXTC2AHKDS9aEDTRKmo6a6o9r9j86pYfhCWDkKjbtcns","reserve_size":60}' -H 'Content-Type: application/json'
+
+{
+  "id": "0",
+  "jsonrpc": "2.0",
+  "result": {
+    "blockhashing_blob": "070786a498d705f8dc58791266179087907a2ff4cd883615216749b97d2f12173171c725a6f84a00000000fc751ea4a94c2f840751eaa36138eee66dda15ef554e7d6594395827994e31da10",
+    "blocktemplate_blob": "070786a498d705f8dc58791266179087907a2ff4cd883615216749b97d2f12173171c725a6f84a0000000002aeab5f01fff2aa5f01e0a9d0f2f08a01028fdb3d5b5a2c363d36ea17a4add99a23a3ec7935b4c3e1e0364fcc4295c7a2ef5f01f912b15f5d17c1539d4722f79d8856d8654c5af87f54cfb3a4ff7f6b512b2a08023c000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000f1755090c809421d69873c161e7969b8bf33cee3b451dd4859bfc244a705f0b4900498f804b6023e13fa023a0fb759e8b7c9a39506a21442bc47077beeedc6b78d34c4ebdae91bd96097ccc9a882bc5056568b0d2f1f06559368fea4acba8e745444e883e53156d5083c1fd260edf05292934c8b40c098b81fe4e261720bdd272b209e317247a1d2c55dc4718891af0d16273c5a610f36f382a3bf50f54808aaa6a508e51d4601dd0d8fbf8b3b1685066ce121666a1409e8ac7a4d673c1cc36d10b825f764af647441f53230518e4d2efbcf8791c6060912c76e90db4982a66d51bbd96290bbb34db8080b216c2940cec407260bf5e2c3a5ee280835f15298f0801e9d98c4d414792282fbc2c28c3e20bc0fcb1829b5c3ad8f8d20847be8fdb2a949fd96f0205fbd6d271c880c5d8c83e9813606cd803a44d377fdeae45bfa67112132af601e9b3b0613ba7dff2ec3d4b935c447b47bfe39f7b950981b2f4c66c0d853e2218f1f69229a9b608c3d98be09b6d4d640a9f6ff0e920dbacf7e58b59554c0b398b1ae4b1d497104b4e4e745d850eed7eddb8aa93437427bf442ae5beb22cbf10a8fa738ea38cfa5d86dfd30675d4be11a38016e36936fd5601e52643e8b8bc433702ea7ae6149309c95b898cc854850e73fe0b95c5b8879b7325ecd4",
+    "difficulty": 61043624293,
+    "expected_reward": 4771949057248,
+    "height": 1561970,
+    "prev_hash": "f8dc58791266179087907a2ff4cd883615216749b97d2f12173171c725a6f84a",
+    "reserved_offset": 129,
+    "status": "OK",
+    "untrusted": false
+  }
+}
+</code></pre>
+</div>
+
+<h3 id="submit_block"><strong>submit_block</strong></h3>
+
+<p>Submit a mined block to the network.</p>
+
+<p>Alias: <em>submitblock</em>.</p>
+
+<p>Inputs:</p>
+
+<ul>
+  <li>Block blob data - string</li>
+</ul>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>status</em> - string; Block submit status.</li>
+</ul>
+
+<h3 id="get_last_block_header"><strong>get_last_block_header</strong></h3>
+
+<p>Block header information for the most recent block is easily retrieved with this method. No inputs are needed.</p>
+
+<p>Alias: <em>getlastblockheader</em>.</p>
+
+<p>Inputs: <em>None</em>.</p>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>block_header</em> - A structure containing block header information.
+    <ul>
+      <li><em>block_size</em> - unsigned int; The block size in bytes.</li>
+      <li><em>depth</em> -  unsigned int; The number of blocks succeeding this block on the blockchain. A larger number means an older block.</li>
+      <li><em>difficulty</em> - unsigned int; The strength of the Monero network based on mining power.</li>
+      <li><em>hash</em> - string; The hash of this block.</li>
+      <li><em>height</em> - unsigned int; The number of blocks preceding this block on the blockchain.</li>
+      <li><em>major_version</em> - unsigned int; The major version of the monero protocol at this block height.</li>
+      <li><em>minor_version</em> - unsigned int; The minor version of the monero protocol at this block height.</li>
+      <li><em>nonce</em> - unsigned int; a cryptographic random one-time number used in mining a Monero block.</li>
+      <li><em>num_txes</em> - unsigned int; Number of transactions in the block, not counting the coinbase tx.</li>
+      <li><em>orphan_status</em> - boolean; Usually <code class="highlighter-rouge">false</code>. If <code class="highlighter-rouge">true</code>, this block is not part of the longest chain.</li>
+      <li><em>prev_hash</em> - string; The hash of the block immediately preceding this block in the chain.</li>
+      <li><em>reward</em> - unsigned int; The amount of new <a data-tooltip="Atomic Units refer to the smallest fraction of 1 XMR." href="/resources/moneropedia/atomic-units.html">atomic units</a> generated in this block and rewarded to the miner. Note: 1 XMR = 1e12 <a data-tooltip="Atomic Units refer to the smallest fraction of 1 XMR." href="/resources/moneropedia/atomic-units.html">atomic units</a>.</li>
+      <li><em>timestamp</em> - unsigned int; The unix time at which the block was recorded into the blockchain.</li>
+    </ul>
+  </li>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good.</li>
+  <li><em>untrusted</em> - boolean; States if the result is obtained using the bootstrap mode, and is therefore not trusted (<code class="highlighter-rouge">true</code>), or when the daemon is fully synced (<code class="highlighter-rouge">false</code>).</li>
+</ul>
+
+<p>In this example, the most recent block (1562023 at the time) is returned:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"get_last_block_header"}' -H 'Content-Type: application/json'
+
+{
+  "id": "0",
+  "jsonrpc": "2.0",
+  "result": {
+    "block_header": {
+      "block_size": 62774,
+      "depth": 0,
+      "difficulty": 60097900840,
+      "hash": "3a289b8fa88b10e2163826c230b45d79f2be37d14fa3153ee58ff8a427782d14",
+      "height": 1562023,
+      "major_version": 7,
+      "minor_version": 7,
+      "nonce": 3789681204,
+      "num_txes": 5,
+      "orphan_status": false,
+      "prev_hash": "743e5d0a26849efe27b96086f2c4ecc39a0bc744bf21473dad6710221aff6ac3",
+      "reward": 4724029079703,
+      "timestamp": 1525029411
+    },
+    "status": "OK",
+    "untrusted": false
+  }
+}
+</code></pre>
+</div>
+
+<h3 id="get_block_header_by_hash"><strong>get_block_header_by_hash</strong></h3>
+
+<p>Block header information can be retrieved using either a block's hash or height. This method includes a block's hash as an input parameter to retrieve basic information about the block.</p>
+
+<p>Alias: <em>getblockheaderbyhash</em>.</p>
+
+<p>Inputs:</p>
+
+<ul>
+  <li><em>hash</em> - string; The block's sha256 hash.</li>
+</ul>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>block_header</em> - A structure containing block header information. See <a href="#get_last_block_header">get_last_block_header</a>.</li>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good.</li>
+  <li><em>untrusted</em> - boolean; States if the result is obtained using the bootstrap mode, and is therefore not trusted (<code class="highlighter-rouge">true</code>), or when the daemon is fully synced (<code class="highlighter-rouge">false</code>).</li>
+</ul>
+
+<p>In this example, block 912345 is looked up by its hash:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"get_block_header_by_hash","params":{"hash":"e22cf75f39ae720e8b71b3d120a5ac03f0db50bba6379e2850975b4859190bc6"}}' -H 'Content-Type: application/json'
+
+{
+  "id": "0",
+  "jsonrpc": "2.0",
+  "result": {
+    "block_header": {
+      "block_size": 210,
+      "depth": 649717,
+      "difficulty": 815625611,
+      "hash": "e22cf75f39ae720e8b71b3d120a5ac03f0db50bba6379e2850975b4859190bc6",
+      "height": 912345,
+      "major_version": 1,
+      "minor_version": 2,
+      "nonce": 1646,
+      "num_txes": 0,
+      "orphan_status": false,
+      "prev_hash": "b61c58b2e0be53fad5ef9d9731a55e8a81d972b8d90ed07c04fd37ca6403ff78",
+      "reward": 7388968946286,
+      "timestamp": 1452793716
+    },
+    "status": "OK",
+    "untrusted": false
+  }
+}
+</code></pre>
+</div>
+
+<h3 id="get_block_header_by_height"><strong>get_block_header_by_height</strong></h3>
+
+<p>Similar to <a href="#get_block_header_by_hash">get_block_header_by_hash</a> above, this method includes a block's height as an input parameter to retrieve basic information about the block.</p>
+
+<p>Alias: <em>getblockheaderbyheight</em>.</p>
+
+<p>Inputs:</p>
+
+<ul>
+  <li><em>height</em> - unsigned int; The block's height.</li>
+</ul>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>block_header</em> - A structure containing block header information. See <a href="#get_last_block_header">get_last_block_header</a>.</li>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good.</li>
+  <li><em>untrusted</em> - boolean; States if the result is obtained using the bootstrap mode, and is therefore not trusted (<code class="highlighter-rouge">true</code>), or when the daemon is fully synced (<code class="highlighter-rouge">false</code>).</li>
+</ul>
+
+<p>In this example, block 912345 is looked up by its height (notice that the returned information is the same as in the previous example):</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"get_block_header_by_height","params":{"height":912345}}' -H 'Content-Type: application/json'
+
+{
+  "id": "0",
+  "jsonrpc": "2.0",
+  "result": {
+    "block_header": {
+      "block_size": 210,
+      "depth": 649721,
+      "difficulty": 815625611,
+      "hash": "e22cf75f39ae720e8b71b3d120a5ac03f0db50bba6379e2850975b4859190bc6",
+      "height": 912345,
+      "major_version": 1,
+      "minor_version": 2,
+      "nonce": 1646,
+      "num_txes": 0,
+      "orphan_status": false,
+      "prev_hash": "b61c58b2e0be53fad5ef9d9731a55e8a81d972b8d90ed07c04fd37ca6403ff78",
+      "reward": 7388968946286,
+      "timestamp": 1452793716
+    },
+    "status": "OK",
+    "untrusted": false
+  }
+}
+</code></pre>
+</div>
+
+<h3 id="get_block_headers_range"><strong>get_block_headers_range</strong></h3>
+
+<p>Similar to <a href="#get_block_header_by_height">get_block_header_by_height</a> above, but for a range of blocks. This method includes a starting block height and an ending block height as parameters to retrieve basic information about the range of blocks.</p>
+
+<p>Alias: <em>getblockheadersrange</em>.</p>
+
+<p>Inputs:</p>
+
+<ul>
+  <li><em>start_height</em> - unsigned int; The starting block's height.</li>
+  <li><em>end_height</em> - unsigned int; The ending block's height.</li>
+</ul>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>headers</em> - array of <code class="highlighter-rouge">block_header</code> (a structure containing block header information. See <a href="#get_last_block_header">get_last_block_header</a>).</li>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good.</li>
+  <li><em>untrusted</em> - boolean; States if the result is obtained using the bootstrap mode, and is therefore not trusted (<code class="highlighter-rouge">true</code>), or when the daemon is fully synced (<code class="highlighter-rouge">false</code>).</li>
+</ul>
+
+<p>In this example, blocks range from height 1545999 to 1546000 is looked up (notice that the returned informations are ascending order and that it is at the April 2018 network upgrade time):</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"get_block_headers_range","params":{"start_height":1545999,"end_height":1546000}}' -H 'Content-Type: application/json'
+
+{
+  "id": "0",
+  "jsonrpc": "2.0",
+  "result": {
+    "headers": [{
+      "block_size": 301413,
+      "depth": 16085,
+      "difficulty": 134636057921,
+      "hash": "86d1d20a40cefcf3dd410ff6967e0491613b77bf73ea8f1bf2e335cf9cf7d57a",
+      "height": 1545999,
+      "major_version": 6,
+      "minor_version": 6,
+      "nonce": 3246403956,
+      "num_txes": 20,
+      "orphan_status": false,
+      "prev_hash": "0ef6e948f77b8f8806621003f5de24b1bcbea150bc0e376835aea099674a5db5",
+      "reward": 5025593029981,
+      "timestamp": 1523002893
+    },{
+      "block_size": 13322,
+      "depth": 16084,
+      "difficulty": 134716086238,
+      "hash": "b408bf4cfcd7de13e7e370c84b8314c85b24f0ba4093ca1d6eeb30b35e34e91a",
+      "height": 1546000,
+      "major_version": 7,
+      "minor_version": 7,
+      "nonce": 3737164176,
+      "num_txes": 1,
+      "orphan_status": false,
+      "prev_hash": "86d1d20a40cefcf3dd410ff6967e0491613b77bf73ea8f1bf2e335cf9cf7d57a",
+      "reward": 4851952181070,
+      "timestamp": 1523002931
+    }],
+    "status": "OK",
+    "untrusted": false
+  }
+}
+</code></pre>
+</div>
+
+<h3 id="get_block"><strong>get_block</strong></h3>
+
+<p>Full block information can be retrieved by either block height or hash, like with the above block header calls. For full block information, both lookups use the same method, but with different input parameters.</p>
+
+<p>Alias: <em>getblock</em>.</p>
+
+<p>Inputs (pick one of the following):</p>
+
+<ul>
+  <li><em>height</em> - unsigned int; The block's height.</li>
+  <li><em>hash</em> - string; The block's hash.</li>
+</ul>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>blob</em> - string; Hexadecimal blob of block information.</li>
+  <li><em>block_header</em> - A structure containing block header information. See <a href="#get_last_block_header">get_last_block_header</a>.</li>
+  <li><em>json</em> - json string; JSON formatted block details:
+    <ul>
+      <li><em>major_version</em> - Same as in block header.</li>
+      <li><em>minor_version</em> - Same as in block header.</li>
+      <li><em>timestamp</em> - Same as in block header.</li>
+      <li><em>prev_id</em> - Same as <code class="highlighter-rouge">prev_hash</code> in block header.</li>
+      <li><em>nonce</em> - Same as in block header.</li>
+      <li><em>miner_tx</em> - Miner transaction information
+        <ul>
+          <li><em>version</em> - Transaction version number.</li>
+          <li><em>unlock_time</em> - The block height when the coinbase transaction becomes spendable.</li>
+          <li><em>vin</em> - List of transaction inputs:
+            <ul>
+              <li><em>gen</em> - Miner txs are coinbase txs, or "gen".
+                <ul>
+                  <li><em>height</em> - This block height, a.k.a. when the coinbase is generated.</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><em>vout</em> - List of transaction outputs. Each output contains:
+            <ul>
+              <li><em>amount</em> - The amount of the output, in <a data-tooltip="Atomic Units refer to the smallest fraction of 1 XMR." href="/resources/moneropedia/atomic-units.html">atomic units</a>.</li>
+              <li><em>target</em> -
+                <ul>
+                  <li><em>key</em> -</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><em>extra</em> - Usually called the "transaction ID" but can be used to include any random 32 byte/64 character hex string.</li>
+          <li><em>signatures</em> - Contain signatures of tx signers. Coinbased txs do not have signatures.</li>
+        </ul>
+      </li>
+      <li><em>tx_hashes</em> - List of hashes of non-coinbase transactions in the block. If there are no other transactions, this will be an empty list.</li>
+    </ul>
+  </li>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good.</li>
+  <li><em>untrusted</em> - boolean; States if the result is obtained using the bootstrap mode, and is therefore not trusted (<code class="highlighter-rouge">true</code>), or when the daemon is fully synced (<code class="highlighter-rouge">false</code>).</li>
+</ul>
+
+<p><strong>Look up by height:</strong></p>
+
+<p>In the following example, block 912345 is looked up by its height. Note that block 912345 does not have any non-coinbase transactions. (See the next example for a block with extra transactions):</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"get_block","params":{"height":912345}}' -H 'Content-Type: application/json'
+
+{
+  "id": "0",
+  "jsonrpc": "2.0",
+  "result": {
+    "blob": "0102f4bedfb405b61c58b2e0be53fad5ef9d9731a55e8a81d972b8d90ed07c04fd37ca6403ff786e0600000195d83701ffd9d73704ee84ddb42102378b043c1724c92c69d923d266fe86477d3a5ddd21145062e148c64c5767700880c0fc82aa020273733cbd6e6218bda671596462a4b062f95cfe5e1dbb5b990dacb30e827d02f280f092cbdd080247a5dab669770da69a860acde21616a119818e1a489bb3c4b1b6b3c50547bc0c80e08d84ddcb01021f7e4762b8b755e3e3c72b8610cc87b9bc25d1f0a87c0c816ebb952e4f8aff3d2b01fd0a778957f4f3103a838afda488c3cdadf2697b3d34ad71234282b2fad9100e02080000000bdfc2c16c00",
+    "block_header": {
+      "block_size": 210,
+      "depth": 649772,
+      "difficulty": 815625611,
+      "hash": "e22cf75f39ae720e8b71b3d120a5ac03f0db50bba6379e2850975b4859190bc6",
+      "height": 912345,
+      "major_version": 1,
+      "minor_version": 2,
+      "nonce": 1646,
+      "num_txes": 0,
+      "orphan_status": false,
+      "prev_hash": "b61c58b2e0be53fad5ef9d9731a55e8a81d972b8d90ed07c04fd37ca6403ff78",
+      "reward": 7388968946286,
+      "timestamp": 1452793716
+    },
+    "json": "{\n  \"major_version\": 1, \n  \"minor_version\": 2, \n  \"timestamp\": 1452793716, \n  \"prev_id\": \"b61c58b2e0be53fad5ef9d9731a55e8a81d972b8d90ed07c04fd37ca6403ff78\", \n  \"nonce\": 1646, \n  \"miner_tx\": {\n    \"version\": 1, \n    \"unlock_time\": 912405, \n    \"vin\": [ {\n        \"gen\": {\n          \"height\": 912345\n        }\n      }\n    ], \n    \"vout\": [ {\n        \"amount\": 8968946286, \n        \"target\": {\n          \"key\": \"378b043c1724c92c69d923d266fe86477d3a5ddd21145062e148c64c57677008\"\n        }\n      }, {\n        \"amount\": 80000000000, \n        \"target\": {\n          \"key\": \"73733cbd6e6218bda671596462a4b062f95cfe5e1dbb5b990dacb30e827d02f2\"\n        }\n      }, {\n        \"amount\": 300000000000, \n        \"target\": {\n          \"key\": \"47a5dab669770da69a860acde21616a119818e1a489bb3c4b1b6b3c50547bc0c\"\n        }\n      }, {\n        \"amount\": 7000000000000, \n        \"target\": {\n          \"key\": \"1f7e4762b8b755e3e3c72b8610cc87b9bc25d1f0a87c0c816ebb952e4f8aff3d\"\n        }\n      }\n    ], \n    \"extra\": [ 1, 253, 10, 119, 137, 87, 244, 243, 16, 58, 131, 138, 253, 164, 136, 195, 205, 173, 242, 105, 123, 61, 52, 173, 113, 35, 66, 130, 178, 250, 217, 16, 14, 2, 8, 0, 0, 0, 11, 223, 194, 193, 108\n    ], \n    \"signatures\": [ ]\n  }, \n  \"tx_hashes\": [ ]\n}",
+    "miner_tx_hash": "c7da3965f25c19b8eb7dd8db48dcd4e7c885e2491db77e289f0609bf8e08ec30",
+    "status": "OK",
+    "untrusted": false
+  }
+}
+</code></pre>
+</div>
+
+<p><strong>Look up by hash:</strong></p>
+
+<p>In the following example, block 993056 is looked up by its hash. Note that block 993056 has 3 non-coinbase transactions:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"get_block","params":{"hash":"510ee3c4e14330a7b96e883c323a60ebd1b5556ac1262d0bc03c24a3b785516f"}}' -H 'Content-Type: application/json'
+
+{
+  "id": "0",
+  "jsonrpc": "2.0",
+  "result": {
+    "blob": "0102a3978cb7050ea4af6547c05c965afc8df6d31509ff3105dc7ae6b10172521d77e09711fd6df407000001dcce3c01ffa0ce3c049da8bece070259e9d685b3484886bc7b47c133e6099ecdf212d5eaa16ce19cd58e8c3c1e590a80d88ee16f024c5e2f542d25513c46b9e3b7d40140a22d0ae5314bfcae492ad9f56fff8185f080d0b8e1981a0213dd8ffdac9e6a2f71e327dad65328198dc879a492d145eae72677c0703a351580c0f9decfae010262bda00341681dccbc066757862da593734395745bdfe1fdc89b5948c86a5d4c2b01b691851cf057b9c302a3dbca879e1cba4cc45061ca55aaa6e03cdc67ab9e455002080000000c617fdf160379c6b9f00db027bde151705aafe85c495883aae2597d5cb8e1adb2e0f3ae1d07d715db73331abc3ec588ef07c7bb195786a4724b08dff431b51ffa32a4ce899bb197066426c0ed89f0b431fe171f7fd62bc95dd29943daa7cf3585cf1fdfc99d",
+    "block_header": {
+      "block_size": 3981,
+      "depth": 569068,
+      "difficulty": 964985344,
+      "hash": "510ee3c4e14330a7b96e883c323a60ebd1b5556ac1262d0bc03c24a3b785516f",
+      "height": 993056,
+      "major_version": 1,
+      "minor_version": 2,
+      "nonce": 2036,
+      "num_txes": 3,
+      "orphan_status": false,
+      "prev_hash": "0ea4af6547c05c965afc8df6d31509ff3105dc7ae6b10172521d77e09711fd6d",
+      "reward": 6932043647005,
+      "timestamp": 1457720227
+    },
+    "json": "{\n  \"major_version\": 1, \n  \"minor_version\": 2, \n  \"timestamp\": 1457720227, \n  \"prev_id\": \"0ea4af6547c05c965afc8df6d31509ff3105dc7ae6b10172521d77e09711fd6d\", \n  \"nonce\": 2036, \n  \"miner_tx\": {\n    \"version\": 1, \n    \"unlock_time\": 993116, \n    \"vin\": [ {\n        \"gen\": {\n          \"height\": 993056\n        }\n      }\n    ], \n    \"vout\": [ {\n        \"amount\": 2043647005, \n        \"target\": {\n          \"key\": \"59e9d685b3484886bc7b47c133e6099ecdf212d5eaa16ce19cd58e8c3c1e590a\"\n        }\n      }, {\n        \"amount\": 30000000000, \n        \"target\": {\n          \"key\": \"4c5e2f542d25513c46b9e3b7d40140a22d0ae5314bfcae492ad9f56fff8185f0\"\n        }\n      }, {\n        \"amount\": 900000000000, \n        \"target\": {\n          \"key\": \"13dd8ffdac9e6a2f71e327dad65328198dc879a492d145eae72677c0703a3515\"\n        }\n      }, {\n        \"amount\": 6000000000000, \n        \"target\": {\n          \"key\": \"62bda00341681dccbc066757862da593734395745bdfe1fdc89b5948c86a5d4c\"\n        }\n      }\n    ], \n    \"extra\": [ 1, 182, 145, 133, 28, 240, 87, 185, 195, 2, 163, 219, 202, 135, 158, 28, 186, 76, 196, 80, 97, 202, 85, 170, 166, 224, 60, 220, 103, 171, 158, 69, 80, 2, 8, 0, 0, 0, 12, 97, 127, 223, 22\n    ], \n    \"signatures\": [ ]\n  }, \n  \"tx_hashes\": [ \"79c6b9f00db027bde151705aafe85c495883aae2597d5cb8e1adb2e0f3ae1d07\", \"d715db73331abc3ec588ef07c7bb195786a4724b08dff431b51ffa32a4ce899b\", \"b197066426c0ed89f0b431fe171f7fd62bc95dd29943daa7cf3585cf1fdfc99d\"\n  ]\n}",
+    "miner_tx_hash": "372395aeac5e5ad2c40b4c546b0bad00c4242fb2bd88e2e25f4e43231876f81e",
+    "status": "OK",
+    "tx_hashes": ["79c6b9f00db027bde151705aafe85c495883aae2597d5cb8e1adb2e0f3ae1d07","d715db73331abc3ec588ef07c7bb195786a4724b08dff431b51ffa32a4ce899b","b197066426c0ed89f0b431fe171f7fd62bc95dd29943daa7cf3585cf1fdfc99d"],
+    "untrusted": false
+  }
+}
+</code></pre>
+</div>
+
+<h3 id="get_connections"><strong>get_connections</strong></h3>
+
+<p>Retrieve information about incoming and outgoing connections to your node.</p>
+
+<p>Alias: <em>None</em>.</p>
+
+<p>Inputs: <em>None</em>.</p>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>connections</em> - List of all connections and their info:
+    <ul>
+      <li><em>address</em> - string; The peer's address, actually IPv4 &amp; port</li>
+      <li><em>avg_download</em> - unsigned int; Average bytes of data downloaded by node.</li>
+      <li><em>avg_upload</em> - unsigned int; Average bytes of data uploaded by node.</li>
+      <li><em>connection_id</em> - string; The connection ID</li>
+      <li><em>current_download</em> - unsigned int; Current bytes downloaded by node.</li>
+      <li><em>current_upload</em> - unsigned int; Current bytes uploaded by node.</li>
+      <li><em>height</em>- unsigned int; The peer height</li>
+      <li><em>host</em> - string; The peer host</li>
+      <li><em>incoming</em> - boolean; Is the node getting information from your node?</li>
+      <li><em>ip</em> - string; The node's IP address.</li>
+      <li><em>live_time</em> - unsigned int</li>
+      <li><em>local_ip</em> - boolean</li>
+      <li><em>localhost</em> - boolean</li>
+      <li><em>peer_id</em> - string; The node's ID on the network.</li>
+      <li><em>port</em> - string; The port that the node is using to connect to the network.</li>
+      <li><em>recv_count</em> - unsigned int</li>
+      <li><em>recv_idle_time</em> - unsigned int</li>
+      <li><em>send_count</em> - unsigned int</li>
+      <li><em>send_idle_time</em> - unsigned int</li>
+      <li><em>state</em> - string</li>
+      <li><em>support_flags</em> - unsigned int</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Following is an example of <code class="highlighter-rouge">get_connections</code> and it's return:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"get_connections"}' -H 'Content-Type: application/json'
+
+{
+  "id": "0",
+  "jsonrpc": "2.0",
+  "result": {
+    "connections": [{
+      "address": "173.90.69.136:62950",
+      "avg_download": 0,
+      "avg_upload": 2,
+      "connection_id": "083c301a3030329a487adb12ad981d2c",
+      "current_download": 0,
+      "current_upload": 2,
+      "height": 1562127,
+      "host": "173.90.69.136",
+      "incoming": true,
+      "ip": "173.90.69.136",
+      "live_time": 8,
+      "local_ip": false,
+      "localhost": false,
+      "peer_id": "c959fbfbed9e44fb",
+      "port": "62950",
+      "recv_count": 259,
+      "recv_idle_time": 8,
+      "send_count": 24342,
+      "send_idle_time": 8,
+      "state": "state_normal",
+      "support_flags": 0
+    },{
+    ...
+    }],
+    "status": "OK"
+  }
+}
+</code></pre>
+</div>
+
+<h3 id="get_info"><strong>get_info</strong></h3>
+
+<p>Retrieve general information about the state of your node and the network.</p>
+
+<p>Alias:</p>
+
+<ul>
+  <li><em>/get_info</em></li>
+  <li><em>/getinfo</em></li>
+</ul>
+
+<p>See other RPC Methods <a href="#get_info-not-json">/get_info (not JSON)</a></p>
+
+<p>Inputs: <em>None</em>.</p>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>alt_blocks_count</em> - unsigned int; Number of alternative blocks to main chain.</li>
+  <li><em>block_size_limit</em> - unsigned int; Maximum allowed block size</li>
+  <li><em>block_size_median</em> - unsigned int; Median block size of latest 100 blocks</li>
+  <li><em>bootstrap_daemon_address</em> - string; <a data-tooltip="A node to which a daemon connects to give immediate usability to wallets while syncing" href="/resources/moneropedia/bootstrap-node.html">bootstrap node</a> to give immediate usability to wallets while syncing by proxying RPC to it. (Note: the replies may be untrustworthy).</li>
+  <li><em>cumulative_difficulty</em> - unsigned int; Cumulative difficulty of all blocks in the blockchain.</li>
+  <li><em>difficulty</em> - unsigned int; Network difficulty (analogous to the strength of the network)</li>
+  <li><em>free_space</em> - unsigned int; Available disk space on the node.</li>
+  <li><em>grey_peerlist_size</em> - unsigned int; Grey Peerlist Size</li>
+  <li><em>height</em> - unsigned int; Current length of longest chain known to daemon.</li>
+  <li><em>height_without_bootstrap</em> - unsigned int; Current length of the local chain of the daemon.</li>
+  <li><em>incoming_connections_count</em> - unsigned int; Number of peers connected to and pulling from your node.</li>
+  <li><em>mainnet</em> - boolean; States if the node is on the mainnet (<code class="highlighter-rouge">true</code>) or not (<code class="highlighter-rouge">false</code>).</li>
+  <li><em>offline</em> - boolean; States if the node is offline (<code class="highlighter-rouge">true</code>) or online (<code class="highlighter-rouge">false</code>).</li>
+  <li><em>outgoing_connections_count</em> - unsigned int; Number of peers that you are connected to and getting information from.</li>
+  <li><em>rpc_connections_count</em> - unsigned int; Number of RPC client connected to the daemon (Including this RPC request).</li>
+  <li><em>stagenet</em> - boolean; States if the node is on the stagenet (<code class="highlighter-rouge">true</code>) or not (<code class="highlighter-rouge">false</code>).</li>
+  <li><em>start_time</em> - unsigned int; Start time of the daemon, as UNIX time.</li>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good.</li>
+  <li><em>target</em> - unsigned int; Current target for next proof of work.</li>
+  <li><em>target_height</em> - unsigned int; The height of the next block in the chain.</li>
+  <li><em>testnet</em> - boolean; States if the node is on the testnet (<code class="highlighter-rouge">true</code>) or not (<code class="highlighter-rouge">false</code>).</li>
+  <li><em>top_block_hash</em> - string; Hash of the highest block in the chain.</li>
+  <li><em>tx_count</em> - unsigned int; Total number of non-coinbase transaction in the chain.</li>
+  <li><em>tx_pool_size</em> - unsigned int; Number of transactions that have been broadcast but not included in a block.</li>
+  <li><em>untrusted</em> - boolean; States if the result is obtained using the bootstrap mode, and is therefore not trusted (<code class="highlighter-rouge">true</code>), or when the daemon is fully synced (<code class="highlighter-rouge">false</code>).</li>
+  <li><em>was_bootstrap_ever_used</em> - boolean; States if a bootstrap node has ever been used since the daemon started.</li>
+  <li><em>white_peerlist_size</em> - unsigned int; White Peerlist Size</li>
+</ul>
+
+<p>Following is an example <code class="highlighter-rouge">get_info</code> call and its return:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"get_info"}' -H 'Content-Type: application/json'
+
+{
+  "id": "0",
+  "jsonrpc": "2.0",
+  "result": {
+    "alt_blocks_count": 6,
+    "block_size_limit": 600000,
+    "block_size_median": 129017,
+    "bootstrap_daemon_address": "",
+    "cumulative_difficulty": 14121125493385685,
+    "difficulty": 60580751777,
+    "free_space": 138758750208,
+    "grey_peerlist_size": 4998,
+    "height": 1562168,
+    "height_without_bootstrap": 1562168,
+    "incoming_connections_count": 2,
+    "mainnet": true,
+    "offline": false,
+    "outgoing_connections_count": 8,
+    "rpc_connections_count": 2,
+    "stagenet": false,
+    "start_time": 1524751757,
+    "status": "OK",
+    "target": 120,
+    "target_height": 1562063,
+    "testnet": false,
+    "top_block_hash": "7a7ba647080844073fdd8e3a069e00554c773d6e6863354dba1dec45a43f5592",
+    "tx_count": 2759894,
+    "tx_pool_size": 755,
+    "untrusted": false,
+    "was_bootstrap_ever_used": false,
+    "white_peerlist_size": 1000
+  }
+}
+</code></pre>
+</div>
+
+<h3 id="hard_fork_info"><strong>hard_fork_info</strong></h3>
+
+<p>Look up information regarding hard fork voting and readiness.</p>
+
+<p>Alias: <em>None</em>.</p>
+
+<p>Inputs: <em>None</em>.</p>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>earliest_height</em> - unsigned int; Block height at which hard fork would be enabled if voted in.</li>
+  <li><em>enabled</em> - boolean; Tells if hard fork is enforced.</li>
+  <li><em>state</em> - unsigned int; Current hard fork state: 0 (There is likely a hard fork), 1 (An update is needed to fork properly), or 2 (Everything looks good).</li>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good.</li>
+  <li><em>threshold</em> - unsigned int; Minimum percent of votes to trigger hard fork. Default is 80.</li>
+  <li><em>version</em> - unsigned int; The major block version for the fork.</li>
+  <li><em>votes</em> - unsigned int; Number of votes towards hard fork.</li>
+  <li><em>voting</em> - unsigned int; Hard fork voting status.</li>
+  <li><em>window</em> - unsigned int; Number of blocks over which current votes are cast. Default is 10080 blocks.</li>
+</ul>
+
+<p>Example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"hard_fork_info"}' -H 'Content-Type: application/json'
+
+{
+  "id": "0",
+  "jsonrpc": "2.0",
+  "result": {
+    "earliest_height": 1009827,
+    "enabled": false,
+    "state": 2,
+    "status": "OK",
+    "threshold": 0,
+    "version": 1,
+    "votes": 7277,
+    "voting": 2,
+    "window": 10080
+  }
+}
+</code></pre>
+</div>
+
+<h3 id="set_bans"><strong>set_bans</strong></h3>
+
+<p>Ban another node by IP.</p>
+
+<p>Alias: <em>None</em>.</p>
+
+<p>Inputs:</p>
+
+<ul>
+  <li><em>bans</em> - A list of nodes to ban:
+    <ul>
+      <li><em>host</em> - string; Host to ban (IP in A.B.C.D form - will support I2P address in the future).</li>
+      <li><em>ip</em> - unsigned int; IP address to ban, in Int format.</li>
+      <li><em>ban</em> - boolean; Set <code class="highlighter-rouge">true</code> to ban.</li>
+      <li><em>seconds</em> - unsigned int; Number of seconds to ban node.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good.</li>
+</ul>
+
+<p>Examples:</p>
+
+<p><strong>banning by host</strong></p>
+
+<p>In the following example, host is banned with its IP address string-formatted as A.B.C.D:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"set_bans","params":{"bans":[{"host":"192.168.1.51","ban":true,"seconds":30}]}}' -H  'Content-Type: application/json'
+
+{
+  "id": "0",
+  "jsonrpc": "2.0",
+  "result": {
+    "status": "OK"
+  }
+}
+</code></pre>
+</div>
+
+<p><strong>banning by ip</strong></p>
+
+<p>In the following example, integer-formatted IP is banned:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"set_bans","params":{"bans":[{"ip":838969536,"ban":true,"seconds":30}]}}' -H  'Content-Type: application/json'
+
+{
+  "id": "0",
+  "jsonrpc": "2.0",
+  "result": {
+    "status": "OK"
+  }
+}
+</code></pre>
+</div>
+
+<h3 id="get_bans"><strong>get_bans</strong></h3>
+
+<p>Get list of banned IPs.</p>
+
+<p>Alias: <em>None</em>.</p>
+
+<p>Inputs: <em>None</em>.</p>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>bans</em> - List of banned nodes:
+    <ul>
+      <li><em>host</em> - string; Banned host (IP in A.B.C.D form).</li>
+      <li><em>ip</em> - unsigned int; Banned IP address, in Int format.</li>
+      <li><em>seconds</em> - unsigned int; Local Unix time that IP is banned until.</li>
+    </ul>
+  </li>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good.</li>
+</ul>
+
+<p>Example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"get_bans"}' -H 'Content-Type: application/json'
+
+{
+  "id": "0",
+  "jsonrpc": "2.0",
+  "result": {
+    "bans": [{
+      "host": "102.168.1.51",
+      "ip": 855746662,
+      "seconds": 22
+    },{
+      "host": "192.168.1.50",
+      "ip": 838969536,
+      "seconds": 28
+    }],
+    "status": "OK"
+  }
+}
+</code></pre>
+</div>
+
+<h3 id="flush_txpool"><strong>flush_txpool</strong></h3>
+
+<p>Flush tx ids from transaction pool</p>
+
+<p>Alias: <em>None</em>.</p>
+
+<p>Inputs:</p>
+
+<ul>
+  <li><em>txids</em> - array of strings; Optional, list of transactions IDs to flush from pool (all tx ids flushed if empty).</li>
+</ul>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good.</li>
+</ul>
+
+<p>Example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"flush_txpool","params":{"txids":["dc16fa8eaffe1484ca9014ea050e13131d3acf23b419f33bb4cc0b32b6c49308",""]}}' -H 'Content-Type: application/json'
+
+{
+  "id": "0",
+  "jsonrpc": "2.0",
+  "result": {
+    "status": "OK"
+  }
+}
+</code></pre>
+</div>
+
+<h3 id="get_output_histogram"><strong>get_output_histogram</strong></h3>
+
+<p>Get a histogram of output amounts. For all amounts (possibly filtered by parameters), gives the number of outputs on the chain for that amount.
+RingCT outputs counts as 0 amount.</p>
+
+<p>Inputs:</p>
+
+<ul>
+  <li><em>amounts</em> - list of unsigned int</li>
+  <li><em>min_count</em> - unsigned int</li>
+  <li><em>max_count</em> - unsigned int</li>
+  <li><em>unlocked</em> - boolean</li>
+  <li><em>recent_cutoff</em> - unsigned int</li>
+</ul>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>histogram</em> - list of histogram entries, in the following structure:
+    <ul>
+      <li><em>amount</em> - unsigned int; Output amount in <a data-tooltip="Atomic Units refer to the smallest fraction of 1 XMR." href="/resources/moneropedia/atomic-units.html">atomic units</a></li>
+      <li><em>total_instances</em> - unsigned int;</li>
+      <li><em>unlocked_instances</em> - unsigned int;</li>
+      <li><em>recent_instances</em> - unsigned int;</li>
+    </ul>
+  </li>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good.</li>
+  <li><em>untrusted</em> - boolean; States if the result is obtained using the bootstrap mode, and is therefore not trusted (<code class="highlighter-rouge">true</code>), or when the daemon is fully synced (<code class="highlighter-rouge">false</code>).</li>
+</ul>
+
+<p>Example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"get_output_histogram","params":{"amounts":[20000000000]}}' -H 'Content-Type: application/json'
+
+{
+  "id": "0",
+  "jsonrpc": "2.0",
+  "result": {
+    "histogram": [{
+      "amount": 20000000000,
+      "recent_instances": 0,
+      "total_instances": 381458,
+      "unlocked_instances": 0
+    }],
+    "status": "OK",
+    "untrusted": false
+  }
+}
+</code></pre>
+</div>
+
+<h3 id="get_coinbase_tx_sum"><strong>get_coinbase_tx_sum</strong></h3>
+
+<p>Get the coinbase ammount and the fees ammount for n last blocks starting at particular height</p>
+
+<p>Alias: <em>None</em>.</p>
+
+<p>Inputs:</p>
+
+<ul>
+  <li><em>height</em> - unsigned int; Block height from which getting the amounts</li>
+  <li><em>count</em> - unsigned int; number of blocks to include in the sum</li>
+</ul>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>emission_amount</em> - unsigned int; amount of coinbase reward in <a data-tooltip="Atomic Units refer to the smallest fraction of 1 XMR." href="/resources/moneropedia/atomic-units.html">atomic units</a></li>
+  <li><em>fee_amount</em> - unsigned int; amount of fees in <a data-tooltip="Atomic Units refer to the smallest fraction of 1 XMR." href="/resources/moneropedia/atomic-units.html">atomic units</a></li>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good.</li>
+</ul>
+
+<p>Example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"get_coinbase_tx_sum","params":{"height":1563078,"count":2}}' -H 'Content-Type: application/json'
+
+{
+  "id": "0",
+  "jsonrpc": "2.0",
+  "result": {
+    "emission_amount": 9387854817320,
+    "fee_amount": 83981380000,
+    "status": "OK"
+  }
+}
+</code></pre>
+</div>
+
+<h3 id="get_version"><strong>get_version</strong></h3>
+
+<p>Give the node current version</p>
+
+<p>Alias: <em>None</em>.</p>
+
+<p>Inputs: <em>None</em>.</p>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good.</li>
+  <li><em>untrusted</em> - boolean; States if the result is obtained using the bootstrap mode, and is therefore not trusted (<code class="highlighter-rouge">true</code>), or when the daemon is fully synced (<code class="highlighter-rouge">false</code>).</li>
+  <li><em>version</em> - unsigned int;</li>
+</ul>
+
+<p>Example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"get_version"}' -H 'Content-Type: application/json'
+
+{
+  "id": "0",
+  "jsonrpc": "2.0",
+  "result": {
+    "status": "OK",
+    "untrusted": false,
+    "version": 65555
+  }
+}
+</code></pre>
+</div>
+
+<h3 id="get_fee_estimate"><strong>get_fee_estimate</strong></h3>
+
+<p>Gives an estimation on fees per kB.</p>
+
+<p>Alias: <em>None</em>.</p>
+
+<p>Inputs:</p>
+
+<ul>
+  <li><em>grace_blocks</em> - unsigned int; Optional</li>
+</ul>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>fee</em> - unsigned int; Amount of fees estimated per kB in <a data-tooltip="Atomic Units refer to the smallest fraction of 1 XMR." href="/resources/moneropedia/atomic-units.html">atomic units</a></li>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good.</li>
+  <li><em>untrusted</em> - boolean; States if the result is obtained using the bootstrap mode, and is therefore not trusted (<code class="highlighter-rouge">true</code>), or when the daemon is fully synced (<code class="highlighter-rouge">false</code>).</li>
+</ul>
+
+<p>Example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"get_fee_estimate"}' -H 'Content-Type: application/json'
+
+{
+  "id": "0",
+  "jsonrpc": "2.0",
+  "result": {
+    "fee": 187610000,
+    "status": "OK",
+    "untrusted": false
+  }
+}
+</code></pre>
+</div>
+
+<h3 id="get_alternate_chains"><strong>get_alternate_chains</strong></h3>
+
+<p>Display alternative chains seen by the node.</p>
+
+<p>Alias: <em>None</em>.</p>
+
+<p>Inputs: <em>None</em>.</p>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>chains</em> - array of chains, the following structure:
+    <ul>
+      <li><em>block_hash</em> - string; the block hash of the first diverging block of this alternative chain.</li>
+      <li><em>difficulty</em> - unsigned int; the cumulative difficulty of all blocks in the alternative chain.</li>
+      <li><em>height</em> - unsigned int; the block height of the first diverging block of this alternative chain.</li>
+      <li><em>length</em> - unsigned int; the length in blocks of this alternative chain, after divergence.</li>
+    </ul>
+  </li>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good.</li>
+</ul>
+
+<p>Example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"get_alternate_chains"}' -H 'Content-Type: application/json'
+
+{
+  "id": "0",
+  "jsonrpc": "2.0",
+  "result": {
+    "chains": [{
+      "block_hash": "697cf03c89a9b118f7bdf11b1b3a6a028d7b3617d2d0ed91322c5709acf75625",
+      "difficulty": 14114729638300280,
+      "height": 1562062,
+      "length": 2
+    }],
+    "status": "OK"
+  }
+}
+</code></pre>
+</div>
+
+<h3 id="relay_tx"><strong>relay_tx</strong></h3>
+
+<p>Relay a list of transaction IDs.</p>
+
+<p>Alias: <em>None</em>.</p>
+
+<p>Inputs:</p>
+
+<ul>
+  <li><em>txids</em> - array of string; list of transaction IDs to relay</li>
+</ul>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good.</li>
+</ul>
+
+<p>Example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"relay_tx","params":{"txids":[9fd75c429cbe52da9a52f2ffc5fbd107fe7fd2099c0d8de274dc8a67e0c98613]}}' -H 'Content-Type: application/json'
+
+{
+  "id": "0",
+  "jsonrpc": "2.0",
+  "result": {
+    "status": "OK"
+  }
+}
+</code></pre>
+</div>
+
+<h3 id="sync_info"><strong>sync_info</strong></h3>
+
+<p>Get synchronisation informations</p>
+
+<p>Alias: <em>None</em>.</p>
+
+<p>Inputs: <em>None</em>.</p>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>height</em> - unsigned int;</li>
+  <li><em>peers</em> - array of peer structure, defined as follows:
+    <ul>
+      <li><em>info</em> - structure of connection info, as defined in <a href="#get_connections">get_connections</a></li>
+    </ul>
+  </li>
+  <li><em>spans</em> - array of span structure, defined as follows (optional, absent if node is fully synced):
+    <ul>
+      <li><em>connection_id</em> - string; Id of connection</li>
+      <li><em>nblocks</em> - unsigned int; number of blocks in that span</li>
+      <li><em>rate</em> - unsigned int; connection rate</li>
+      <li><em>remote_address</em> - string; peer address the node is downloading (or has downloaded) than span from</li>
+      <li><em>size</em> - unsigned int; total number of bytes in that span's blocks (including txes)</li>
+      <li><em>speed</em> - unsigned int; connection speed</li>
+      <li><em>start_block_height</em> - unsigned int; block height of the first block in that span</li>
+    </ul>
+  </li>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good.</li>
+  <li><em>target_height</em> - unsigned int; target height the node is syncing from (optional, absent if node is fully synced)</li>
+</ul>
+
+<p>Example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"sync_info"}' -H 'Content-Type: application/json'
+
+{
+  "id": "0",
+  "jsonrpc": "2.0",
+  "result": {
+    "height": 1563543,
+    "peers": [{
+      "info": {
+        "address": "70.109.53.128:60064",
+        "avg_download": 0,
+        "avg_upload": 5,
+        "connection_id": "204067223b9b3415c265dd25ad29ee48",
+        "current_download": 0,
+        "current_upload": 1,
+        "height": 1559975,
+        "host": "70.109.53.128",
+        "incoming": true,
+        "ip": "70.109.53.128",
+        "live_time": 38,
+        "local_ip": false,
+        "localhost": false,
+        "peer_id": "96b8545dbc7a8866",
+        "port": "60064",
+        "recv_count": 1580,
+        "recv_idle_time": 28,
+        "send_count": 203603,
+        "send_idle_time": 8,
+        "state": "state_normal",
+        "support_flags": 1
+      }
+    },{
+      "info": {
+        ...
+      }
+    },{
+      ...
+    },{
+      ...
+    },{
+      ...
+    }],
+    "status": "OK",
+    "target_height": 1564067
+  }
+}
+</code></pre>
+</div>
+
+<h3 id="get_txpool_backlog"><strong>get_txpool_backlog</strong></h3>
+
+<p>Get all transaction pool backlog</p>
+
+<p>Alias: <em>None</em>.</p>
+
+<p>Inputs: <em>None</em>.</p>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>backlog</em>: array of structures <em>tx_backlog_entry</em> (in binary form):
+    <ul>
+      <li><em>blob_size</em> - unsigned int (in binary form)</li>
+      <li><em>fee</em> - unsigned int (in binary form)</li>
+      <li><em>time_in_pool</em> - unsigned int (in binary form)</li>
+    </ul>
+  </li>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good.</li>
+  <li><em>untrusted</em> - boolean; States if the result is obtained using the bootstrap mode, and is therefore not trusted (<code class="highlighter-rouge">true</code>), or when the daemon is fully synced (<code class="highlighter-rouge">false</code>).</li>
+</ul>
+
+<p>Example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"get_txpool_backlog"}' -H 'Content-Type: application/json'
+
+{
+  "id": "0",
+  "jsonrpc": "2.0",
+  "result": {
+    "backlog": "...Binary...",
+    "status": "OK",
+    "untrusted": false
+  }
+}
+</code></pre>
+</div>
+
+<h3 id="get_output_distribution"><strong>get_output_distribution</strong></h3>
+
+<p>Alias: <em>None</em>.</p>
+
+<p>Inputs:</p>
+
+<ul>
+  <li><em>amounts</em> - array of unsigned int; amounts to look for</li>
+  <li><em>cumulative</em> - boolean; (optional, default is <code class="highlighter-rouge">false</code>) States if the result should be cumulative (<code class="highlighter-rouge">true</code>) or not (<code class="highlighter-rouge">false</code>)</li>
+  <li><em>from_height</em> - unsigned int; (optional, default is 0) starting height to check from</li>
+  <li><em>to_height</em> - unsigned int; (optional, default is 0) ending height to check up to</li>
+</ul>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>distributions</em> - array of structure distribution as follows:
+    <ul>
+      <li><em>amount</em> - unsigned int</li>
+      <li><em>base</em> - unsigned int</li>
+      <li><em>distribution</em> - array of unsigned int</li>
+      <li><em>start_height</em> - unsigned int</li>
+    </ul>
+  </li>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good.</li>
+</ul>
+
+<p>Example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"get_output_distribution","params":{"amounts":[628780000],"from_height":1462078}}' -H 'Content-Type: application/json'
+
+{
+  "id": "0",
+  "jsonrpc": "2.0",
+  "result": {
+    "distributions": [{
+      "amount": 2628780000,
+      "base": 0,
+      "distribution": "",
+      "start_height": 1462078
+    }],
+    "status": "OK"
+  }
+}
+</code></pre>
+</div>
+
+<hr>
+
+<h2 id="other-daemon-rpc-calls">Other Daemon RPC Calls</h2>
+
+<p>Not all daemon RPC calls use the JSON_RPC interface. This section gives examples of these calls.</p>
+
+<p>The data structure for these calls is different than the JSON RPC calls. Whereas the JSON RPC methods were called using the <code class="highlighter-rouge">/json_rpc</code> extension and specifying a method, these methods are called at their own extensions. For example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>IP=127.0.0.1
+PORT=18081
+METHOD='gettransactions'
+PARAMS='{"txs_hashes":["d6e48158472848e6687173a91ae6eebfa3e1d778e65252ee99d7515d63090408"]}'
+curl \
+	-X POST http://$IP:$PORT/$METHOD \
+	-d $PARAMS \
+	-H 'Content-Type: application/json'
+</code></pre>
+</div>
+
+<p>Note: It is recommended to use JSON RPC where such alternatives exist, rather than the following methods. For example, the recommended way to get a node's height is via the JSON RPC methods <a href="#getinfo">get_info</a> or <a href="#get_last_block_header">get_last_block_header</a>, rather than <a href="#getheight">getheight</a> below.</p>
+
+<p>For calls that end with <strong>.bin</strong>, the data is exchanged in the form of binary, serialized objects, as defined in the <a href="https://github.com/monero-project/monero/blob/master/src/rpc/core_rpc_server_commands_defs.h">Core RPC Server</a>.</p>
+
+<h3 id="get_height"><strong>/get_height</strong></h3>
+
+<p>Get the node's current height.</p>
+
+<p>Alias: <em>/getheight</em>.</p>
+
+<p>Inputs: <em>None</em>.</p>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>height</em> - unsigned int; Current length of longest chain known to daemon.</li>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good.</li>
+  <li><em>untrusted</em> - boolean; States if the result is obtained using the bootstrap mode, and is therefore not trusted (<code class="highlighter-rouge">true</code>), or when the daemon is fully synced (<code class="highlighter-rouge">false</code>).</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/get_height -H 'Content-Type: application/json'
+
+{
+  "height": 1564055,
+  "status": "OK",
+  "untrusted": false
+}
+</code></pre>
+</div>
+
+<h3 id="get_blocksbin"><strong>/get_blocks.bin</strong></h3>
+
+<p>Get all blocks info. Binary request.</p>
+
+<p>Alias: <em>/getblocks.bin</em>.</p>
+
+<p>Inputs:</p>
+
+<ul>
+  <li><em>block_ids</em> - binary array of hashes; first 10 blocks id goes sequential, next goes in pow(2,n) offset, like 2, 4, 8, 16, 32, 64 and so on, and the last one is always genesis block</li>
+  <li><em>start_height</em> - unsigned int</li>
+  <li><em>prune</em> - boolean</li>
+</ul>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>blocks</em> - array of block complete entries</li>
+  <li><em>current_height</em> - unsigned int</li>
+  <li><em>output_indices</em> - structure as follows:
+    <ul>
+      <li><em>indices</em> - array of tx output indices, structure as follows:
+        <ul>
+          <li><em>indices</em> - array of unsigned int</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><em>start_height</em> - unsigned int</li>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good.</li>
+  <li><em>untrusted</em> - boolean; States if the result is obtained using the bootstrap mode, and is therefore not trusted (<code class="highlighter-rouge">true</code>), or when the daemon is fully synced (<code class="highlighter-rouge">false</code>).</li>
+</ul>
+
+<!-- Cannot get this working
+Example:
+
+```
+$ curl -X POST http://127.0.0.1:18081/get_blocks.bin -d '{"block_ids":["d109a406528a7b44fef8bc03e75eaabb0f919f852884b43b550b8b3be80a49e7"],"start_height":1562062}' -H 'Content-Type: application/json'
+
+```
+--->
+
+<h3 id="get_blocks_by_heightbin"><strong>/get_blocks_by_height.bin</strong></h3>
+
+<p>Get blocks by height. Binary request.</p>
+
+<p>Alias: <em>/getblocks_by_height.bin</em>.</p>
+
+<p>Inputs:</p>
+
+<ul>
+  <li><em>heights</em> - array of unsigned int; list of block heights</li>
+</ul>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>blocks</em> - array of block complete entries</li>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good.</li>
+  <li><em>untrusted</em> - boolean; States if the result is obtained using the bootstrap mode, and is therefore not trusted (<code class="highlighter-rouge">true</code>), or when the daemon is fully synced (<code class="highlighter-rouge">false</code>).</li>
+</ul>
+
+<!-- Cannot get this working
+Example:
+
+```
+$ echo -e '\x7B\x22\x68\x65\x69\x67\x68\x74\x73\x22\x3A\x5B\x31\x35\x36\x34\x32\x34\x36\x5D\x7D\x' | curl -X POST --data-binary @- http://127.0.0.1:18081/get_blocks_by_height.bin
+$ echo -e '1564246' | curl -X POST --data-binary @- http://127.0.0.1:18081/get_blocks_by_height.bin
+curl -X POST http://127.0.0.1:18081/get_blocks_by_height.bin --data-binary '{"heights":[1564246]}'
+
+```
+--->
+
+<h3 id="get_hashesbin"><strong>/get_hashes.bin</strong></h3>
+
+<p>Get hashes. Binary request.</p>
+
+<p>Alias: <em>/gethashes.bin</em>.</p>
+
+<p>Inputs:</p>
+
+<ul>
+  <li><em>block_ids</em> - binary array of hashes; first 10 blocks id goes sequential, next goes in pow(2,n) offset, like 2, 4, 8, 16, 32, 64 and so on, and the last one is always genesis block</li>
+  <li><em>start_height</em> - unsigned int</li>
+</ul>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>current_height</em> - unsigned int</li>
+  <li><em>m_block_ids</em> - binary array of hashes; see <em>block_ids</em> above.</li>
+  <li><em>start_height</em> - unsigned int</li>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good.</li>
+  <li><em>untrusted</em> - boolean; States if the result is obtained using the bootstrap mode, and is therefore not trusted (<code class="highlighter-rouge">true</code>), or when the daemon is fully synced (<code class="highlighter-rouge">false</code>).</li>
+</ul>
+
+<!-- Cannot get this working
+Example:
+
+```
+$ curl -X POST http://127.0.0.1:18081/get_hashes.bin -d '{"block_ids":["d109a406528a7b44fef8bc03e75eaabb0f919f852884b43b550b8b3be80a49e7"],"start_height":1562062}' -H 'Content-Type: application/json'
+
+```
+--->
+
+<h3 id="get_o_indexesbin"><strong>/get_o_indexes.bin</strong></h3>
+
+<p>Get global outputs of transactions. Binary request.</p>
+
+<p>Alias: <em>None</em>.</p>
+
+<p>Inputs:</p>
+
+<ul>
+  <li><em>txid</em> - binary txid</li>
+</ul>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>o_indexes</em> - array of unsigned int; List of output indexes</li>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good.</li>
+  <li><em>untrusted</em> - boolean; States if the result is obtained using the bootstrap mode, and is therefore not trusted (<code class="highlighter-rouge">true</code>), or when the daemon is fully synced (<code class="highlighter-rouge">false</code>).</li>
+</ul>
+
+<!-- Cannot get this working
+Example:
+
+```
+$ curl -X POST http://127.0.0.1:18081/get_o_indexes.bin --data-binary '{"txid":"d6e48158472848e6687173a91ae6eebfa3e1d778e65252ee99d7515d63090408"}'
+
+```
+--->
+
+<h3 id="get_random_outsbin"><strong>/get_random_outs.bin</strong></h3>
+
+<p>Get a list of random outputs for a specific list of amounts. Binary request.</p>
+
+<p>Alias: <em>/getrandom_outs.bin</em>.</p>
+
+<p>Inputs:</p>
+
+<ul>
+  <li><em>amounts</em> - array of unsigned int; amounts to get random outputs for</li>
+  <li><em>outs_count</em> - unsigned int; Number of output to get</li>
+</ul>
+
+<p>Output:</p>
+
+<ul>
+  <li><em>outs</em> - array of structure <em>outs_for_amount</em> as follows:
+    <ul>
+      <li><em>amount</em> - unsigned int;</li>
+      <li><em>outs</em> - array of structure <em>out_entry</em> as follows:
+        <ul>
+          <li><em>global_amount_index</em> - unsigned int;</li>
+          <li><em>out_key</em> - public key;</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good.</li>
+  <li><em>untrusted</em> - boolean; States if the result is obtained using the bootstrap mode, and is therefore not trusted (<code class="highlighter-rouge">true</code>), or when the daemon is fully synced (<code class="highlighter-rouge">false</code>).</li>
+</ul>
+
+<!-- Cannot get this working
+Example:
+
+```
+$ curl -X POST http://127.0.0.1:18081/get_o_indexes.bin -d '{"txid":"d6e48158472848e6687173a91ae6eebfa3e1d778e65252ee99d7515d63090408"}' -H 'Content-Type: application/json'
+
+```
+--->
+
+<h3 id="get_outsbin"><strong>/get_outs.bin</strong></h3>
+
+<p>Get outputs. Binary request.</p>
+
+<p>Alias: <em>None</em>.</p>
+
+<p>Inputs:</p>
+
+<ul>
+  <li><em>outputs</em> - array of structure <em>get_outputs_out</em> as follows:
+    <ul>
+      <li><em>amount</em> - unsigned int;</li>
+      <li><em>index</em> - unsigned int;</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>outs</em> - array of structure <em>outkey</em> as follows:
+    <ul>
+      <li><em>amount</em> - unsigned int;</li>
+      <li><em>height</em> - unsigned int; block height of the output</li>
+      <li><em>key</em> - the public key of the output</li>
+      <li><em>mask</em></li>
+      <li><em>txid</em> - transaction id</li>
+      <li><em>unlocked</em> - boolean; States if output is locked (<code class="highlighter-rouge">false</code>) or not (<code class="highlighter-rouge">true</code>)</li>
+    </ul>
+  </li>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good.</li>
+  <li><em>untrusted</em> - boolean; States if the result is obtained using the bootstrap mode, and is therefore not trusted (<code class="highlighter-rouge">true</code>), or when the daemon is fully synced (<code class="highlighter-rouge">false</code>).</li>
+</ul>
+
+<!-- Cannot get this working
+Example:
+
+```
+$ curl -X POST http://127.0.0.1:18081/get_o_indexes.bin --data-binary '{"txid":"d6e48158472848e6687173a91ae6eebfa3e1d778e65252ee99d7515d63090408"}'
+
+```
+--->
+
+<h3 id="get_random_rctoutsbin"><strong>/get_random_rctouts.bin</strong></h3>
+
+<p>Get random RingCT outputs. Binary request.</p>
+
+<p>Alias: <em>/getrandom_rctouts.bin</em>.</p>
+
+<p>Inputs:</p>
+
+<ul>
+  <li><em>outs_count</em> - unsigned int; amount of RingCT output to get</li>
+</ul>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>outs</em> - array of structure <em>out_entry</em> as follows:
+    <ul>
+      <li><em>amount</em> - unsigned int;</li>
+      <li><em>commitment</em> - RingCT Key;</li>
+      <li><em>global_amount_index</em> - unsigned int;</li>
+      <li><em>out_key</em> - public key;</li>
+    </ul>
+  </li>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good.</li>
+  <li><em>untrusted</em> - boolean; States if the result is obtained using the bootstrap mode, and is therefore not trusted (<code class="highlighter-rouge">true</code>), or when the daemon is fully synced (<code class="highlighter-rouge">false</code>).</li>
+</ul>
+
+<!-- Cannot get this working
+Example:
+
+```
+$ curl -X POST http://127.0.0.1:18081/get_random_rctouts.bin -d '{"outs_count":7}' -H 'Content-Type: application/json'
+
+```
+--->
+
+<h3 id="get_transactions"><strong>/get_transactions</strong></h3>
+
+<p>Look up one or more transactions by hash.</p>
+
+<p>Alias: <em>/gettransactions</em>.</p>
+
+<p>Inputs:</p>
+
+<ul>
+  <li><em>txs_hashes</em> - string list; List of transaction hashes to look up.</li>
+  <li><em>decode_as_json</em> - boolean; Optional (<code class="highlighter-rouge">false</code> by default). If set <code class="highlighter-rouge">true</code>, the returned transaction information will be decoded rather than binary.</li>
+  <li><em>prune</em> - boolean; Optional (<code class="highlighter-rouge">false</code> by default).</li>
+</ul>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>missed_tx</em> - array of strings. (Optional - returned if not empty) Transaction hashes that could not be found.</li>
+  <li><em>status</em> - General RPC error code. "OK" means everything looks good.</li>
+  <li><em>txs</em> - array of structure <em>entry</em> as follows:
+    <ul>
+      <li><em>as_hex</em> - string; Full transaction information as a hex string.</li>
+      <li><em>as_json</em> - json string; List of transaction info:
+        <ul>
+          <li><em>version</em> - Transaction version</li>
+          <li><em>unlock_time</em> - If not 0, this tells when a transaction output is spendable.</li>
+          <li><em>vin</em> - List of inputs into transaction:
+            <ul>
+              <li><em>key</em> - The public key of the previous output spent in this transaction.
+                <ul>
+                  <li><em>amount</em> - The amount of the input, in <a data-tooltip="Atomic Units refer to the smallest fraction of 1 XMR." href="/resources/moneropedia/atomic-units.html">atomic units</a>.</li>
+                  <li><em>key_offsets</em> - A list of integer offets to the input.</li>
+                  <li><em>k_image</em> - The key image for the given input</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><em>vout</em> - List of outputs from transaction:
+            <ul>
+              <li><em>amount</em> - Amount of transaction output, in <a data-tooltip="Atomic Units refer to the smallest fraction of 1 XMR." href="/resources/moneropedia/atomic-units.html">atomic units</a>.</li>
+              <li><em>target</em> - Output destination information:
+                <ul>
+                  <li><em>key</em> - The stealth public key of the receiver. Whoever owns the private key associated with this key controls this transaction output.</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><em>extra</em> - Usually called the "payment ID" but can be used to include any random 32 bytes.</li>
+          <li><em>signatures</em> - List of signatures used in ring signature to hide the true origin of the transaction.</li>
+        </ul>
+      </li>
+      <li><em>block_height</em> - unsigned int; block height including the transaction</li>
+      <li><em>block_timestamp</em> - unsigned int; Unix time at chich the block has been added to the blockchain</li>
+      <li><em>double_spend_seen</em> - boolean; States if the transaction is a double-spend (<code class="highlighter-rouge">true</code>) or not (<code class="highlighter-rouge">false</code>)</li>
+      <li><em>in_pool</em> - boolean; States if the transaction is in pool (<code class="highlighter-rouge">true</code>) or included in a block (<code class="highlighter-rouge">false</code>)</li>
+      <li><em>output_indices</em> - array of unsigned int; transaction indexes</li>
+      <li><em>tx_hash</em> - string; transaction hash</li>
+    </ul>
+  </li>
+  <li><em>txs_as_hex</em> - string; Full transaction information as a hex string (old compatibility parameter)</li>
+  <li><em>txs_as_json</em> - json string; (Optional - returned if set in inputs. Old compatibility parameter) List of transaction as in <em>as_json</em> above:</li>
+</ul>
+
+<p>Example 1: Return transaction information in binary format.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/get_transactions -d '{"txs_hashes":["d6e48158472848e6687173a91ae6eebfa3e1d778e65252ee99d7515d63090408"]}' -H 'Content-Type: application/json'
+
+{
+  "status": "OK",
+  "txs": [{
+    "as_hex": "...",
+    "as_json": "",
+    "block_height": 993442,
+    "block_timestamp": 1457749396,
+    "double_spend_seen": false,
+    "in_pool": false,
+    "output_indices": [198769,418598,176616,50345,509],
+    "tx_hash": "d6e48158472848e6687173a91ae6eebfa3e1d778e65252ee99d7515d63090408"
+  }],
+  "txs_as_hex": ["..."],
+  "untrusted": false
+}
+</code></pre>
+</div>
+
+<p>Example 2: Decode returned transaction information in JSON format. Note: the "vin", "vout" and "signatures" list have been truncated in the displayed return for space considerations.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/get_transactions -d '{"txs_hashes":["d6e48158472848e6687173a91ae6eebfa3e1d778e65252ee99d7515d63090408"],"decode_as_json":true}' -H 'Content-Type: application/json'
+
+{
+  "status": "OK",
+  "txs": [{
+    "as_hex": "...",
+    "as_json": "{\n  \"version\": 1, \n  \"unlock_time\": 0, \n  \"vin\": [ {\n      \"key\": {\n        \"amount\": 9999999999, \n        \"key_offsets\": [ 691\n        ], \n        \"k_image\": \"6ebee1b651a8da723462b4891d471b990ddc226049a0866d3029b8e2f75b7012\"\n      }\n    }, {\n      \"key\": {\n        \"amount\": 9000000000000, \n        \"key_offsets\": [ 175760\n        ], \n        \"k_image\": \"200bd02b70ee707441a8863c5279b4e4d9f376dc97a140b1e5bc7d72bc508069\"\n      }\n    }, ... \n  ], \n  \"vout\": [ {\n      \"amount\": 60000000000, \n      \"target\": {\n        \"key\": \"8c792dea94dab48160e067fb681edd6247ba375281fbcfedc03cb970f3b98e2d\"\n      }\n    }, {\n      \"amount\": 700000000000, \n      \"target\": {\n        \"key\": \"1ab33e69737e157d23e33274c42793be06a8711670e73fa10ecebc604f87cc71\"\n      }\n    }, ... \n  ], \n  \"extra\": [ 1, 3, 140, 109, 156, 205, 47, 148, 153, 9, 17, 93, 83, 33, 162, 110, 152, 1, 139, 70, 121, 19, 138, 10, 44, 6, 55, 140, 242, 124, 143, 219, 172\n  ], \n  \"signatures\": [ \"fd82214a59c99d9251fa00126d353f9cf502a80d8993a6c223e3c802a40ab405555637f495903d3ba558312881e586d452e6e95826d8e128345f6c0a8f9f350e\", \"8c04ef50cf34afa3a9ec19c457143496f8cf7045ed869b581f9efa2f1d65e30f1cec5272b00e9c61a34bdd3c78cf82ae8ef4df3132f70861391069b9c255cd08\", ... ]\n}",
+    "block_height": 993442,
+    "block_timestamp": 1457749396,
+    "double_spend_seen": false,
+    "in_pool": false,
+    "output_indices": [198769,418598,176616,50345,509],
+    "tx_hash": "d6e48158472848e6687173a91ae6eebfa3e1d778e65252ee99d7515d63090408"
+  }],
+  "txs_as_hex": ["..."],
+  "txs_as_json": ["{\n  \"version\": 1, \n  \"unlock_time\": 0, \n  \"vin\": [ {\n      \"key\": {\n        \"amount\": 9999999999, \n        \"key_offsets\": [ 691\n        ], \n        \"k_image\": \"6ebee1b651a8da723462b4891d471b990ddc226049a0866d3029b8e2f75b7012\"\n      }\n    }, {\n      \"key\": {\n        \"amount\": 9000000000000, \n        \"key_offsets\": [ 175760\n        ], \n        \"k_image\": \"200bd02b70ee707441a8863c5279b4e4d9f376dc97a140b1e5bc7d72bc508069\"\n      }\n    }, ... \n  ], \n  \"vout\": [ {\n      \"amount\": 60000000000, \n      \"target\": {\n        \"key\": \"8c792dea94dab48160e067fb681edd6247ba375281fbcfedc03cb970f3b98e2d\"\n      }\n    }, {\n      \"amount\": 700000000000, \n      \"target\": {\n        \"key\": \"1ab33e69737e157d23e33274c42793be06a8711670e73fa10ecebc604f87cc71\"\n      }\n    }, ... \n  ], \n  \"extra\": [ 1, 3, 140, 109, 156, 205, 47, 148, 153, 9, 17, 93, 83, 33, 162, 110, 152, 1, 139, 70, 121, 19, 138, 10, 44, 6, 55, 140, 242, 124, 143, 219, 172\n  ], \n  \"signatures\": [ \"fd82214a59c99d9251fa00126d353f9cf502a80d8993a6c223e3c802a40ab405555637f495903d3ba558312881e586d452e6e95826d8e128345f6c0a8f9f350e\", \"8c04ef50cf34afa3a9ec19c457143496f8cf7045ed869b581f9efa2f1d65e30f1cec5272b00e9c61a34bdd3c78cf82ae8ef4df3132f70861391069b9c255cd08\", ... ]\n}"],
+  "untrusted": false
+}
+</code></pre>
+</div>
+
+<p>Example 3: Returned a missed (unexisting) transaction.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>curl -X POST http://127.0.0.1:18081/get_transactions -d '{"txs_hashes":["d6e48158472848e6687173a91ae6eebfa3e1d778e65252ee99d7515d63090409"]}' -H 'Content-Type: application/json'
+
+{
+  "missed_tx": ["d6e48158472848e6687173a91ae6eebfa3e1d778e65252ee99d7515d63090409"],
+  "status": "OK",
+  "untrusted": false
+}
+</code></pre>
+</div>
+
+<h3 id="get_alt_blocks_hashes"><strong>/get_alt_blocks_hashes</strong></h3>
+
+<p>Get the known blocks hashes which are not on the main chain.</p>
+
+<p>Alias: <em>None</em>.</p>
+
+<p>Inputs: <em>None</em></p>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>blks_hashes</em> - array of strings; list of alternative blocks hashes to main chain</li>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good.</li>
+  <li><em>untrusted</em> - boolean; States if the result is obtained using the bootstrap mode, and is therefore not trusted (<code class="highlighter-rouge">true</code>), or when the daemon is fully synced (<code class="highlighter-rouge">false</code>).</li>
+</ul>
+
+<p>Example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/get_alt_blocks_hashes -H 'Content-Type: application/json'
+
+{
+  "blks_hashes": ["9c2277c5470234be8b32382cdf8094a103aba4fcd5e875a6fc159dc2ec00e011","637c0e0f0558e284493f38a5fcca3615db59458d90d3a5eff0a18ff59b83f46f","6f3adc174a2e8082819ebb965c96a095e3e8b63929ad9be2d705ad9c086a6b1c","697cf03c89a9b118f7bdf11b1b3a6a028d7b3617d2d0ed91322c5709acf75625","d99b3cf3ac6f17157ac7526782a3c3b9537f89d07e069f9ce7821d74bd9cad0e","e97b62109a6303233dcd697fa8545c9fcbc0bf8ed2268fede57ddfc36d8c939c","70ff822066a53ad64b04885c89bbe5ce3e537cdc1f7fa0dc55317986f01d1788","b0d36b209bd0d4442b55ea2f66b5c633f522401f921f5a85ea6f113fd2988866"],
+  "status": "OK",
+  "untrusted": false
+}
+</code></pre>
+</div>
+
+<h3 id="is_key_image_spent"><strong>/is_key_image_spent</strong></h3>
+
+<p>Check if outputs have been spent using the key image associated with the output.</p>
+
+<p>Alias: <em>None</em>.</p>
+
+<p>Inputs:</p>
+
+<ul>
+  <li><em>key_images</em> - string list; List of key image hex strings to check.</li>
+</ul>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>spent_status</em> - unsigned int list; List of statuses for each image checked. Statuses are follows: 0 = unspent, 1 = spent in blockchain, 2 = spent in transaction pool</li>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good.</li>
+  <li><em>untrusted</em> - boolean; States if the result is obtained using the bootstrap mode, and is therefore not trusted (<code class="highlighter-rouge">true</code>), or when the daemon is fully synced (<code class="highlighter-rouge">false</code>).</li>
+</ul>
+
+<p>Example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/is_key_image_spent -d '{"key_images":["8d1bd8181bf7d857bdb281e0153d84cd55a3fcaa57c3e570f4a49f935850b5e3","7319134bfc50668251f5b899c66b005805ee255c136f0e1cecbb0f3a912e09d4"]}' -H 'Content-Type: application/json'
+
+{
+  "spent_status": [1,2],
+  "status": "OK"
+  "untrusted": false
+}
+</code></pre>
+</div>
+
+<h3 id="send_raw_transaction"><strong>/send_raw_transaction</strong></h3>
+
+<p>Broadcast a raw transaction to the network.</p>
+
+<p>Alias: <em>/sendrawtransaction</em>.</p>
+
+<p>Inputs:</p>
+
+<ul>
+  <li><em>tx_as_hex</em> - string; Full transaction information as hexidecimal string.</li>
+  <li><em>do_not_relay</em> - boolean; Stop relaying transaction to other nodes (default is <code class="highlighter-rouge">false</code>).</li>
+</ul>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>double_spend</em> - boolean;  Transaction is a double spend (<code class="highlighter-rouge">true</code>) or not (<code class="highlighter-rouge">false</code>).</li>
+  <li><em>fee_too_low</em> - boolean; Fee is too low (<code class="highlighter-rouge">true</code>) or OK (<code class="highlighter-rouge">false</code>).</li>
+  <li><em>invalid_input</em> - boolean; Input is invalid (<code class="highlighter-rouge">true</code>) or valid (<code class="highlighter-rouge">false</code>).</li>
+  <li><em>invalid_output</em> - boolean; Output is invalid (<code class="highlighter-rouge">true</code>) or valid (<code class="highlighter-rouge">false</code>).</li>
+  <li><em>low_mixin</em> - boolean; Mixin count is too low (<code class="highlighter-rouge">true</code>) or OK (<code class="highlighter-rouge">false</code>).</li>
+  <li><em>not_rct</em> - boolean; Transaction is a standard ring transaction (<code class="highlighter-rouge">true</code>) or a ring confidential transaction (<code class="highlighter-rouge">false</code>).</li>
+  <li><em>not_relayed</em> - boolean; Transaction was not relayed (<code class="highlighter-rouge">true</code>) or relayed (<code class="highlighter-rouge">false</code>).</li>
+  <li><em>overspend</em> - boolean; Transaction uses more money than available (<code class="highlighter-rouge">true</code>) or not (<code class="highlighter-rouge">false</code>).</li>
+  <li><em>reason</em> - string; Additional information. Currently empty or "Not relayed" if transaction was accepted but not relayed.</li>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good. Any other value means that something went wrong.</li>
+  <li><em>too_big</em> - boolean; Transaction size is too big (<code class="highlighter-rouge">true</code>) or OK (<code class="highlighter-rouge">false</code>).</li>
+  <li><em>untrusted</em> - boolean; States if the result is obtained using the bootstrap mode, and is therefore not trusted (<code class="highlighter-rouge">true</code>), or when the daemon is fully synced (<code class="highlighter-rouge">false</code>).</li>
+</ul>
+
+<p>Example (No return information included here.):</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/send_raw_transaction -d '{"tx_as_hex":"de6a3...", "do_not_relay":false}' -H 'Content-Type: application/json'
+</code></pre>
+</div>
+
+<h3 id="start_mining"><strong>/start_mining</strong></h3>
+
+<p>Start mining on the daemon.</p>
+
+<p>Alias: <em>None</em>.</p>
+
+<p>Inputs:</p>
+
+<ul>
+  <li><em>do_background_mining</em> - boolean; States if the mining should run in background (<code class="highlighter-rouge">true</code>) or foreground (<code class="highlighter-rouge">false</code>).</li>
+  <li><em>ignore_battery</em> - boolean; States if batery state (on laptop) should be ignored (<code class="highlighter-rouge">true</code>) or not (<code class="highlighter-rouge">false</code>).</li>
+  <li><em>miner_address</em> - string; Account address to mine to.</li>
+  <li><em>threads_count</em> - unsigned int; Number of mining thread to run.</li>
+</ul>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good. Any other value means that something went wrong.</li>
+</ul>
+
+<p>Example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/start_mining -d '{"do_background_mining":false,"ignore_battery":true,"miner_address":"47xu3gQpF569au9C2ajo5SSMrWji6xnoE5vhr94EzFRaKAGw6hEGFXYAwVADKuRpzsjiU1PtmaVgcjUJF89ghGPhUXkndHc","threads_count":1}' -H 'Content-Type: application/json'
+
+{
+  "status": "OK"
+}
+</code></pre>
+</div>
+
+<h3 id="stop_mining"><strong>/stop_mining</strong></h3>
+
+<p>Stop mining on the daemon.</p>
+
+<p>Alias: <em>None</em>.</p>
+
+<p>Inputs: <em>None</em>.</p>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good. Any other value means that something went wrong.</li>
+</ul>
+
+<p>Example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/stop_mining -H 'Content-Type: application/json'
+
+{
+  "status": "OK"
+}
+</code></pre>
+</div>
+
+<h3 id="mining_status"><strong>/mining_status</strong></h3>
+
+<p>Get the mining status of the daemon.</p>
+
+<p>Alias: <em>None</em>.</p>
+
+<p>Inputs: <em>None</em>.</p>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>active</em> - boolean; States if mining is enabled (<code class="highlighter-rouge">true</code>) or disabled (<code class="highlighter-rouge">false</code>).</li>
+  <li><em>address</em> - string; Account address daemon is mining to. Empty if not mining.</li>
+  <li><em>is_background_mining_enabled</em> - boolean; States if the mining is running in background (<code class="highlighter-rouge">true</code>) or foreground (<code class="highlighter-rouge">false</code>).</li>
+  <li><em>speed</em> - unsigned int; Mining power in hashes per seconds.</li>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good. Any other value means that something went wrong.</li>
+  <li><em>threads_count</em> - unsigned int; Number of running mining threads.</li>
+</ul>
+
+<p>Example while mining:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/mining_status -H 'Content-Type: application/json'
+
+{
+  "active": true,
+  "address": "47xu3gQpF569au9C2ajo5SSMrWji6xnoE5vhr94EzFRaKAGw6hEGFXYAwVADKuRpzsjiU1PtmaVgcjUJF89ghGPhUXkndHc",
+  "is_background_mining_enabled": false,
+  "speed": 20,
+  "status": "OK",
+  "threads_count": 1
+}
+</code></pre>
+</div>
+
+<p>Example while not mining:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/mining_status -H 'Content-Type: application/json'
+
+{
+  "active": false,
+  "address": "",
+  "is_background_mining_enabled": false,
+  "speed": 0,
+  "status": "OK",
+  "threads_count": 0
+}
+</code></pre>
+</div>
+
+<h3 id="save_bc"><strong>/save_bc</strong></h3>
+
+<p>Save the blockchain. The blockchain does not need saving and is always saved when modified, however it does a sync to flush the filesystem cache onto the disk for safety purposes against Operating System or Harware crashes.</p>
+
+<p>Alias: <em>None</em>.</p>
+
+<p>Inputs: <em>None</em>.</p>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good. Any other value means that something went wrong.</li>
+</ul>
+
+<p>Example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/save_bc -H 'Content-Type: application/json'
+
+{
+  "status": "OK"
+}
+</code></pre>
+</div>
+
+<h3 id="get_peer_list"><strong>/get_peer_list</strong></h3>
+
+<p>Get the known peers list.</p>
+
+<p>Alias: <em>None</em>.</p>
+
+<p>Inputs: <em>None</em>.</p>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>gray_list</em> - array of offline <em>peer</em> structure as follows:
+    <ul>
+      <li><em>host</em> - unsigned int; IP address in integer format</li>
+      <li><em>id</em> - string; Peer id</li>
+      <li><em>ip</em> - unsigned int; IP address in integer format</li>
+      <li><em>last_seen</em> - unsigned int; unix time at which the peer has been seen for the last time</li>
+      <li><em>port</em> - unsigned int; TCP port the peer is using to connect to monero network.</li>
+    </ul>
+  </li>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good. Any other value means that something went wrong.</li>
+  <li><em>white_list</em> - array of online <em>peer</em> structure, as above.</li>
+</ul>
+
+<p>Example (truncated lists):</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/get_peer_list -H 'Content-Type: application/json'
+
+{
+  "gray_list": [{
+    "host": "640304833",
+    "id": 5345237316225602120,
+    "ip": 640304833,
+    "last_seen": 1525540510,
+    "port": 18080
+  },{
+    "host": "2183731038",
+    "id": 14955030573998424430,
+    "ip": 2183731038,
+    "last_seen": 1525540499,
+    "port": 28080
+  }, ...
+  ],
+  "status": "OK",
+  "white_list": [{
+    "host": "1221637955",
+    "id": 10354694710033118926,
+    "ip": 1221637955,
+    "last_seen": 1525540511,
+    "port": 18080
+  },{
+    "host": "1780407354",
+    "id": 17193661050352240890,
+    "ip": 1780407354,
+    "last_seen": 1525540510,
+    "port": 18080
+  }, ...
+  ]
+}
+</code></pre>
+</div>
+
+<h3 id="set_log_hash_rate"><strong>/set_log_hash_rate</strong></h3>
+
+<p>Set the log hash rate display mode.</p>
+
+<p>Alias: <em>None</em>.</p>
+
+<p>Inputs:</p>
+
+<ul>
+  <li><em>visible</em> - boolean; States if hash rate logs should be visible (<code class="highlighter-rouge">true</code>) or hidden (<code class="highlighter-rouge">false</code>)</li>
+</ul>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good. Any other value means that something went wrong.</li>
+</ul>
+
+<p>Example while mining:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/set_log_hash_rate -d '{"visible":true}' -H 'Content-Type: application/json'
+
+{
+  "status": "OK"
+}
+</code></pre>
+</div>
+
+<p>Error while not mining:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/set_log_hash_rate -d '{"visible":true}' -H 'Content-Type: application/json'
+
+{
+  "status": "NOT MINING"
+}
+</code></pre>
+</div>
+
+<h3 id="set_log_level"><strong>/set_log_level</strong></h3>
+
+<p>Set the daemon log level.
+By default, log level is set to <code class="highlighter-rouge">0</code>.</p>
+
+<p>Alias: <em>None</em>.</p>
+
+<p>Inputs:</p>
+
+<ul>
+  <li><em>level</em> - integer; daemon log level to set from <code class="highlighter-rouge">0</code> (less verbose) to <code class="highlighter-rouge">4</code> (most verbose)</li>
+</ul>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good. Any other value means that something went wrong.</li>
+</ul>
+
+<p>Example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/set_log_level -d '{"level":1}' -H 'Content-Type: application/json'
+
+{
+  "status": "OK"
+}
+</code></pre>
+</div>
+
+<h3 id="set_log_categories"><strong>/set_log_categories</strong></h3>
+
+<p>Set the daemon log categories.
+Categories are represented as a comma separated list of <code class="highlighter-rouge">&lt;Category&gt;:&lt;level&gt;</code> (similarly to syslog standard <code class="highlighter-rouge">&lt;Facility&gt;:&lt;Severity-level&gt;</code>), where:</p>
+<ul>
+  <li><em>Category</em>  is one of the following:
+    <ul>
+      <li><em>*</em> - All facilities</li>
+      <li><em>default</em></li>
+      <li><em>net</em></li>
+      <li><em>net.http</em></li>
+      <li><em>net.p2p</em></li>
+      <li><em>logging</em></li>
+      <li><em>net.throttle</em></li>
+      <li><em>blockchain.db</em></li>
+      <li><em>blockchain.db.lmdb</em></li>
+      <li><em>bcutil</em></li>
+      <li><em>checkpoints</em></li>
+      <li><em>net.dns</em></li>
+      <li><em>net.dl</em></li>
+      <li><em>i18n</em></li>
+      <li><em>perf</em></li>
+      <li><em>stacktrace</em></li>
+      <li><em>updates</em></li>
+      <li><em>account</em></li>
+      <li><em>cn</em></li>
+      <li><em>difficulty</em></li>
+      <li><em>hardfork</em></li>
+      <li><em>miner</em></li>
+      <li><em>blockchain</em></li>
+      <li><em>txpool</em></li>
+      <li><em>cn.block_queue</em></li>
+      <li><em>net.cn</em></li>
+      <li><em>daemon</em></li>
+      <li><em>debugtools.deserialize</em></li>
+      <li><em>debugtools.objectsizes</em></li>
+      <li><em>device.ledger</em></li>
+      <li><em>wallet.gen_multisig</em></li>
+      <li><em>multisig</em></li>
+      <li><em>bulletproofs</em></li>
+      <li><em>ringct</em></li>
+      <li><em>daemon.rpc</em></li>
+      <li><em>wallet.simplewallet</em></li>
+      <li><em>WalletAPI</em></li>
+      <li><em>wallet.ringdb</em></li>
+      <li><em>wallet.wallet2</em></li>
+      <li><em>wallet.rpc</em></li>
+      <li><em>tests.core</em></li>
+    </ul>
+  </li>
+  <li><em>Level</em> is one of the following:
+    <ul>
+      <li><em>FATAL</em> - higher level</li>
+      <li><em>ERROR</em></li>
+      <li><em>WARNING</em></li>
+      <li><em>INFO</em></li>
+      <li><em>DEBUG</em></li>
+      <li><em>TRACE</em> - lower level
+A level automatically includes higher level.
+By default, categories are set to <code class="highlighter-rouge">*:WARNING,net:FATAL,net.p2p:FATAL,net.cn:FATAL,global:INFO,verify:FATAL,stacktrace:INFO,logging:INFO,msgwriter:INFO</code>.
+Setting the categories to "" prevent any logs to be outputed.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Alias: <em>None</em>.</p>
+
+<p>Inputs:</p>
+
+<ul>
+  <li><em>categories</em> - string; Optional, daemon log categories to enable</li>
+</ul>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>categories</em> - string; daemon log enabled categories</li>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good. Any other value means that something went wrong.</li>
+</ul>
+
+<p>Example to set all facilities to Security Level <code class="highlighter-rouge">Info</code>:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/set_log_categories -d '{"categories": "*:INFO"}' -H 'Content-Type: application/json'
+
+{
+  "categories": "*:INFO",
+  "status": "OK"
+}
+</code></pre>
+</div>
+
+<p>Example without input to set the default categories:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/set_log_categories -H 'Content-Type: application/json'
+
+{
+  "categories": "*:WARNING,net:FATAL,net.p2p:FATAL,net.cn:FATAL,global:INFO,verify:FATAL,stacktrace:INFO,logging:INFO,msgwriter:INFO",
+  "status": "OK"
+}
+</code></pre>
+</div>
+
+<h3 id="get_transaction_pool"><strong>/get_transaction_pool</strong></h3>
+
+<p>Show information about valid transactions seen by the node but not yet mined into a block, as well as spent key image information for the txpool in the node's memory.</p>
+
+<p>Alias: <em>None</em>.</p>
+
+<p>Inputs: <em>None</em>.</p>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>spent_key_images</em> - List of spent output key images:
+    <ul>
+      <li><em>id_hash</em> - string; Key image.</li>
+      <li><em>txs_hashes</em> - string list; tx hashes of the txes (usually one) spending that key image.</li>
+    </ul>
+  </li>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good.</li>
+  <li><em>transactions</em> - List of transactions in the mempool are not in in a block on the main chain at the moment:
+    <ul>
+      <li><em>blob_size</em> - unsigned int; The size of the full transaction blob.</li>
+      <li><em>double_spend_seen</em> - boolean; States if this transaction has been seen as double spend.</li>
+      <li><em>do_not_relay</em>; boolean; States if this transaction should not be relayed</li>
+      <li><em>fee</em> - unsigned int; The amount of the mining fee included in the transaction, in <a data-tooltip="Atomic Units refer to the smallest fraction of 1 XMR." href="/resources/moneropedia/atomic-units.html">atomic units</a>.</li>
+      <li><em>id_hash</em> - string; The transaction ID hash.</li>
+      <li><em>kept_by_block</em> - boolean; States if the tx was included in a block at least once (<code class="highlighter-rouge">true</code>) or not (<code class="highlighter-rouge">false</code>).</li>
+      <li><em>last_failed_height</em> - unsigned int; If the transaction validation has previously failed, this tells at what height that occured.</li>
+      <li><em>last_failed_id_hash</em> - string; Like the previous, this tells the previous transaction ID hash.</li>
+      <li><em>last_relayed_time</em> - unsigned int; Last unix time at which the transaction has been relayed.</li>
+      <li><em>max_used_block_height</em> - unsigned int; Tells the height of the most recent block with an output used in this transaction.</li>
+      <li><em>max_used_block_hash</em> - string; Tells the hash of the most recent block with an output used in this transaction.</li>
+      <li><em>receive_time</em> - unsigned int; The Unix time that the transaction was first seen on the network by the node.</li>
+      <li><em>relayed</em> - boolean; States if this transaction has been relayed</li>
+      <li><em>tx_blob</em> - unsigned int; Hexadecimal blob represnting the transaction.</li>
+      <li><em>tx_json</em> - json string; JSON structure of all information in the transaction:
+        <ul>
+          <li><em>version</em> - Transaction version</li>
+          <li><em>unlock_time</em> - If not 0, this tells when a transaction output is spendable.</li>
+          <li><em>vin</em> - List of inputs into transaction:
+            <ul>
+              <li><em>key</em> - The public key of the previous output spent in this transaction.
+                <ul>
+                  <li><em>amount</em> - The amount of the input, in <a data-tooltip="Atomic Units refer to the smallest fraction of 1 XMR." href="/resources/moneropedia/atomic-units.html">atomic units</a>.</li>
+                  <li><em>key_offsets</em> - A list of integer offets to the input.</li>
+                  <li><em>k_image</em> - The key image for the given input</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><em>vout</em> - List of outputs from transaction:
+            <ul>
+              <li><em>amount</em> - Amount of transaction output, in <a data-tooltip="Atomic Units refer to the smallest fraction of 1 XMR." href="/resources/moneropedia/atomic-units.html">atomic units</a>.</li>
+              <li><em>target</em> - Output destination information:
+                <ul>
+                  <li><em>key</em> - The stealth public key of the receiver. Whoever owns the private key associated with this key controls this transaction output.</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><em>extra</em> - Usually called the "transaction ID" but can be used to include any random 32 bytes.</li>
+          <li><em>rct_signatures</em> - Ring signatures:
+            <ul>
+              <li><em>type</em></li>
+              <li><em>txnFee</em></li>
+              <li><em>ecdhInfo</em> - array of Diffie Helman Elipctic curves structures as follows:
+                <ul>
+                  <li><em>mask</em> - String</li>
+                  <li><em>amount</em> - String</li>
+                </ul>
+              </li>
+              <li><em>outPk</em></li>
+            </ul>
+          </li>
+          <li><em>rctsig_prunable</em>
+            <ul>
+              <li><em>rangeSigs</em> - array of structures as follows:
+                <ul>
+                  <li><em>asig</em></li>
+                  <li><em>Ci</em></li>
+                </ul>
+              </li>
+              <li><em>MGs</em> - array of structures as follows:
+                <ul>
+                  <li><em>ss</em> - array of arrays of two strings.</li>
+                  <li><em>cc</em> - String</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>Example (Note: Some lists in the returned information have been truncated for display reasons):</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/get_transaction_pool -H 'Content-Type: application/json'
+
+{
+  "spent_key_images": [{
+    "id_hash": "a2af919609db4ff5ab8d4ba18502e647d521760e1cbc30288f06fa87bf9a0c1c",
+    "txs_hashes": ["1ee6a4873b638711795fc3b0b73fc7146505a09a7f4749534fd408d571a273cf"]
+  },{
+    "id_hash": "02d5f6559e9bca5ae5a335130aeeb05df2db518ab9837fa64ebbab276c100792",
+    "txs_hashes": ["531aacc0ceb8514cdde5f104285202ccc3e969c77584e3c6fa614c987c583965"]
+  },
+  ...],
+  "status": "OK",
+  "transactions": [{
+    "blob_size": 13193,
+    "do_not_relay": false,
+    "double_spend_seen": false,
+    "fee": 9694360000,
+    "id_hash": "f8fb875cfc9e2e59bcf96a42474c79e01d50b69e6548d445d45984f7db66e50f",
+    "kept_by_block": false,
+    "last_failed_height": 0,
+    "last_failed_id_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+    "last_relayed_time": 1525615049,
+    "max_used_block_height": 1564924,
+    "max_used_block_id_hash": "4bae7856979f46c7de31f3fb58cac36d4dfd2765bf33f876edf33d0e05ebb4a7",
+    "receive_time": 1525615049,
+    "relayed": true,
+    "tx_blob": " ... ",
+    "tx_json": "{\n  \"version\": 2, \n  \"unlock_time\": 0, \n  \"vin\": [ {\n      \"key\": {\n        \"amount\": 0, \n        \"key_offsets\": [ 2630347, 594429, 1047509, 758973, 464501, 61971, 22268\n        ], \n        \"k_image\": \"0731363c58dd4492f031fa20c82fe6ddcb9cc070d73938afe8a5f7f77897f8b4\"\n      }\n    }\n  ], \n  \"vout\": [ {\n      \"amount\": 0, \n      \"target\": {\n        \"key\": \"f3b3dd09483616e343b9866eed50a0ce01d5c0d0f2612ce2c4d0e9cce5c218cd\"\n      }\n    }, {\n      \"amount\": 0, \n      \"target\": {\n        \"key\": \"9796f2d477a696b6282bf3cb1a41cefba0c4604eedcc2e7a44904d7033643e0e\"\n      }\n    }\n  ], \n  \"extra\": [ 1, 25, 228, 80, 5, 214, 117, 150, 9, 125, 98, 17, 113, 208, 89, 223, 242, 227, 188, 197, 141, 190, 135, 140, 152, 117, 240, 150, 21, 93, 62, 108, 124\n  ], \n  \"rct_signatures\": {\n    \"type\": 1, \n    \"txnFee\": 9694360000, \n    \"ecdhInfo\": [ {\n        \"mask\": \"645f06a2816aecf83d5041c3320eb31092b994fb2733bb74c8c47e288d452c04\", \n        \"amount\": \"3908f14d39dcb3831331cb255eeadc5b0aea0143645b9cd3034abf613995740d\"\n      }, {\n        \"mask\": \"0785b5df0a994b14d59da810503a022721d8f629720f526e15bd848ad3c2c509\", \n        \"amount\": \"fbd81cf2368dcd742905ded5287457030467aaf5bc9939e13f1d6bf8d4c8ca09\"\n      }], \n    \"outPk\": [ \"c19f5fa052859126e0eed0e3c860aadab049677b2b3dd14cc74d02f92f1d013f\", \"1581ef6368de1608ea366566b88272db220479cf215f6d88d7b60ec221d11e0a\"]\n  }, \n  \"rctsig_prunable\": {\n    \"rangeSigs\": [ {\n        \"asig\": \" ... \", \n        \"Ci\": \" .. \"\n      }, {\n        \"asig\": \" ... \", \n        \"Ci\": \" ... \"\n      }], \n    \"MGs\": [ {\n        \"ss\": [ [ \"218a10a29e0f66e5a324af67b7734708a8a4cc8f16b28acd8cda538aaa495a02\", \"b368b4e956df5808c5c257f0dc3f7eff8c28463d0bb20759d19977fa02d6f205\"], [ \"f741d2c96bc23b362b4155a03fb6f1351ab5bf4445a43b3e52ba776f526af305\", \"a10ad1ee80dce3f311dd3dc141803daeecaa4d2a25a390cd9c35e4161b7c9e0c\"],
+    ...], \n        \"cc\": \"e93801b707261ca76e146fdf2085abae71ad9203a00edc843c74f4ead8a39601\"\n      }]\n  }\n}"
+  },
+  ...]
+}
+</code></pre>
+</div>
+
+<h3 id="get_transaction_pool_hashesbin"><strong>/get_transaction_pool_hashes.bin</strong></h3>
+
+<p>Get hashes from transaction pool. Binary request.</p>
+
+<p>Alias: <em>None</em>.</p>
+
+<p>Inputs: <em>None</em>.</p>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good.</li>
+  <li><em>tx_hashes</em> - binary array of transaction hashes.</li>
+  <li><em>untrusted</em> - boolean; States if the result is obtained using the bootstrap mode, and is therefore not trusted (<code class="highlighter-rouge">true</code>), or when the daemon is fully synced (<code class="highlighter-rouge">false</code>).</li>
+</ul>
+
+<p>Example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/get_transaction_pool_hashes.bin -H 'Content-Type: application/json'
+
+{
+  "status": "OK",
+  "tx_hashes": " ... ",
+  "untrusted": false
+}
+</code></pre>
+</div>
+
+<h3 id="get_transaction_pool_stats"><strong>/get_transaction_pool_stats</strong></h3>
+
+<p>Get the transaction pool statistics.</p>
+
+<p>Alias: <em>None</em>.</p>
+
+<p>Inputs: <em>None</em>.</p>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>pool_stats</em> - Structure as follows:
+    <ul>
+      <li><em>bytes_max</em> - unsigned int; Max transaction size in pool</li>
+      <li><em>bytes_med</em> - unsigned int; Median transaction size in pool</li>
+      <li><em>bytes_min</em> - unsigned int; Min transaction size in pool</li>
+      <li><em>bytes_total</em> - unsigned int; total size of all transactions in pool</li>
+      <li><em>histo</em> - structure <em>txpool_histo</em> as follows:
+        <ul>
+          <li><em>txs</em> - unsigned int; number of transactions</li>
+          <li><em>bytes</em> - unsigned int; size in bytes.</li>
+        </ul>
+      </li>
+      <li><em>histo_98pc</em> unsigned int; the time 98% of txes are "younger" than</li>
+      <li><em>num_10m</em> unsigned int; number of transactions in pool for more than 10 minutes</li>
+      <li><em>num_double_spends</em> unsigned int; number of double spend transactions</li>
+      <li><em>num_failing</em> unsigned int; number of failing transactions</li>
+      <li><em>num_not_relayed</em> unsigned int; number of non-relayed transactions</li>
+      <li><em>oldest</em> unsigned int; unix time of the oldest transaction in the pool</li>
+      <li><em>txs_total</em> unsigned int; total number of transactions.</li>
+    </ul>
+  </li>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good.</li>
+  <li><em>untrusted</em> - boolean; States if the result is obtained using the bootstrap mode, and is therefore not trusted (<code class="highlighter-rouge">true</code>), or when the daemon is fully synced (<code class="highlighter-rouge">false</code>).</li>
+</ul>
+
+<p>Example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/get_transaction_pool_stats -H 'Content-Type: application/json'
+
+{
+  "pool_stats": {
+    "bytes_max": 47222,
+    "bytes_med": 13290,
+    "bytes_min": 13092,
+    "bytes_total": 449511,
+    "fee_total": 289715320000,
+    "histo": "\t▒'▒5▒4▒\/▒▒▒$3",
+    "histo_98pc": 0,
+    "num_10m": 18,
+    "num_double_spends": 1,
+    "num_failing": 17,
+    "num_not_relayed": 0,
+    "oldest": 1525457001,
+    "txs_total": 26
+  },
+  "status": "OK",
+  "untrusted": false
+}
+</code></pre>
+</div>
+
+<h3 id="stop_daemon"><strong>/stop_daemon</strong></h3>
+
+<p>Send a command to the daemon to safely disconnect and shut down.</p>
+
+<p>Alias: <em>None</em>.</p>
+
+<p>Inputs: <em>None</em>.</p>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good.</li>
+</ul>
+
+<p>Example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/stop_daemon -H 'Content-Type: application/json'
+
+{
+  "status": "OK"
+}
+</code></pre>
+</div>
+
+<h3 id="get_info-not-json"><strong>/get_info (not JSON)</strong></h3>
+
+<p>This method is a convenient backward support and should not be used anymore. See <a href="#get_info">get_info</a> JSON RPC for details.</p>
+
+<p>Alias:</p>
+
+<ul>
+  <li><em>/getinfo</em></li>
+  <li><em>get_info</em></li>
+</ul>
+
+<h3 id="get_limit"><strong>/get_limit</strong></h3>
+
+<p>Get daemon bandwidth limits.</p>
+
+<p>Alias: <em>None</em>.</p>
+
+<p>Inputs: <em>None</em>.</p>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>limit_down</em> - unsigned int; Download limit in kBytes per second</li>
+  <li><em>limit_up</em> - unsigned int; Upload limit in kBytes per second</li>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good.</li>
+  <li><em>untrusted</em> - boolean; States if the result is obtained using the bootstrap mode, and is therefore not trusted (<code class="highlighter-rouge">true</code>), or when the daemon is fully synced (<code class="highlighter-rouge">false</code>).</li>
+</ul>
+
+<p>Example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/get_limit -H 'Content-Type: application/json'
+
+{
+  "limit_down": 8192,
+  "limit_up": 128,
+  "status": "OK",
+  "untrusted": false
+}
+</code></pre>
+</div>
+
+<h3 id="set_limit"><strong>/set_limit</strong></h3>
+
+<p>Set daemon bandwidth limits.</p>
+
+<p>Alias: <em>None</em>.</p>
+
+<p>Inputs:</p>
+
+<ul>
+  <li><em>limit_down</em> - signed int; Download limit in kBytes per second (-1 reset to default, 0 don't change the current limit)</li>
+  <li><em>limit_up</em> - signed int; Upload limit in kBytes per second (-1 reset to default, 0 don't change the current limit)</li>
+</ul>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>limit_down</em> - unsigned int; Download limit in kBytes per second</li>
+  <li><em>limit_up</em> - unsigned int; Upload limit in kBytes per second</li>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good.</li>
+</ul>
+
+<p>Example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/set_limit -d '{"limit_down": 1024}' -H 'Content-Type: application/json'
+
+{
+  "limit_down": 1024,
+  "limit_up": 128,
+  "status": "OK"
+}
+</code></pre>
+</div>
+
+<h3 id="out_peers"><strong>/out_peers</strong></h3>
+
+<p>Limit number of Outgoing peers.</p>
+
+<p>Alias: <em>None</em>.</p>
+
+<p>Inputs:</p>
+
+<ul>
+  <li><em>out_peers</em> - unsigned int; Max number of outgoing peers</li>
+</ul>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good.</li>
+</ul>
+
+<p>Example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/out_peers -d '{"out_peers": 3232235535}' -H 'Content-Type: application/json'
+
+{
+  "status": "OK"
+}
+</code></pre>
+</div>
+
+<h3 id="in_peers"><strong>/in_peers</strong></h3>
+
+<p>Limit number of Incoming peers.</p>
+
+<p>Alias: <em>None</em>.</p>
+
+<p>Inputs:</p>
+
+<ul>
+  <li><em>in_peers</em> - unsigned int; Max number of incoming peers</li>
+</ul>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good.</li>
+</ul>
+
+<p>Example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/out_peers -d '{"in_peers": 3232235535}' -H 'Content-Type: application/json'
+
+{
+  "status": "OK"
+}
+</code></pre>
+</div>
+
+<h3 id="start_save_graph"><strong>/start_save_graph</strong></h3>
+
+<p>Obsolete. Conserved here for reference.</p>
+
+<p>Alias: <em>None</em>.</p>
+
+<p>Inputs: <em>None</em>.</p>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good.</li>
+</ul>
+
+<p>Example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/start_save_graph -H 'Content-Type: application/json'
+
+{
+  "status": "OK"
+}
+</code></pre>
+</div>
+
+<h3 id="stop_save_graph"><strong>/stop_save_graph</strong></h3>
+
+<p>Obsolete. Conserved here for reference.</p>
+
+<p>Alias: <em>None</em>.</p>
+
+<p>Inputs: <em>None</em>.</p>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good.</li>
+</ul>
+
+<p>Example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/stop_save_graph -H 'Content-Type: application/json'
+
+{
+  "status": "OK"
+}
+</code></pre>
+</div>
+
+<h3 id="get_outs"><strong>/get_outs</strong></h3>
+
+<p>Get outputs.</p>
+
+<p>Alias: <em>None</em>.</p>
+
+<p>Inputs:</p>
+
+<ul>
+  <li><em>outputs</em> array of <em>get_outputs_out</em> structure as follows:
+    <ul>
+      <li><em>amount</em> - unsigned int;</li>
+      <li><em>index</em> - unsigned int;</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>outs</em> - array of structure <em>outkey</em> as follows:
+    <ul>
+      <li><em>height</em> - unsigned int; block height of the output</li>
+      <li><em>key</em> - String; the public key of the output</li>
+      <li><em>mask</em> - String</li>
+      <li><em>txid</em> - String; transaction id</li>
+      <li><em>unlocked</em> - boolean; States if output is locked (<code class="highlighter-rouge">false</code>) or not (<code class="highlighter-rouge">true</code>)</li>
+    </ul>
+  </li>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good.</li>
+  <li><em>untrusted</em> - boolean; States if the result is obtained using the bootstrap mode, and is therefore not trusted (<code class="highlighter-rouge">true</code>), or when the daemon is fully synced (<code class="highlighter-rouge">false</code>).</li>
+</ul>
+
+<h3 id="update"><strong>/update</strong></h3>
+
+<p>Update daemon.</p>
+
+<p>Alias: <em>None</em>.</p>
+
+<p>Inputs:</p>
+
+<ul>
+  <li><em>command</em> - String; command to use, either <code class="highlighter-rouge">check</code> or <code class="highlighter-rouge">download</code></li>
+  <li><em>path</em> - String; Optional, path where to download the update.</li>
+</ul>
+
+<p>Outputs:</p>
+
+<ul>
+  <li><em>auto_uri</em> - string;</li>
+  <li><em>hash</em> - string;</li>
+  <li><em>path</em> - String; path to download the update</li>
+  <li><em>status</em> - string; General RPC error code. "OK" means everything looks good.</li>
+  <li><em>update</em> - boolean; States if an update is available to download (<code class="highlighter-rouge">true</code>) or not (<code class="highlighter-rouge">false</code>)</li>
+  <li><em>user_uri</em> - string;</li>
+  <li><em>version</em> - string; Version available for download.</li>
+</ul>
+
+<p>Example:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -X POST http://127.0.0.1:18081/update -d '{"command":"check"}' -H 'Content-Type: application/json'
+
+{
+  "auto_uri": "",
+  "hash": "",
+  "path": "",
+  "status": "OK",
+  "update": false,
+  "user_uri": "",
+  "version": ""
+}
+</code></pre>
+</div>
+
+
+                    </div>
+                </div>
+        </section>
+    <!-- END FULL WIDTH BLOCK -->
+    </div>

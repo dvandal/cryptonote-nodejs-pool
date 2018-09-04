@@ -1,0 +1,177 @@
+<div class='row'>
+	<div class='col-sm-4 table-responsive'>
+		<h4 style='text-align: center;'>Network Pools</h4>
+		<div class="table-responsive">
+		    <table class="table table-hover table-striped">
+		        <thead>
+			        <tr>
+			        	<th>Key</th>
+			        	<th>Name</th>
+			            <th>Hashrate</th>
+			        	<th>Miners</th>
+			            <th>Last Block</th>
+			            <th>Url</th>
+			        </tr>
+			     </thead>
+		    	 <tbody id='livePools'></tbody>
+		    </table>
+		</div>
+	</div>	
+	<div class='col-sm-4'>
+
+		<h3>Pool hashrates comparison</h3>
+		<div class="chart" style="height:200px;">
+	        <canvas id="chartHashrateContainer"></canvas>
+	        <a class="chart-style"></a>
+	    </div>
+    </div>
+			
+	<div class='col-sm-4'>
+		<h3>Pool miners comparison</h3>
+		<div class="chart" style="height:200px;">
+	        <canvas id="chartMinerContainer"></canvas>
+	        <a class="chart-style"></a>
+	    </div>
+	</div>
+</div>
+
+<script>
+var xhrObject = null;
+
+currentPage = {
+    destroy: function(){
+    	if(xhrObject){
+			xhrObject.abort();
+			xhrObject = null;
+		}
+    },
+    update: function(){
+		
+    }
+};
+
+var xhrGetBlocks;
+var getLiveMiner = function(){
+	if(xhrObject){
+		currentPage.destroy();
+	}
+	xhrObject = $.get("https://www.stellite.live/miner/pool-list?all=true", function(data) {
+		const chartObject = {};
+		
+		var rows = "";
+	
+		
+	    for (var i = 0; i < data.length; i++) {
+	    	
+	        const d = data[i];
+	        data[i].color = "rgba("+Math.round(225-d.id)+","+Math.round(150+d.rank)+","+(200-i)+",1)";
+	        const ID = "poolList_"+d.id;
+        	rows += "<tr id='"+ID+"'>"+
+        		"<td class='col-0'><i class='fas fa-stop' style='color:"+d.color+"'></i></td>"+
+		 		"<td class='col-1'>"+d.name+"</td>"+
+		 		"<td class='col-2'>"+d.hashrate+"</td>"+
+		 		"<td class='col-3'>"+d.miners+"</td>"+
+		 		"<td class='col-4'>"+d.last_block+"</td>"+
+		 		"<td class='col-5'><a target='_blank' href="+d.url+" class='btn'><i class='fas fa-arrow-circle-right'></i></a></td>"
+		 		"</tr>";
+	    }
+		
+		document.getElementById("livePools").innerHTML=rows;
+	    
+	    data = data.sort(function(a,b){
+			var v1 = a.hashrate ? parseInt(a.hashrate) : 0;
+		    var v2 = b.hashrate ? parseInt(b.hashrate) : 0;
+		    if (v1 > v2) return -1;
+		    if (v1 < v2) return 1;
+		    return 0;	
+		});
+	    
+    	var datasets = {
+	    	data:[],
+	    	backgroundColor:[]
+	    };
+	    var labels = [];
+	    
+	    for (var i = 0; i < data.length; i++) {
+	    	
+	        const d = data[i];
+		 	
+		 	var hashrates = d.hashrate.split(" ");
+		 	
+		 	var hashrate = parseFloat(hashrates[0]);
+		 	var c = hashrates[1].toLowerCase();
+		 	if(c === "mh/s"){
+		 		hashrate *= 1000*1000
+		 	}else if(c === "kh/s"){
+		 		hashrate *= 1000
+		 	}
+		 	if(hashrate <= 0){
+		 		continue;
+		 	}
+		 	
+			labels.push(d.name);
+		 	datasets.data.push(hashrate);
+		 	datasets.backgroundColor.push(d.color);
+	    }
+	    var chart = new Chart(document.getElementById("chartHashrateContainer"), {
+			type: 'pie',
+		    data: {
+		    	labels: labels,
+		    	datasets: [datasets]
+	    	},
+	    	options:{
+	    		legend:{
+	    			display:false
+	    		}
+	    	}
+		});
+	    
+	    
+	    datasets = {
+	    	data:[],
+	    	backgroundColor:[]
+	    };
+	    
+		labels = [];
+	    
+	    data = data.sort(function(a,b){
+			var v1 = a.miners ? parseInt(a.miners) : 0;
+		    var v2 = b.miners ? parseInt(b.miners) : 0;
+		    if (v1 > v2) return -1;
+		    if (v1 < v2) return 1;
+		    return 0;	
+		});
+		
+		
+	     for (var i = 0; i < data.length; i++) {
+	    	
+	        const d = data[i];
+		 	
+		 	var miners = d.miners;
+		 	if(miners <= 0){
+		 		continue;
+		 	}
+			labels.push(d.name);
+		 	datasets.data.push(miners);
+		 	datasets.backgroundColor.push(d.color);
+	    }
+	    
+		
+		var chart = new Chart(document.getElementById("chartMinerContainer"), {
+			type: 'pie',
+		    data: {
+		    	labels: labels,
+		    	datasets: [datasets]
+	    	},
+	    	options:{
+	    		legend:{
+	    			display:false
+	    		}
+	    	}
+		});
+	}).always(function() {
+		setTimeout(getLiveMiner, 60*1000);
+	});
+}
+getLiveMiner();
+</script>

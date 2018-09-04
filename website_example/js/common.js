@@ -56,9 +56,11 @@ var docCookies = {
 var currentPage;
 
 // Handle hash change
-window.onhashchange = function(){
-    routePage();
-};
+if(typeof disableSidebarRouting == 'undefined' || disableSidebarRouting === false){
+	window.onhashchange = function(){
+	    routePage();
+	};
+}
 
 // Route to page
 var xhrPageLoading;

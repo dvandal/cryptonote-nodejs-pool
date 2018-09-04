@@ -1,6 +1,6 @@
 // Store last pool statistics
 var lastStats;
-
+var previousBlock = 0;
 // Get current miner address
 function getCurrentAddress() {
     var urlWalletAddress = location.search.split('wallet=')[1] || 0;
@@ -9,6 +9,7 @@ function getCurrentAddress() {
 }
 
 // Pulse live update
+
 function pulseLiveUpdate(){
     var stats_update = document.getElementById('statsUpdated');
     stats_update.style.transition = 'opacity 100ms ease-out';
@@ -18,7 +19,9 @@ function pulseLiveUpdate(){
         stats_update.style.opacity = 0;
     }, 500);
 }
-
+function playSound(){
+	document.getElementById('blockAudioAlert').play();
+}
 // Update live informations
 function updateLiveStats(data) {
     pulseLiveUpdate();   
@@ -28,6 +31,13 @@ function updateLiveStats(data) {
     }
     updateIndex();
     if (currentPage) currentPage.update();
+    if(previousBlock === 0){ //Just Started
+    	previousBlock = parseInt(data.pool.blocks[1]);
+    	playSound();
+    }else if(previousBlock !==  parseInt(data.pool.blocks[1])){ // We found new block
+    	playSound();
+    	previousBlock = parseInt(data.pool.blocks[1]);
+    } 
 }
 
 // Update global informations
@@ -37,8 +47,7 @@ function updateIndex(){
     updateText('g_poolHashrate', getReadableHashRateString(lastStats.pool.hashrate) + '/sec');    
     if (lastStats.miner && lastStats.miner.hashrate){
          updateText('g_userHashrate', getReadableHashRateString(lastStats.miner.hashrate) + '/sec');
-    }
-    else{
+    } else{
         updateText('g_userHashrate', 'N/A');
     }    
     updateText('poolVersion', lastStats.config.version);
@@ -55,7 +64,11 @@ function loadLiveStats(reload) {
     
     $.get(apiURL, function(data){        
         updateLiveStats(data);
-        if (!reload) routePage(fetchLiveStats);
+        if(typeof disableSidebarRouting === 'undefined' || disableSidebarRouting ===false){
+	        if (!reload){
+	        	routePage(fetchLiveStats);
+	        }
+        }
     });
 }
 
@@ -93,7 +106,7 @@ $(function(){
     }
     if (typeof langs !== 'undefined' && langs) {
         $('#menu-content').append('<div id="mLangSelector"></div>');
-	renderLangSelector();
+		renderLangSelector();
     }
 	
     // Load live statistics for the first time

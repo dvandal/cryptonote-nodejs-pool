@@ -1,8 +1,29 @@
 <!-- Top 10 miners -->
+<style>
+	.font12{
+		font-size:12px;
+	}
+</style>
 <div class='row'>
-	
-	<div class='col-md-6'>
-		<h3><span tkey="top10miners">Top 10 miners (hashrate)</span></h3>
+	<div class='col-md-3'>
+		<h3><span tkey="top10hashes">Top 25 Miners</span> (All Time)</h3>
+		<div class="card">
+		    <div id="top10hashes" class="table-responsive">
+		        <table class="table table-striped">
+		            <thead>
+		            <tr>
+		                <th class="col1 sort">#</th>
+		                <th class="col2 sort"><span tkey="miner">Miner</span></th>
+		                <th class="col3 sort"><span tkey="hashes">Hashes</span></th>
+		            </tr>
+		            </thead>
+		            <tbody id="top10hashes_rows"></tbody>
+		        </table>
+		    </div>
+		</div>
+	</div>
+	<div class='col-md-4'>
+		<h3><span tkey="top10hashrates">Top 25 Hashrate Miners</span>(Current)</h3>
 		<div class="card">
 		    <div id="top10miners" class="table-responsive">
 		        <table class="table table-striped">
@@ -12,8 +33,6 @@
 		                <th class="col2 sort"><span tkey="miner">Miner</span></th>
 		                <th class="col3 sort"><span tkey="hashRate">Hash Rate</span></th>
 		                <th class="col4 sort"><span tkey="lastShare">Last Share Submitted</span></th>
-		                <th class="col5 sort"><span tkey="totalHashes">Total Hashes Submitted</span></th>
-		                <th class="col6 sort"><span tkey="blocksFound">Blocks Found</span></th>
 		            </tr>
 		            </thead>
 		            <tbody id="top10miners_rows"></tbody>
@@ -22,8 +41,26 @@
 		</div>
 	</div>
 	
-	<div class='col-md-6'>
-		<h3><span tkey="top10donators">Top 10 donators</span></h3>
+	<div class='col-md-2'>
+		<h3><span tkey="top10unblocks">Top 25 Block Founders</span></h3>
+		<div class="card">
+		    <div id="top10unblockers" class="table-responsive">
+		        <table class="table table-striped">
+		            <thead>
+		            <tr>
+		                <th class="col1 sort">#</th>
+		                <th class="col2 sort"><span tkey="miner">Miner</span></th>
+		                <th class="col3 sort"><span tkey="blocksFound">Blocks</span></th>
+		            </tr>
+		            </thead>
+		            <tbody id="top10unblockers_rows">
+		            </tbody>
+		        </table>
+		    </div>
+		</div>
+	</div>
+	<div class='col-md-3'>
+		<h3><span tkey="top10donators">Top 25 donators</span></h3>
 		<div class="card">
 		    <div id="top10donators" class="table-responsive">
 		        <table class="table table-striped">
@@ -33,7 +70,6 @@
 		                <th class="col2 sort"><span tkey="miner">Miner</span></th>
 		                <th class="col3 sort"><span tkey="donations">Donations</span></th>
 		                <th class="col4 sort"><span tkey="donationLevel">Donation Level</span></th>
-		                <th class="col5 sort"><span tkey="lastShare">Last Share Submitted</span></th>
 		            </tr>
 		            </thead>
 		            <tbody id="top10donators_rows">
@@ -53,12 +89,12 @@ var intervalUpdateTop10;
 // Update current page
 currentPage = {
     destroy: function(){
-        if (intervalUpdateTop10) {
-            clearInterval(intervalUpdateTop10);
-            intervalUpdateTop10 = undefined;
+        if (varTop10) {
+            clearTimeout(intervalUpdateTop10);
+            varTop10 = undefined;
         }
     },
-    update: function(){}
+    update: updateTop10
 };
 
 // Get miner cells
@@ -67,29 +103,41 @@ function getMinerCells(position, data){
     var hashrate = data.hashrate ? data.hashrate : 0;
     var lastShare = data.lastShare ? data.lastShare : 0;
     var hashes = (data.hashes || 0).toString();
-    var blocksFound = (data.blocksFound || 0).toString();
     var donateLvl = (data.donationLevel || 0).toString();
-    
-    return '<td class="col1" data-sort="' + position + '">' + position + '</td>' +
-           '<td class="col2" data-sort="' + miner + '">' + miner + '</td>' +
-           '<td class="col3" data-sort="' + hashrate + '">' + getReadableHashRateString(hashrate) + '/sec</td>' +
-           '<td class="col4" data-sort="' + lastShare + '">' + (lastShare ? $.timeago(new Date(parseInt(lastShare) * 1000).toISOString()) : 'Never') + '</td>' +
-           '<td class="col5" data-sort="' + hashes + '">' + hashes + '</td>' +
-           '<td class="col6 text-center" data-sort="' + blocksFound + '">' + blocksFound + '</td>';
+    return '<td class="col1 font12" data-sort="' + position + '">' + position + '</td>' +
+           '<td class="col2 font12" data-sort="' + miner + '">' + miner + '</td>' +
+           '<td class="col3 font12" data-sort="' + hashrate + '">' + getReadableHashRateString(hashrate) + '/sec</td>'+
+			// '<td class="col4 font12" data-sort="' + donateLvl + '">' + Math.round(donateLvl * 100) / 100. + '% ' + getDonationSmiley(donateLvl) + '</td>';
+           '<td class="col4 font12" data-sort="' + lastShare + '">' + (lastShare ? $.timeago(new Date(parseInt(lastShare) * 1000).toISOString()) : 'Never') + '</td>';
 }
 
+function getHashesCells(position,data){
+	var miner = data.miner;
+    var hashes = (data.hashes || 0).toString();
+    
+    return '<td class="col1 font12" data-sort="' + position + '">' + position + '</td>' +
+           '<td class="col2 font12" data-sort="' + miner + '">' + miner + '</td>' +
+           '<td class="col3 font12" data-sort="' + hashes + '">' + hashes + '</td>';
+}
+// Get unblockers cell
+function getUnblockerCells(position,data){
+	var miner = data.miner;
+    var blocksFound = (data.blocksFound || 0).toString();
+    
+    return	'<td class="col1 font12" data-sort="' + position + '">' + position + '</td>' +
+    		'<td class="col2 font12" data-sort="' + miner + '">' + miner + '</td>' +
+    		'<td class="col2 font12 text-center" data-sort="' + blocksFound + '">' + blocksFound + '</td>';
+}
 // Get donator cells
 function getDonatorCells(position, data){
     var miner = data.miner;
-    var lastShare = data.lastShare ? data.lastShare : 0;
     var donations = (data.donations || 0).toString();
     var donateLvl = (data.donationLevel || 0).toString();
 
-    return '<td class="col1" data-sort="' + position + '">' + position + '</td>' +
-           '<td class="col2" data-sort="' + miner + '">' + miner + '</td>' +
-           '<td class="col3" data-sort="' + donations + '">' + getReadableCoins(donations) + '</td>' +
-           '<td class="col4" data-sort="' + donateLvl + '">' + Math.round(donateLvl * 100) / 100. + '% ' + getDonationSmiley(donateLvl) + '</td>' +
-           '<td class="col5" data-sort="' + lastShare + '">' + (lastShare ? $.timeago(new Date(parseInt(lastShare) * 1000).toISOString()) : 'Never') + '</td>';
+    return '<td class="col1 font12" data-sort="' + position + '">' + position + '</td>' +
+           '<td class="col2 font12" data-sort="' + miner + '">' + miner + '</td>' +
+           '<td class="col3 font12" data-sort="' + donations + '">' + getReadableCoins(donations) + '</td>' +
+           '<td class="col4 font12" data-sort="' + donateLvl + '">' + Math.round(donateLvl * 100) / 100. + '% ' + getDonationSmiley(donateLvl) + '</td>';
 }
 
 // Update top10 miners report
@@ -122,14 +170,32 @@ function updateTop10() {
 	            minerrows = $("#top10donators_rows");
 	            minerrows.empty();
 	            for (var i=0; i<data.donate.length; ++i) {
+	            	// var d = data.donate[i].donationLevel * 100;
+	            	// if(d > 0.00)
 	                minerrows.append('<tr>' + getDonatorCells(i+1, data.donate[i]) + '</tr>');
 	            }
             }
-            varTop10 = setTimeout(updateTop10, (60*1000));
+            
+            if(data.unblocker){
+	            minerrows = $("#top10unblockers_rows");
+	            minerrows.empty();
+	            for (var i=0; i<data.donate.length; ++i) {
+	            	// if(data.donate[i].blocksFound > 0)
+	                minerrows.append('<tr>' + getUnblockerCells(i+1, data.unblocker[i]) + '</tr>');
+	            }
+            }
+            
+            if(data.hashes){
+	            minerrows = $("#top10hashes_rows");
+	            minerrows.empty();
+	            for (var i=0; i<data.hashes.length; ++i) {
+	            	// if(data.donate[i].blocksFound > 0)
+	                minerrows.append('<tr>' + getHashesCells(i+1, data.hashes[i]) + '</tr>');
+	            }
+            }
+            
+            varTop10 = setTimeout(updateTop10, (30*1000));
         }
     });
 }
-
-// Load initial data
-updateTop10();
 </script>

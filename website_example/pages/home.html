@@ -16,6 +16,19 @@
         </div>
     </div>
     
+    <!-- Network Hash Rate -->
+    <div class="col-lg-2 col-md-3 col-sm-4">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-sitemap"></span>
+            </div>
+            <div class="content">
+                <div class="text"><span tkey="networkHashrate">Network Hash Rate</span></div>
+                <div class="value"><span id="networkHashrate">N/A</span></div>
+            </div>
+        </div>
+    </div>
+    
     <!-- Blocks Found -->
     <div class="col-lg-2 col-md-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
@@ -55,18 +68,7 @@
         </div>
     </div>
     
-    <!-- Network Hash Rate -->
-    <div class="col-lg-2 col-md-3 col-sm-4">
-        <div class="infoBox hoverExpandEffect">
-            <div class="icon">
-                <span class="fa fa-sitemap"></span>
-            </div>
-            <div class="content">
-                <div class="text"><span tkey="networkHashrate">Network Hash Rate</span></div>
-                <div class="value"><span id="networkHashrate">N/A</span></div>
-            </div>
-        </div>
-    </div>
+    
     
     <!-- Difficulty -->
     <div class="col-lg-2 col-md-3 col-sm-4">
@@ -133,7 +135,22 @@
         </div>
     </div>
     
-    <!-- Minimum Payout -->
+
+    
+    <!-- Pool Fee -->
+    <div class="col-lg-2 col-md-3 col-sm-4">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-people-carry"></span>
+            </div>
+            <div class="content">
+                <div class="text"><span tkey="poolDonations">Donations Collected</span></div>
+                <div class="value"><span id="poolDonations">N/A</span></div>
+            </div>
+        </div>
+    </div>
+            
+        <!-- Minimum Payout -->
     <div class="col-lg-2 col-md-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
             <div class="icon">
@@ -145,8 +162,6 @@
             </div>
         </div>
     </div>
-            
-    <!-- Payment Interval -->
 	
 
     <!-- Last Hash -->
@@ -277,6 +292,8 @@ currentPage = {
         }
     },
     update: function(){
+		updateText('poolDonations',getReadableCoins(lastStats.pool.totalDonations));    	
+		
         $('#networkLastBlockFound').timeago('update', new Date(lastStats.lastblock.timestamp * 1000).toISOString());
         
         updateText('networkHashrate', getReadableHashRateString(lastStats.network.difficulty / lastStats.config.coinDifficultyTarget) + '/sec');

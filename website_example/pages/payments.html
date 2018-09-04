@@ -2,10 +2,10 @@
 <div id="paymentsStats" class="row">
 
     <!-- Total Payments -->
-    <div class="col-lg-3 col-sm-6">
+    <div class="col-lg-2 col-md-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
             <div class="icon">
-                <span class="fa fa-money"></span>
+                <span class="fa fa-money-bill-alt"></span>
             </div>
             <div class="content">
                 <div class="text"><span tkey="paymentsTotal">Total Payments</span></div>
@@ -15,13 +15,13 @@
     </div>
 
     <!-- Minimum Payment Threshold -->
-    <div class="col-lg-3 col-sm-6">
+    <div class="col-lg-2 col-md-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
             <div class="icon">
-                <span class="fa fa-dollar"></span>
+                <span class="fa fa-hand-holding-usd"></span>
             </div>
             <div class="content">
-                <div class="text"><span tkey="paymentsMinimum">Minimum Payout</span> (Integrated Address)</div>
+                <div class="text"><span tkey="paymentsMinimum">Minimum Payout</span><br />(Integrated Address)</div>
                 <div class="value">
                 	<span id="paymentsMinimum">N/A</span>
                 	<span class="smallText">(<strong><span id="paymentsMinimumIntegratedAddress">N/A</span></strong>)</span>
@@ -31,10 +31,10 @@
     </div>
     
     <!-- Payment Interval -->
-    <div class="col-lg-3 col-sm-6">
+    <div class="col-lg-2 col-md-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
             <div class="icon">
-                <span class="fa fa-clock-o"></span>
+                <span class="fa fa-history"></span>
             </div>
             <div class="content">
                 <div class="text"><span tkey="paymentsInterval">Payment Interval</span></div>
@@ -44,7 +44,7 @@
     </div>
     
     <!-- Denomination Unit -->
-    <div class="col-lg-3 col-sm-6">
+    <div class="col-lg-2 col-md-3 col-sm-4">
         <div class="infoBox hoverExpandEffect">
             <div class="icon">
                 <span class="fa fa-hashtag"></span>
@@ -55,7 +55,45 @@
             </div>
         </div>
     </div>
+    
+    <div class="col-lg-2 col-md-3 col-sm-4">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-people-carry"></span>
+            </div>
+            <div class="content">
+                <div class="text"><span tkey="poolDonations">Donations Collected</span></div>
+                <div class="value"><span id="poolDonations">N/A</span></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Pool Fee -->
+    <div class="col-lg-2 col-md-3 col-sm-4">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-people-carry"></span>
+            </div>
+            <div class="content">
+                <div class="text"><span tkey="poolContributions">Contributions</span></div>
+                <div class="value"><span id="poolContributions">N/A</span></div>
+            </div>
+        </div>
+    </div>
+    
 
+	<!-- Payment mechanism -->
+    <div class="col-sm-12">
+    	<div class="panel panel">
+		  <div class="panel-heading" style='background:#8865ce;color:#fff'>Payment Information</div>
+		  <div class="panel-body">
+		    Each payment will deduct transer fee and contributions. Below are lists of contributions and their address (if any):
+			<ul id='contributionsLists'></ul>
+		  </div>
+		</div>
+	</div>
+
+    </div>
     <!-- Payment mechanism -->
     <div class="col-sm-12" id="slush_description">
         <div class="slushInfo hoverExpandEffect">
@@ -74,26 +112,31 @@
     
 </div>
 
-<!-- Report -->
-<div class="card push-up-10">
-    <div id="paymentsReport" class="table-responsive">
-        <table class="table table-hover table-striped">
-            <thead>
-            <tr>
-                <th class="col1"><span tkey="timeSent">Time Sent</span></th>
-                <th class="col2"><span tkey="transactionHash">Transaction Hash</span></th>
-                <th class="col3"><span tkey="amount">Amount</span></th>
-                <th class="col4"><span tkey="fee">Fee</span></th>
-                <th class="col5"><span tkey="mixin">Mixin</span></th>
-                <th class="col6"><span tkey="payees">Payees</span></th>
-            </tr>
-            </thead>
-            <tbody id="paymentsReport_rows">
-    
-            </tbody>
-        </table>
-    </div>
+<div class='row'>
+	<div class='col-md-12'>
+		<!-- Report -->
+		<div class="card push-up-10">
+		    <div id="paymentsReport" class="table-responsive">
+		        <table class="table table-hover table-striped">
+		            <thead>
+		            <tr>
+		                <th class="col1"><span tkey="timeSent">Time Sent</span></th>
+		                <th class="col2"><span tkey="transactionHash">Transaction Hash</span></th>
+		                <th class="col3"><span tkey="amount">Amount</span></th>
+		                <th class="col4"><span tkey="fee">Fee</span></th>
+		                <th class="col5"><span tkey="mixin">Mixin</span></th>
+		                <th class="col6"><span tkey="payees">Payees</span></th>
+		            </tr>
+		            </thead>
+		            <tbody id="paymentsReport_rows">
+		    
+		            </tbody>
+		        </table>
+		    </div>
+		</div>
+	</div>
 </div>
+
 
 <p class="text-center push-up-10">
     <button type="button" class="btn btn-default" id="loadMorePayments"><span tkey="loadMore">Load More</span></button>
@@ -107,7 +150,27 @@ currentPage = {
         if (xhrGetPayments) xhrGetPayments.abort();
     },
     update: function(){
-    	
+    	var totalFee = 0;
+    	var contributionsLists = "";
+        if (Object.keys(lastStats.config.contributions).length) {
+            var totalDonation = 0;
+            for(var i in lastStats.config.contributions) {
+            	contributionsLists+="<li>";
+            	const contributor =  lastStats.config.contributions[i];
+                totalDonation += contributor.percent;
+                contributionsLists+=i;
+				if('wallet' in contributor){
+					contributionsLists+="&nbsp;<small>(%)</small>".replace('%',contributor.wallet);
+				}
+				contributionsLists+="&nbsp;=&nbsp;"+contributor.percent+"%";
+				contributionsLists+="</li>";
+            }
+            totalFee += totalDonation;
+        }
+        document.getElementById("contributionsLists").innerHTML = contributionsLists;
+        updateText('poolContributions', (totalFee > 0 && totalFee != 100 ? floatToString(totalFee) : (totalFee == 100 ? '100' : '0')) + '%');
+        
+		updateText('poolDonations',getReadableCoins(lastStats.pool.totalDonations));
         updateText('paymentsTotal', lastStats.pool.totalPayments.toString());
         updateText('paymentsTotalPaid', lastStats.pool.totalMinersPaid.toString());
         updateText('paymentsInterval', getReadableTime(lastStats.config.paymentsInterval));
@@ -119,6 +182,14 @@ currentPage = {
         renderPayments(lastStats.pool.payments);
     }
 };
+
+function renderContributionLists(){
+	for(var desc in contributions){
+		
+	}
+	
+	return output;
+}
 
 // Parse payment data
 function parsePayment(time, serializedPayment){
@@ -137,8 +208,8 @@ function parsePayment(time, serializedPayment){
 function getPaymentCells(payment){
     return '<td class="col1">' + formatDate(payment.time) + '</td>' +
            '<td class="col2">' + formatPaymentLink(payment.hash) + '</td>' +
-           '<td class="col3">' + getReadableCoins(payment.amount) + '</td>' +
-           '<td class="col4">' + getReadableCoins(payment.fee) + '</td>' +
+           '<td class="col3">' + parseFloat(getReadableCoins(payment.amount)).toFixed(2) + '</td>' +
+           '<td class="col4">' + parseFloat(getReadableCoins(payment.fee)).toFixed(2) + '</td>' +
            '<td class="col5">' + payment.mixin + '</td>' +
            '<td class="col6">' + payment.recipients + '</td>';
 }

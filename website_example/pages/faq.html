@@ -27,52 +27,7 @@
 <h4 tkey="faq9_title">My hashrate is wrong! Why?</h4>
 <div class="card padding-15 push-down-10" tkey="faq9_text">Since you start to mine your hashrate grows gradually. Please wait. The pool determines your hashrate based on the amount of shares sent by your mining rigs (workers). This value could be a little bit different from reported hasrate (in your mining software).</div>
 
-<div id="telegramBot">
-    <h4 tkey="faq10_title">How to use the Telegram Bot?</h4>
-    <div class="card padding-15">
-        <div tkey="faq10_text">Telegram bot will report via Telegram, when your worker is connected, disconnected or banned, and payments have been made to your wallet. Also you can check pool stats directly from him.</div>
-        <br/>
-
-        <span tkey="botName">Bot name</span>: <a id="telegramBotURL" target="_blank" rel="nofollow" href="https://t.me/Pool_bot">@<span id="telegramBotName">Pool_bot</span></a><br/>
-        <br/>
-
-        <span tkey="botCommands">Commands</span>:</br/>
-        <span id="botStats">/stats</span> - <span tkey="botStats">Pool statistics</span><br />
-        <span id="botBlocks">/blocks</span> - <span tkey="botBlocks">Blocks notifications (enable or disable)</span><br />
-        <span id="botReport">/report</span> <em><span tkey="botAddress">address</span></em> - <span tkey="botReport">Miner statistics</span><br />
-        <span id="botNotify">/notify</span> <em><span tkey="botAddress">address</span></em> - <span tkey="botNotify">Miner notifications (enable or disable)</span><br />
-        <br />
-
-        <span tkey="botMultiAddresses">Multiple addresses monitoring available.</span></div>
-    </div>
+<h4 tkey="faq10_title">What is contributions?</h4>
+<div class="card padding-15 push-down-10" tkey="faq10_text">
+Since donations are used for actual donating (if you want to) the word donation is changed to <b>contributions</b>. Contributions is what will be given after a reward is unblocked, unlike donations you can't choose to contribute or not. It is compulsory and is something the pool was set up for either to pay pool maintaince and development etc.
 </div>
-
-<!-- Javascript -->
-<script>
-// Update current page
-currentPage = {
-    destroy: function(){},
-    update: function(){
-        if (!lastStats.config.telegramBotName) {
-            $('#telegramBot').hide();
-        } else {
-            var botName = lastStats.config.telegramBotName;
-            var botURL = 'https://t.me/'+botName;
-            $('#telegramBotURL').attr('href', botURL);
-            updateText('telegramBotName', botName);
-	    
-            var botStats = lastStats.config.telegramBotStats;
-            if (botStats) updateText('botStats', botStats);
-
-            var botReport = lastReport.config.telegramBotReport;
-            if (botReport) updateText('botReport', botReport);
-
-            var botNotify = lastNotify.config.telegramBotNotify;
-            if (botNotify) updateText('botNotify', botNotify);
-
-            var botBlocks = lastBlocks.config.telegramBotBlocks;
-            if (botBlocks) updateText('botBlocks', botBlocks);
-        }	
-    }
-};
-</script>

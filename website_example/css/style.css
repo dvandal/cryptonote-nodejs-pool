@@ -132,7 +132,7 @@ footer > div{
 @media (min-width: 992px) {
   #page-wrapper {
     position: inherit;
-    margin: 0 0 0 225px;
+    margin: 0 0 0 185px;
     padding: 60px 30px 0 30px;
   }
 }
@@ -148,7 +148,7 @@ footer > div{
   background-color: rgba(0, 0, 0, .8);
   position: fixed;
   top: 0;
-  width: 225px;
+  width: 185px;
   height: 100%;
   color: #fff;
   z-index: 1000;
@@ -322,7 +322,7 @@ footer > div{
     overflow: auto;
     position: fixed;
     top: 0;
-    left: 225px;
+    left: 185px;
     right: 0;
     padding: 0 15px;
   }
@@ -1225,15 +1225,16 @@ h3, .h3 {
 }
 
 .nav-side-menu .brand {
-	height: 135px !important;
+	height: 95px !important;
 	line-height: normal !important;
 	font-size: 16px !important;
 	padding-bottom: 10px;
 }
 .nav-side-menu .brand img {
-	margin-bottom: 5px !important;
-	max-height: 85%;
-	max-width: 85%;
+    margin-bottom: 5px;
+    max-height: 60%;
+    max-width: 60%;
+    padding-top: 10px;
 }
 
 #top-bar{
