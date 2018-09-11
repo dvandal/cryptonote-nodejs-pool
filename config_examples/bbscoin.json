@@ -10,7 +10,7 @@
     "daemonType": "default",
     "cnAlgorithm": "cryptonight",
     "cnVariant": 1,
-    "cnBlobType": 0,
+    "cnBlobType": 2,
 
     "logging": {
         "files": {
