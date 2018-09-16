@@ -3,9 +3,9 @@
 
     "coin": "turtlecoin",
     "symbol": "TRTL",
-    "coinUnits": 100000000,
+    "coinUnits": 100,
     "coinDecimalPlaces": 4,
-    "coinDifficultyTarget": 240,
+    "coinDifficultyTarget": 30,
 
     "daemonType": "bytecoin",
     "cnAlgorithm": "cryptonight_light",
@@ -108,13 +108,13 @@
         "enabled": true,
         "interval": 1800,
         "maxAddresses": 50,
-        "mixin": 7,
+        "mixin": 3,
         "priority": 0,
-        "transferFee": 100,
+        "transferFee": 200,
         "dynamicTransferFee": true,
         "minerPayFee" : true,
-        "minPayment": 50000,
-        "maxTransactionAmount": 50000000000000,
+        "minPayment": 100000,
+        "maxTransactionAmount": 100000000,
         "denomination": 100
     },
 
