@@ -75,7 +75,8 @@
             "maxJump": 100
         },
         "paymentId": {
-            "addressSeparator": "+"
+            "addressSeparator": "+",
+            "validation": true
         },
         "fixedDiff": {
             "enabled": true,

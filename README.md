@@ -302,7 +302,8 @@ Explanation for each field:
 
     /* Set payment ID on miner client side by passing <address>.<paymentID> */
     "paymentId": {
-        "addressSeparator": "." // Character separator between <address> and <paymentID>
+        "addressSeparator": ".", // Character separator between <address> and <paymentID>
+        "validation": true // Refuse login if non alphanumeric characters in <paymentID>
     },
 
     /* Feature to trust share difficulties from miners which can
