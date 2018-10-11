@@ -255,7 +255,7 @@ log('info', logSystem, 'Starting Stellite Node.JS pool version %s', [global.vers
 		        if (process.argv[i].indexOf('-module=') === 0){
 		            var moduleName = process.argv[i].split('=')[1];
 		            if (validModules.indexOf(moduleName) > -1){
-		                return moduleName.toLoweCase();
+		                return moduleName.toLowerCase();
 		            }
 		            log('error', logSystem, 'Invalid module "%s", valid modules: %s', [moduleName, validModules.join(', ')]);
 		            process.exit();
