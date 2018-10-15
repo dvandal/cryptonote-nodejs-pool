@@ -104,9 +104,9 @@ Community / Support
 * https://graft.anypool.net/
 * https://www.dark-mine.su/
 * http://itns.proxpool.com/
-* https://bytecoin.pt
-* http://ita.minexmr24.ru/
-* https://pool.croatpirineus.cat
+* https://bytecoin.pt/
+* https://pool.leviar.io/
+* https://pool.croatpirineus.cat/
 
 Usage
 ===
