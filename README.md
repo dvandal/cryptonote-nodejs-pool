@@ -120,7 +120,7 @@ Usage
   curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash
   sudo apt-get install -y nodejs
 ```
-of use NVM https://github.com/creationix/nvm
+* Or use NVM https://github.com/creationix/nvm for debian/ubuntu.
 
 
 * [Redis](http://redis.io/) key-value store v2.6+ 
@@ -130,6 +130,13 @@ sudo add-apt-repository ppa:chris-lea/redis-server
 sudo apt-get update
 sudo apt-get install redis-server
  ```
+ Dont forget to tune redis-server:
+```
+echo never > /sys/kernel/mm/transparent_hugepage/enabled
+echo 1024 > /proc/sys/net/core/somaxconn
+```
+ You can add this lines to your rc.local
+ 
 * libssl required for the node-multi-hashing module
   * For Ubuntu: `sudo apt-get install libssl-dev`
 
