@@ -102,11 +102,11 @@ Community / Support
 
 * https://imaginary.stream/
 * https://graft.anypool.net/
-* https://graft.dark-mine.su/
+* https://www.dark-mine.su/
 * http://itns.proxpool.com/
-* https://bytecoin.pt
-* http://ita.minexmr24.ru/
-* https://pool.croatpirineus.cat
+* https://bytecoin.pt/
+* https://pool.leviar.io/
+* https://pool.croatpirineus.cat/
 
 Usage
 ===
@@ -119,7 +119,10 @@ Usage
  ```
   curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash
   sudo apt-get install -y nodejs
-```
+ ```
+  * Or use NVM(https://github.com/creationix/nvm) for debian/ubuntu.
+
+
 * [Redis](http://redis.io/) key-value store v2.6+ 
   * For Ubuntu: 
 ```
@@ -127,6 +130,16 @@ sudo add-apt-repository ppa:chris-lea/redis-server
 sudo apt-get update
 sudo apt-get install redis-server
  ```
+ Dont forget to tune redis-server:
+ ```
+echo never > /sys/kernel/mm/transparent_hugepage/enabled
+echo 1024 > /proc/sys/net/core/somaxconn
+ ```
+ Add this lines to your /etc/rc.local and make it executable
+ ```
+ chmod +x /etc/rc.local
+ ```
+ 
 * libssl required for the node-multi-hashing module
   * For Ubuntu: `sudo apt-get install libssl-dev`
 
@@ -587,6 +600,8 @@ This software contains four distinct modules:
 * `api` - Used by the website to display network, pool and miners' data
 * `unlocker` - Processes block candidates and increases miners' balances when blocks are unlocked
 * `payments` - Sends out payments to miners according to their balances stored in redis
+* `chartsDataCollector` - Processes miners and workers hashrate stats and charts
+* `telegramBot`	- Processes telegram bot commands
 
 
 By default, running the `init.js` script will start up all four modules. You can optionally have the script start
