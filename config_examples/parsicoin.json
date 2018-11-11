@@ -105,7 +105,7 @@
 
     "payments": {
         "enabled": true,
-        "interval": 300,
+        "interval": 900,
         "maxAddresses": 50,
         "mixin": 1,
         "priority": 0,
@@ -113,8 +113,8 @@
         "dynamicTransferFee": true,
         "minerPayFee" : true,
         "minPayment": 10000000000,
-        "maxPayment": 100000000000,
-        "maxTransactionAmount": 100000000000,
+        "maxPayment": 10000000000000,
+        "maxTransactionAmount": 10000000000000,
         "denomination": 100000000
     },
 
