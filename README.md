@@ -650,6 +650,9 @@ var telegram = "https://t.me/YourPool";
 /* Pool Discord URL */
 var discord = "https://discordapp.com/invite/YourPool";
 
+/*Pool Facebook URL */
+var facebook = "https://www.facebook.com/<YourPoolFacebook";
+
 /* Market stat display params from https://www.cryptonator.com/widget */
 var marketCurrencies = ["{symbol}-BTC", "{symbol}-USD", "{symbol}-EUR", "{symbol}-CAD"];
 
@@ -780,6 +783,8 @@ Credits
 ---------
 
 * [fancoder](//github.com/fancoder) - Developper on cryptonote-universal-pool project from which current project is forked.
+* dvandal (//github.com/dvandal) - Developer of cryptonote-nodejs-pool software
+* Musclesonvacation (//github.com/muscleman) - Current developer for pool software
 
 License
 -------
