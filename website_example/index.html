@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
 
     <title>Cryptonote Mining Pool</title>
+    <meta name="Description" content="<Your Custom Description Here>"
+    <meta name="keywords" content="<Your Search Content Here>"
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.6.3/jquery.timeago.min.js"></script>
@@ -196,6 +198,9 @@ $(function(){
     }
     if (typeof email !== 'undefined' && email) {
         $('#menu-content').append('<li><a target="_new" href="mailto:'+email+'"><i class="fa fa-envelope"></i> <span tkey="contactUs">Contact Us</span></a></li>');
+    }
+        if (typeof facebook !== 'undefined' && facebook) {
+        $('#menu-content').append('<li><a target="_new" href="'+facebook+'"><i class="fa fa-facebook"></i> <span tkey="facebook">Facebook</span></a></li>');
     }
     if (typeof langs !== 'undefined' && langs) {
         $('#menu-content').append('<div id="mLangSelector"></div>');
