@@ -130,23 +130,30 @@ function getPoolStats(poolID, poolURL) {
         
         if (cnAlgorithm == "cryptonight_light") {
             if (cnVariant === 1) {
-                algorithm = 'Cryptonight Light v7';
+                algorithm = 'Cryptonight Light (Aeon v7)';
             } else if (cnVariant === 2) {
-                algorithm = 'Cryptonight Light';
+                algorithm = 'Cryptonight Light (IPBC)';
             } else {
-                algorithm = 'Cryptonight Light';
+                algorithm = 'Cryptonight Light (Original)';
             }
         }
         else if (cnAlgorithm == "cryptonight_heavy") {
-            algorithm = 'Cryptonight Heavy';
+            if (cnVariant === 5) {
+                algorithm = 'Cryptonight Heavy (Haven)';
+            }
+            else {
+                algorithm = 'Cryptonight Heavy';
+            }
         }
         else {
             if (cnVariant === 1) {
-                algorithm = 'Cryptonight v7';
+                algorithm = 'Cryptonight (Monero v7)';
             } else if (cnVariant === 3) {
-                algorithm = 'Cryptonight v7';
+                algorithm = 'Cryptonight (Stellite v7)';
+	    } else if (cnVariant === 4) {
+                algorithm = 'Cryptonight Fast (Masari)';
             } else {
-                algorithm = 'Cryptonight';
+                algorithm = 'Cryptonight (Original)';
             }
         }
         
