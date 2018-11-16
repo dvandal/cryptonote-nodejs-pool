@@ -31,13 +31,13 @@
 <!-- Javascript -->
 <script>
 function parsePorts(ports) {
-    var totalUsers = 0;
-    var portsArray = [];
-    var properObject = {};
-    for (var port in ports) {
+    let  totalUsers = 0;
+    let  portsArray = [];
+    let  properObject = {};
+    for (let  port in ports) {
         if (ports.hasOwnProperty(port)) {
-            var portsData = ports[port];
-	    var usersCount = portsData.users ?parseInt(portsData.users) : 0;
+            let  portsData = ports[port];
+	    let  usersCount = portsData.users ?parseInt(portsData.users) : 0;
 	    if (usersCount > 0) {
                 portsArray.push({
                     port: portsData.port,
@@ -57,7 +57,7 @@ function parsePorts(ports) {
 }
 
 function createPortsTable(promptPassword) {
-    var password = docCookies.getItem('password');
+    let  password = docCookies.getItem('password');
 
     if(!password || promptPassword) {
         password = prompt('Enter admin password');

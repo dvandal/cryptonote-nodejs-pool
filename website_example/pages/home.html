@@ -215,8 +215,8 @@
 <!-- Javascript -->
 <script>
 // Charts initialized
-var chartsInitialized = false;
-var intervalChartsUpdate;
+let  chartsInitialized = false;
+let  intervalChartsUpdate;
 
 // Update current page
 currentPage = {
@@ -236,7 +236,7 @@ currentPage = {
         updateText('lastHash', lastStats.lastblock.hash).setAttribute('href', getBlockchainUrl(lastStats.lastblock.hash));
 
         if (lastStats.config.networkFee) {
-            var networkFeePercent = lastStats.config.networkFee / 100;
+            let  networkFeePercent = lastStats.config.networkFee / 100;
             updateText('networkLastReward', getReadableCoins(lastStats.lastblock.reward - (lastStats.lastblock.reward * networkFeePercent)));
         } else {
             updateText('networkLastReward', getReadableCoins(lastStats.lastblock.reward));
@@ -245,11 +245,11 @@ currentPage = {
         updateText('poolHashrate', getReadableHashRateString(lastStats.pool.hashrate) + '/sec');
         updateText('blocksTotal', lastStats.pool.totalBlocks.toString());
         
-        var hashPower = lastStats.pool.hashrate / (lastStats.network.difficulty / lastStats.config.coinDifficultyTarget) * 100;
+        let  hashPower = lastStats.pool.hashrate / (lastStats.network.difficulty / lastStats.config.coinDifficultyTarget) * 100;
         updateText('hashPower', hashPower.toFixed(2) + '%');
 
         if (lastStats.pool.lastBlockFound) {
-            var d = new Date(parseInt(lastStats.pool.lastBlockFound)).toISOString();
+            let  d = new Date(parseInt(lastStats.pool.lastBlockFound)).toISOString();
             $('#poolLastBlockFound').timeago('update', d);
         }
         else {
@@ -259,10 +259,10 @@ currentPage = {
         updateText('poolMiners', lastStats.pool.miners.toString());
         updateText('poolWorkers', lastStats.pool.workers.toString());
 
-        var totalFee = lastStats.config.fee;
+        let  totalFee = lastStats.config.fee;
         if (Object.keys(lastStats.config.donation).length) {
-            var totalDonation = 0;
-            for(var i in lastStats.config.donation) {
+            let  totalDonation = 0;
+            for(let  i in lastStats.config.donation) {
                 totalDonation += lastStats.config.donation[i];
             }
             totalFee += totalDonation;
@@ -293,20 +293,20 @@ $('#networkLastBlockFound,#poolLastBlockFound').timeago();
 // Create charts
 function createCharts() {
     if (!lastStats || !lastStats.charts) return ;
-    var data = lastStats.charts;
+    let  data = lastStats.charts;
 
-    var graphData = {
+    let  graphData = {
         hashrate: getGraphData(data.hashrate),
         diff: getGraphData(data.difficulty),
         miners: getGraphData(data.miners),
         workers: getGraphData(data.workers)
     };
 
-    for (var graphType in graphData) {
+    for (let  graphType in graphData) {
         if (graphData[graphType].values.length > 1) {
-            var $chart = $('#chart_'+graphType);
-            var bgcolor = null, bordercolor = null, borderwidth = null;
-            var colorelem = $chart.siblings('a.chart-style');
+            let  $chart = $('#chart_'+graphType);
+            let  bgcolor = null, bordercolor = null, borderwidth = null;
+            let  colorelem = $chart.siblings('a.chart-style');
             if (colorelem.length == 1) {
                 bgcolor = colorelem.css('background-color');
                 bordercolor = colorelem.css('border-left-color');
@@ -316,7 +316,7 @@ function createCharts() {
             if (bordercolor === null) bordercolor = '#03a9f4';
             if (borderwidth === null || isNaN(borderwidth)) borderwidth = 1;
 
-            var chartObj = new Chart(document.getElementById('chart_'+graphType), {
+            let  chartObj = new Chart(document.getElementById('chart_'+graphType), {
                 type: 'line',
                 data: {
                     labels: graphData[graphType].names,
@@ -359,8 +359,8 @@ function createCharts() {
                     tooltips: {
                         callbacks: {
                             label: function(tooltipItem, data) {
-                                var dataType = data.datasets[tooltipItem.datasetIndex].dataType || '';
-                                var label = tooltipItem.yLabel;
+                                let  dataType = data.datasets[tooltipItem.datasetIndex].dataType || '';
+                                let  label = tooltipItem.yLabel;
                                 if (dataType == 'hashrate') label = getReadableHashRateString(tooltipItem.yLabel)+'/sec';
                                 else label = formatNumber(tooltipItem.yLabel.toString(), ' ');
                                 return ' ' + label;
@@ -376,12 +376,12 @@ function createCharts() {
 
 // Get chart data
 function getGraphData(rawData) {
-    var graphData = {
+    let  graphData = {
         names: [],
         values: []
     };
     if(rawData) {
-        for (var i = 0, xy; xy = rawData[i]; i++) {
+        for (let  i = 0, xy; xy = rawData[i]; i++) {
             graphData.names.push(new Date(xy[0]*1000).toLocaleString());
             graphData.values.push(xy[1]);
         }

@@ -117,7 +117,7 @@ currentPage = {
 
 // Parse payment data
 function parsePayment(time, serializedPayment){
-    var parts = serializedPayment.split(':');
+    let  parts = serializedPayment.split(':');
     return {
         time: parseInt(time),
         hash: parts[0],
@@ -140,7 +140,7 @@ function getPaymentCells(payment){
 
 // Get payment row element
 function getPaymentRowElement(payment, jsonString){
-    var row = document.createElement('tr');
+    let  row = document.createElement('tr');
     row.setAttribute('data-json', jsonString);
     row.setAttribute('data-time', payment.time);
     row.setAttribute('id', 'paymentRow' + payment.hash);
@@ -152,22 +152,22 @@ function getPaymentRowElement(payment, jsonString){
 
 // Render payments data
 function renderPayments(paymentsResults){
-    var $paymentsRows = $('#paymentsReport_rows');
-    for (var i = 0; i < paymentsResults.length; i += 2){
-        var payment = parsePayment(paymentsResults[i + 1], paymentsResults[i]);
-        var paymentJson = JSON.stringify(payment);
-        var existingRow = document.getElementById('paymentRow' + payment.hash);
+    let  $paymentsRows = $('#paymentsReport_rows');
+    for (let  i = 0; i < paymentsResults.length; i += 2){
+        let  payment = parsePayment(paymentsResults[i + 1], paymentsResults[i]);
+        let  paymentJson = JSON.stringify(payment);
+        let  existingRow = document.getElementById('paymentRow' + payment.hash);
 
         if (existingRow && existingRow.getAttribute('data-json') !== paymentJson){
             $(existingRow).replaceWith(getPaymentRowElement(payment, paymentJson));
         }
         else if (!existingRow){
-            var paymentElement = getPaymentRowElement(payment, paymentJson);
+            let  paymentElement = getPaymentRowElement(payment, paymentJson);
 
-            var inserted = false;
-            var rows = $paymentsRows.children().get();
-            for (var f = 0; f < rows.length; f++) {
-                var pTime = parseInt(rows[f].getAttribute('data-time'));
+            let  inserted = false;
+            let  rows = $paymentsRows.children().get();
+            for (let  f = 0; f < rows.length; f++) {
+                let  pTime = parseInt(rows[f].getAttribute('data-time'));
                 if (pTime < payment.time){
                     inserted = true;
                     $(rows[f]).before(paymentElement);
@@ -182,7 +182,7 @@ function renderPayments(paymentsResults){
 }
 
 // Load more payments button
-var xhrGetPayments;
+let  xhrGetPayments;
 $('#loadMorePayments').click(function(){
     if (xhrGetPayments) xhrGetPayments.abort();
     xhrGetPayments = $.ajax({

@@ -72,7 +72,7 @@ function routePage(loadedCallback) {
     }
 
     $('.hot_link').parent().removeClass('active');
-    var $link = $('a.hot_link[href="' + (window.location.hash || '#') + '"]');
+    let  $link = $('a.hot_link[href="' + (window.location.hash || '#') + '"]');
     
     $link.parent().addClass('active');
     let page = $link.data('page');

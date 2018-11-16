@@ -55,18 +55,18 @@ function showSuccess(testId, message) {
  **/
 
 function isEmail(email) {
-    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    let  regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     return regex.test(email);
 }
 
 $('#testEmailButton').click(function() {
-    var password = docCookies.getItem('password');
+    let  password = docCookies.getItem('password');
 
     if(!password) {
         password = prompt('Enter admin password');
     }
     
-    var email = $('#emailAddress').val().trim();
+    let  email = $('#emailAddress').val().trim();
     if (!email) {
         showError('email', 'No email address specified');
 	return;
@@ -99,7 +99,7 @@ $('#testEmailButton').click(function() {
  **/
 
 $('#testTelegramButton').click(function(){
-    var password = docCookies.getItem('password');
+    let  password = docCookies.getItem('password');
 
     if(!password) {
         password = prompt('Enter admin password');
