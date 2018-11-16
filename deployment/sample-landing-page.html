@@ -138,7 +138,7 @@ function getPoolStats(poolID, poolURL) {
             }
         }
         else if (cnAlgorithm == "cryptonight_heavy") {
-            if (cnVariant === 5) {
+            if (cnVariant === 1) {
                 algorithm = 'Cryptonight Heavy (Haven)';
             }
             else {
@@ -152,6 +152,8 @@ function getPoolStats(poolID, poolURL) {
                 algorithm = 'Cryptonight (Stellite v7)';
 	    } else if (cnVariant === 4) {
                 algorithm = 'Cryptonight Fast (Masari)';
+	    } else if (cnVariant === 8) {
+		algorithm = 'Cryptonight (Monero v8)';
             } else {
                 algorithm = 'Cryptonight (Original)';
             }
