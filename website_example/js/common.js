@@ -182,7 +182,7 @@ function getReadableTime(seconds){
 
     function formatAmounts(amount, unit){
         let rounded = Math.round(amount);
-	let unit = unit + (rounded > 1 ? 's' : '');
+	unit = unit + (rounded > 1 ? 's' : '');
         if (getTranslation(unit)) unit = getTranslation(unit);
         return '' + rounded + ' ' + unit;
     }
@@ -397,8 +397,8 @@ function renderLangSelector() {
     }	
 
     // Mobile
-    let html = '';
-    let numLangs = 0;
+    html = '';
+    numLangs = 0;
     if (langs) {
         html += '<select id="mNewLang" class="form-control form-control-sm">';
         for (let lang in langs) {
