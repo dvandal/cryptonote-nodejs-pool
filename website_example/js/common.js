@@ -309,7 +309,6 @@ function getCellValue(row, index) {
 /**
  * Translations
  **/
-let langs = {};
 if (typeof langs == "undefined") {
     langs = { en: 'English' };
 }
