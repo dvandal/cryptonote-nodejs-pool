@@ -233,7 +233,8 @@ Explanation for each field:
         "colors": true
     }
 },
-
+/*Which Hashing Package to use: cryptonight-hashing=false, multi-hashing=true*/
+"hashingUtil":false,
 /* Modular Pool Server */
 "poolServer": {
     "enabled": true,
