@@ -326,6 +326,7 @@ function getTranslation(key) {
 }
 
 let translate = function(data) {
+    $("html")[0].lang = langCode;
     langData = data;
 
     $("[tkey]").each(function(index) {
