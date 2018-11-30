@@ -326,6 +326,7 @@ function getTranslation(key) {
 }
 
 let translate = function(data) {
+    $("html")[0].lang = langCode;
     langData = data;
 
     $("[tkey]").each(function(index) {
@@ -351,7 +352,7 @@ for (let i=0; i<args.length; ++i) {
     const tmp = args[i].split(/=/);
     if (tmp[0] != "") {
         $_GET[decodeURIComponent(tmp[0])] = decodeURIComponent(tmp.slice(1).join("").replace("+", " "));
-        let langCode = $_GET['lang'];    
+        langCode = $_GET['lang'];
     }
 }
 
