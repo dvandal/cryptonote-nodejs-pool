@@ -329,18 +329,18 @@ let translate = function(data) {
     $("html")[0].lang = langCode;
     langData = data;
 
-    $("[tkey]").each(function(index) {
-        let strTr = data[$(this).attr('tkey')];
+    $("[data-tkey]").each(function(index) {
+        let strTr = data[$(this).attr('data-tkey')];
         $(this).html(strTr);
     });
 
-    $("[tplaceholder]").each(function(index) {
-        let strTr = data[$(this).attr('tplaceholder')];
+    $("[data-tplaceholder]").each(function(index) {
+        let strTr = data[$(this).attr('data-tplaceholder')];
 	$(this).attr('placeholder', strTr)
     });
 
-    $("[tvalue]").each(function(index) {
-        let strTr = data[$(this).attr('tvalue')];
+    $("[data-tvalue]").each(function(index) {
+        let strTr = data[$(this).attr('data-tvalue')];
         $(this).attr('value', strTr)
     });
 } 

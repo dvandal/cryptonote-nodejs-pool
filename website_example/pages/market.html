@@ -1,10 +1,10 @@
 <!-- Market -->
 <div id="marketStats" class="row">
-    <div id="marketInfos" class="clearfix"><div class="col-xs-12"><span class="fa fa-spinner fa-spin"></span> <span tkey="loadingMarket">Loading market prices</span> ...</div></div>
+    <div id="marketInfos" class="clearfix"><div class="col-xs-12"><span class="fa fa-spinner fa-spin"></span> <span data-tkey="loadingMarket">Loading market prices</span> ...</div></div>
 
     <div class="col-sm-6 marketChart push-down-15">
         <div class="card">
-            <h4><span tkey="priceIn">Price in</span> <span id="priceChartCurrency">USD</span></h4>
+            <h4><span data-tkey="priceIn">Price in</span> <span id="priceChartCurrency">USD</span></h4>
             <div class="chart">
                 <canvas id="chart_price"></canvas>
                 <a class="chart-style"></a>
@@ -13,7 +13,7 @@
     </div>
     <div class="col-sm-6 marketChart push-down-15">
         <div class="card">
-            <h4><span tkey="hashPer">Hash/</span><span id="profitChartCurrency">USD</span> <span data-toggle="tooltip" data-placement="top" data-original-title="Reward * Rate / Difficulty"><i class="fa fa-question-circle"></i></span></h4>
+            <h4><span data-tkey="hashPer">Hash/</span><span id="profitChartCurrency">USD</span> <span data-toggle="tooltip" data-placement="top" data-original-title="Reward * Rate / Difficulty"><i class="fa fa-question-circle"></i></span></h4>
             <div class="chart">
                 <canvas id="chart_profit"></canvas>
                 <a class="chart-style"></a>
@@ -24,10 +24,10 @@
     
 <!-- Mining Profit Calculator -->
 <div id="miningProfitCalc">
-    <h3><span tkey="estimateProfit">Estimate Mining Profits</span></h3>
+    <h3><span data-tkey="estimateProfit">Estimate Mining Profits</span></h3>
     <div id="calcHashHolder">
         <div class="input-group">
-            <input class="form-control" id="calcHashRate" tplaceholder="enterYourHashrate" placeholder="Enter Your Hash Rate" type="number">
+            <input class="form-control" id="calcHashRate" data-tplaceholder="enterYourHashrate" placeholder="Enter Your Hash Rate" type="number">
             <div class="input-group-btn">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="calcHashDropdown">
                     <span id="calcHashUnit" data-mul="1">KH/s</span> <span class="caret"></span>
@@ -39,7 +39,7 @@
                 </ul>
             </div>
             <span class="input-group-addon">=</span>
-            <span class="input-group-addon" id="calcHashResultsHolder"><div id="calcHashAmount"><span id="calcHashAmount1"></span><br/><span id="calcHashAmount2"></span></div> <div id="calcHashPeriod"> <span tkey="perDay">per day</span></div></span>
+            <span class="input-group-addon" id="calcHashResultsHolder"><div id="calcHashAmount"><span id="calcHashAmount1"></span><br/><span id="calcHashAmount2"></span></div> <div id="calcHashPeriod"> <span data-tkey="perDay">per day</span></div></span>
         </div>
     </div>
 </div>

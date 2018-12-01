@@ -1,42 +1,42 @@
 <!-- Connection Details -->
 <div class="row">
     <div class="col-sm-6">
-        <h3><span tkey="connectionDetails">Connection Details</span></h3>
+        <h3><span data-tkey="connectionDetails">Connection Details</span></h3>
         <div class="card padding-l-10 padding-r-10">
             <div class="stats">
-                <div><i class="fa fa-cloud"></i> <span tkey="miningPoolHost">Mining Pool Address</span>: <span id="miningPoolHost"></span></div>
-                <div><i class="fa fa-cubes"></i> <span tkey="cnAlgorithm">Algorithm</span>: <span id="cnAlgorithm"></span></div>
+                <div><i class="fa fa-cloud"></i> <span data-tkey="miningPoolHost">Mining Pool Address</span>: <span id="miningPoolHost"></span></div>
+                <div><i class="fa fa-cubes"></i> <span data-tkey="cnAlgorithm">Algorithm</span>: <span id="cnAlgorithm"></span></div>
             </div>
         </div>
 
-        <h4 class="push-up-15"><span tkey="username">Username<span></h4>
+        <h4 class="push-up-15"><span data-tkey="username">Username<span></h4>
         <div class="card padding-l-10 padding-r-10">
             <div class="stats">
-                <div><i class="fa fa-key"></i> <span tkey="usernameDesc">This is your wallet address</span></div>
-                <div id="paymentId"><i class="fa fa-exchange"></i> <span tkey="paymentId">Exchange Payment ID</span>: <span><u tkey="address">address</u><span id="paymentIdSeparator">.</span><u tkey="addrPaymentId">paymentID</u></span></div>
-                <div id="fixedDiff"><i class="fa fa-wrench"></i> <span tkey="fixedDiff">Difficulty locking</span>: <span><u tkey="address">address</u><span id="fixedDiffSeparator">+</span><u tkey="addrDiff">diff</u></span></div>
+                <div><i class="fa fa-key"></i> <span data-tkey="usernameDesc">This is your wallet address</span></div>
+                <div id="paymentId"><i class="fa fa-exchange"></i> <span data-tkey="paymentId">Exchange Payment ID</span>: <span><u data-tkey="address">address</u><span id="paymentIdSeparator">.</span><u data-tkey="addrPaymentId">paymentID</u></span></div>
+                <div id="fixedDiff"><i class="fa fa-wrench"></i> <span data-tkey="fixedDiff">Difficulty locking</span>: <span><u data-tkey="address">address</u><span id="fixedDiffSeparator">+</span><u data-tkey="addrDiff">diff</u></span></div>
             </div>
         </div>
 	    
-        <h4 class="push-up-15"><span tkey="password">Password</span></h4>
+        <h4 class="push-up-15"><span data-tkey="password">Password</span></h4>
         <div class="card padding-l-10 padding-r-10">
             <div class="stats">
-                <div><i class="fa fa-server"></i> <span tkey="passwordDesc">This is your worker name</span></div>
+                <div><i class="fa fa-server"></i> <span data-tkey="passwordDesc">This is your worker name</span></div>
             </div>
         </div>
     </div>
 
     <!-- Mining ports -->
     <div class="col-sm-6">
-        <h3><span tkey="miningPorts">Mining Ports</span></h3>
+        <h3><span data-tkey="miningPorts">Mining Ports</span></h3>
         <div class="card">
             <div id="miningPorts" class="table-responsive">
                 <table class="table table-hover table-striped">
                     <thead>
                     <tr>
-                        <th class="col1"><span tkey="port">Port</span></th>
-                        <th class="col2"><span tkey="portDiff">Starting Difficulty</span></th>
-                        <th class="col3"><span tkey="description">Description</span></th>
+                        <th class="col1"><span data-tkey="port">Port</span></th>
+                        <th class="col2"><span data-tkey="portDiff">Starting Difficulty</span></th>
+                        <th class="col3"><span data-tkey="description">Description</span></th>
                     </tr>
                     </thead>
                     <tbody id="miningPorts_rows">
@@ -54,11 +54,11 @@
 </div>
 
 <!-- Mining Applications and Configuration Generator -->
-<h3><span tkey="miningApps">Mining Applications</span></h3>
+<h3><span data-tkey="miningApps">Mining Applications</span></h3>
 
 <!-- Configuration Generator -->
 <div class="card padding-15">
-    <p><span tkey="configGeneratorDesc">Generate your custom configuration to mine on our pool</span></p>
+    <p><span data-tkey="configGeneratorDesc">Generate your custom configuration to mine on our pool</span></p>
     <div id="configGenerator" class="row">
         <div class="col-md-12">
             <div class="input-group push-down-5">
@@ -69,29 +69,29 @@
         <div class="col-sm-6 col-xs-12">
             <div class="input-group push-down-5">
                 <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                <input class="form-control" id="gAddress" type="text" tplaceholder="addressField" placeholder="Wallet Address" required="required" />
+                <input class="form-control" id="gAddress" type="text" data-tplaceholder="addressField" placeholder="Wallet Address" required="required" />
             </div>
         </div>
         <div class="col-sm-6 col-xs-12">
             <div class="input-group push-down-5">
                 <span class="input-group-addon"><i class="fa fa-exchange"></i></span>
-                <input class="form-control" id="gPaymentID" type="text" tplaceholder="paymentIdField" placeholder="Payment ID for exchanges (optional)" />
+                <input class="form-control" id="gPaymentID" type="text" data-tplaceholder="paymentIdField" placeholder="Payment ID for exchanges (optional)" />
             </div>
         </div>
         <div class="col-sm-6 col-xs-12">
             <div class="input-group push-down-5">
                 <span class="input-group-addon"><i class="fa fa-server"></i></span>
-                <input class="form-control" id="gWorkerName" tplaceholder="workerNameField" type="text" placeholder="Worker_Name" /> 
+                <input class="form-control" id="gWorkerName" data-tplaceholder="workerNameField" type="text" placeholder="Worker_Name" /> 
             </div>
         </div>
         <div class="col-sm-6 col-xs-12">
             <div class="input-group push-down-5">
                 <span class="input-group-addon"><i class="fa fa-wrench"></i></span>
-                <input class="form-control" id="gDifficulty" type="text" tplaceholder="fixedDiffField" placeholder="Fixed difficulty (optional)" />
+                <input class="form-control" id="gDifficulty" type="text" data-tplaceholder="fixedDiffField" placeholder="Fixed difficulty (optional)" />
             </div>
         </div>
         <div class="col-md-12 push-up-5">
-            <input id="generateConf" type="submit" tvalue="generateConfig" value="Generate configuration" class="btn btn-default"  data-toggle="collapse" href="#xmrstak" />
+            <input id="generateConf" type="submit" data-tvalue="generateConfig" value="Generate configuration" class="btn btn-default"  data-toggle="collapse" href="#xmrstak" />
         </div>
     </div>
 </div>
@@ -102,11 +102,11 @@
         <table class="table">
             <thead>
             <tr>
-                <th><i class="fa fa-book"></i> <span tkey="appName">App Name</span></th>
-                <th><i class="fa fa-car"></i> <span tkey="appArch">Architecture</span></th>
-                <th><i class="fa fa-star"></i> <span tkey="appDesc">Features</span></th>
-                <th><i class="fa fa-download"></i> <span tkey="download">Download</span></th>
-                <th><i class="fa fa-file-code-o"></i> <span tkey="configuration">Configuration</span></th>
+                <th><i class="fa fa-book"></i> <span data-tkey="appName">App Name</span></th>
+                <th><i class="fa fa-car"></i> <span data-tkey="appArch">Architecture</span></th>
+                <th><i class="fa fa-star"></i> <span data-tkey="appDesc">Features</span></th>
+                <th><i class="fa fa-download"></i> <span data-tkey="download">Download</span></th>
+                <th><i class="fa fa-file-code-o"></i> <span data-tkey="configuration">Configuration</span></th>
             </tr>
             </thead>
             <tbody id="miningApps_rows">
@@ -116,8 +116,8 @@
                 <td class="miningAppTitle">XMR Stak</td>
                 <td>CPU & GPU (AMD/NVIDIA)</td>
                 <td>Easy to use CPU + GPU Mining App</td>
-                <td><a class="btn btn-success" target="_blank" href="https://github.com/fireice-uk/xmr-stak/releases/latest"><span tkey="download">Download</span></a></td>
-                <td><a class="btn btn-default" role="button" data-toggle="collapse" href="#xmrstak" aria-expanded="true" aria-controls="collapseExample"><span tkey="showConfig">See more</span></a></td>
+                <td><a class="btn btn-success" target="_blank" href="https://github.com/fireice-uk/xmr-stak/releases/latest"><span data-tkey="download">Download</span></a></td>
+                <td><a class="btn btn-default" role="button" data-toggle="collapse" href="#xmrstak" aria-expanded="true" aria-controls="collapseExample"><span data-tkey="showConfig">See more</span></a></td>
             </tr>
             <tr class="appConfig">
                 <td colspan="5">
@@ -146,8 +146,8 @@
                 <td class="miningAppTitle">XMRig</td>
                 <td>CPU</td>
                 <td>Ligthweight but powerful CPU Mining App</td>
-                <td><a class="btn btn-success" target="_blank" href="https://github.com/xmrig/xmrig/releases/latest"><span tkey="download">Download</span></a></td>
-                <td><a class="btn btn-default" role="button" data-toggle="collapse" href="#xmrig" aria-expanded="true" aria-controls="collapseExample"><span tkey="showConfig">See more</span></a></td>
+                <td><a class="btn btn-success" target="_blank" href="https://github.com/xmrig/xmrig/releases/latest"><span data-tkey="download">Download</span></a></td>
+                <td><a class="btn btn-default" role="button" data-toggle="collapse" href="#xmrig" aria-expanded="true" aria-controls="collapseExample"><span data-tkey="showConfig">See more</span></a></td>
             </tr>
             <tr class="appConfig">
                 <td colspan="5">
@@ -173,8 +173,8 @@
                 <td class="miningAppTitle">XMRig-AMD</td>
                 <td>OpenCL (AMD)</td>
                 <td>XMRIG version for AMD GPU</td>
-                <td><a class="btn btn-success" target="_blank" href="https://github.com/xmrig/xmrig-amd/releases/latest"><span tkey="download">Download</span></a></td>
-                <td><a class="btn btn-default" role="button" data-toggle="collapse" href="#xmrig-amd" aria-expanded="true" aria-controls="collapseExample"><span tkey="showConfig">See more</span></a></td>
+                <td><a class="btn btn-success" target="_blank" href="https://github.com/xmrig/xmrig-amd/releases/latest"><span data-tkey="download">Download</span></a></td>
+                <td><a class="btn btn-default" role="button" data-toggle="collapse" href="#xmrig-amd" aria-expanded="true" aria-controls="collapseExample"><span data-tkey="showConfig">See more</span></a></td>
             </tr>
             <tr class="appConfig">
                 <td colspan="5">
@@ -200,8 +200,8 @@
                 <td class="miningAppTitle">XMRig-NVIDIA</td>
                 <td>Cuda (Nvidia)</td>
                 <td>XMRIG version for Nvidia GPU</td>
-                <td><a class="btn btn-success" target="_blank" href="https://github.com/xmrig/xmrig-nvidia/releases/latest"><span tkey="download">Download</span></a></td>
-                <td><a class="btn btn-default" role="button" data-toggle="collapse" href="#xmrig-nvidia" aria-expanded="true" aria-controls="collapseExample"><span tkey="showConfig">See more</span></a></td>
+                <td><a class="btn btn-success" target="_blank" href="https://github.com/xmrig/xmrig-nvidia/releases/latest"><span data-tkey="download">Download</span></a></td>
+                <td><a class="btn btn-default" role="button" data-toggle="collapse" href="#xmrig-nvidia" aria-expanded="true" aria-controls="collapseExample"><span data-tkey="showConfig">See more</span></a></td>
             </tr>
             <tr class="appConfig">
                 <td colspan="5">
@@ -227,8 +227,8 @@
                 <td class="miningAppTitle">XMRigCC</td>
                 <td>CPU</td>
                 <td>XMRIG Fork, optimized with remote control</td>
-                <td><a class="btn btn-success" target="_blank" href="https://github.com/Bendr0id/xmrigCC/releases/latest"><span tkey="download">Download</span></a></td>
-                <td><a class="btn btn-default" role="button" data-toggle="collapse" href="#xmrig-cc" aria-expanded="true" aria-controls="collapseExample"><span tkey="showConfig">See more</span></a></td>
+                <td><a class="btn btn-success" target="_blank" href="https://github.com/Bendr0id/xmrigCC/releases/latest"><span data-tkey="download">Download</span></a></td>
+                <td><a class="btn btn-default" role="button" data-toggle="collapse" href="#xmrig-cc" aria-expanded="true" aria-controls="collapseExample"><span data-tkey="showConfig">See more</span></a></td>
             </tr>
             <tr class="appConfig">
                 <td colspan="5">
@@ -253,8 +253,8 @@
                 <td class="miningAppTitle">SRBMiner Cryptonight AMD GPU Miner</td>
                 <td>OpenCL (AMD)</td>
                 <td>XMRIG version for AMD GPU</td>
-                <td><a class="btn btn-success" target="_blank" href="https://bitcointalk.org/index.php?topic=3167363.0"><span tkey="download">Download</span></a></td>
-                <td><a class="btn btn-default" role="button" data-toggle="collapse" href="#srbminer" aria-expanded="true" aria-controls="collapseExample"><span tkey="showConfig">See more</span></a></td>
+                <td><a class="btn btn-success" target="_blank" href="https://bitcointalk.org/index.php?topic=3167363.0"><span data-tkey="download">Download</span></a></td>
+                <td><a class="btn btn-default" role="button" data-toggle="collapse" href="#srbminer" aria-expanded="true" aria-controls="collapseExample"><span data-tkey="showConfig">See more</span></a></td>
             </tr>
             <tr class="appConfig">
                 <td colspan="5">
