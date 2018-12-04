@@ -327,7 +327,10 @@ currentPage = {
 	    } else if (cnVariant === 4) {
                 algorithm = 'Cryptonight Fast (Masari)';
                 xmrstakAlgo = 'cryptonight_masari';
-            } else {
+        } else if (cnVariant === 8) {
+            algorithm = 'Cryptonight Variant 2 (Cryptonight v8)';
+            xmrstakAlgo = 'cryptonight_v8';
+        } else {
                 algorithm = 'Cryptonight (Original)';
                 xmrstakAlgo = 'cryptonight';
             }
