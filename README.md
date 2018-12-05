@@ -573,6 +573,12 @@ Explanation for each field:
             "stepInterval": 1800,
             "maximumPeriod": 86400
         },
+        "worker_hashrate": {
+            "enabled": true,
+            "updateInterval": 60,
+            "stepInterval": 60,
+            "maximumPeriod": 86400
+        },
         "payments": { // Payment chart uses all user payments data stored in DB
             "enabled": true
         }
