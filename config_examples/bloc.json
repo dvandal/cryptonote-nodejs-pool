@@ -70,7 +70,7 @@
         ],
         "varDiff": {
             "minDiff": 100,
-            "maxDiff": 100000,
+            "maxDiff": 100000000,
             "targetTime": 60,
             "retargetTime": 30,
             "variancePercent": 30,
@@ -114,7 +114,6 @@
         "dynamicTransferFee": true,
         "minerPayFee" : true,
         "minPayment": 50000,
-        "maxPayment": null,
         "maxTransactionAmount": 250000000,
         "denomination": 10000
     },
@@ -125,7 +124,8 @@
         "depth": 50,
         "poolFee": 0.8,
         "devDonation": 0.0,
-        "networkFee": 0.0
+        "networkFee": 0.0,
+        "fixBlockHeightRPC": false
     },
 
     "api": {
@@ -310,10 +310,6 @@
             "payments": {
                 "enabled": true
             }
-        },
-        "blocks": {
-            "enabled": true,
-            "days": 30
         }
     }
 }
