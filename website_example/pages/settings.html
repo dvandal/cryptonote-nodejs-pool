@@ -191,19 +191,16 @@ function getEmailAddress(address) {
     
 // Set email address for notifications
 function setEmailNotifications(email, address, ip, enable) {
-    let  address = $('#yourAddress').val().trim();
     if (!address || address == '') {
         showError('noMinerAddress', 'No miner address specified');
         return;
     }
 
-    let  ip = $('#yourIP').val().trim();
     if (!ip || ip == '') {
         showError('noMinerIP', 'No miner IP address specified');
         return;
     }
 
-    let  email = $('#yourEmail').val().trim();
     if (enable && !email) {
         showError('noEmail', 'No email address specified');
         return;
