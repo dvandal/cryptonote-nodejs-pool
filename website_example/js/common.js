@@ -314,7 +314,7 @@ if (typeof langs == "undefined") {
 }
 
 if (typeof defaultLang == "undefined") {
-    let defaultLang = 'en';
+    defaultLang = 'en';
 }
 
 let langCode = defaultLang;
