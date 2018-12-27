@@ -4,8 +4,8 @@
     "coin": "electronero",
     "symbol": "ETNX",
     "coinUnits": 100,
-    "coinDecimalPlaces": 2,
-    "coinDifficultyTarget": 120,
+    "coinDecimalPlaces": 8,
+    "coinDifficultyTarget": 60,
 
     "daemonType": "default",
     "cnAlgorithm": "cryptonight",
