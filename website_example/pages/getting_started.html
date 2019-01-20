@@ -377,23 +377,31 @@ currentPage = {
             }
         }
         else if (cnAlgorithm == "cryptonight_heavy") {
-            algorithm = 'Cryptonight Heavy';
-            xmrstakAlgo = 'cryptonight_heavy';
+	    if (cnVariant === 1) {
+		algorithm = 'Crytonight Heavy (Haven)';
+		xmrstakAlgo = 'haven';
+	    } else {
+            	algorithm = 'Cryptonight Heavy';
+            	xmrstakAlgo = 'cryptonight_heavy';
+	    }
         }
         else {
             if (cnVariant === 1) {
                 algorithm = 'Cryptonight (Monero v7)';
                 xmrstakAlgo = 'cryptonight_v7';
-            } else if (cnVariant === 3) {
+            } else if (cnVariant === 9) {
                 algorithm = 'Cryptonight (Stellite v7)';
                 xmrstakAlgo = 'cryptonight_v7_stellite';
 	    } else if (cnVariant === 4) {
                 algorithm = 'Cryptonight Fast (Masari)';
                 xmrstakAlgo = 'cryptonight_masari';
-        } else if (cnVariant === 8) {
-            algorithm = 'Cryptonight Variant 2 (Cryptonight v8)';
-            xmrstakAlgo = 'cryptonight_v8';
-        } else {
+	    } else if (cnVariant === 2) {
+		algorithm = 'Cryptonight (Monero v8)';
+		xmrstakAlgo = 'cryptonight_v8';
+	    } else if (cnVariant === 8) {
+		algorithm = 'Cryptonight (Monero v8)';
+		xmrstakAlgo = 'cryptonight_v8';
+            } else {
                 algorithm = 'Cryptonight (Original)';
                 xmrstakAlgo = 'cryptonight';
             }
