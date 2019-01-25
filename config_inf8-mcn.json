@@ -7,6 +7,8 @@
     "coinDecimalPlaces": 4,
     "coinDifficultyTarget": 90,
 
+    "childCoin": "monetaverde",
+
     "daemonType": "default",
     "cnAlgorithm": "cryptonight",
     "cnVariant": 0,
