@@ -19,7 +19,10 @@
         "node-telegram-bot-api": "^0.30.0",
         "nodemailer": "^2.7.2",
         "nodemailer-sendmail-transport": "^1.0.2",
+        "promise-queue": "^2.2.5",
         "redis": "^2.8.0",
+        "request": "^2.88.0",
+        "request-promise": "^4.2.2",
         "socket.io": "^2.1.1",
         "time-ago": "^0.2.1"
     },
