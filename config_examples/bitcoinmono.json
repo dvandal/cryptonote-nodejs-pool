@@ -69,7 +69,7 @@
             }
         ],
         "varDiff": {
-            "minDiff": 100,
+            "minDiff": 1000,
             "maxDiff": 100000000,
             "targetTime": 60,
             "retargetTime": 30,
@@ -108,21 +108,21 @@
         "enabled": true,
         "interval": 1800,
         "maxAddresses": 50,
-        "mixin": 5,
+        "mixin": 0,
         "priority": 0,
-        "transferFee": 10000000000,
-        "dynamicTransferFee": true,
+        "transferFee": 1000,
+        "dynamicTransferFee": false,
         "minerPayFee" : true,
-        "minPayment": 500000000000,
-        "maxPayment": null,
+        "minPayment": 10000,
+        "maxPayment": 1000000000000,
         "maxTransactionAmount": 0,
-        "denomination": 100000000
+        "denomination": 10
     },
 
     "blockUnlocker": {
         "enabled": true,
         "interval": 30,
-        "depth": 60,
+        "depth": 50,
         "poolFee": 0.8,
         "devDonation": 0.2,
         "networkFee": 0.0
