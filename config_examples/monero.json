@@ -12,6 +12,7 @@
     "cnVariant": 13,
     "cnBlobType": 0,
     "includeHeight": true,
+    "includeAlgo": "cn/r",
     
     "logging": {
         "files": {
