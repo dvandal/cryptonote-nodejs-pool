@@ -785,8 +785,8 @@ Thanks for supporting my works on this project! If you want to make a donation t
 
 Credits
 ---------
-* [Daniel Vandal](https://github.com/dvandal/) - First developper of this project
-* [fancoder](//github.com/fancoder) - Developper on cryptonote-universal-pool project from which current project is forked.
+* [Daniel Vandal](https://github.com/dvandal/) - Developer of this project when this project was created.
+* [fancoder](//github.com/fancoder) - Developer on cryptonote-universal-pool project from which current project is forked.
 
 License
 -------
