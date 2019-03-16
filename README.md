@@ -1,7 +1,7 @@
 cryptonote-nodejs-pool for merged mining
 =========================================
 
-High performance Node.js (with native C addons) mining pool for CryptoNote based coins. Comes with lightweight example front-end script which uses the pool's AJAX API. Support for Cryptonight (Original, Monero v7, Stellite v7), Cryptonight Light (Original, Aeon v7, IPBC) and Cryptonight Heavy (Sumokoin) algorithms. With Merged mining support.
+High performance Node.js (with native C addons) mining pool for CryptoNote based coins. Comes with lightweight example front-end script which uses the pool's AJAX API. Support for Cryptonight (Original, Monero v7, Stellite v7), Cryptonight Light (Original, Aeon v7, IPBC), Cryptonight Pico (Trtl) and Cryptonight Heavy (Sumokoin) algorithms. With Merged mining support.
 
 
 #### Table of Contents
@@ -619,6 +619,21 @@ sudo systemctl enable cryptonote-nodejs-pool.service
 sudo systemctl start cryptonote-nodejs-pool.service
 ```
 
+
+#### 3) Merged mining support
+
+To enable merged mining you will need to use at leas 2 nodejs processes. One for the pool process + main coin config and another process for the child coin payments, unlocker, etc.
+First, you will need both coins node daemons running.
+Take a look at the [config_inf8-mcn.json](https://github.com/campurro/cryptonote-nodejs-pool/blob/master/config_inf8-mcn.json) for a main (pool) config example.
+The child coin config file is a normal config with your child coin data but with the poolServer.enabled set to false. 
+
+```
+nodejs init.js -config=config_inf8-mcn.json
+nodejs init.js -config=config_child_coin.json
+```
+You can use [forever](https://github.com/nodejitsu/forever) or [PM2](https://github.com/Unitech/pm2) to start both as daemons.
+
+
 #### 4) Host the front-end
 
 Simply host the contents of the `website_example` directory on file server capable of serving simple static files.
@@ -759,23 +774,18 @@ curl 127.0.0.1:18081/json_rpc -d '{"method":"getblockheaderbyheight","params":{"
 Donations
 ---------
 
-Thanks for supporting my works on this project! If you want to make a donation to [Daniel Vandal](https://github.com/dvandal/), the developper of this project, you can send any amount of your choice to one of theses addresses:
+Thanks for supporting my works on this project! If you want to make a donation to [Campurro](https://github.com/campurro/), the developper of the merged mining support for this project, you can send any amount of your choice to one of theses addresses:
 
-* Bitcoin (BTC): `17XRyHm2gWAj2yfbyQgqxm25JGhvjYmQjm`
-* Bitcoin Cash (BCH): `qpl0gr8u3yu7z4nzep955fqy3w8m6w769sec08u3dp`
-* Ethereum (ETH): `0x83ECF65934690D132663F10a2088a550cA201353`
-* Litecoin (LTC): `LS9To9u2C95VPHKauRMEN5BLatC8C1k4F1`
-* Monero (XMR): `49WyMy9Q351C59dT913ieEgqWjaN12dWM5aYqJxSTZCZZj1La5twZtC3DyfUsmVD3tj2Zud7m6kqTVDauRz53FqA9zphHaj`
-* Graft (GRFT): `GBqRuitSoU3PFPBAkXMEnLdBRWXH4iDSD6RDxnQiEFjVJhWUi1UuqfV5EzosmaXgpPGE6JJQjMYhZZgWY8EJQn8jQTsuTit`
-* Haven (XHV): `hvxy2RAzE7NfXPLE3AmsuRaZztGDYckCJ14XMoWa6BUqGrGYicLCcjDEjhjGAQaAvHYGgPD7cGUwcYP7nEUs8u6w3uaap9UZTf`
-* IntenseCoin (ITNS): `iz4fRGV8XsRepDtnK8XQDpHc3TbtciQWQ5Z9285qihDkCAvB9VX1yKt6qUCY6sp2TCC252SQLHrjmeLuoXsv4aF42YZtnZQ53`
-* Masari (MSR): `5n7mffxVT9USrq7tcG3TM8HL5yAz7MirUWypXXJfHrNfTcjNtDouLAAGex8s8htu4vBpmMXFzay8KG3jYGMFhYPr2aMbN6i`
-* Stellite (XTL): `Se45GzgpFG3CnvYNwEFnxiRHD2x7YzRnhFLdxjUqXdbv3ysNbfW5U7aUdn87RgMRPM7xwN6CTbXNc7nL5QUgcww11bDeypTe1`
+* Bitcoin (BTC): `35kAuFPUS1REXQnGM2TxqMbwkKZ9hA4ZfW`
+* Ethereum (ETH): `0x1f6177295A6630858BFA25fD60effA048B307674`
+* Litecoin (LTC): `MPoYzJjr7FhRqwgSNNYi6Ai9uQ9MeiR5Yy`
+* Monero (XMR): `49nCLA3KtAx5MTWidB3opHif7cwnXXHcn6occpXB8DTe6B4QjcAqG4SH7TrGPVuE4n1ygE6is5nER4ms1Yb1hnmYMkBwN4L`
+* Moneta Verde (MCN): `VduTsfyVGBAA2CqdqEh4Vya7B1im7sf1PDbntv1GomLxQpXNxwucsww4ArmR6uLK7PQCY4kVnPGXr8evyXDFNmkk2aBv178S6`
 
 
 Credits
 ---------
-
+* [Daniel Vandal](https://github.com/dvandal/) - First developper of this project
 * [fancoder](//github.com/fancoder) - Developper on cryptonote-universal-pool project from which current project is forked.
 
 License
