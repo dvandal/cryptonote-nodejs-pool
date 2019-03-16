@@ -1,7 +1,7 @@
-cryptonote-nodejs-pool
-======================
+cryptonote-nodejs-pool for merged mining
+=========================================
 
-High performance Node.js (with native C addons) mining pool for CryptoNote based coins. Comes with lightweight example front-end script which uses the pool's AJAX API. Support for Cryptonight (Original, Monero v7, Stellite v7), Cryptonight Light (Original, Aeon v7, IPBC) and Cryptonight Heavy (Sumokoin) algorithms.
+High performance Node.js (with native C addons) mining pool for CryptoNote based coins. Comes with lightweight example front-end script which uses the pool's AJAX API. Support for Cryptonight (Original, Monero v7, Stellite v7), Cryptonight Light (Original, Aeon v7, IPBC) and Cryptonight Heavy (Sumokoin) algorithms. With Merged mining support.
 
 
 #### Table of Contents
@@ -185,6 +185,9 @@ Explanation for each field:
 /* Coin network time to mine one block, see DIFFICULTY_TARGET constant in DAEMON_CODE/src/cryptonote_config.h */
 "coinDifficultyTarget": 120,
 
+/* Used for storage in redis so multiple coins can share the same redis instance. */
+"childCoin": "monetaverde",
+
 /* Set daemon type. Supported values: default, forknote (Fix block height + 1), bytecoin (ByteCoin Wallet RPC API) */
 "daemonType": "default",
 
@@ -225,6 +228,8 @@ Explanation for each field:
 "poolServer": {
     "enabled": true,
 
+    "mergedMining": true,
+
     /* Set to "auto" by default which will spawn one process/fork/worker for each CPU
        core in your system. Each of these workers will run a separate instance of your
        pool(s), and the kernel will load balance miners using these forks. Optionally,
@@ -233,6 +238,9 @@ Explanation for each field:
 
     /* Address where block rewards go, and miner payments come from. */
     "poolAddress": "GBqRuitSoU3PFPBAkXMEnLdBRWXH4iDSD6RDxnQiEFjVJhWUi1UuqfV5EzosmaXgpPGE6JJQjMYhZZgWY8EJQn8jQTsuTit",
+
+    /* Address where child coin block rewards go, and miner payments come from. */
+    "poolChildAddress": "**** YOUR MCN WALLET ADDRESS ********",
 
     /* This is the integrated address prefix used for miner login validation. */
     "intAddressPrefix": 91,
@@ -390,6 +398,12 @@ Explanation for each field:
     "port": 18981
 },
 
+/* Child coin daemon connection details (default port is  MCN's 26081) */
+"childDaemon": {
+    "host": "127.0.0.1",
+    "port": 26081
+},
+
 /* Wallet daemon connection details (default port is 18980) */
 "wallet": {
     "host": "127.0.0.1",
@@ -402,7 +416,7 @@ Explanation for each field:
     "port": 6379,
     "auth": null, // If set, client will run redis auth command on connect. Use for remote db
     "db": 0, // Set the REDIS database to use (default to 0)
-    "cleanupInterval": 15 // Set the REDIS database cleanup interval (in days)
+    "cleanupInterval": 20 // Set the REDIS database cleanup interval (in days)
 }
 
 /* Pool Notifications */
