@@ -3,7 +3,7 @@
 
     "coin": "parsicoin",
     "symbol": "PARS",
-    "coinUnits": 100000000,
+    "coinUnits": 1000000000000,
     "coinDecimalPlaces": 4,
     "coinDifficultyTarget": 120,
 
@@ -105,24 +105,24 @@
 
     "payments": {
         "enabled": true,
-        "interval": 900,
+        "interval": 1800,
         "maxAddresses": 50,
-        "mixin": 1,
+        "mixin": 0,
         "priority": 0,
-        "transferFee": 10000000,
+        "transferFee": 10000000000,
         "dynamicTransferFee": true,
         "minerPayFee" : true,
-        "minPayment": 10000000000,
-        "maxPayment": 10000000000000,
-        "maxTransactionAmount": 10000000000000,
-        "denomination": 100000000
+        "minPayment": 1000000000000,
+        "maxPayment": null,
+        "maxTransactionAmount": 200000000000000,
+        "denomination": 1000000000000
     },
 
     "blockUnlocker": {
         "enabled": true,
         "interval": 30,
         "depth": 10,
-        "poolFee": 2.0,
+        "poolFee": 1.0,
         "devDonation": 0,
         "networkFee": 0.0
     },
@@ -135,7 +135,7 @@
         "port": 8117,
         "blocks": 30,
         "payments": 30,
-        "password": "CHANGE ME",
+        "password": "your_password",
         "ssl": true,
         "sslPort": 8119,
         "sslCert": "./cert.pem",
@@ -146,12 +146,12 @@
 
     "daemon": {
         "host": "127.0.0.1",
-        "port": 18230
+        "port": 18240
     },
 
     "wallet": {
         "host": "127.0.0.1",
-        "port": 18231
+        "port": 18242
     },
 
     "redis": {
