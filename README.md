@@ -253,6 +253,7 @@ Explanation for each field:
         {
             "port": 3333, // Port for mining apps to connect to
             "difficulty": 2000, // Initial difficulty miners are set to
+            "MinFixDiff": 75000, // Minimal miner fixed difficulty (not mandatory)
             "desc": "Low end hardware" // Description of port
         },
         {
