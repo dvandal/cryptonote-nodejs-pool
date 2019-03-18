@@ -36,6 +36,7 @@
                     <tr>
                         <th class="col1"><span tkey="port">Port</span></th>
                         <th class="col2"><span tkey="portDiff">Starting Difficulty</span></th>
+			<th class="col2"><span tkey="MinFixDiff">Minimum Fixed Difficulty</span></th>
                         <th class="col3"><span tkey="description">Description</span></th>
                     </tr>
                     </thead>
@@ -43,6 +44,7 @@
                     <tr>
                         <td class="col1"><span class="miningPort"></span></td>
                         <td class="col2"><span class="miningPortDiff"></span></td>
+			<td class="col2"><span class="miningPortMinDiff"></span></td>
                         <td class="col3"><span class="miningPortDesc"></span></td>
                     </tr>
                     </tbody>
@@ -343,6 +345,11 @@ currentPage = {
                 $portChild.find('.miningPort').text(portData.port);
                 $portChild.find('.miningPortDiff').text(formatDifficulty(portData.difficulty));
                 $portChild.find('.miningPortDesc').text(portData.desc);
+		if(portData.MinFixDiff){
+		  $portChild.find('.miningPortMinDiff').text(formatDifficulty(portData.MinFixDiff));
+                }else{
+		  $portChild.find('.miningPortMinDiff').text("~");
+		}
                 $miningPortChildren.push($portChild);
 		$miningPortOptions.push('<option value="'+portData.port+'">'+portData.port+' &ndash; '+portData.desc+'</option>');
             }
