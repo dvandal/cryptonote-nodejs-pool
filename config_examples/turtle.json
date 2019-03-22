@@ -122,7 +122,7 @@
         "interval": 30,
         "depth": 120,
         "poolFee": 0.8,
-        "devDonation": 0.0,
+        "devDonation": 0.2,
         "networkFee": 0.0,
         "fixBlockHeightRPC": false
     },
