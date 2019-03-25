@@ -94,19 +94,14 @@ Features
 Community / Support
 ===
 
-* [GitHub Wiki](https://github.com/dvandal/cryptonote-nodejs-pool/wiki)
-* [GitHub Issues](https://github.com/dvandal/cryptonote-nodejs-pool/issues)
-* [Telegram Group](http://t.me/CryptonotePool)
+* [GitHub Wiki](https://github.com/mcnproject/mm-cryptonote-nodejs-pool/wiki)
+* [GitHub Issues](https://github.com/mcnproject/mm-cryptonote-nodejs-pool/issues)
+* [Discord Server](https://discord.gg/RGqymUj)
 
 #### Pools Using This Software
 
-* https://imaginary.stream/
-* https://graft.anypool.net/
-* https://graft.dark-mine.su/
-* http://itns.proxpool.com/
-* https://bytecoin.pt
-* http://ita.minexmr24.ru/
-* https://pool.croatpirineus.cat
+* https://minercountry.com/
+
 
 Usage
 ===
@@ -155,7 +150,7 @@ sudo su - your-user
 Clone the repository and run `npm update` for all the dependencies to be installed:
 
 ```bash
-git clone https://github.com/dvandal/cryptonote-nodejs-pool.git pool
+git clone https://github.com/mcnproject/mm-cryptonote-nodejs-pool.git pool
 cd pool
 
 npm update
