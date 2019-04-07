@@ -750,16 +750,15 @@ Donations
 
 Thanks for supporting my works on this project! If you want to make a donation to [Daniel Vandal](https://github.com/dvandal/), the developper of this project, you can send any amount of your choice to one of theses addresses:
 
-* Bitcoin (BTC): `17XRyHm2gWAj2yfbyQgqxm25JGhvjYmQjm`
+* Bitcoin (BTC): `34GDVuVbuxyYdR8bPZ7g6r12AhPPCrNfXt`
 * Bitcoin Cash (BCH): `qpl0gr8u3yu7z4nzep955fqy3w8m6w769sec08u3dp`
-* Ethereum (ETH): `0x83ECF65934690D132663F10a2088a550cA201353`
-* Litecoin (LTC): `LS9To9u2C95VPHKauRMEN5BLatC8C1k4F1`
-* Monero (XMR): `49WyMy9Q351C59dT913ieEgqWjaN12dWM5aYqJxSTZCZZj1La5twZtC3DyfUsmVD3tj2Zud7m6kqTVDauRz53FqA9zphHaj`
-* Graft (GRFT): `GBqRuitSoU3PFPBAkXMEnLdBRWXH4iDSD6RDxnQiEFjVJhWUi1UuqfV5EzosmaXgpPGE6JJQjMYhZZgWY8EJQn8jQTsuTit`
-* Haven (XHV): `hvxy2RAzE7NfXPLE3AmsuRaZztGDYckCJ14XMoWa6BUqGrGYicLCcjDEjhjGAQaAvHYGgPD7cGUwcYP7nEUs8u6w3uaap9UZTf`
-* IntenseCoin (ITNS): `iz4fRGV8XsRepDtnK8XQDpHc3TbtciQWQ5Z9285qihDkCAvB9VX1yKt6qUCY6sp2TCC252SQLHrjmeLuoXsv4aF42YZtnZQ53`
-* Masari (MSR): `5n7mffxVT9USrq7tcG3TM8HL5yAz7MirUWypXXJfHrNfTcjNtDouLAAGex8s8htu4vBpmMXFzay8KG3jYGMFhYPr2aMbN6i`
-* Stellite (XTL): `Se45GzgpFG3CnvYNwEFnxiRHD2x7YzRnhFLdxjUqXdbv3ysNbfW5U7aUdn87RgMRPM7xwN6CTbXNc7nL5QUgcww11bDeypTe1`
+* Ethereum (ETH): `0xd4d9a4f22475039f115824b15999a5a8143d424c`
+* Litecoin (LTC): `LW169WygGDMBN1PGSr8kNbrFBx94emGWfB`
+* Monero (XMR): `4Cf2TfMKhCgJ2vsM3HeBUnYe52tXrvv8X1ajjuQEMUQ8iU8kvUzCSsCEacxFhEmeb2JgPpQ5chdyw3UiTfUgapJBhHdmH87gYyoDR6NMZj`
+* Graft (GRFT): `GMPHYf5KRkcAyik7Jw9oHRfJtUdw2Kj5f4VTFJ25AaFVYxofetir8Cnh7S76Q854oMXzwaguL8p5KEz1tm3rn1SA6r6p9dMjuV81yqXCgi`
+* Haven (XHV): `hvi1aCqoAZF19J8pijvqnrUkeAeP8Rvr4XyfDMGJcarhbL15KgYKM1hN7kiHMu3fer5k8JJ8YRLKCahDKFgLFgJMYAfngJjDmkZAVuiRP15qv`
+* Masari (MSR): `5t5mEm254JNJ9HqRjY9vCiTE8aZALHX3v8TqhyQ3TTF9VHKZQXkRYjPDweT9kK4rJw7dDLtZXGjav2z9y24vXCdRc3DY4daikoNTeK1v4e`
+* Stellite (XTL): `SEiStP7SMy1bvjkWc9dd1t2v1Et5q2DrmaqLqFTQQ9H7JKdZuATcPHUbUL3bRjxzxTDYitHsAPqF8EeCLw3bW8ARe8rYRNQQwys1JcJAs3qSH`
 
 
 Credits
