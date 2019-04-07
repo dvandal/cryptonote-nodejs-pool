@@ -789,6 +789,7 @@ Credits
 ---------
 * [Daniel Vandal](https://github.com/dvandal/) - Developer of this project when this project was created.
 * [fancoder](//github.com/fancoder) - Developer on cryptonote-universal-pool project from which current project is forked.
+* [Campurro](//github.com/campurro) - Developer of merge mining support.
 
 License
 -------
