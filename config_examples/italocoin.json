@@ -1,7 +1,7 @@
 {
     "poolHost": "your.pool.host",
 
-    "coin": "italoCoin",
+    "coin": "Italocoin",
     "symbol": "XTA",
     "coinUnits": 1000000000000,
     "coinDecimalPlaces": 4,
