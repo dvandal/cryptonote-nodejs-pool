@@ -1,16 +1,16 @@
 {
-    "poolHost": "your.pool.host",
+    "poolHost": "delta.ultranote.org",
 
-    "coin": "loki",
-    "symbol": "LOKI",
-    "coinUnits": 1000000000,
-    "coinDecimalPlaces": 4,
+    "coin": "ultranote",
+    "symbol": "XUN",
+    "coinUnits": 1000000,
+    "coinDecimalPlaces": 6,
     "coinDifficultyTarget": 120,
 
     "daemonType": "default",
-    "cnAlgorithm": "cryptonight_heavy",
-    "cnVariant": null,
-    "cnBlobType": 5,
+    "cnAlgorithm": "cryptonight_light",
+    "cnVariant": 1,
+    "cnBlobType": 0,
 
     "logging": {
         "files": {
@@ -27,50 +27,31 @@
     "poolServer": {
         "enabled": true,
         "clusterForks": "auto",
-        "poolAddress": "** Your pool wallet address **",
-        "intAddressPrefix": 115,
+        "poolAddress": "Pool Wallet Address",
+        "intAddressPrefix": null,
         "blockRefreshInterval": 1000,
         "minerTimeout": 900,
-        "sslCert": "./cert.pem",
-        "sslKey": "./privkey.pem",
-        "sslCA": "./chain.pem",
         "ports": [
             {
-                "port": 3333,
-                "difficulty": 5000,
+                "port": 5555,
+                "difficulty": 10000,
                 "desc": "Low end hardware"
             },
             {
-                "port": 4444,
-                "difficulty": 15000,
+                "port": 7777,
+                "difficulty": 50000,
                 "desc": "Mid range hardware"
             },
             {
-                "port": 5555,
-                "difficulty": 25000,
-                "desc": "High end hardware"
-            },
-            {
-                "port": 7777,
-                "difficulty": 500000,
-                "desc": "Cloud-mining / NiceHash"
-            },
-            {
                 "port": 8888,
-                "difficulty": 25000,
-                "desc": "Hidden port",
-                "hidden": true
-            },
-            {
-                "port": 9999,
-                "difficulty": 20000,
-                "desc": "SSL connection",
-                "ssl": true
+                "difficulty": 100000,
+                "desc": "High end hardware",
+                 "hidden": false
             }
         ],
         "varDiff": {
-            "minDiff": 100,
-            "maxDiff": 100000000,
+            "minDiff": 1000,
+            "maxDiff": 200000,
             "targetTime": 60,
             "retargetTime": 30,
             "variancePercent": 30,
@@ -99,7 +80,7 @@
         "slushMining": {
             "enabled": false,
             "weight": 300,
-            "blockTime": 60,
+            "blockTime": 120,
             "lastBlockCheckRate": 1
          }
     },
@@ -108,25 +89,24 @@
         "enabled": true,
         "interval": 1800,
         "maxAddresses": 50,
-        "mixin": 10,
+        "mixin": 3,
         "priority": 0,
-        "transferFee": 50000000,
+        "transferFee": 100000,
         "dynamicTransferFee": true,
         "minerPayFee" : true,
-        "minPayment": 5000000000,
+        "minPayment": 5000000,
         "maxPayment": null,
         "maxTransactionAmount": 0,
-        "denomination": 100000000
+        "denomination": 1000000
     },
 
     "blockUnlocker": {
         "enabled": true,
         "interval": 30,
-        "depth": 60,
-        "poolFee": 0.8,
+        "depth": 10,
+        "poolFee": 1,
         "devDonation": 0.2,
-        "networkFee": 0.0,
-        "useFirstVout": true
+        "networkFee": 0.0
     },
 
     "api": {
@@ -137,7 +117,7 @@
         "port": 8117,
         "blocks": 30,
         "payments": 30,
-        "password": "your_password",
+        "password": "pass",
         "ssl": false,
         "sslPort": 8119,
         "sslCert": "./cert.pem",
@@ -148,12 +128,12 @@
 
     "daemon": {
         "host": "127.0.0.1",
-        "port": 22023
+        "port": 31000
     },
 
     "wallet": {
         "host": "127.0.0.1",
-        "port": 22024
+        "port": 8082
     },
 
     "redis": {
@@ -251,10 +231,10 @@
     },
 
     "prices": {
-        "source": "tradeogre",
+        "source": "cryptonator",
         "currency": "USD"
     },
-    
+
     "charts": {
         "pool": {
             "hashrate": {

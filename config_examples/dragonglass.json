@@ -1,16 +1,16 @@
 {
-    "poolHost": "your.pool.host",
+    "poolHost": "yourpool.host",
 
-    "coin": "loki",
-    "symbol": "LOKI",
-    "coinUnits": 1000000000,
-    "coinDecimalPlaces": 4,
-    "coinDifficultyTarget": 120,
+    "coin": "Dragonglass",
+    "symbol": "DRGL",
+    "coinUnits": 10000000,
+    "coinDecimalPlaces": 7,
+    "coinDifficultyTarget": 81,
 
     "daemonType": "default",
-    "cnAlgorithm": "cryptonight_heavy",
-    "cnVariant": null,
-    "cnBlobType": 5,
+    "cnAlgorithm": "cryptonight",
+    "cnVariant": 8,
+    "cnBlobType": 2,
 
     "logging": {
         "files": {
@@ -27,8 +27,8 @@
     "poolServer": {
         "enabled": true,
         "clusterForks": "auto",
-        "poolAddress": "** Your pool wallet address **",
-        "intAddressPrefix": 115,
+        "poolAddress": "dRGL....",
+        "intAddressPrefix": 251,
         "blockRefreshInterval": 1000,
         "minerTimeout": 900,
         "sslCert": "./cert.pem",
@@ -69,7 +69,7 @@
             }
         ],
         "varDiff": {
-            "minDiff": 100,
+            "minDiff": 1000,
             "maxDiff": 100000000,
             "targetTime": 60,
             "retargetTime": 30,
@@ -106,27 +106,26 @@
 
     "payments": {
         "enabled": true,
-        "interval": 1800,
+        "interval": 60,
         "maxAddresses": 50,
-        "mixin": 10,
+        "mixin": 1,
         "priority": 0,
-        "transferFee": 50000000,
+        "transferFee": 800000,
         "dynamicTransferFee": true,
         "minerPayFee" : true,
-        "minPayment": 5000000000,
+        "minPayment": 100000000,
         "maxPayment": null,
         "maxTransactionAmount": 0,
-        "denomination": 100000000
+        "denomination": 1
     },
 
     "blockUnlocker": {
         "enabled": true,
         "interval": 30,
         "depth": 60,
-        "poolFee": 0.8,
-        "devDonation": 0.2,
-        "networkFee": 0.0,
-        "useFirstVout": true
+        "poolFee": 0.5,
+        "devDonation": 0.0,
+        "networkFee": 0.0
     },
 
     "api": {
@@ -137,23 +136,23 @@
         "port": 8117,
         "blocks": 30,
         "payments": 30,
-        "password": "your_password",
+        "password": "yourpassword",
         "ssl": false,
         "sslPort": 8119,
-        "sslCert": "./cert.pem",
-        "sslKey": "./privkey.pem",
-        "sslCA": "./chain.pem",
+        "sslCert": "/etc/ssl/abc.crt",
+        "sslKey": "/etc/ssl/private/abc.key",
+        "sslCA": "/etc/ssl/abc-ca_bundle.crt",
         "trustProxyIP": true
     },
 
     "daemon": {
         "host": "127.0.0.1",
-        "port": 22023
+        "port": 8180
     },
 
     "wallet": {
         "host": "127.0.0.1",
-        "port": 22024
+        "port": 8181
     },
 
     "redis": {
@@ -299,12 +298,6 @@
                 "enabled": true,
                 "updateInterval": 180,
                 "stepInterval": 1800,
-                "maximumPeriod": 86400
-            },
-            "worker_hashrate": {
-                "enabled": true,
-                "updateInterval": 60,
-                "stepInterval": 60,
                 "maximumPeriod": 86400
             },
             "payments": {

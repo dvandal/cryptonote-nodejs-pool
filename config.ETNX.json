@@ -1,16 +1,16 @@
 {
-    "poolHost": "your.pool.host",
+    "poolHost": "POOL_URL",
 
-    "coin": "loki",
-    "symbol": "LOKI",
-    "coinUnits": 1000000000,
-    "coinDecimalPlaces": 4,
-    "coinDifficultyTarget": 120,
+    "coin": "electronero",
+    "symbol": "ETNX",
+    "coinUnits": 100,
+    "coinDecimalPlaces": 2,
+    "coinDifficultyTarget": 60,
 
     "daemonType": "default",
-    "cnAlgorithm": "cryptonight_heavy",
-    "cnVariant": null,
-    "cnBlobType": 5,
+    "cnAlgorithm": "cryptonight",
+    "cnVariant": 4,
+    "cnBlobType": 3,
 
     "logging": {
         "files": {
@@ -27,50 +27,51 @@
     "poolServer": {
         "enabled": true,
         "clusterForks": "auto",
-        "poolAddress": "** Your pool wallet address **",
-        "intAddressPrefix": 115,
+        "poolAddress": "POOL_ADDRESS",
+        "intAddressPrefix": 18019,
+        "subAddressPrefix": 42,
         "blockRefreshInterval": 1000,
         "minerTimeout": 900,
-        "sslCert": "./cert.pem",
-        "sslKey": "./privkey.pem",
-        "sslCA": "./chain.pem",
+        "sslCert": "cert.pem",
+        "sslKey": "privkey.pem",
+        "sslCA": "fullchain.pem",
         "ports": [
             {
-                "port": 3333,
-                "difficulty": 5000,
+                "port": 1122,
+                "difficulty": 10000,
                 "desc": "Low end hardware"
             },
             {
-                "port": 4444,
-                "difficulty": 15000,
+                "port": 2233,
+                "difficulty": 100000,
                 "desc": "Mid range hardware"
             },
             {
-                "port": 5555,
-                "difficulty": 25000,
+                "port": 3344,
+                "difficulty": 500000,
                 "desc": "High end hardware"
             },
             {
-                "port": 7777,
-                "difficulty": 500000,
+                "port": 4455,
+                "difficulty": 1000000,
                 "desc": "Cloud-mining / NiceHash"
             },
             {
-                "port": 8888,
-                "difficulty": 25000,
+                "port": 6666,
+                "difficulty": 3000,
                 "desc": "Hidden port",
                 "hidden": true
             },
             {
-                "port": 9999,
-                "difficulty": 20000,
+                "port": 6677,
+                "difficulty": 1000000,
                 "desc": "SSL connection",
                 "ssl": true
             }
         ],
         "varDiff": {
             "minDiff": 100,
-            "maxDiff": 100000000,
+            "maxDiff": 1000000000,
             "targetTime": 60,
             "retargetTime": 30,
             "variancePercent": 30,
@@ -106,27 +107,26 @@
 
     "payments": {
         "enabled": true,
-        "interval": 1800,
-        "maxAddresses": 50,
-        "mixin": 10,
+        "interval": 2160,
+        "maxAddresses": 10,
+        "mixin": 2,
         "priority": 0,
-        "transferFee": 50000000,
+        "transferFee": 20000,
         "dynamicTransferFee": true,
         "minerPayFee" : true,
-        "minPayment": 5000000000,
-        "maxPayment": null,
-        "maxTransactionAmount": 0,
-        "denomination": 100000000
+        "minPayment": 100000,
+        "maxPayment": 25000000,
+        "maxTransactionAmount": 50000000,
+        "denomination": 100
     },
 
     "blockUnlocker": {
         "enabled": true,
         "interval": 30,
-        "depth": 60,
-        "poolFee": 0.8,
-        "devDonation": 0.2,
-        "networkFee": 0.0,
-        "useFirstVout": true
+        "depth": 30,
+        "poolFee": 0.0,
+        "devDonation": 0.0,
+        "networkFee": 0.0
     },
 
     "api": {
@@ -137,28 +137,28 @@
         "port": 8117,
         "blocks": 30,
         "payments": 30,
-        "password": "your_password",
-        "ssl": false,
+        "password": "admin_pass",
+        "ssl": true,
         "sslPort": 8119,
-        "sslCert": "./cert.pem",
-        "sslKey": "./privkey.pem",
-        "sslCA": "./chain.pem",
+        "sslCert": "cert.pem",
+        "sslKey": "privkey.pem",
+        "sslCA": "fullchain.pem",
         "trustProxyIP": true
     },
 
     "daemon": {
         "host": "127.0.0.1",
-        "port": 22023
+        "port": 3000
     },
 
     "wallet": {
         "host": "127.0.0.1",
-        "port": 22024
+        "port": 3000
     },
 
     "redis": {
         "host": "127.0.0.1",
-        "port": 6379,
+        "port": 3279,
         "auth": null,
         "db": 0,
         "cleanupInterval": 15
@@ -223,10 +223,10 @@
     },
 
     "telegram": {
-        "enabled": false,
-        "botName": "",
-        "token": "",
-        "channel": "",
+        "enabled": true,
+        "botName": "POOL_BOT",
+        "token": "POOL_BOT_TOKEN",
+        "channel": "POOL_BOT_CHANNEL",
         "channelStats": {
             "enabled": false,
             "interval": 30
@@ -251,7 +251,7 @@
     },
 
     "prices": {
-        "source": "tradeogre",
+        "source": "cryptonator",
         "currency": "USD"
     },
     
@@ -299,12 +299,6 @@
                 "enabled": true,
                 "updateInterval": 180,
                 "stepInterval": 1800,
-                "maximumPeriod": 86400
-            },
-            "worker_hashrate": {
-                "enabled": true,
-                "updateInterval": 60,
-                "stepInterval": 60,
                 "maximumPeriod": 86400
             },
             "payments": {

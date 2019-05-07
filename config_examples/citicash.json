@@ -1,16 +1,16 @@
 {
     "poolHost": "your.pool.host",
 
-    "coin": "loki",
-    "symbol": "LOKI",
+    "coin": "CitiCash",
+    "symbol": "CCH",
     "coinUnits": 1000000000,
     "coinDecimalPlaces": 4,
-    "coinDifficultyTarget": 120,
+    "coinDifficultyTarget": 60,
 
     "daemonType": "default",
     "cnAlgorithm": "cryptonight_heavy",
     "cnVariant": null,
-    "cnBlobType": 5,
+    "cnBlobType": 0,
 
     "logging": {
         "files": {
@@ -27,8 +27,8 @@
     "poolServer": {
         "enabled": true,
         "clusterForks": "auto",
-        "poolAddress": "** Your pool wallet address **",
-        "intAddressPrefix": 115,
+        "poolAddress": "** Your pool wallet address **"",
+        "intAddressPrefix": 31572,
         "blockRefreshInterval": 1000,
         "minerTimeout": 900,
         "sslCert": "./cert.pem",
@@ -54,12 +54,6 @@
                 "port": 7777,
                 "difficulty": 500000,
                 "desc": "Cloud-mining / NiceHash"
-            },
-            {
-                "port": 8888,
-                "difficulty": 25000,
-                "desc": "Hidden port",
-                "hidden": true
             },
             {
                 "port": 9999,
@@ -106,27 +100,26 @@
 
     "payments": {
         "enabled": true,
-        "interval": 1800,
-        "maxAddresses": 50,
-        "mixin": 10,
+        "interval": 600,
+        "maxAddresses": 5,
+        "mixin": 6,
         "priority": 0,
-        "transferFee": 50000000,
+        "transferFee": 74000000,
         "dynamicTransferFee": true,
         "minerPayFee" : true,
         "minPayment": 5000000000,
-        "maxPayment": null,
+        "maxPayment": 50000000000000,
         "maxTransactionAmount": 0,
-        "denomination": 100000000
+        "denomination": 5000000000
     },
 
     "blockUnlocker": {
         "enabled": true,
         "interval": 30,
         "depth": 60,
-        "poolFee": 0.8,
-        "devDonation": 0.2,
-        "networkFee": 0.0,
-        "useFirstVout": true
+        "poolFee": 1.0,
+        "devDonation": 0.0,
+        "networkFee": 0.0
     },
 
     "api": {
@@ -138,7 +131,7 @@
         "blocks": 30,
         "payments": 30,
         "password": "your_password",
-        "ssl": false,
+        "ssl": true,
         "sslPort": 8119,
         "sslCert": "./cert.pem",
         "sslKey": "./privkey.pem",
@@ -148,12 +141,12 @@
 
     "daemon": {
         "host": "127.0.0.1",
-        "port": 22023
+        "port": 1234
     },
 
     "wallet": {
-        "host": "127.0.0.1",
-        "port": 22024
+        "host": "localhost",
+        "port": 2345
     },
 
     "redis": {
@@ -238,7 +231,7 @@
             "blocks": "/blocks"
         }
     },
-    
+
     "monitoring": {
         "daemon": {
             "checkInterval": 60,
@@ -251,10 +244,10 @@
     },
 
     "prices": {
-        "source": "tradeogre",
+        "source": "cryptonator",
         "currency": "USD"
     },
-    
+
     "charts": {
         "pool": {
             "hashrate": {

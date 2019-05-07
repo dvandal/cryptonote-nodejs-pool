@@ -247,6 +247,69 @@
                     </div>
                 </td>
             </tr>
+		    
+	    <!-- SRBMiner -->
+            <tr class="appInfo">
+                <td class="miningAppTitle">SRBMiner Cryptonight AMD GPU Miner</td>
+                <td>OpenCL (AMD)</td>
+                <td>XMRIG version for AMD GPU</td>
+                <td><a class="btn btn-success" target="_blank" href="https://bitcointalk.org/index.php?topic=3167363.0"><span tkey="download">Download</span></a></td>
+                <td><a class="btn btn-default" role="button" data-toggle="collapse" href="#srbminer" aria-expanded="true" aria-controls="collapseExample"><span tkey="showConfig">See more</span></a></td>
+            </tr>
+            <tr class="appConfig">
+                <td colspan="5">
+                    <div class="collapse" id="srbminer">
+		
+<pre><code>
+{
+/* Type can be : normal, lite, heavy  */
+"cryptonight_type" : "heavy",
+
+/* Intensity 0-> auto intensity, or value from 1-200  */
+"intensity" : 0,
+
+/* To use 2 threads per card set double_threads to true  */
+"double_threads" : false,
+
+/* Gpu target temperature, leave it on 0 if you don't want to use this option  */
+"target_temperature" : 0,
+
+/* If you use a SSL/TLS encrypted pool set this to true*/
+"pool_use_tls" : false,
+
+/* Mining pool address WITHOUT the stratum+tcp:// or stratum+tls:// part  */
+"pool" : "<span class="exampleHost">POOL_HOST</span>:<span class="examplePort">PORT</span>",
+
+/* Address of you wallet  */
+"wallet" : "<span class="exampleLogin">YOUR_WALLET_ADDRESS</span>",
+
+/* Password for your wallet, probably just x  */
+"password" : "<span class="examplePassword">YOUR_WORKER_NAME</span>",
+
+/* Location for devfee servers, to get better latency  */
+"location" : "europe",
+
+/* If you want to log console output, put a filename here  */
+"log_file" : "",
+
+/* Charity mining, if you want to disable charity mining just delete these lines, or set values to "" (empty) */
+"charity_pool" : "<span class="exampleHost">POOL_HOST</span>:<span class="examplePort">PORT</span>",
+"charity_wallet" : "<span class="exampleLogin">YOUR_WALLET_ADDRESS</span>",
+"charity_password" : "<span class="examplePassword">YOUR_WORKER_NAME</span>",
+
+/* Settings for each GPU manually */
+/* Put in devices that you want to use, if you for ex. don't want to use gpu 2, just don't insert it,like in this example */
+/* Id starts from 0 , not from 1 !! */
+/* To get a list of available devices with their id's, use --listdevices parameter */
+/* This is just an example, edit it and remove comment lines (the slash and star) !! */
+/*"gpu_conf" : 
+[ 
+	{ "id" : 0, "intensity" : 0, "double_threads" : true},
+	{ "id" : 1, "intensity" : 60, "double_threads" : false},
+	{ "id" : 3, "intensity" : 50, "double_threads" : true},
+	{ "id" : 4, "intensity" : 0, "double_threads" : true},
+]*/
+}		    
 	    
             </tbody>
         </table>
@@ -314,19 +377,36 @@ currentPage = {
             }
         }
         else if (cnAlgorithm == "cryptonight_heavy") {
-            algorithm = 'Cryptonight Heavy';
-            xmrstakAlgo = 'cryptonight_heavy';
+	    if (cnVariant === 1) {
+		algorithm = 'Crytonight Heavy (Haven)';
+		xmrstakAlgo = 'haven';
+	    } else {
+            	algorithm = 'Cryptonight Heavy';
+            	xmrstakAlgo = 'cryptonight_heavy';
+	    }
         }
         else {
             if (cnVariant === 1) {
                 algorithm = 'Cryptonight (Monero v7)';
                 xmrstakAlgo = 'cryptonight_v7';
-            } else if (cnVariant === 3) {
+            } else if (cnVariant === 9) {
                 algorithm = 'Cryptonight (Stellite v7)';
                 xmrstakAlgo = 'cryptonight_v7_stellite';
 	    } else if (cnVariant === 4) {
                 algorithm = 'Cryptonight Fast (Masari)';
                 xmrstakAlgo = 'cryptonight_masari';
+	    } else if (cnVariant === 2) {
+		algorithm = 'Cryptonight (Monero v8)';
+		xmrstakAlgo = 'cryptonight_v8';
+	    } else if (cnVariant === 8) {
+		algorithm = 'Cryptonight (Monero v8)';
+		xmrstakAlgo = 'cryptonight_v8';
+	    } else if (cnVariant === 12) {
+                algorithm = 'Cryptonight (Wow)';
+                xmrstakAlgo = 'cn/wow';
+            } else if (cnVariant === 14) {
+                algorithm = 'Cryptonight v8 ReverseWaltz';
+                xmrstakAlgo = 'cryptonight_v8_reversewaltz';
             } else {
                 algorithm = 'Cryptonight (Original)';
                 xmrstakAlgo = 'cryptonight';

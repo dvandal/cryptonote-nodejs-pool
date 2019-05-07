@@ -1,16 +1,16 @@
 {
     "poolHost": "your.pool.host",
 
-    "coin": "loki",
-    "symbol": "LOKI",
-    "coinUnits": 1000000000,
+    "coin": "bitcoinmono",
+    "symbol": "BTCM",
+    "coinUnits": 10000,
     "coinDecimalPlaces": 4,
-    "coinDifficultyTarget": 120,
+    "coinDifficultyTarget": 50,
 
     "daemonType": "default",
-    "cnAlgorithm": "cryptonight_heavy",
-    "cnVariant": null,
-    "cnBlobType": 5,
+    "cnAlgorithm": "cryptonight_pico",
+    "cnVariant": 0,
+    "cnBlobType": 0,
 
     "logging": {
         "files": {
@@ -28,7 +28,7 @@
         "enabled": true,
         "clusterForks": "auto",
         "poolAddress": "** Your pool wallet address **",
-        "intAddressPrefix": 115,
+        "intAddressPrefix": null,
         "blockRefreshInterval": 1000,
         "minerTimeout": 900,
         "sslCert": "./cert.pem",
@@ -69,7 +69,7 @@
             }
         ],
         "varDiff": {
-            "minDiff": 100,
+            "minDiff": 1000,
             "maxDiff": 100000000,
             "targetTime": 60,
             "retargetTime": 30,
@@ -108,25 +108,24 @@
         "enabled": true,
         "interval": 1800,
         "maxAddresses": 50,
-        "mixin": 10,
+        "mixin": 0,
         "priority": 0,
-        "transferFee": 50000000,
-        "dynamicTransferFee": true,
+        "transferFee": 1000,
+        "dynamicTransferFee": false,
         "minerPayFee" : true,
-        "minPayment": 5000000000,
-        "maxPayment": null,
+        "minPayment": 10000,
+        "maxPayment": 1000000000000,
         "maxTransactionAmount": 0,
-        "denomination": 100000000
+        "denomination": 10
     },
 
     "blockUnlocker": {
         "enabled": true,
         "interval": 30,
-        "depth": 60,
+        "depth": 50,
         "poolFee": 0.8,
         "devDonation": 0.2,
-        "networkFee": 0.0,
-        "useFirstVout": true
+        "networkFee": 0.0
     },
 
     "api": {
@@ -148,12 +147,12 @@
 
     "daemon": {
         "host": "127.0.0.1",
-        "port": 22023
+        "port": 11358
     },
 
     "wallet": {
         "host": "127.0.0.1",
-        "port": 22024
+        "port": 11359
     },
 
     "redis": {
