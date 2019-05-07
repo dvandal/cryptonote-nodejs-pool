@@ -1,0 +1,357 @@
+
+<ul class="nav nav-tabs" id="blocksTabs">
+  <li role="presentation" class="active"><a href="#plura"> (ETNC)</a></li>
+  <li role="presentation"><a href="#monetaverde"> (ZLS)</a></li>
+</ul>
+
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="plura">
+<!-- Statistics -->
+<div class="blocksStats row">
+
+    <!-- Total Blocks Mined -->
+    <div class="col-lg-3 col-sm-4">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-cubes"></span>
+            </div>
+            <div class="content">
+                <div class="text"><span tkey="blocksTotal">Total Blocks Mined</span></div>
+                <div class="value"><span id="blocksTotal">N/A</span> <span class="smallText">(<span id="lastBlockFound">Never</span>)</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Maturity Depth Requirement -->
+    <div class="col-lg-3 col-sm-4">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-unlock-alt"></span>
+            </div>
+            <div class="content">
+                <div class="text"><span tkey="blocksMaturityCount">Maturity Requirement</span></div>
+                <div class="value"><span id="blocksMaturityCount">N/A</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Average Luck -->
+    <div class="col-lg-3 col-sm-4">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-line-chart"></span>
+            </div>
+            <div class="content">
+                <div class="text"><span tkey="averageLuck">Average Luck</span></div>
+                <div class="value"><span id="averageLuck">N/A</span></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Report -->
+<div class="card push-up-10">
+    <div class="table-responsive blocksReport">
+        <table class="table table-hover table-striped">
+            <thead>
+            <tr>
+                <th class="col1"><span tkey="timeFound">Time Found</span></th>
+                <th class="col2"><span tkey="reward">Reward</span></th>
+                <th class="col3"><span tkey="height">Height</span></th>
+                <th class="col4"><span tkey="difficulty">Difficulty</span></th>
+                <th class="col5"><span tkey="blockHash">Block Hash</span></th>
+                <th class="col6"><span tkey="effort">Effort</span></th>
+                <th class="col7" title="How many more blocks network must mine before this block is matured"><span tkey="status">Status</span></th>
+            </tr>
+            </thead>
+            <tbody id="blocksReport_rows">
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<p class="text-center push-up-10">
+    <button type="button" class="btn btn-default" id="loadMoreBlocks"><span tkey="loadMore">Load More</span></button>
+</p>
+
+
+    </div>
+
+    <!--
+     ////////////////////// MERGED COIN
+    -->
+    <div role="tabpanel" class="tab-pane" id="monetaverde">
+        <!-- Statistics -->
+        <div class="blocksStats row">
+
+            <!-- Total Blocks Mined -->
+            <div class="col-lg-3 col-sm-4">
+                <div class="infoBox hoverExpandEffect mergedBg">
+                    <div class="icon">
+                        <span class="fa fa-cubes"></span>
+                    </div>
+                    <div class="content">
+                        <div class="text"><span tkey="blocksTotalMerged">Total Blocks Mined</span></div>
+                        <div class="value"><span id="blocksTotalMerged">N/A</span> <span class="smallText">(<span id="lastBlockFoundMerged">Never</span>)</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Maturity Depth Requirement -->
+            <div class="col-lg-3 col-sm-4">
+                <div class="infoBox hoverExpandEffect mergedBg">
+                    <div class="icon">
+                        <span class="fa fa-unlock-alt"></span>
+                    </div>
+                    <div class="content">
+                        <div class="text"><span tkey="blocksMaturityCountMerged">Maturity Requirement</span></div>
+                        <div class="value"><span id="blocksMaturityCountMerged">N/A</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Average Luck -->
+            <div class="col-lg-3 col-sm-4">
+                <div class="infoBox hoverExpandEffect mergedBg">
+                    <div class="icon">
+                        <span class="fa fa-line-chart"></span>
+                    </div>
+                    <div class="content">
+                        <div class="text"><span tkey="averageLuckMerged">Average Luck</span></div>
+                        <div class="value"><span id="averageLuckMerged">N/A</span></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Report -->
+        <div class="card push-up-10">
+            <div class="table-responsive blocksReport">
+                <table class="table table-hover table-striped">
+                    <thead>
+                    <tr>
+                        <th class="col1"><span tkey="timeFound">Time Found</span></th>
+                        <th class="col2"><span tkey="reward">Reward</span></th>
+                        <th class="col3"><span tkey="height">Height</span></th>
+                        <th class="col4"><span tkey="difficulty">Difficulty</span></th>
+                        <th class="col5"><span tkey="blockHash">Block Hash</span></th>
+                        <th class="col6"><span tkey="effort">Effort</span></th>
+                        <th class="col7" title="How many more blocks network must mine before this block is matured"><span tkey="status">Status</span></th>
+                    </tr>
+                    </thead>
+                    <tbody id="blocksReportMerged_rows">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <p class="text-center push-up-10">
+            <button type="button" class="btn btn-default" id="loadMoreBlocksMerged"><span tkey="loadMore">Load More</span></button>
+        </p>
+
+    </div>
+</div><!-- /.tab-content -->
+
+
+<!-- Javascript -->
+<script>
+// Update current page
+currentPage = {
+    destroy: function(){
+        if (xhrGetBlocks) xhrGetBlocks.abort();
+    },
+    update: function(){
+        updateText('blocksTotal', lastStats.pool.totalBlocks.toString());
+        if (lastStats.pool.lastBlockFound) {
+            var d = new Date(parseInt(lastStats.pool.lastBlockFound)).toISOString();
+            $('#lastBlockFound').timeago('update', d);
+        }
+        else {
+            $('#lastBlockFound').removeAttr('title').data('ts', '').update('Never');
+        }
+        updateText('blocksMaturityCount', lastStats.config.depth.toString());
+
+        $('#averageLuck').html(formatLuck(lastStats.pool.totalDiff, lastStats.pool.totalShares));
+
+        renderBlocks(lastStats.pool.blocks);
+
+        if (mergedStats) {
+            updateText('blocksTotalMerged', mergedStats.pool.totalBlocks.toString());
+            if (mergedStats.pool.lastBlockFound) {
+                var d = new Date(parseInt(mergedStats.pool.lastBlockFound)).toISOString();
+                $('#lastBlockFoundMerged').timeago('update', d);
+            }
+            else {
+                $('#lastBlockFoundMerged').removeAttr('title').data('ts', '').update('Never');
+            }
+            updateText('blocksMaturityCountMerged', mergedStats.config.depth.toString());
+
+            $('#averageLuckMerged').html(formatLuck(mergedStats.pool.totalDiff, mergedStats.pool.totalShares));
+            renderBlocks(mergedStats.pool.blocks, true);
+        }
+
+    }
+};
+
+// Parse block data
+function parseBlock(height, serializedBlock, merged){
+    var parts = serializedBlock.split(':');
+    var block = {
+        height: parseInt(height),
+        hash: parts[0],
+        time: parts[1],
+        difficulty: parseInt(parts[2]),
+        shares: parseInt(parts[3]),
+        orphaned: parts[4],
+        reward: parts[5]
+    };
+
+    if (merged) {
+        var toGo = mergedStats.config.depth - (mergedStats.network.height - block.height - 1);
+    } else {
+        var toGo = lastStats.config.depth - (lastStats.network.height - block.height - 1);
+    }
+    if(toGo > 1){
+        block.maturity = toGo + ' to go';
+    }
+    else if(toGo == 1){
+        block.maturity = "<i class='fa fa-spinner fa-spin'></i>";
+    }
+    else if(toGo <= 0){
+        block.maturity = "<i class='fa fa-unlock-alt'></i>";
+    }
+
+    switch (block.orphaned){
+        case '0':
+            block.status = 'unlocked';
+            block.maturity = "<i class='fa fa-unlock-alt'></i>";
+            break;
+       case '1':
+            block.status = 'orphaned';
+            block.maturity = "<i class='fa fa-times'></i>";
+            block.reward = 0;
+            break;
+        default:
+            block.status = 'pending';
+            break;
+    }
+    return block;
+}
+
+// Get block row element
+function getBlockRowElement(block, jsonString, merged){
+    function formatBlockLink(hash, merged){
+        return '<a target="_blank" href="' + getBlockchainUrl(hash, merged) + '">' + hash + '</a>';
+    }
+
+    var blockStatusClasses = {
+        'pending': 'pending',
+        'unlocked': 'unlocked',
+        'orphaned': 'orphaned'
+    };
+
+    var row = document.createElement('tr');
+    row.setAttribute('data-json', jsonString);
+    row.setAttribute('data-height', block.height);
+    row.setAttribute('id', 'blockRow' + (merged? 'Merged':'') + block.height);
+    row.setAttribute('title', block.status);
+    row.className = blockStatusClasses[block.status];
+
+    var reward = "";
+    if(typeof block.reward == "undefined"){
+        reward = "Waiting...";
+    }
+    else{
+        reward = (merged? getReadableCoinsMerged(block.reward, null, true):getReadableCoins(block.reward, null, true));
+    }
+
+    var columns =
+        '<td class="col1">' + formatDate(block.time) + '</td>' +
+        '<td class="col2">' + reward + '</td>' +
+        '<td class="col3">' + block.height + '</td>' +
+        '<td class="col4">' + block.difficulty + '</td>' +
+        '<td class="col5">' + formatBlockLink(block.hash, merged) + '</td>' +
+        '<td class="col6" title="' + block.shares + ' shares submitted">' + formatLuck(block.difficulty, block.shares) + '</td>' +
+        '<td class="col7">' + block.maturity + '</td>';
+
+    row.innerHTML = columns;
+
+    return row;
+}
+
+// Render blocks
+function renderBlocks(blocksResults, merged){
+    if (merged) {
+        var $blocksRows = $('#blocksReportMerged_rows');
+    } else {
+        var $blocksRows = $('#blocksReport_rows');
+    }
+
+    for (var i = 0; i < blocksResults.length; i += 2){
+        var block = parseBlock(blocksResults[i + 1], blocksResults[i], merged);
+        var blockJson = JSON.stringify(block);
+
+        var existingRow = document.getElementById('blockRow' + (merged? 'Merged':'') + block.height);
+        if (existingRow && existingRow.getAttribute('data-json') !== blockJson){
+            $(existingRow).replaceWith(getBlockRowElement(block, blockJson, merged));
+        }
+        else if (!existingRow){
+            var blockElement = getBlockRowElement(block, blockJson, merged);
+
+            var inserted = false;
+            var rows = $blocksRows.children().get();
+            for (var f = 0; f < rows.length; f++) {
+                var bHeight = parseInt(rows[f].getAttribute('data-height'));
+                if (bHeight < block.height){
+                    inserted = true;
+                    $(rows[f]).before(blockElement);
+                    break;
+                }
+            }
+            if (!inserted){
+                $blocksRows.append(blockElement);
+            }
+        }
+    }
+}
+
+// Load more blocks button
+var xhrGetBlocks;
+$('#loadMoreBlocks').click(function(){
+    if (xhrGetBlocks) xhrGetBlocks.abort();
+    xhrGetBlocks = $.ajax({
+        url: api + '/get_blocks',
+        data: {
+            height: $('#blocksReport_rows').children().last().data('height')
+        },
+        dataType: 'json',
+        cache: 'false',
+        success: function(data){
+            renderBlocks(data);
+        }
+    });
+});
+
+var xhrGetBlocksMerged;
+$('#loadMoreBlocksMerged').click(function(){
+    if (xhrGetBlocksMerged) xhrGetBlocksMerged.abort();
+    xhrGetBlocksMerged = $.ajax({
+        url: apiMerged + '/get_blocks',
+        data: {
+            height: $('#blocksReportMerged_rows').children().last().data('height')
+        },
+        dataType: 'json',
+        cache: 'false',
+        success: function(data){
+            renderBlocks(data, true);
+        }
+    });
+});
+
+$('#blocksTabs a').click(function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+})
+</script>
