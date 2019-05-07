@@ -1,0 +1,96 @@
+<h3>Users List (<span id="totalUsers">0</span> users)</h3>
+
+<!-- Handlebars template -->
+<script id="usersListTable" type="text/x-handlebars-template">
+    {{#each users}}
+    <tr>
+        <td class="col1"><a href="/?wallet={{this.miner}}#worker_stats">{{this.miner}}</a></td>
+        <td class="col2" data-sort="{{this.wallet.hashrate}}">{{this.readableHashrate}}</td>
+        <td class="col3" data-sort="{{this.wallet.hashes}}">{{this.readableHashes}}</td>
+        <td class="col4" data-sort="{{this.wallet.pending}}">{{this.readablePending}}</td>
+        <td class="col5" data-sort="{{this.wallet.paid}}">{{this.readablePaid}}</td>
+        <td class="col6" data-sort="{{this.wallet.lastShare}}">{{this.timeago}}</td>
+    </tr>
+    {{/each}}
+</script>
+
+<!-- Users list -->
+<div class="card">
+    <div class="table-responsive">
+        <table class="table table-hover table-striped usersList">
+            <thead>
+            <tr>
+                <th class="col1">Wallet</th>
+                <th class="col2 sort">Hashrate <i class="fa fa-sort"></i></th>
+                <th class="col3 sort">Hashes <i class="fa fa-sort"></i></th>
+                <th class="col4 sort">Pending <i class="fa fa-sort"></i></th>
+                <th class="col5 sort">Paid <i class="fa fa-sort"></i></th>
+                <th class="col6 sort">Last share <i class="fa fa-sort"></i></th>
+            </tr>
+            </thead>
+            <tbody id="template">
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Javascript -->
+<script>
+function parseUsers(wallets) {
+    var totalUsers = 0;
+    var walletsArray = [];
+    var properObject = {};
+
+    for(var wallet in wallets) {
+        if(wallets.hasOwnProperty(wallet)) {
+            var userData = wallets[wallet];
+            walletsArray.push({
+                miner: wallet,
+                wallet: userData,
+                timeago: $.timeago(new Date(userData.lastShare * 1000).toISOString()),
+                readablePending: getReadableCoins(userData.pending, null, true),
+                readablePaid: getReadableCoins(userData.paid, null, true),
+                readableHashrate: getReadableHashRateString(userData.hashrate) + '/s',
+                readableHashes: getReadableHashRateString(userData.hashes)
+            });
+	    totalUsers++;
+        }
+    }
+    $('#totalUsers').html(totalUsers);
+
+    properObject['users'] = walletsArray.sort(function(a, b) {
+        return a.wallet.hashrate - b.wallet.hashrate
+    }).reverse();
+
+    return properObject;
+}
+
+function createUserTable(promptPassword) {
+    var password = docCookies.getItem('password');
+
+    if(!password || promptPassword) {
+        password = prompt('Enter admin password');
+    }
+    
+    $.ajax({
+        url: api + '/admin_users',
+        data: {password: password},
+        dataType: 'json',
+        cache: false,
+        success: function(data) {
+            docCookies.setItem('password', password, Infinity);
+            renderTemplate(parseUsers(data), '#usersListTable', '#template');
+        },
+        error: function(e) {
+            docCookies.removeItem('password');
+        }
+    });
+}
+
+$(function() {
+    $('[data-toggle="tooltip"]').tooltip();
+    $('.usersList th.sort').on('click', sortTable);
+    createUserTable();
+});
+</script>

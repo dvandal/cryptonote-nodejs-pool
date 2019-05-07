@@ -1,0 +1,766 @@
+
+<!-- Worker Statistics -->
+<h3><span tkey="minerStats">Your Stats & Payment History</span></h3>
+
+<ul class="nav nav-tabs" id="blocksTabs">
+  <li role="presentation" class="active"><a href="#plura">Triton (XTRI)</a></li>
+  <li role="presentation"><a href="#monetaverde">Plenteum (PLE)</a></li>
+</ul>
+
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="plura">
+
+        <div id="workerStats">
+            <div class="input-group">
+                <input class="form-control" id="yourStatsInput" type="text" tplaceholder="enterYourAddress" placeholder="Enter Your Address">
+                <span class="input-group-btn"><button class="btn btn-default" type="button" id="lookUp">
+                    <span><i class="fa fa-search"></i> <span tkey="lookup">Lookup</span></span>
+                    <span><i class="fa fa-refresh fa-spin"></i> <span tkey="searching">Searching...</span></span>
+                </button></span>
+            </div>
+            <div id="addressError"></div>
+
+            <!-- Hashrate -->
+            <div class="yourStats push-up-20">
+                <h4><i class="fa fa-dashboard"></i>&nbsp; <span tkey="hashRate">Hash Rate</span></h4>
+        	<div class="row card">
+                    <div class="col-sm-6 stats push-up-10">
+                        <div><i class="fa fa-tachometer"></i> <span tkey="currentHashRate">Current Hash Rate</span>: <span id="yourHashrateHolder"></span></div>
+                        <div><i class="fa fa-clock-o"></i> <span tkey="lastShare">Last Share Submitted</span>: <span id="yourLastShare"></span></div>
+                        <div><i class="fa fa-cloud-upload"></i> <span tkey="totalHashes">Total Hashes Submitted</span>: <span id="yourHashes"></span></div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="userChart push-up-10" data-chart="user_hashrate">
+                            <div class="chart">
+
+                            </div>
+                        </div>
+                    </div>
+        	</div>
+            </div>
+
+            <!-- Payments -->
+            <div class="yourStats push-up-20">
+                <h4><i class="fa fa-money"></i>&nbsp; <span tkey="payments">Payments</span></h4>
+                <div class="row card">
+                    <div class="col-sm-6 stats push-up-10">
+                        <div><i class="fa fa-bank"></i> <span tkey="pendingBalance">Pending Balance</span>: <span id="yourPendingBalance"></span></div>
+                        <div><i class="fa fa-money"></i> <span tkey="totalPaid">Total Paid</span>: <span id="yourPaid"></span></div>
+                        <div><i class="fa fa-money"></i> <span tkey="payoutEstimate">Current Payout Estimate</span>: <span id="yourPayoutEstimate"></span></div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="userChart push-up-10" data-chart="user_payments">
+                            <div class="chart">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Workers -->
+            <h4 class="yourStats yourWorkers push-up-20"><i class="fa fa-server"></i>&nbsp; <span tkey="workerStats">Workers Statistics</span></h4>
+            <div class="yourStats yourWorkers card">
+                <div class="table-responsive workersReport">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                        <tr>
+                            <th class="col1 sort"><span tkey="status">Status</span> <i class="fa fa-sort"></i></th>
+                            <th class="col2 sort"><span tkey="workerName">Worker Name</span> <i class="fa fa-sort"></i></th>
+                            <th class="col3 sort"><span tkey="hashRate">Hash Rate</span> <i class="fa fa-sort"></i></th>
+                            <th class="col4 sort"><span tkey="lastShare">Last Share Submitted</span> <i class="fa fa-sort"></i></th>
+                            <th class="col5 sort"><span tkey="totalHashes">Total Hashes Submitted</span> <i class="fa fa-sort"></i></th>
+                        </tr>
+                        </thead>
+                        <tbody id="workersReport_rows">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Payments -->
+            <h4 class="yourStats push-up-20"><i class="fa fa-money"></i>&nbsp; <span tkey="paymentsHistory">Payments History</span></h4>
+            <div class="yourStats card">
+                <div id="workerPayments" class="table-responsive">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                        <tr>
+                            <th class="col1"><span tkey="timeSent">Time Sent</span></th>
+                            <th class="col2"><span tkey="transactionHash">Transaction Hash</span></th>
+                            <th class="col3"><span tkey="amount">Amount</span></th>
+                            <th class="col4"><span tkey="mixin">Mixin</span></th>
+                        </tr>
+                        </thead>
+                        <tbody id="paymentsReport_rows">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <p class="yourStats text-center push-up-10">
+                <button type="button" class="btn btn-default" id="loadMorePayments"><span tkey="loadMore">Load More</span></button>
+            </p>
+
+        </div>
+    </div>
+
+
+
+
+
+    <!--
+     /////////////////////////////////// merged coin
+    -->
+    <div role="tabpanel" class="tab-pane" id="monetaverde">
+
+        <div id="workerStatsMerged">
+            <div class="input-group">
+                <input class="form-control" id="yourStatsInputMerged" type="text" tplaceholder="enterYourAddress" placeholder="Enter Your XDN Address">
+                <span class="input-group-btn"><button class="btn btn-default" type="button" id="lookUpMerged">
+                    <span><i class="fa fa-search"></i> <span tkey="lookup">Lookup</span></span>
+                    <span><i class="fa fa-refresh fa-spin"></i> <span tkey="searching">Searching...</span></span>
+                </button></span>
+            </div>
+            <div id="addressErrorMerged"></div>
+
+            <!-- Hashrate -->
+            <div class="yourStatsMerged push-up-20">
+                <h4><i class="fa fa-dashboard"></i>&nbsp; <span tkey="hashRate">Hash Rate</span></h4>
+        	<div class="row card">
+                    <div class="col-sm-6 stats push-up-10">
+                        <div><i class="fa fa-tachometer"></i> <span tkey="currentHashRate">Current Hash Rate</span>: <span id="yourHashrateHolderMerged"></span></div>
+                        <div><i class="fa fa-clock-o"></i> <span tkey="lastShare">Last Share Submitted</span>: <span id="yourLastShareMerged"></span></div>
+                        <div><i class="fa fa-cloud-upload"></i> <span tkey="totalHashes">Total Hashes Submitted</span>: <span id="yourHashesMerged"></span></div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="userChartMerged push-up-10" data-chart="user_hashrate_merged">
+                            <div class="chart">
+
+                            </div>
+                        </div>
+                    </div>
+        	</div>
+            </div>
+
+            <!-- Payments -->
+            <div class="yourStatsMerged push-up-20">
+                <h4><i class="fa fa-money"></i>&nbsp; <span tkey="payments">Payments</span></h4>
+                <div class="row card">
+                    <div class="col-sm-6 stats push-up-10">
+                        <div><i class="fa fa-bank"></i> <span tkey="pendingBalance">Pending Balance</span>: <span id="yourPendingBalanceMerged"></span></div>
+                        <div><i class="fa fa-money"></i> <span tkey="totalPaid">Total Paid</span>: <span id="yourPaidMerged"></span></div>
+                        <div><i class="fa fa-money"></i> <span tkey="payoutEstimate">Current Payout Estimate</span>: <span id="yourPayoutEstimateMerged"></span></div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="userChartMerged push-up-10" data-chart="user_payments_merged">
+                            <div class="chart">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Workers -->
+            <h4 class="yourStatsMerged yourWorkersMerged push-up-20"><i class="fa fa-server"></i>&nbsp; <span tkey="workerStatsMerged">Workers Statistics</span></h4>
+            <div class="yourStatsMerged yourWorkersMerged card">
+                <div class="table-responsive workersReport">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                        <tr>
+                            <th class="col1 sort"><span tkey="status">Status</span> <i class="fa fa-sort"></i></th>
+                            <th class="col2 sort"><span tkey="workerName">Worker Name</span> <i class="fa fa-sort"></i></th>
+                            <th class="col3 sort"><span tkey="hashRate">Hash Rate</span> <i class="fa fa-sort"></i></th>
+                            <th class="col4 sort"><span tkey="lastShare">Last Share Submitted</span> <i class="fa fa-sort"></i></th>
+                            <th class="col5 sort"><span tkey="totalHashes">Total Hashes Submitted</span> <i class="fa fa-sort"></i></th>
+                        </tr>
+                        </thead>
+                        <tbody id="workersReportMerged_rows">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Payments -->
+            <h4 class="yourStatsMerged push-up-20"><i class="fa fa-money"></i>&nbsp; <span tkey="paymentsHistory">Payments History</span></h4>
+            <div class="yourStatsMerged card">
+                <div id="workerPayments" class="table-responsive">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                        <tr>
+                            <th class="col1"><span tkey="timeSent">Time Sent</span></th>
+                            <th class="col2"><span tkey="transactionHash">Transaction Hash</span></th>
+                            <th class="col3"><span tkey="amount">Amount</span></th>
+                            <th class="col4"><span tkey="mixin">Mixin</span></th>
+                        </tr>
+                        </thead>
+                        <tbody id="paymentsReportMerged_rows">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <p class="yourStatsMerged text-center push-up-10">
+                <button type="button" class="btn btn-default" id="loadMorePaymentsMerged"><span tkey="loadMore">Load More</span></button>
+            </p>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- Javascript -->
+<script>
+// Update current page
+currentPage = {
+    destroy: function(){
+        $('#yourLastShare').timeago('dispose');
+        $('#yourLastShareMerged').timeago('dispose');
+        if (xhrAddressPoll) xhrAddressPoll.abort();
+        if (xhrAddressPollMerged) xhrAddressPollMerged.abort();
+        if (addressTimeout) clearTimeout(addressTimeout);
+        if (addressTimeoutMerged) clearTimeout(addressTimeoutMerged);
+        if (xhrGetPayments) xhrGetPayments.abort();
+        if (xhrGetPaymentsMerged) xhrGetPaymentsMerged.abort();
+    },
+    update: function(){}
+};
+
+/**
+ * Miner statistics
+ **/
+
+// Enable time ago on last submitted share
+$('#yourLastShare').timeago();
+
+// Load current miner statistics
+var xhrAddressPoll;
+var xhrAddressPollMerged;
+var addressTimeout;
+var addressTimeoutMerged;
+
+function fetchAddressStats(longpoll, merged){
+    var address = (merged)? getCurrentAddressMerged():getCurrentAddress();
+    var api_url = (merged)? apiMerged:api;
+
+    xhrAddressPoll = $.ajax({
+        url: api_url + '/stats_address',
+        data: {
+            address: address,
+            longpoll: longpoll
+        },
+        dataType: 'json',
+        cache: 'false',
+        success: function(data){
+            if (!data.stats){
+                if (merged) {
+                    $('.yourStatsMerged, .yourWorkersMerged, .userChartMerged').hide();
+                    $('#addressErrorMerged').text(data.error).show();
+                    docCookies.setItem('mining_address_merged', '', Infinity);
+                } else {
+                    $('.yourStats, .yourWorkers, .userChart').hide();
+                    $('#addressError').text(data.error).show();
+                    docCookies.setItem('mining_address', '', Infinity);
+                }
+                loadLiveStats(true);
+                return;
+            }
+            if (merged) {
+                $('#addressErrorMerged').hide();
+            } else {
+                $('#addressError').hide();
+            }
+
+            if (data.stats.lastShare) {
+                if (merged) {
+                    $('#yourLastShareMerged').timeago('update', new Date(parseInt(data.stats.lastShare) * 1000).toISOString());
+                } else {
+                    $('#yourLastShare').timeago('update', new Date(parseInt(data.stats.lastShare) * 1000).toISOString());
+                }
+            } // AQUÍ
+            else {
+                updateText('yourLastShare', 'Never');
+                updateText('yourLastShareMerged', 'Never');
+            }
+
+            if (merged) {
+                updateText('yourHashrateHolderMerged', (getReadableHashRateString(data.stats.hashrate) || '0 H') + '/sec');
+                updateText('yourHashesMerged', (data.stats.hashes || 0).toString());
+                updateText('yourPaidMerged', getReadableCoinsMerged(data.stats.paid));
+                updateText('yourPendingBalanceMerged', getReadableCoinsMerged(data.stats.balance));
+            } else {
+                updateText('yourHashrateHolder', (getReadableHashRateString(data.stats.hashrate) || '0 H') + '/sec');
+                updateText('yourHashes', (data.stats.hashes || 0).toString());
+                updateText('yourPaid', getReadableCoins(data.stats.paid));
+                updateText('yourPendingBalance', getReadableCoins(data.stats.balance));
+            }
+
+            var userRoundHashes = parseInt(data.stats.roundHashes || 0);
+            if (merged) {
+                var poolRoundHashes = parseInt(mergedStats.pool.roundHashes || 0);
+                var lastReward = parseFloat(mergedStats.lastblock.reward || 0);
+            } else {
+                var poolRoundHashes = parseInt(lastStats.pool.roundHashes || 0);
+                var lastReward = parseFloat(lastStats.lastblock.reward || 0);
+            }
+
+            var poolFee = merged? mergedStats.config.fee:lastStats.config.fee;
+            if (Object.keys((merged? mergedStats.config.donation:lastStats.config.donation)).length) {
+                var totalDonation = 0;
+                var ldon = merged? mergedStats.config.donation:lastStats.config.donation;
+                for(var i in ldon) {
+                    totalDonation += ldon[i];
+                }
+                poolFee += totalDonation;
+            }
+	        var transferFee = merged? mergedStats.config.transferFee:lastStats.config.transferFee;
+
+            var payoutEstimatePct = parseFloat(userRoundHashes * 100 / poolRoundHashes)
+	    var payoutEstimate = Math.round(lastReward * (payoutEstimatePct / 100));
+            if (transferFee) payoutEstimate = payoutEstimate - transferFee;
+	    if (payoutEstimate < 0) payoutEstimate = 0;
+        if (merged) {
+	        updateText('yourPayoutEstimateMerged', getReadableCoinsMerged(payoutEstimate));
+        } else {
+            updateText('yourPayoutEstimate', getReadableCoins(payoutEstimate));
+        }
+
+            renderPayments(data.payments, merged);
+
+            if (data.workers && data.workers.length > 0) {
+                renderWorkers(data.workers, merged);
+                $('.yourWorkers' + ((merged)? 'Merged':'')).show();
+            }
+
+            $('.yourStats' + ((merged)? 'Merged':'')).show();
+            createCharts(data, merged);
+
+            fetchAddressStats(true, merged);
+        },
+        error: function(e){
+            if (e.statusText === 'abort') return;
+            $('#addressError' + ((merged)? 'Merged':'')).text('Connection error').show();
+
+            if (merged) {
+                if (addressTimeoutMerged) clearTimeout(addressTimeoutMerged);
+                addressTimeoutMerged = setTimeout(function(){
+                    fetchAddressStats(false, merged);
+                }, 2000);
+            } else {
+                if (addressTimeout) clearTimeout(addressTimeout);
+                addressTimeout = setTimeout(function(){
+                    fetchAddressStats(false);
+                }, 2000);
+            }
+        }
+    });
+}
+
+// Click on lookup button
+$('#lookUp').click(function(){
+    var address = $('#yourStatsInput').val().trim();
+
+    if (getCurrentAddress() != address) {
+        docCookies.setItem('mining_address', address, Infinity);
+
+        var urlWalletAddress = location.search.split('wallet=')[1] || 0;
+        if (urlWalletAddress){
+            window.location.href = "/#worker_stats";
+            return ;
+        }
+        else {
+            docCookies.setItem('mining_address', address, Infinity);
+            loadLiveStats(true);
+        }
+    }
+
+    $('#addressError, .yourStats, .yourWorkers, .userChart').hide();
+    $('#workersReport_rows').empty();
+    $('#paymentsReport_rows').empty();
+
+    $('#lookUp > span:first-child').hide();
+    $('#lookUp > span:last-child').show();
+
+    if (xhrAddressPoll) xhrAddressPoll.abort();
+    if (addressTimeout) clearTimeout(addressTimeout);
+
+    $('#lookUp > span:last-child').hide();
+    $('#lookUp > span:first-child').show();
+
+    if (!address){
+        $('#yourStatsInput').focus();
+        return;
+    }
+
+    fetchAddressStats(false);
+});
+
+$('#lookUpMerged').click(function(){
+    var address = $('#yourStatsInputMerged').val().trim();
+
+    if (getCurrentAddressMerged() != address) {
+        docCookies.setItem('mining_address_merged', address, Infinity);
+
+        var urlWalletAddress = location.search.split('walletMerged=')[1] || 0;
+        if (urlWalletAddress){
+            window.location.href = "/#worker_stats";
+            return ;
+        }
+        else {
+            docCookies.setItem('mining_address_merged', address, Infinity);
+            loadLiveStats(true);
+        }
+    }
+
+    $('#addressErrorMerged, .yourStatsMerged, .yourWorkersMerged, .userChartMerged').hide();
+    $('#workersReportMerged_rows').empty();
+    $('#paymentsReportMerged_rows').empty();
+
+    $('#lookUpMerged > span:first-child').hide();
+    $('#lookUpMerged > span:last-child').show();
+
+    if (xhrAddressPollMerged) xhrAddressPollMerged.abort();
+    if (addressTimeoutMerged) clearTimeout(addressTimeoutMerged);
+
+    $('#lookUpMerged > span:last-child').hide();
+    $('#lookUpMerged > span:first-child').show();
+
+    if (!address){
+        $('#yourStatsInputMerged').focus();
+        return;
+    }
+
+    fetchAddressStats(false, true);
+
+});
+
+// Lookup if current address is known
+var address = getCurrentAddress();
+if (address){
+    $('#yourStatsInput').val(address);
+    $('#lookUp').click();
+}
+// Merged coin
+var addressMerged = getCurrentAddressMerged();
+if (addressMerged){
+    $('#yourStatsInputMerged').val(addressMerged);
+    $('#lookUpMerged').click();
+}
+
+// Handler enter key on lookup address text field
+$('#yourStatsInput').keyup(function(e){
+    if(e.keyCode === 13)
+        $('#lookUp').click();
+});
+
+$('#yourStatsInputMerged').keyup(function(e){
+    if(e.keyCode === 13)
+        $('#lookUpMerged').click();
+});
+
+/**
+ * Charts
+ **/
+
+// Charts settings
+var graphSettings = {
+    type: 'line',
+    width: '100%',
+    height: '120',
+    lineColor: '#03a9f4',
+    fillColor: 'rgba(3, 169, 244, .4)',
+    spotColor: null,
+    minSpotColor: null,
+    maxSpotColor: null,
+    highlightLineColor: '#236d26',
+    spotRadius: 3,
+    chartRangeMin: 0,
+    drawNormalOnTop: false,
+    tooltipFormat: '<b>{{y}}</b> &ndash; {{offset:names}}'
+};
+
+// Handle charts tooltip
+$(function() {
+    $('[data-toggle="tooltip"]').tooltip();
+});
+
+// Create charts
+function createCharts(data, merged) {
+    if (data.hasOwnProperty("charts")) {
+        var graphData = {
+            hashrate: getGraphData(data.charts.hashrate),
+            payments: getGraphData(data.charts.payments, true)
+        };
+
+        for(var graphType in graphData) {
+            if(graphData[graphType].values.length > 1) {
+                var settings = jQuery.extend({}, graphSettings);
+                settings.tooltipValueLookups = {names: graphData[graphType].names};
+                var $chart = $('[data-chart=user_' + graphType + (merged? '_merged':'') + ']').show().find('.chart');
+                $chart.sparkline(graphData[graphType].values, settings);
+            }
+        }
+    }
+}
+
+// Get chart data
+function getGraphData(rawData, fixValueToCoins) {
+    var graphData = {
+        names: [],
+        values: []
+    };
+
+    if(rawData) {
+        for (var i = 0, xy; xy = rawData[i]; i++) {
+            graphData.names.push(new Date(xy[0]*1000).toLocaleString());
+            graphData.values.push(fixValueToCoins ? getReadableCoins(xy[1], null, true) : xy[1]);
+        }
+    }
+
+    return graphData;
+}
+
+/**
+ * Workers report
+ **/
+
+// Get worker row id
+function getWorkerRowId(workerName){
+    var id = btoa(workerName);
+    id = id.replace(/=/, '');
+    return id;
+}
+
+// Get worker row element
+function getWorkerRowElement(worker, jsonString, merged){
+    var row = document.createElement('tr');
+    row.setAttribute('data-json', jsonString);
+    row.setAttribute('data-name', worker.name);
+    row.setAttribute('id', 'workerRow' + (merged? 'Merged':'') + '_' + getWorkerRowId(worker.name));
+
+    row.innerHTML = getWorkerCells(worker);
+
+    return row;
+}
+
+// Get worker cells
+function getWorkerCells(worker){
+    var hashrate = worker.hashrate ? worker.hashrate : 0;
+    var lastShare = worker.lastShare ? worker.lastShare : 0;
+    var hashes = (worker.hashes || 0).toString();
+    var status = (hashrate <= 0) ? 'error' : 'ok';
+
+    return '<td class="col1" data-sort="' + status + '"><i class="fa fa-' + (status == 'ok' ? 'check status-ok' : 'times status-error') + '"></i></td>' +
+           '<td class="col2" data-sort="' + (worker.name != 'undefined' ? worker.name : '') + '">' + (worker.name != 'undefined' ? worker.name : '<em>Undefined</em>') + '</td>' +
+           '<td class="col3" data-sort="' + hashrate + '">' + getReadableHashRateString(hashrate) + '/sec</td>' +
+           '<td class="col4" data-sort="' + lastShare + '">' + (lastShare ? $.timeago(new Date(parseInt(lastShare) * 1000).toISOString()) : 'Never') + '</td>' +
+           '<td class="col5" data-sort="' + hashes + '">' + hashes + '</td>';
+}
+
+// Handle sort on workers table
+$('#workersReport th.sort').on('click', sortTable);
+$('#workersReportMerged th.sort').on('click', sortTable);
+
+// Sort workers
+function sortWorkers(a, b){
+    var aName = a.name.toLowerCase();
+    var bName = b.name.toLowerCase();
+    return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
+}
+
+// Render workers list
+function renderWorkers(workersData, merged){
+    workersData = workersData.sort(sortWorkers);
+
+    var $workersRows = $('#workersReport' + (merged? 'Merged':'') + '_rows');
+
+    for (var i = 0; i < workersData.length; i++){
+        var existingRow = document.getElementById('workerRow' + (merged? 'Merged':'') + '_' + getWorkerRowId(workersData[i].name));
+        if (!existingRow){
+            $workersRows.empty();
+            break;
+        }
+    }
+
+    for (var i = 0; i < workersData.length; i++){
+        var worker = workersData[i];
+        var workerJson = JSON.stringify(worker);
+        var existingRow = document.getElementById('workerRow' + (merged? 'Merged':'') + '_' + getWorkerRowId(worker.name));
+        if (existingRow && existingRow.getAttribute('data-json') !== workerJson){
+            $(existingRow).replaceWith(getWorkerRowElement(worker, workerJson, merged));
+        }
+        else if (!existingRow){
+            var workerElement = getWorkerRowElement(worker, workerJson, merged);
+            $workersRows.append(workerElement);
+        }
+    }
+}
+
+/**
+ * Payments report
+ **/
+
+// Parse payment data
+function parsePayment(time, serializedPayment){
+    var parts = serializedPayment.split(':');
+    return {
+        time: parseInt(time),
+        hash: parts[0],
+        amount: parts[1],
+        fee: parts[2],
+        mixin: parts[3],
+        recipients: parts[4]
+    };
+}
+
+// Get payment row element
+function getPaymentRowElement(payment, jsonString, merged){
+    var row = document.createElement('tr');
+    row.setAttribute('data-json', jsonString);
+    row.setAttribute('data-time', payment.time);
+    row.setAttribute('id', 'paymentRow' + (merged? 'Merged':'') + payment.time);
+
+    row.innerHTML = getPaymentCells(payment, merged);
+
+    return row;
+}
+
+// Get payment cells
+function getPaymentCells(payment, merged){
+    return '<td class="col1">' + formatDate(payment.time) + '</td>' +
+           '<td class="col2">' + formatPaymentLink(payment.hash, merged) + '</td>' +
+           '<td class="col3">' + (merged? getReadableCoinsMerged(payment.amount):getReadableCoins(payment.amount)) + '</td>' +
+           '<td class="col4">' + payment.mixin + '</td>';
+}
+
+// Get summary row element
+function getSummaryRowElement(summary, jsonString, merged){
+    var row = document.createElement('tr');
+    row.setAttribute('data-json', jsonString);
+    row.setAttribute('data-date', summary.date);
+    row.setAttribute('id', 'summaryRow' + (merged? 'Merged':'') + summary.date);
+    row.setAttribute('class', 'summary');
+
+    row.innerHTML = getSummaryCells(summary, merged);
+
+    return row;
+}
+
+// Get summary cells
+function getSummaryCells(summary, merged){
+    var text = getTranslation('paymentSummaryMulti') ? getTranslation('paymentSummaryMulti') : 'On %DATE% you have received %AMOUNT% in %COUNT% payments';
+    if (summary.count <= 1) text = getTranslation('paymentSummarySingle') ? getTranslation('paymentSummarySingle') : 'On %DATE% you have received %AMOUNT%';
+    text = text.replace(/%DATE%/g, summary.date);
+    text = text.replace(/%COUNT%/g, summary.count);
+    text = text.replace(/%AMOUNT%/g, (merged? getReadableCoinsMerged(summary.amount):getReadableCoins(summary.amount)));
+    return '<td colspan="4">' + text + '</td>';
+}
+
+// Render payments
+function renderPayments(paymentsResults, merged){
+    var $paymentsRows = $('#paymentsReport' + (merged? 'Merged':'') + '_rows');
+    var lastPaymentDate = null;
+    var summaryData = { date: null, time: null, count: 0, amount: 0 };
+    for (var i = 0; i < paymentsResults.length; i += 2){
+        var payment = parsePayment(paymentsResults[i + 1], paymentsResults[i]);
+        var paymentJson = JSON.stringify(payment);
+        var paymentElement = getPaymentRowElement(payment, paymentJson, merged);
+
+        var paymentDate = new Date(parseInt(payment.time) * 1000).toLocaleDateString();
+        if (!lastPaymentDate || lastPaymentDate && paymentDate != lastPaymentDate) {
+            summaryData = { date: paymentDate, time: payment.time, count: 0, amount: 0 };
+        }
+
+        var existingRow = document.getElementById('paymentRow' + (merged? 'Merged':'') + payment.time);
+        if (existingRow && existingRow.getAttribute('data-json') !== paymentJson){
+            $(existingRow).replaceWith(getPaymentRowElement(payment, paymentJson, merged));
+        }
+        else if (!existingRow){
+            var inserted = false;
+            var rows = $paymentsRows.children().get();
+            for (var f = 0; f < rows.length; f++) {
+                var pTime = parseInt(rows[f].getAttribute('data-time'));
+                if (pTime && pTime < payment.time){
+                    inserted = true;
+                    $(rows[f]).before(paymentElement);
+                    break;
+                }
+            }
+            if (!inserted) {
+                $paymentsRows.append(paymentElement);
+            }
+        }
+
+        summaryData.count ++;
+        summaryData.amount += parseInt(payment.amount);
+
+        var summaryJson = JSON.stringify(summaryData);
+        var summaryElement = getSummaryRowElement(summaryData, summaryJson, merged);
+
+        var existingSummary = document.getElementById('summaryRow' + (merged? 'Merged':'') + summaryData.date);
+        if (existingSummary && existingSummary.getAttribute('data-json') !== summaryJson){
+            $(existingSummary).replaceWith(summaryElement);
+        }
+        else if (!existingSummary){
+            var inserted = false;
+            var rows = $paymentsRows.children().get();
+            for (var f = 0; f < rows.length; f++) {
+                var pTime = parseInt(rows[f].getAttribute('data-time'));
+                if (pTime && pTime === summaryData.time){
+                    inserted = true;
+                    $(rows[f]).before(summaryElement);
+                    break;
+                }
+            }
+            if (!inserted) {
+                $paymentsRows.append(summaryElement);
+            }
+        }
+        lastPaymentDate = paymentDate;
+    }
+}
+
+// Load more payments button
+var xhrGetPayments;
+var xhrGetPaymentsMerged;
+$('#loadMorePayments').click(function(){
+    if (xhrGetPayments) xhrGetPayments.abort();
+    xhrGetPayments = $.ajax({
+        url: api + '/get_payments',
+        data: {
+            time: $('#paymentsReport_rows').children().last().data('time'),
+            address: address
+        },
+        dataType: 'json',
+        cache: 'false',
+        success: function(data){
+            renderPayments(data);
+        }
+    });
+});
+$('#loadMorePaymentsMerged').click(function(){
+    if (xhrGetPaymentsMerged) xhrGetPaymentsMerged.abort();
+    xhrGetPaymentsMerged = $.ajax({
+        url: apiMerged + '/get_payments',
+        data: {
+            time: $('#paymentsReportMerged_rows').children().last().data('time'),
+            address: addressMerged
+        },
+        dataType: 'json',
+        cache: 'false',
+        success: function(data){
+            renderPayments(data, true);
+        }
+    });
+});
+
+
+$('#blocksTabs a').click(function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+})
+</script>

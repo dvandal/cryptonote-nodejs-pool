@@ -1,0 +1,339 @@
+<!-- Market -->
+<div id="marketStats" class="row">
+    <div id="marketInfos" class="clearfix"><div class="col-xs-12"><span class="fa fa-spinner fa-spin"></span> <span tkey="loadingMarket">Loading market prices</span> ...</div></div>
+
+    <div class="col-sm-6 marketChart push-down-15">
+        <div class="card">
+            <h4><span tkey="priceIn">Price in</span> <span id="priceChartCurrency">USD</span></h4>
+            <div class="chart">
+                <canvas id="chart_price"></canvas>
+                <a class="chart-style"></a>
+            </div>
+        </div>        
+    </div>
+    <div class="col-sm-6 marketChart push-down-15">
+        <div class="card">
+            <h4><span tkey="hashPer">Hash/</span><span id="profitChartCurrency">USD</span> <span data-toggle="tooltip" data-placement="top" data-original-title="Reward * Rate / Difficulty"><i class="fa fa-question-circle"></i></span></h4>
+            <div class="chart">
+                <canvas id="chart_profit"></canvas>
+                <a class="chart-style"></a>
+            </div>
+        </div>
+    </div>
+</div>
+    
+<!-- Mining Profit Calculator -->
+<div id="miningProfitCalc">
+    <h3><span tkey="estimateProfit">Estimate Mining Profits</span></h3>
+    <div id="calcHashHolder">
+        <div class="input-group">
+            <input class="form-control" id="calcHashRate" tplaceholder="enterYourHashrate" placeholder="Enter Your Hash Rate" type="number">
+            <div class="input-group-btn">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="calcHashDropdown">
+                    <span id="calcHashUnit" data-mul="1">KH/s</span> <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right" role="menu" id="calcHashUnits">
+                    <li><a href="#" data-mul="0">H/s</a></li>
+                    <li><a href="#" data-mul="1">KH/s</a></li>
+                    <li><a href="#" data-mul="2">MH/s</a></li>
+                </ul>
+            </div>
+            <span class="input-group-addon">=</span>
+            <span class="input-group-addon" id="calcHashResultsHolder"><div id="calcHashAmount"><span id="calcHashAmount1"></span><br/><span id="calcHashAmount2"></span></div> <div id="calcHashPeriod"> <span tkey="perDay">per day</span></div></span>
+        </div>
+    </div>
+</div>
+
+<div id="test"></div>
+
+<!-- Javascript -->
+<script>
+// Market settings
+var priceSource = 'cryptonator';
+var priceCurrency = 'USD';
+
+if (typeof cryptonatorWidget !== 'undefined' && typeof marketCurrencies === 'undefined') {
+    var marketCurrencies = cryptonatorWidget;
+}
+
+// Charts initialized
+var chartsInitialized = false;
+var intervalChartsUpdate;
+
+// Update current page
+currentPage = {
+    destroy: function(){
+        if (chartsInitialized) {
+            chartsInitialized = false;
+            clearInterval(intervalChartsUpdate);
+        }
+    },
+    update: function(){
+        priceSource = lastStats.config.priceSource || 'cryptonator';
+        priceCurrency = lastStats.config.priceCurrency || 'USD';
+	
+        updateText('priceChartCurrency', priceCurrency);
+        updateText('profitChartCurrency', priceCurrency);
+	
+        loadMarketData();
+        calcEstimateProfit();
+	
+        if (lastStats.charts && !chartsInitialized) {
+            intervalChartsUpdate = setInterval(createCharts, 60*1000);
+            createCharts();
+            chartsInitialized = true;
+        }	
+    }
+};
+
+// Handle tooltip
+$(function() {
+    $('[data-toggle="tooltip"]').tooltip();
+});
+
+/**
+ * Market prices
+ **/
+ 
+var marketPrices = {};
+var xhrMarketGets;
+
+// Load initial market data
+var loadedData = false;
+function loadMarketData() {
+    if (loadedData) return ;
+        
+    if (typeof marketCurrencies !== 'undefined' && marketCurrencies.length > 0){
+        var intervalMarketPolling = setInterval(updateMarkets, 300000);
+        updateMarkets();
+    } else {
+        $('#marketInfos').hide();
+    }
+    
+    loadedData = true;
+}
+    
+// Market data polling (poll data every 5 minutes)
+function updateMarkets(){
+    if (typeof marketCurrencies === 'undefined' || marketCurrencies.length === 0) return ;
+
+    for (var i = 0; i < marketCurrencies.length; i++){
+        marketCurrencies[i] = marketCurrencies[i].replace('{symbol}', lastStats.config.symbol).toUpperCase();
+    }
+
+    xhrMarketGets = $.ajax({
+        url: api + '/get_market',
+        data: { tickers: marketCurrencies },
+        dataType: 'json',
+        cache: 'false',
+        success: function(data) {
+            if (!data || data.length === 0) {
+                $('#marketInfos').hide();
+                return;
+            }
+
+            $('#marketInfos').empty();
+            for (var i in data) {
+                if (!data[i] || !data[i].ticker) continue;
+                var ticker = data[i].ticker;
+                var tickerParts = ticker.split('-');
+                var tickerBase = tickerParts[0] || null;
+                var tickerTarget = tickerParts[1] || null;
+
+                var price  = data[i].price;
+                if (!price || price === 0) continue;
+
+                var dataSource = data[i].source;
+
+                renderMarketPrice(tickerBase, tickerTarget, price, dataSource);
+            }
+            $('#marketInfos').show();
+	},
+        error: function() {
+            $('#marketInfos').hide();
+        }
+    });
+}
+
+// Render market price
+function renderMarketPrice(base, target, price, source) {
+    var icon = 'fa-money';
+    if (target == 'BTC') icon = 'fa-btc';
+    if (target == 'BCH') icon = 'fa-btc';
+    if (target == 'USD') icon = 'fa-dollar';
+    if (target == 'CAD') icon = 'fa-dollar';
+    if (target == 'EUR') icon = 'fa-eur';
+    if (target == 'GBP') icon = 'fa-gbp';
+    if (target == 'JPY') icon = 'fa-jpy';
+            
+    if (base == lastStats.config.symbol.toUpperCase()) {
+        marketPrices[target] = price;
+    }
+
+    if (target == 'USD' || target == 'CAD' ||  target == 'EUR' || target == 'GBP' || target == 'JPY') {
+        price = price.toFixed(4);
+    } else {
+        price = price.toFixed(8);
+    }
+
+    var sourceURL = null;
+    if (source == 'cryptonator') sourceURL = 'https://www.cryptonator.com/';
+    else if (source == 'altex') sourceURL = 'https://altex.exchange/';
+    else if (source == 'crex24') sourceURL = 'https://crex24.com/';
+    else if (source == 'cryptopia') sourceURL = 'https://www.cryptopia.co.nz/';
+    else if (source == 'stocks.exchange') sourceURL = 'https://stocks.exchange/';
+    else if (source == 'tradeogre') sourceURL = 'https://tradeogre.com/';
+
+    source = source.charAt(0).toUpperCase() + source.slice(1);
+    if (sourceURL) source = '<a href="'+sourceURL+'" target="_blank" rel="nofollow">'+source+'</a>';
+
+    $('#marketInfos').append(
+        '<div class="col-lg-3 col-md-4 col-sm-6 marketTicker"><div class="infoBox hoverExpandEffect">' +
+	    '<div class="icon"><span class="fa '+ icon + '"></span></div>' +
+	    '<div class="content">' + 
+                '<div class="text">' + base + ' to ' + target + '</div>' +
+                '<div class="value">' + price + '</div>' +
+		'<div class="source">Source: ' + source + '</div>' +
+	    '</div>' +
+        '</div>'
+    );
+}
+
+/**
+ * Market Charts
+ **/
+
+// Create charts
+function createCharts() {
+    if (!lastStats || !lastStats.charts) return ;
+    var data = lastStats.charts;
+
+    var graphData = {
+        price: getGraphData(data.price),
+        profit: getGraphData(data.profit)
+    };
+
+    for(var graphType in graphData) {
+        if (graphData[graphType].values.length > 1) {
+            var $chart = $('#chart_'+graphType);
+            var bgcolor = null, bordercolor = null, borderwidth = null;
+            var colorelem = $chart.siblings('a.chart-style');
+            if (colorelem.length == 1) {
+                bgcolor = colorelem.css('background-color');
+                bordercolor = colorelem.css('border-left-color');
+                borderwidth = parseFloat(colorelem.css('width'));
+            }
+            if (bgcolor === null) bgcolor = 'rgba(3, 169, 244, .4)';
+            if (bordercolor === null) bordercolor = '#03a9f4';
+            if (borderwidth === null || isNaN(borderwidth)) borderwidth = 1;
+            var chartObj = new Chart(document.getElementById('chart_'+graphType), {
+                type: 'line',
+                data: {
+                    labels: graphData[graphType].names,
+                    datasets: [{
+                        data: graphData[graphType].values,
+                        dataType: graphType,
+                        fill: true,
+                        backgroundColor: bgcolor,
+                        borderColor: bordercolor,
+                        borderWidth: borderwidth
+                    }]
+                },
+                options: {
+                    animation: false,
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    legend: { display: false },
+                    elements: { point: { radius: 0, hitRadius: 10, hoverRadius: 5 } },
+                    scales: {
+                        xAxes: [{
+                            display: false,
+                            ticks: { display: false },
+                            gridLines: { display: false }
+                        }],
+                        yAxes: [{
+                            display: false,
+                            ticks: {
+                                display: false,
+                                beginAtZero: true,
+                                userCallback: function(label, index, labels) {
+                                    if (Math.floor(label) === label) return label;
+                                }
+                            },
+                            gridLines: { display: false }
+                        }]
+                    },
+                    layout: {
+                        padding: { top: 5, left: 10, right: 10, bottom: 10 }
+                    },
+                    tooltips: {
+                        callbacks: {
+                            label: function(tooltipItem, data) {
+                                var dataType = data.datasets[tooltipItem.datasetIndex].dataType || '';
+                                var label = tooltipItem.yLabel;
+                                if (dataType == 'price') label = parseFloat(tooltipItem.yLabel).toFixed(4);
+                                else if (dataType == 'profit') label = parseFloat(tooltipItem.yLabel).toFixed(10);
+                                return ' ' + label;
+                            }
+                        }
+                    }
+                }
+            });
+            $chart.closest('.marketChart').show();
+        }
+    }
+}
+
+// Get chart data
+function getGraphData(rawData) {
+    var graphData = {
+        names: [],
+        values: []
+    };
+    if(rawData) {
+        for (var i = 0, xy; xy = rawData[i]; i++) {
+            graphData.names.push(new Date(xy[0]*1000).toLocaleString());
+            graphData.values.push(xy[1]);
+        }
+    }
+    return graphData;
+}
+
+/**
+ * Hash Profitability Calculator
+ **/
+ 
+// Automatically update profit calculation on key press
+$('#calcHashRate').keyup(calcEstimateProfit).change(calcEstimateProfit);
+
+// Click on button
+$('#calcHashUnits > li > a').click(function(e){
+    e.preventDefault();
+    $('#calcHashUnit').text($(this).text()).data('mul', $(this).data('mul'));
+    calcEstimateProfit();
+});
+
+// Calculate current estimation
+function calcEstimateProfit(){
+    try {
+        var rateUnit = Math.pow(1000,parseInt($('#calcHashUnit').data('mul')));
+        var hashRate = parseFloat($('#calcHashRate').val()) * rateUnit;
+        var profit = (hashRate * 86400 / lastStats.network.difficulty) * lastStats.lastblock.reward;
+        if (profit) {
+            updateText('calcHashAmount1', getReadableCoins(profit));
+            updateText('calcHashAmount2', getCurrencyPriceText(profit));
+            return;
+        }
+    }
+    catch(e){ }
+    updateText('calcHashAmount1', '');
+    updateText('calcHashAmount2', '');
+}
+
+// Get price in specified currency
+function getCurrencyPriceText(coinsRaw) {    
+    if (!priceCurrency || !marketPrices || !marketPrices[priceCurrency]) return ;    
+    var priceInCurrency = (Math.trunc(getReadableCoins(coinsRaw, 2, true) * marketPrices[priceCurrency] * 100) / 100);
+    return  priceInCurrency + ' ' + priceCurrency;
+}
+</script>

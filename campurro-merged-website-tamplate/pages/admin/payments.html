@@ -1,0 +1,200 @@
+<!-- Statistics -->
+<div id="paymentsStats" class="row">
+
+    <!-- Total Payments -->
+    <div class="col-lg-3 col-sm-6">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-money"></span>
+            </div>
+            <div class="content">
+                <div class="text"><span tkey="paymentsTotal">Total Payments</span></div>
+                <div class="value"><span id="paymentsTotal">N/A</span> <span class="smallText">(<strong><span id="paymentsTotalPaid">N/A</span></strong> <span tkey="minersCount">miners</span>)</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Minimum Payment Threshold -->
+    <div class="col-lg-3 col-sm-6">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-dollar"></span>
+            </div>
+            <div class="content">
+                <div class="text"><span tkey="paymentsMinimum">Minimum Payout</span></div>
+                <div class="value"><span id="paymentsMinimum">N/A</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Interval -->
+    <div class="col-lg-3 col-sm-6">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-clock-o"></span>
+            </div>
+            <div class="content">
+                <div class="text"><span tkey="paymentsInterval">Payment Interval</span></div>
+                <div class="value"><span id="paymentsInterval">N/A</span></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Denomination Unit -->
+    <div class="col-lg-3 col-sm-6">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-hashtag"></span>
+            </div>
+            <div class="content">
+                <div class="text"><span tkey="paymentsDenomination">Denomination Unit</span></div>
+                <div class="value"><span id="paymentsDenomination">N/A</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment mechanism -->
+    <div class="col-sm-12" id="slush_description">
+        <div class="slushInfo hoverExpandEffect">
+            <div class="text"><span>Payment system</span></div>
+            <div class="content clearfix">
+                <div class="value"><p>This pool uses the "Score" payment system, under which later
+                  shares submitted by miners receive more weight in determining the miner's reward than earlier shares.
+
+                    <p>For more details (including the specific mathematics involved) see the <a
+                     href="https://slushpool.com/help/manual/rewards">slushpool reward
+                     description</a>.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<!-- Report -->
+<div class="card push-up-10">
+    <div id="paymentsReport" class="table-responsive">
+        <table class="table table-hover table-striped">
+            <thead>
+            <tr>
+                <th class="col1"><span tkey="timeSent">Time Sent</span></th>
+                <th class="col2"><span tkey="transactionHash">Transaction Hash</span></th>
+                <th class="col3"><span tkey="amount">Amount</span></th>
+                <th class="col4"><span tkey="fee">Fee</span></th>
+                <th class="col5"><span tkey="mixin">Mixin</span></th>
+                <th class="col6"><span tkey="payees">Payees</span></th>
+            </tr>
+            </thead>
+            <tbody id="paymentsReport_rows">
+    
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<p class="text-center push-up-10">
+    <button type="button" class="btn btn-default" id="loadMorePayments"><span tkey="loadMore">Load More</span></button>
+</p>
+
+<!-- Javascript -->
+<script>
+// Update current page
+currentPage = {
+    destroy: function(){
+        if (xhrGetPayments) xhrGetPayments.abort();
+    },
+    update: function(){
+        updateText('paymentsTotal', lastStats.pool.totalPayments.toString());
+        updateText('paymentsTotalPaid', lastStats.pool.totalMinersPaid.toString());
+        updateText('paymentsInterval', getReadableTime(lastStats.config.paymentsInterval));
+        updateText('paymentsMinimum', getReadableCoins(lastStats.config.minPaymentThreshold));
+        updateText('paymentsDenomination', getReadableCoins(lastStats.config.denominationUnit, 3));
+        if (!lastStats.config.slushMiningEnabled)
+            $('#slush_description').hide()
+        renderPayments(lastStats.pool.payments);
+    }
+};
+
+// Parse payment data
+function parsePayment(time, serializedPayment){
+    var parts = serializedPayment.split(':');
+    return {
+        time: parseInt(time),
+        hash: parts[0],
+        amount: parts[1],
+        fee: parts[2],
+        mixin: parts[3],
+        recipients: parts[4]
+    };
+}
+
+// Get payment cells
+function getPaymentCells(payment){
+    return '<td class="col1">' + formatDate(payment.time) + '</td>' +
+           '<td class="col2">' + formatPaymentLink(payment.hash) + '</td>' +
+           '<td class="col3">' + getReadableCoins(payment.amount) + '</td>' +
+           '<td class="col4">' + getReadableCoins(payment.fee) + '</td>' +
+           '<td class="col5">' + payment.mixin + '</td>' +
+           '<td class="col6">' + payment.recipients + '</td>';
+}
+
+// Get payment row element
+function getPaymentRowElement(payment, jsonString){
+    var row = document.createElement('tr');
+    row.setAttribute('data-json', jsonString);
+    row.setAttribute('data-time', payment.time);
+    row.setAttribute('id', 'paymentRow' + payment.hash);
+
+    row.innerHTML = getPaymentCells(payment);
+
+    return row;
+}
+
+// Render payments data
+function renderPayments(paymentsResults){
+    var $paymentsRows = $('#paymentsReport_rows');
+    for (var i = 0; i < paymentsResults.length; i += 2){
+        var payment = parsePayment(paymentsResults[i + 1], paymentsResults[i]);
+        var paymentJson = JSON.stringify(payment);
+        var existingRow = document.getElementById('paymentRow' + payment.hash);
+
+        if (existingRow && existingRow.getAttribute('data-json') !== paymentJson){
+            $(existingRow).replaceWith(getPaymentRowElement(payment, paymentJson));
+        }
+        else if (!existingRow){
+            var paymentElement = getPaymentRowElement(payment, paymentJson);
+
+            var inserted = false;
+            var rows = $paymentsRows.children().get();
+            for (var f = 0; f < rows.length; f++) {
+                var pTime = parseInt(rows[f].getAttribute('data-time'));
+                if (pTime < payment.time){
+                    inserted = true;
+                    $(rows[f]).before(paymentElement);
+                    break;
+                }
+            }
+            if (!inserted) {
+                $paymentsRows.append(paymentElement);
+            }
+        }
+    }
+}
+
+// Load more payments button
+var xhrGetPayments;
+$('#loadMorePayments').click(function(){
+    if (xhrGetPayments) xhrGetPayments.abort();
+    xhrGetPayments = $.ajax({
+        url: api + '/get_payments',
+        data: {
+            time: $('#paymentsReport_rows').children().last().data('time')
+        },
+        dataType: 'json',
+        cache: 'false',
+        success: function(data){
+            renderPayments(data);
+        }
+    });
+});
+</script>

@@ -1,0 +1,85 @@
+<h3>Current Ports Usage (<span id="totalUsers">0</span> users)</h3>
+
+<!-- Handlebars template -->
+<script id="portsListTable" type="text/x-handlebars-template">
+    {{#each ports}}
+    <tr>
+        <td class="col1" data-sort="{{this.port.port}}">{{this.port}}</td>
+        <td class="col2" data-sort="{{this.port.users}}">{{this.users}}</td>
+        <td class="col3">&nbsp;</td>
+    </tr>
+    {{/each}}
+</script>
+
+<!-- Ports List -->
+<div class="card">
+    <div id="portsUsage" class="table-responsive">
+        <table class="table table-hover table-striped portsList">
+            <thead>
+            <tr>
+                <th class="col1">Port</th>
+                <th class="col2">Connected Users</th>
+                <th class="col3">&nbsp;</th>
+            </tr>
+            </thead>
+            <tbody id="template">
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Javascript -->
+<script>
+function parsePorts(ports) {
+    var totalUsers = 0;
+    var portsArray = [];
+    var properObject = {};
+    for (var port in ports) {
+        if (ports.hasOwnProperty(port)) {
+            var portsData = ports[port];
+	    var usersCount = portsData.users ?parseInt(portsData.users) : 0;
+	    if (usersCount > 0) {
+                portsArray.push({
+                    port: portsData.port,
+                    users: usersCount
+                });
+                totalUsers += usersCount;
+	    }
+        }
+    }
+    $('#totalUsers').html(totalUsers);
+
+    properObject['ports'] = portsArray.sort(function(a, b) {
+        return a.port.port - b.port.port
+    }).reverse();
+
+    return properObject;
+}
+
+function createPortsTable(promptPassword) {
+    var password = docCookies.getItem('password');
+
+    if(!password || promptPassword) {
+        password = prompt('Enter admin password');
+    }
+
+    $.ajax({
+        url: api + '/admin_ports',
+        data: {password: password},
+        cache: false,
+        dataType: 'json',
+        success: function(data) {
+            docCookies.setItem('password', password, Infinity);
+            renderTemplate(parsePorts(data), '#portsListTable', '#template');
+        },
+        error: function(e) {
+            docCookies.removeItem('password');
+        }
+    });
+}
+$(function() {
+    $('[data-toggle="tooltip"]').tooltip();
+    createPortsTable();
+});
+</script>
+
