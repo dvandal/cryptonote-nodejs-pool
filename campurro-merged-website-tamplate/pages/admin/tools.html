@@ -1,0 +1,124 @@
+<!-- Test E-Mail notifications -->
+<h3><span tkey="testEmailNotifications">Test E-Mail notifications</span></h3>
+
+<div class="card padding-15 padding-b-10">
+    <div>
+      <div id="test_email_message" role="alert" ></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4 col-md-5 col-sm-6 push-down-5">
+            <input class="form-control" id="emailAddress" type="text" tplaceholder="emailAddress" placeholder="E-Mail Address">
+        </div>
+        <div class="col-sm-4 push-down-5">
+            <button class="btn btn-default" type="button" id="testEmailButton">
+                <span><i class="fa fa-check"></i>&nbsp; <span tkey="sendTest">Send test</span></span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Test Telegram notifications -->
+<h3><span tkey="testTelegramNotifications">Test Telegram Channel notifications</span></h3>
+
+<div class="card padding-15 padding-b-10">
+    <div>
+      <div id="test_telegram_message" role="alert" ></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4 push-down-5">
+            <button class="btn btn-default" type="button" id="testTelegramButton">
+                <span><i class="fa fa-check"></i>&nbsp; <span tkey="sendTest">Send test</span></span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+/**
+ * Error Message
+ **/
+function showError(testId, message) {
+    $('#test_'+testId+'_message').text(message);
+    $('#test_'+testId+'_message').removeClass().addClass('alert alert-danger');
+}
+
+/**
+ * Success Message
+ **/
+function showSuccess(testId, message) {
+    $('#test_'+testId+'_message').text(message);
+    $('#test_'+testId+'_message').removeClass().addClass('alert alert-success');
+}
+
+/**
+ * Test E-Mail notification
+ **/
+
+function isEmail(email) {
+    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    return regex.test(email);
+}
+
+$('#testEmailButton').click(function() {
+    var password = docCookies.getItem('password');
+
+    if(!password) {
+        password = prompt('Enter admin password');
+    }
+    
+    var email = $('#emailAddress').val().trim();
+    if (!email) {
+        showError('email', 'No email address specified');
+	return;
+    }
+    if (!isEmail(email)) {
+        showError('invalidEmail', 'Invalid email address specified');
+        return;
+    }
+
+    $.ajax({
+        url: api + '/test_email_notification',
+        data: {
+            password: password,
+            email: email
+        },
+        dataType: 'json',
+        cache: 'false'
+    }).done(function(data){
+        docCookies.setItem('password', password, Infinity);
+        if (data.status == "done") {
+            showSuccess('email', 'Done! Test is successful.');
+        } else {
+            showError('email', 'Error: ' + data.status);
+        }
+    });
+});
+
+/**
+ * Test Telegram Channel notification
+ **/
+
+$('#testTelegramButton').click(function(){
+    var password = docCookies.getItem('password');
+
+    if(!password) {
+        password = prompt('Enter admin password');
+    }
+    
+    $.ajax({
+        url: api + '/test_telegram_notification',
+        data: {
+            password: password,
+        },
+        dataType: 'json',
+        cache: 'false'
+    }).done(function(data){
+        docCookies.setItem('password', password, Infinity);
+        if (data.status == "done") {
+            showSuccess('telegram', 'Test done! Check pool logs for more debugging informations.');
+        } else {
+            showError('telegram', 'Error: ' + data.status);
+        }
+    });
+});
+</script>

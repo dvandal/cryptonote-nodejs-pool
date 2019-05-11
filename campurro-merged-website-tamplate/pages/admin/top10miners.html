@@ -1,0 +1,68 @@
+<!-- Top 10 miners -->
+<h3><span tkey="top10miners">Top 10 miners</span></h3>
+<div class="card">
+    <div id="top10miners" class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th class="col1 sort">#</th>
+                <th class="col2 sort"><span tkey="miner">Miner</span></th>
+                <th class="col3 sort"><span tkey="hashRate">Hash Rate</span></th>
+                <th class="col4 sort"><span tkey="lastShare">Last Share Submitted</span></th>
+                <th class="col5 sort"><span tkey="totalHashes">Total Hashes Submitted</span></th>
+            </tr>
+            </thead>
+            <tbody id="top10miners_rows">
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Javascript -->
+<script>
+// Update current page
+currentPage = {
+    destroy: function(){},
+    update: function(){}
+};
+
+// Get miner cells
+function getMinerCells(position, data){
+    var miner = data.miner;
+    var hashrate = data.hashrate ? data.hashrate : 0;
+    var lastShare = data.lastShare ? data.lastShare : 0;
+    var hashes = (data.hashes || 0).toString();
+    
+    return '<td class="col1" data-sort="' + position + '">' + position + '</td>' +
+           '<td class="col2" data-sort="' + miner + '">' + miner + '</td>' +
+           '<td class="col3" data-sort="' + hashrate + '">' + getReadableHashRateString(hashrate) + '/sec</td>' +
+           '<td class="col4" data-sort="' + lastShare + '">' + (lastShare ? $.timeago(new Date(parseInt(lastShare) * 1000).toISOString()) : 'Never') + '</td>' +
+           '<td class="col5" data-sort="' + hashes + '">' + hashes + '</td>';
+}
+
+// Update top10 miners report
+function updateTop10() {
+    $("#top10miners_rows").empty();
+
+    var xhrGetTOP = $.ajax({
+        url: api + '/get_top10miners',
+        data: {
+            time: $('#top10_rows').children().last().data('time')
+        },
+        dataType: 'json',
+        cache: 'false',
+        success: function(data){
+            if (!data) return;
+            for (var i=0; i<data.length; ++i) {
+                $( "#top10miners_rows" ).append('<tr>' + getMinerCells(i+1, data[i]) + '</tr>');
+            }
+        }
+    });
+}
+
+// Load initial data
+updateTop10();
+
+// Start updates once per minute
+var intervalUpdateTop10 = setInterval(updateTop10, (60*1000));
+</script>

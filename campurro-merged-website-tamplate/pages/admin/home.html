@@ -1,0 +1,420 @@
+<br/>
+
+<!-- Statistics -->
+<div id="poolStats" class="row">
+
+    <div class="col-sm-8">	
+            <div class="poolInfo hoverExpandEffect">
+                <div class="text"><span >Pool Information</span></div>
+              <div class="content clearfix">
+		      <br />
+		      <div class="time"><b>Why Should You Choose This Pool?</b><br />
+			- Decentralization - It is important for the health of the network and the coin.<br />
+			- Fairness - This pool make use of the <a target="_blank" href="https://optimusblue.com/pool-payment-model/">RBPPS (Prop.) Payment Model</a> to ensure every miners receive a fair payout.<br />
+			- Convenient: Can mine directly to Exchanges, Variable and Fixed Difficulty and custom payout threshold.<br />
+			- Stay informed - Worker hash-rate charts, Email & Telegram notifications for your workers for when blocks are found.<br />
+			- Community & Support - Dedicated Telegram channel with a wonderful community always willing to assist.<br /><br />
+			<b>This is only a few reasons, we trust that you will have great results and please feel free to contact us should you need any assistance.</b>
+		      </div>
+              </div>
+            </div>
+    </div>
+
+	<div class="col-sm-4">
+            <div class="poolInfo hoverExpandEffect">
+                    <div class="text"><span >Coin Information</span></div>
+                  <div class="content clearfix">
+	      <div class="value"><a target="_blank" href="#">Website</a> / <a target="_blank" href="#">Wallet</a></div>
+     		      <br />
+                   </div>
+                </div>
+    </div>
+
+</div>
+<div id="poolStats" class="row">	
+    <!-- Pool Hash Rate -->
+    <div class="col-lg-3 col-sm-4">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-dashboard"></span>
+            </div>
+            <div class="content">
+                <div class="text"><span tkey="poolHashrate">Pool Hash Rate</span></div>
+                <div class="value"><span id="poolHashrate">N/A</span> <span class="smallText">(<span id="hashPower">0%</span>)</span></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Blocks Found -->
+    <div class="col-lg-3 col-sm-4">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-cubes"></span>
+            </div>
+            <div class="content">
+                <div class="text"><span tkey="blocksTotal">Blocks Found</span></div>
+                <div class="value"><span id="blocksTotal">N/A</span> <span class="smallText">(<span id="poolLastBlockFound">Never</span>)</span></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Blocks Found Every -->
+    <div class="col-lg-3 col-sm-4">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-history"></span>
+            </div>
+            <div class="content">
+                <div class="text"><span tkey="blockSolvedTime">Blocks Found Every</span></div>
+                <div class="value"><span id="blockSolvedTime">N/A</span> <span class="smallText">(<span tkey="estimated">estimated</span>)</span></div>
+            </div>
+        </div>
+    </div>
+        
+    <!-- Current Effort -->
+    <div class="col-lg-3 col-sm-4">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-line-chart"></span>
+            </div>
+            <div class="content">
+                <div class="text"><span tkey="currentEffort">Current Effort</span></div>
+                <div class="value"><span id="currentEffort">N/A</span></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Network Hash Rate -->
+    <div class="col-lg-3 col-sm-4">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-dashboard"></span>
+            </div>
+            <div class="content">
+                <div class="text"><span tkey="networkHashrate">Network Hash Rate</span></div>
+                <div class="value"><span id="networkHashrate">N/A</span></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Difficulty -->
+    <div class="col-lg-3 col-sm-4">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-unlock-alt"></span>
+            </div>
+            <div class="content">
+                <div class="text"><span tkey="networkDifficulty">Difficulty</span></div>
+                <div class="value"><span id="networkDifficulty">N/A</span></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Blockchain Height -->
+    <div class="col-lg-3 col-sm-4">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-bars"></span>
+            </div>
+            <div class="content">
+                <div class="text"><span tkey="blockchainHeight">Blockchain Height</span></div>
+                <div class="value"><span id="blockchainHeight">N/A</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Last Reward -->
+    <div class="col-lg-3 col-sm-4">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-dollar"></span>
+            </div>
+            <div class="content">
+                <div class="text"><span tkey="networkLastReward">Last Reward</span></div>
+                <div class="value"><span id="networkLastReward">N/A</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Connected Miners -->
+    <div class="col-lg-3 col-sm-4">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-group"></span>
+            </div>
+            <div class="content">
+                <div class="text"><span tkey="poolMiners">Connected Miners</span></div>
+                <div class="value"><span id="poolMiners">N/A</span> <span class="smallText">(<strong><span id="poolWorkers">N/A</span></strong> <span tkey="workersCount">workers</span>)</span></div>
+            </div>
+        </div>
+    </div>
+        
+    <!-- Pool Fee -->
+    <div class="col-lg-3 col-sm-4">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-dollar"></span>
+            </div>
+            <div class="content">
+                <div class="text"><span tkey="poolFee">Pool Fee</span></div>
+                <div class="value"><span id="poolFee">N/A</span></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Minimum Payout -->
+    <div class="col-lg-3 col-sm-4">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-dollar"></span>
+            </div>
+            <div class="content">
+                <div class="text"><span tkey="paymentsMinimum">Minimum Payout</span></div>
+                <div class="value"><span id="paymentsMinimum">N/A</span></div>
+            </div>
+        </div>
+    </div>
+            
+    <!-- Payment Interval -->
+    <div class="col-lg-3 col-sm-4">
+        <div class="infoBox hoverExpandEffect">
+            <div class="icon">
+                <span class="fa fa-clock-o"></span>
+            </div>
+            <div class="content">
+                <div class="text"><span tkey="paymentsInterval">Payment Interval</span></div>
+                <div class="value"><span id="paymentsInterval">N/A</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Last Hash -->
+    <div class="col-sm-12">
+        <div class="hashInfo hoverExpandEffect">
+            <div class="text"><span tkey="lastHash">Last Hash</span></div>
+            <div class="content clearfix">
+               <div class="value"><a id="lastHash" target="_blank">N/A</a></div>
+               <div class="time">(<span id="networkLastBlockFound">Never</span>)</div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<!-- Pool Charts -->
+<div class="row">
+    <div class="col-sm-6 poolChart">
+        <div class="card">
+            <h4><span tkey="hashRate">Hash Rate</span></h4>
+            <div class="chart">
+                <canvas id="chart_hashrate"></canvas>
+                <a class="chart-style"></a>
+            </div> 
+        </div>        
+    </div>
+    <div class="col-sm-6 poolChart">
+        <div class="card">
+            <h4><span tkey="difficulty">Difficulty</span></h4>
+            <div class="chart">
+                <canvas id="chart_diff"></canvas>
+                <a class="chart-style"></a>
+            </div> 
+        </div>
+    </div>
+    <div class="col-sm-6 poolChart">
+        <div class="card">
+            <h4><span tkey="miners">Miners</span></h4>
+            <div class="chart">
+                <canvas id="chart_miners"></canvas>
+                <a class="chart-style"></a>
+            </div> 
+        </div> 
+    </div>    
+    <div class="col-sm-6 poolChart">
+        <div class="card">
+            <h4><span tkey="workers">Workers</span></h4>
+            <div class="chart">
+                <canvas id="chart_workers"></canvas>
+                <a class="chart-style"></a>
+            </div> 
+        </div> 
+    </div>    
+</div>
+
+<!-- Javascript -->
+<script>
+// Charts initialized
+var chartsInitialized = false;
+var intervalChartsUpdate;
+
+// Update current page
+currentPage = {
+    destroy: function(){
+        $('#networkLastBlockFound,#poolLastBlockFound').timeago('dispose');
+        if (chartsInitialized) {
+            chartsInitialized = false;
+            clearInterval(intervalChartsUpdate);
+        }
+    },
+    update: function(){
+        $('#networkLastBlockFound').timeago('update', new Date(lastStats.lastblock.timestamp * 1000).toISOString());
+        
+        updateText('networkHashrate', getReadableHashRateString(lastStats.network.difficulty / lastStats.config.coinDifficultyTarget) + '/sec');
+        updateText('networkDifficulty', formatNumber(lastStats.network.difficulty.toString(), ' '));
+        updateText('blockchainHeight', formatNumber(lastStats.network.height.toString(), ' '));
+        updateText('lastHash', lastStats.lastblock.hash).setAttribute('href', getBlockchainUrl(lastStats.lastblock.hash));
+
+        if (lastStats.config.networkFee) {
+            var networkFeePercent = lastStats.config.networkFee / 100;
+            updateText('networkLastReward', getReadableCoins(lastStats.lastblock.reward - (lastStats.lastblock.reward * networkFeePercent)));
+        } else {
+            updateText('networkLastReward', getReadableCoins(lastStats.lastblock.reward));
+        }
+
+        updateText('poolHashrate', getReadableHashRateString(lastStats.pool.hashrate) + '/sec');
+        updateText('blocksTotal', lastStats.pool.totalBlocks.toString());
+        
+        var hashPower = lastStats.pool.hashrate / (lastStats.network.difficulty / lastStats.config.coinDifficultyTarget) * 100;
+        updateText('hashPower', hashPower.toFixed(2) + '%');
+
+        if (lastStats.pool.lastBlockFound) {
+            var d = new Date(parseInt(lastStats.pool.lastBlockFound)).toISOString();
+            $('#poolLastBlockFound').timeago('update', d);
+        }
+        else {
+            $('#poolLastBlockFound').removeAttr('title').data('ts', '').update('Never');
+        }
+
+        updateText('poolMiners', lastStats.pool.miners.toString());
+        updateText('poolWorkers', lastStats.pool.workers.toString());
+
+        var totalFee = lastStats.config.fee;
+        if (Object.keys(lastStats.config.donation).length) {
+            var totalDonation = 0;
+            for(var i in lastStats.config.donation) {
+                totalDonation += lastStats.config.donation[i];
+            }
+            totalFee += totalDonation;
+        }
+        updateText('poolFee', (totalFee > 0 && totalFee != 100 ? floatToString(totalFee) : (totalFee == 100 ? '100' : '0')) + '%');
+
+        updateText('paymentsInterval', getReadableTime(lastStats.config.paymentsInterval));
+        updateText('paymentsMinimum', getReadableCoins(lastStats.config.minPaymentThreshold));
+
+        updateText('blockSolvedTime', getReadableTime(lastStats.network.difficulty / lastStats.pool.hashrate));
+        updateText('currentEffort', (lastStats.pool.roundHashes / lastStats.network.difficulty * 100).toFixed(1) + '%');
+
+        if (lastStats.charts && !chartsInitialized) {
+            intervalChartsUpdate = setInterval(createCharts, 60*1000);
+            createCharts();
+            chartsInitialized = true;
+        }
+    }
+};
+
+// Enable timeago on last block found
+$('#networkLastBlockFound,#poolLastBlockFound').timeago();
+
+/**
+ * Charts
+ **/
+
+// Create charts
+function createCharts() {
+    if (!lastStats || !lastStats.charts) return ;
+    var data = lastStats.charts;
+
+    var graphData = {
+        hashrate: getGraphData(data.hashrate),
+        diff: getGraphData(data.difficulty),
+        miners: getGraphData(data.miners),
+        workers: getGraphData(data.workers)
+    };
+
+    for (var graphType in graphData) {
+        if (graphData[graphType].values.length > 1) {
+            var $chart = $('#chart_'+graphType);
+            var bgcolor = null, bordercolor = null, borderwidth = null;
+            var colorelem = $chart.siblings('a.chart-style');
+            if (colorelem.length == 1) {
+                bgcolor = colorelem.css('background-color');
+                bordercolor = colorelem.css('border-left-color');
+                borderwidth = parseFloat(colorelem.css('width'));
+            }
+            if (bgcolor === null) bgcolor = 'rgba(3, 169, 244, .4)';
+            if (bordercolor === null) bordercolor = '#03a9f4';
+            if (borderwidth === null || isNaN(borderwidth)) borderwidth = 1;
+
+            var chartObj = new Chart(document.getElementById('chart_'+graphType), {
+                type: 'line',
+                data: {
+                    labels: graphData[graphType].names,
+                    datasets: [{
+                        data: graphData[graphType].values,
+                        dataType: graphType,
+                        fill: true,
+                        backgroundColor: bgcolor,
+                        borderColor: bordercolor,
+                        borderWidth: borderwidth
+                    }]
+                },
+                options: {
+                    animation: false,
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    legend: { display: false },
+                    elements: { point: { radius: 0, hitRadius: 10, hoverRadius: 5 } },
+                    scales: {
+                        xAxes: [{
+                            display: false,
+                            ticks: { display: false },
+                            gridLines: { display: false }
+                        }],
+                        yAxes: [{
+                            display: false,
+                            ticks: {
+                                display: false,
+                                beginAtZero: true,
+                                userCallback: function(label, index, labels) {
+                                    if (Math.floor(label) === label) return label;
+                                }
+                            },
+                            gridLines: { display: false }
+                        }]
+                    },
+                    layout: {
+                        padding: { top: 5, left: 10, right: 10, bottom: 10 }
+                    },
+                    tooltips: {
+                        callbacks: {
+                            label: function(tooltipItem, data) {
+                                var dataType = data.datasets[tooltipItem.datasetIndex].dataType || '';
+                                var label = tooltipItem.yLabel;
+                                if (dataType == 'hashrate') label = getReadableHashRateString(tooltipItem.yLabel)+'/sec';
+                                else label = formatNumber(tooltipItem.yLabel.toString(), ' ');
+                                return ' ' + label;
+                            }
+                        }
+                    }
+                }
+            });
+            $chart.closest('.poolChart').show();
+        }
+    }
+}
+
+// Get chart data
+function getGraphData(rawData) {
+    var graphData = {
+        names: [],
+        values: []
+    };
+    if(rawData) {
+        for (var i = 0, xy; xy = rawData[i]; i++) {
+            graphData.names.push(new Date(xy[0]*1000).toLocaleString());
+            graphData.values.push(xy[1]);
+        }
+    }        
+    return graphData;
+}
+</script>
