@@ -1,7 +1,7 @@
-cryptonote-nodejs-pool for merged mining
-=========================================
+cryptonote-nodejs-pool
+======================
 
-High performance Node.js (with native C addons) mining pool for CryptoNote based coins. Comes with lightweight example front-end script which uses the pool's AJAX API. Support for Cryptonight (Original, Monero v7, Stellite v7), Cryptonight Light (Original, Aeon v7, IPBC), Cryptonight Pico (Trtl) and Cryptonight Heavy (Sumokoin) algorithms. With Merged mining support.
+High performance Node.js (with native C addons) mining pool for CryptoNote based coins. Comes with lightweight example front-end script which uses the pool's AJAX API. Support for Cryptonight (Original, Monero v7, Stellite v7), Cryptonight Light (Original, Aeon v7, IPBC) and Cryptonight Heavy (Sumokoin) algorithms.
 
 
 #### Table of Contents
@@ -96,12 +96,17 @@ Community / Support
 
 * [GitHub Wiki](https://github.com/dvandal/cryptonote-nodejs-pool/wiki)
 * [GitHub Issues](https://github.com/dvandal/cryptonote-nodejs-pool/issues)
-* [Telegram Group](http://t.me/CryptonotePool)j)
+* [Telegram Group](http://t.me/CryptonotePool)
 
 #### Pools Using This Software
 
-* https://smartcoinpool.com/
-
+* https://imaginary.stream/
+* https://graft.anypool.net/
+* https://graft.dark-mine.su/
+* http://itns.proxpool.com/
+* https://bytecoin.pt
+* http://ita.minexmr24.ru/
+* https://pool.croatpirineus.cat
 
 Usage
 ===
@@ -180,9 +185,6 @@ Explanation for each field:
 /* Coin network time to mine one block, see DIFFICULTY_TARGET constant in DAEMON_CODE/src/cryptonote_config.h */
 "coinDifficultyTarget": 120,
 
-/* Used for storage in redis so multiple coins can share the same redis instance. */
-"childCoin": "monetaverde",
-
 /* Set daemon type. Supported values: default, forknote (Fix block height + 1), bytecoin (ByteCoin Wallet RPC API) */
 "daemonType": "default",
 
@@ -225,8 +227,6 @@ Explanation for each field:
 "poolServer": {
     "enabled": true,
 
-    "mergedMining": true,
-
     /* Set to "auto" by default which will spawn one process/fork/worker for each CPU
        core in your system. Each of these workers will run a separate instance of your
        pool(s), and the kernel will load balance miners using these forks. Optionally,
@@ -235,9 +235,6 @@ Explanation for each field:
 
     /* Address where block rewards go, and miner payments come from. */
     "poolAddress": "GBqRuitSoU3PFPBAkXMEnLdBRWXH4iDSD6RDxnQiEFjVJhWUi1UuqfV5EzosmaXgpPGE6JJQjMYhZZgWY8EJQn8jQTsuTit",
-
-    /* Address where child coin block rewards go, and miner payments come from. */
-    "poolChildAddress": "**** YOUR MCN WALLET ADDRESS ********",
 
     /* This is the integrated address prefix used for miner login validation. */
     "intAddressPrefix": 91,
@@ -396,12 +393,6 @@ Explanation for each field:
     "port": 18981
 },
 
-/* Child coin daemon connection details (default port is  MCN's 26081) */
-"childDaemon": {
-    "host": "127.0.0.1",
-    "port": 26081
-},
-
 /* Wallet daemon connection details (default port is 18980) */
 "wallet": {
     "host": "127.0.0.1",
@@ -414,7 +405,7 @@ Explanation for each field:
     "port": 6379,
     "auth": null, // If set, client will run redis auth command on connect. Use for remote db
     "db": 0, // Set the REDIS database to use (default to 0)
-    "cleanupInterval": 20 // Set the REDIS database cleanup interval (in days)
+    "cleanupInterval": 15 // Set the REDIS database cleanup interval (in days)
 }
 
 /* Pool Notifications */
@@ -617,21 +608,6 @@ sudo systemctl enable cryptonote-nodejs-pool.service
 sudo systemctl start cryptonote-nodejs-pool.service
 ```
 
-
-#### 3) Merged mining support
-
-To enable merged mining you will need to use at leas 2 nodejs processes. One for the pool process + main coin config and another process for the child coin payments, unlocker, etc.
-First, you will need both coins node daemons running.
-Take a look at the [config_inf8-mcn.json](https://github.com/dvandal/cryptonote-nodejs-pool/blob/dvandal-with-mergemining/config_inf8-mcn.json) for a main (pool) config example.
-The child coin config file is a normal config with your child coin data but with the poolServer.enabled set to false. 
-
-```
-nodejs init.js -config=config_inf8-mcn.json
-nodejs init.js -config=config_child_coin.json
-```
-You can use [forever](https://github.com/nodejitsu/forever) or [PM2](https://github.com/Unitech/pm2) to start both as daemons.
-
-
 #### 4) Host the front-end
 
 Simply host the contents of the `website_example` directory on file server capable of serving simple static files.
@@ -772,7 +748,7 @@ curl 127.0.0.1:18081/json_rpc -d '{"method":"getblockheaderbyheight","params":{"
 Donations
 ---------
 
-Thanks for supporting my works on this project! If you want to make a donation to [Campurro](https://github.com/campurro/), the developper of the merged mining support for this project, you can send any amount of your choice to one of theses addresses:
+Thanks for supporting my works on this project! If you want to make a donation to [Daniel Vandal](https://github.com/dvandal/), the developper of this project, you can send any amount of your choice to one of theses addresses:
 
 * Bitcoin (BTC): `34GDVuVbuxyYdR8bPZ7g6r12AhPPCrNfXt`
 * Bitcoin Cash (BCH): `qpl0gr8u3yu7z4nzep955fqy3w8m6w769sec08u3dp`
@@ -787,9 +763,8 @@ Thanks for supporting my works on this project! If you want to make a donation t
 
 Credits
 ---------
-* [Daniel Vandal](https://github.com/dvandal/) - Developer of this project when this project was created.
-* [fancoder](//github.com/fancoder) - Developer on cryptonote-universal-pool project from which current project is forked.
-* [Campurro](//github.com/campurro) - Developer of merge mining support.
+
+* [fancoder](//github.com/fancoder) - Developper on cryptonote-universal-pool project from which current project is forked.
 
 License
 -------

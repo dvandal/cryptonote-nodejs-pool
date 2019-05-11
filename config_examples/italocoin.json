@@ -1,15 +1,15 @@
 {
     "poolHost": "your.pool.host",
 
-    "coin": "italoCoin",
-    "symbol": "ITA",
+    "coin": "Italocoin",
+    "symbol": "XTA",
     "coinUnits": 1000000000000,
     "coinDecimalPlaces": 4,
     "coinDifficultyTarget": 120,
 
     "daemonType": "default",
     "cnAlgorithm": "cryptonight_heavy",
-    "cnVariant": null,
+    "cnVariant": 1,
     "cnBlobType": 0,
 
     "logging": {
