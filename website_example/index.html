@@ -145,7 +145,7 @@ function updateIndex(){
         updateText('g_userHashrate', 'N/A');
     } 
     if (lastStats.pool.totalDiff && lastStats.pool.totalShares)
-	updateText('g_poolLuck', formatLuck(lastStats.pool.totalDiff, lastStats.pool.totalShares));
+	$('#g_poolLuck').html(formatLuck(lastStats.pool.totalDiff, lastStats.pool.totalShares));
     updateText('poolVersion', lastStats.config.version);
 }
 
