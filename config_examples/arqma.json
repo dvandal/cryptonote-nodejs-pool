@@ -5,10 +5,10 @@
     "symbol": "ARQ",
     "coinUnits": 1000000000,
     "coinDecimalPlaces": 9,
-    "coinDifficultyTarget": 240,
+    "coinDifficultyTarget": 120,
 
-    "cnAlgorithm": "cryptonight_light",
-    "cnVariant": 1,
+    "cnAlgorithm": "cryptonight_pico",
+    "cnVariant": 2,
     "cnBlobType": 0,
 
     "logging": {

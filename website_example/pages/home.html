@@ -10,7 +10,7 @@
                 <span class="fa fa-dashboard"></span>
             </div>
             <div class="content">
-                <div class="text"><span tkey="poolHashrate">Pool Hash Rate</span></div>
+                <div class="text"><span data-tkey="poolHashrate">Pool Hash Rate</span></div>
                 <div class="value"><span id="poolHashrate">N/A</span> <span class="smallText">(<span id="hashPower">0%</span>)</span></div>
             </div>
         </div>
@@ -23,7 +23,7 @@
                 <span class="fa fa-cubes"></span>
             </div>
             <div class="content">
-                <div class="text"><span tkey="blocksTotal">Blocks Found</span></div>
+                <div class="text"><span data-tkey="blocksTotal">Blocks Found</span></div>
                 <div class="value"><span id="blocksTotal">N/A</span> <span class="smallText">(<span id="poolLastBlockFound">Never</span>)</span></div>
             </div>
         </div>
@@ -36,8 +36,8 @@
                 <span class="fa fa-history"></span>
             </div>
             <div class="content">
-                <div class="text"><span tkey="blockSolvedTime">Blocks Found Every</span></div>
-                <div class="value"><span id="blockSolvedTime">N/A</span> <span class="smallText">(<span tkey="estimated">estimated</span>)</span></div>
+                <div class="text"><span data-tkey="blockSolvedTime">Blocks Found Every</span></div>
+                <div class="value"><span id="blockSolvedTime">N/A</span> <span class="smallText">(<span data-tkey="estimated">estimated</span>)</span></div>
             </div>
         </div>
     </div>
@@ -49,7 +49,7 @@
                 <span class="fa fa-line-chart"></span>
             </div>
             <div class="content">
-                <div class="text"><span tkey="currentEffort">Current Effort</span></div>
+                <div class="text"><span data-tkey="currentEffort">Current Effort</span></div>
                 <div class="value"><span id="currentEffort">N/A</span></div>
             </div>
         </div>
@@ -62,7 +62,7 @@
                 <span class="fa fa-dashboard"></span>
             </div>
             <div class="content">
-                <div class="text"><span tkey="networkHashrate">Network Hash Rate</span></div>
+                <div class="text"><span data-tkey="networkHashrate">Network Hash Rate</span></div>
                 <div class="value"><span id="networkHashrate">N/A</span></div>
             </div>
         </div>
@@ -75,7 +75,7 @@
                 <span class="fa fa-unlock-alt"></span>
             </div>
             <div class="content">
-                <div class="text"><span tkey="networkDifficulty">Difficulty</span></div>
+                <div class="text"><span data-tkey="networkDifficulty">Difficulty</span></div>
                 <div class="value"><span id="networkDifficulty">N/A</span></div>
             </div>
         </div>
@@ -88,7 +88,7 @@
                 <span class="fa fa-bars"></span>
             </div>
             <div class="content">
-                <div class="text"><span tkey="blockchainHeight">Blockchain Height</span></div>
+                <div class="text"><span data-tkey="blockchainHeight">Blockchain Height</span></div>
                 <div class="value"><span id="blockchainHeight">N/A</span></div>
             </div>
         </div>
@@ -101,7 +101,7 @@
                 <span class="fa fa-dollar"></span>
             </div>
             <div class="content">
-                <div class="text"><span tkey="networkLastReward">Last Reward</span></div>
+                <div class="text"><span data-tkey="networkLastReward">Last Reward</span></div>
                 <div class="value"><span id="networkLastReward">N/A</span></div>
             </div>
         </div>
@@ -114,8 +114,8 @@
                 <span class="fa fa-group"></span>
             </div>
             <div class="content">
-                <div class="text"><span tkey="poolMiners">Connected Miners</span></div>
-                <div class="value"><span id="poolMiners">N/A</span> <span class="smallText">(<strong><span id="poolWorkers">N/A</span></strong> <span tkey="workersCount">workers</span>)</span></div>
+                <div class="text"><span data-tkey="poolMiners">Connected Miners</span></div>
+                <div class="value"><span id="poolMiners">N/A</span> <span class="smallText">(<strong><span id="poolWorkers">N/A</span></strong> <span data-tkey="workersCount">workers</span>)</span></div>
             </div>
         </div>
     </div>
@@ -127,7 +127,7 @@
                 <span class="fa fa-dollar"></span>
             </div>
             <div class="content">
-                <div class="text"><span tkey="poolFee">Pool Fee</span></div>
+                <div class="text"><span data-tkey="poolFee">Pool Fee</span></div>
                 <div class="value"><span id="poolFee">N/A</span></div>
             </div>
         </div>
@@ -140,7 +140,7 @@
                 <span class="fa fa-dollar"></span>
             </div>
             <div class="content">
-                <div class="text"><span tkey="paymentsMinimum">Minimum Payout</span></div>
+                <div class="text"><span data-tkey="paymentsMinimum">Minimum Payout</span></div>
                 <div class="value"><span id="paymentsMinimum">N/A</span></div>
             </div>
         </div>
@@ -153,7 +153,7 @@
                 <span class="fa fa-clock-o"></span>
             </div>
             <div class="content">
-                <div class="text"><span tkey="paymentsInterval">Payment Interval</span></div>
+                <div class="text"><span data-tkey="paymentsInterval">Payment Interval</span></div>
                 <div class="value"><span id="paymentsInterval">N/A</span></div>
             </div>
         </div>
@@ -162,7 +162,7 @@
     <!-- Last Hash -->
     <div class="col-sm-12">
         <div class="hashInfo hoverExpandEffect">
-            <div class="text"><span tkey="lastHash">Last Hash</span></div>
+            <div class="text"><span data-tkey="lastHash">Last Hash</span></div>
             <div class="content clearfix">
                <div class="value"><a id="lastHash" target="_blank">N/A</a></div>
                <div class="time">(<span id="networkLastBlockFound">Never</span>)</div>
@@ -176,7 +176,7 @@
 <div class="row">
     <div class="col-sm-6 poolChart">
         <div class="card">
-            <h4><span tkey="hashRate">Hash Rate</span></h4>
+            <h4><span data-tkey="hashRate">Hash Rate</span></h4>
             <div class="chart">
                 <canvas id="chart_hashrate"></canvas>
                 <a class="chart-style"></a>
@@ -185,7 +185,7 @@
     </div>
     <div class="col-sm-6 poolChart">
         <div class="card">
-            <h4><span tkey="difficulty">Difficulty</span></h4>
+            <h4><span data-tkey="difficulty">Difficulty</span></h4>
             <div class="chart">
                 <canvas id="chart_diff"></canvas>
                 <a class="chart-style"></a>
@@ -194,7 +194,7 @@
     </div>
     <div class="col-sm-6 poolChart">
         <div class="card">
-            <h4><span tkey="miners">Miners</span></h4>
+            <h4><span data-tkey="miners">Miners</span></h4>
             <div class="chart">
                 <canvas id="chart_miners"></canvas>
                 <a class="chart-style"></a>
@@ -203,7 +203,7 @@
     </div>    
     <div class="col-sm-6 poolChart">
         <div class="card">
-            <h4><span tkey="workers">Workers</span></h4>
+            <h4><span data-tkey="workers">Workers</span></h4>
             <div class="chart">
                 <canvas id="chart_workers"></canvas>
                 <a class="chart-style"></a>
@@ -215,8 +215,8 @@
 <!-- Javascript -->
 <script>
 // Charts initialized
-var chartsInitialized = false;
-var intervalChartsUpdate;
+let  chartsInitialized = false;
+let  intervalChartsUpdate;
 
 // Update current page
 currentPage = {
@@ -236,7 +236,7 @@ currentPage = {
         updateText('lastHash', lastStats.lastblock.hash).setAttribute('href', getBlockchainUrl(lastStats.lastblock.hash));
 
         if (lastStats.config.networkFee) {
-            var networkFeePercent = lastStats.config.networkFee / 100;
+            let  networkFeePercent = lastStats.config.networkFee / 100;
             updateText('networkLastReward', getReadableCoins(lastStats.lastblock.reward - (lastStats.lastblock.reward * networkFeePercent)));
         } else {
             updateText('networkLastReward', getReadableCoins(lastStats.lastblock.reward));
@@ -245,11 +245,11 @@ currentPage = {
         updateText('poolHashrate', getReadableHashRateString(lastStats.pool.hashrate) + '/sec');
         updateText('blocksTotal', lastStats.pool.totalBlocks.toString());
         
-        var hashPower = lastStats.pool.hashrate / (lastStats.network.difficulty / lastStats.config.coinDifficultyTarget) * 100;
+        let  hashPower = lastStats.pool.hashrate / (lastStats.network.difficulty / lastStats.config.coinDifficultyTarget) * 100;
         updateText('hashPower', hashPower.toFixed(2) + '%');
 
         if (lastStats.pool.lastBlockFound) {
-            var d = new Date(parseInt(lastStats.pool.lastBlockFound)).toISOString();
+            let  d = new Date(parseInt(lastStats.pool.lastBlockFound)).toISOString();
             $('#poolLastBlockFound').timeago('update', d);
         }
         else {
@@ -259,10 +259,10 @@ currentPage = {
         updateText('poolMiners', lastStats.pool.miners.toString());
         updateText('poolWorkers', lastStats.pool.workers.toString());
 
-        var totalFee = lastStats.config.fee;
+        let  totalFee = lastStats.config.fee;
         if (Object.keys(lastStats.config.donation).length) {
-            var totalDonation = 0;
-            for(var i in lastStats.config.donation) {
+            let  totalDonation = 0;
+            for(let  i in lastStats.config.donation) {
                 totalDonation += lastStats.config.donation[i];
             }
             totalFee += totalDonation;
@@ -293,20 +293,20 @@ $('#networkLastBlockFound,#poolLastBlockFound').timeago();
 // Create charts
 function createCharts() {
     if (!lastStats || !lastStats.charts) return ;
-    var data = lastStats.charts;
+    let  data = lastStats.charts;
 
-    var graphData = {
+    let  graphData = {
         hashrate: getGraphData(data.hashrate),
         diff: getGraphData(data.difficulty),
         miners: getGraphData(data.miners),
         workers: getGraphData(data.workers)
     };
 
-    for (var graphType in graphData) {
+    for (let  graphType in graphData) {
         if (graphData[graphType].values.length > 1) {
-            var $chart = $('#chart_'+graphType);
-            var bgcolor = null, bordercolor = null, borderwidth = null;
-            var colorelem = $chart.siblings('a.chart-style');
+            let  $chart = $('#chart_'+graphType);
+            let  bgcolor = null, bordercolor = null, borderwidth = null;
+            let  colorelem = $chart.siblings('a.chart-style');
             if (colorelem.length == 1) {
                 bgcolor = colorelem.css('background-color');
                 bordercolor = colorelem.css('border-left-color');
@@ -316,7 +316,7 @@ function createCharts() {
             if (bordercolor === null) bordercolor = '#03a9f4';
             if (borderwidth === null || isNaN(borderwidth)) borderwidth = 1;
 
-            var chartObj = new Chart(document.getElementById('chart_'+graphType), {
+            let  chartObj = new Chart(document.getElementById('chart_'+graphType), {
                 type: 'line',
                 data: {
                     labels: graphData[graphType].names,
@@ -359,8 +359,8 @@ function createCharts() {
                     tooltips: {
                         callbacks: {
                             label: function(tooltipItem, data) {
-                                var dataType = data.datasets[tooltipItem.datasetIndex].dataType || '';
-                                var label = tooltipItem.yLabel;
+                                let  dataType = data.datasets[tooltipItem.datasetIndex].dataType || '';
+                                let  label = tooltipItem.yLabel;
                                 if (dataType == 'hashrate') label = getReadableHashRateString(tooltipItem.yLabel)+'/sec';
                                 else label = formatNumber(tooltipItem.yLabel.toString(), ' ');
                                 return ' ' + label;
@@ -376,12 +376,12 @@ function createCharts() {
 
 // Get chart data
 function getGraphData(rawData) {
-    var graphData = {
+    let  graphData = {
         names: [],
         values: []
     };
     if(rawData) {
-        for (var i = 0, xy; xy = rawData[i]; i++) {
+        for (let  i = 0, xy; xy = rawData[i]; i++) {
             graphData.names.push(new Date(xy[0]*1000).toLocaleString());
             graphData.values.push(xy[1]);
         }

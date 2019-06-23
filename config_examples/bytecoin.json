@@ -5,7 +5,7 @@
     "symbol": "BCN",
     "coinUnits": 100000000,
     "coinDecimalPlaces": 4,
-    "coinDifficultyTarget": 240,
+    "coinDifficultyTarget": 120,
 
     "daemonType": "bytecoin",
     "cnAlgorithm": "cryptonight",
@@ -28,7 +28,7 @@
         "enabled": true,
         "clusterForks": "auto",
         "poolAddress": "** Your pool wallet address **",
-        "intAddressPrefix": null,
+        "intAddressPrefix": 6,
         "blockRefreshInterval": 1000,
         "minerTimeout": 900,
         "sslCert": "./cert.pem",
@@ -121,11 +121,11 @@
     "blockUnlocker": {
         "enabled": true,
         "interval": 30,
-        "depth": 10,
+        "depth": 60,
         "poolFee": 0.8,
         "devDonation": 0.2,
         "networkFee": 0.0,
-        "fixBlockHeightRPC": true
+        "fixBlockHeightRPC": false
     },
 
     "api": {
@@ -147,12 +147,12 @@
 
     "daemon": {
         "host": "127.0.0.1",
-        "port": 8081
+        "port": 8070
     },
 
     "wallet": {
         "host": "127.0.0.1",
-        "port": 8082
+        "port": 8071
     },
 
     "redis": {
@@ -243,12 +243,12 @@
         },
         "wallet": {
             "checkInterval": 60,
-            "rpcMethod": "getbalance"
+            "rpcMethod": "get_balance"
         }
     },
 
     "prices": {
-        "source": "cryptonator",
+        "source": "tradeogre",
         "currency": "USD"
     },
 

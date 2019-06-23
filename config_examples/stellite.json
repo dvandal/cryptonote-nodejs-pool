@@ -2,14 +2,14 @@
     "poolHost": "your.pool.host",
 
     "coin": "stellite",
-    "symbol": "XTL",
-    "coinUnits": 10000,
+    "symbol": "XTC",
+    "coinUnits": 100,
     "coinDecimalPlaces": 4,
-    "coinDifficultyTarget": 60,
+    "coinDifficultyTarget": 300,
 
     "daemonType": "default",
     "cnAlgorithm": "cryptonight",
-    "cnVariant": 1,
+    "cnVariant": 9,
     "cnBlobType": 0,
 
     "logging": {
@@ -29,6 +29,7 @@
         "clusterForks": "auto",
         "poolAddress": "** Your pool wallet address **",
         "intAddressPrefix": 28822,
+        "subAddressPrefix": 66,
         "blockRefreshInterval": 1000,
         "minerTimeout": 900,
         "sslCert": "./cert.pem",
@@ -107,22 +108,22 @@
     "payments": {
         "enabled": true,
         "interval": 1800,
-        "maxAddresses": 50,
-        "mixin": 6,
+        "maxAddresses": 15,
+        "mixin": 1,
         "priority": 0,
-        "transferFee": 100,
+        "transferFee": 15,
         "dynamicTransferFee": true,
         "minerPayFee" : true,
-        "minPayment": 100000,
+        "minPayment": 1000,
         "maxPayment": null,
         "maxTransactionAmount": 0,
-        "denomination": 10000
+        "denomination": 1000
     },
 
     "blockUnlocker": {
         "enabled": true,
         "interval": 30,
-        "depth": 60,
+        "depth": 18,
         "poolFee": 0.8,
         "devDonation": 0.2,
         "networkFee": 0.0

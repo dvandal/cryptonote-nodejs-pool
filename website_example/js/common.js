@@ -15,13 +15,13 @@ $('#menu-content').collapse('hide');
  * Cookies handler
  **/
 
-var docCookies = {
+let docCookies = {
     getItem: function (sKey) {
         return decodeURIComponent(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*" + encodeURIComponent(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1")) || null;
     },
     setItem: function (sKey, sValue, vEnd, sPath, sDomain, bSecure) {
         if (!sKey || /^(?:expires|max\-age|path|domain|secure)$/i.test(sKey)) { return false; }
-        var sExpires = "";
+        let sExpires = "";
         if (vEnd) {
             switch (vEnd.constructor) {
                 case Number:
@@ -53,7 +53,7 @@ var docCookies = {
  **/
 
 // Current page
-var currentPage;
+let currentPage;
 
 // Handle hash change
 window.onhashchange = function(){
@@ -61,7 +61,7 @@ window.onhashchange = function(){
 };
 
 // Route to page
-var xhrPageLoading;
+let xhrPageLoading;
 function routePage(loadedCallback) {
     if (currentPage) currentPage.destroy();
     $('#page').html('');
@@ -72,10 +72,10 @@ function routePage(loadedCallback) {
     }
 
     $('.hot_link').parent().removeClass('active');
-    var $link = $('a.hot_link[href="' + (window.location.hash || '#') + '"]');
+    let  $link = $('a.hot_link[href="' + (window.location.hash || '#') + '"]');
     
     $link.parent().addClass('active');
-    var page = $link.data('page');
+    let page = $link.data('page');
     
     loadTranslations();
 
@@ -99,7 +99,7 @@ function routePage(loadedCallback) {
  
 // Add .update() custom jQuery function to update text content
 $.fn.update = function(txt){
-    var el = this[0];
+    let el = this[0];
     if (el.textContent !== txt)
         el.textContent = txt;
     return this;
@@ -107,10 +107,10 @@ $.fn.update = function(txt){
 
 // Update Text classes
 function updateTextClasses(className, text){
-    var els = document.getElementsByClassName(className);
+    let els = document.getElementsByClassName(className);
     if (els) {
-        for (var i = 0; i < els.length; i++){
-            var el = els[i];
+        for (let i = 0; i < els.length; i++){
+            let el = els[i];
             if (el && el.textContent !== text)
                 el.textContent = text;
         }
@@ -119,7 +119,7 @@ function updateTextClasses(className, text){
 
 // Update Text content
 function updateText(elementId, text){
-    var el = document.getElementById(elementId);
+    let el = document.getElementById(elementId);
     if (el && el.textContent !== text){
         el.textContent = text;
     }
@@ -136,8 +136,8 @@ function formatNumber(number, delimiter){
     if(number != '') {
         number = number.split(delimiter).join('');
 
-        var formatted = '';
-        var sign = '';
+        let formatted = '';
+        let sign = '';
 
         if(number < 0){
             number = -number;
@@ -145,7 +145,7 @@ function formatNumber(number, delimiter){
         }
 
         while(number >= 1000){
-            var mod = number % 1000;
+            let mod = number % 1000;
 
             if(formatted != '') formatted = delimiter + formatted;
             if(mod == 0) formatted = '000' + formatted;
@@ -177,18 +177,18 @@ function formatPercent(percent) {
 
 // Get readable time
 function getReadableTime(seconds){
-    var units = [ [60, 'second'], [60, 'minute'], [24, 'hour'],
+    let units = [ [60, 'second'], [60, 'minute'], [24, 'hour'],
                 [7, 'day'], [4, 'week'], [12, 'month'], [1, 'year'] ];
 
     function formatAmounts(amount, unit){
-        var rounded = Math.round(amount);
-	var unit = unit + (rounded > 1 ? 's' : '');
+        let rounded = Math.round(amount);
+	unit = unit + (rounded > 1 ? 's' : '');
         if (getTranslation(unit)) unit = getTranslation(unit);
         return '' + rounded + ' ' + unit;
     }
 
-    var amount = seconds;
-    for (var i = 0; i < units.length; i++){
+    let amount = seconds;
+    for (let i = 0; i < units.length; i++){
         if (amount < units[i][0]) {
             return formatAmounts(amount, units[i][1]);
     }
@@ -201,8 +201,8 @@ function getReadableTime(seconds){
 function getReadableHashRateString(hashrate){
     if (!hashrate) hashrate = 0;
 
-    var i = 0;
-    var byteUnits = [' H', ' kH', ' MH', ' GH', ' TH', ' PH' ];
+    let i = 0;
+    let byteUnits = [' H', ' kH', ' MH', ' GH', ' TH', ' PH' ];
     if (hashrate > 0) {
         while (hashrate > 1000){
             hashrate = hashrate / 1000;
@@ -221,8 +221,8 @@ function getCoinDecimalPlaces() {
 
 // Get readable coins
 function getReadableCoins(coins, digits, withoutSymbol){
-    var coinDecimalPlaces = getCoinDecimalPlaces();
-    var amount = parseFloat((parseInt(coins || 0) / lastStats.config.coinUnits).toFixed(digits || coinDecimalPlaces));
+    let coinDecimalPlaces = getCoinDecimalPlaces();
+    let amount = parseFloat((parseInt(coins || 0) / lastStats.config.coinUnits).toFixed(digits || coinDecimalPlaces));
     return amount.toString() + (withoutSymbol ? '' : (' ' + lastStats.config.symbol));
 }
 
@@ -238,7 +238,7 @@ function formatDifficulty(x) {
 
 // Format luck / current effort
 function formatLuck(difficulty, shares) {
-    var percent = Math.round(shares / difficulty * 100);
+    let percent = Math.round(shares / difficulty * 100);
     if(!percent){
         return '<span class="luckGood">?</span>';
     }
@@ -280,13 +280,13 @@ function getBlockchainUrl(id) {
  
 // Sort table cells
 function sortTable() {
-    var table = $(this).parents('table').eq(0),
+    let table = $(this).parents('table').eq(0),
         rows = table.find('tr:gt(0)').toArray().sort(compareTableRows($(this).index()));
     this.asc = !this.asc;
     if(!this.asc) {
         rows = rows.reverse()
     }
-    for(var i = 0; i < rows.length; i++) {
+    for(let i = 0; i < rows.length; i++) {
         table.append(rows[i])
     }
 }
@@ -294,7 +294,7 @@ function sortTable() {
 // Compare table rows
 function compareTableRows(index) {
     return function(a, b) {
-        var valA = getCellValue(a, index), valB = getCellValue(b, index);
+        let valA = getCellValue(a, index), valB = getCellValue(b, index);
         if (!valA) { valA = 0; }
         if (!valB) { valB = 0; }
         return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB : valA.toString().localeCompare(valB.toString())
@@ -309,38 +309,38 @@ function getCellValue(row, index) {
 /**
  * Translations
  **/
-
 if (typeof langs == "undefined") {
-    var langs = { en: 'English' };
+    langs = { en: 'English' };
 }
 
 if (typeof defaultLang == "undefined") {
-    var defaultLang = 'en';
+    defaultLang = 'en';
 }
 
-var langCode = defaultLang;
-var langData = null; 
+let langCode = defaultLang;
+let langData = null; 
 
 function getTranslation(key) {
     if (!langData || !langData[key]) return null;
     return langData[key];    
 }
 
-var translate = function(data) {
+let translate = function(data) {
+    $("html")[0].lang = langCode;
     langData = data;
 
-    $("[tkey]").each(function(index) {
-        var strTr = data[$(this).attr('tkey')];
+    $("[data-tkey]").each(function(index) {
+        let strTr = data[$(this).attr('data-tkey')];
         $(this).html(strTr);
     });
 
-    $("[tplaceholder]").each(function(index) {
-        var strTr = data[$(this).attr('tplaceholder')];
+    $("[data-tplaceholder]").each(function(index) {
+        let strTr = data[$(this).attr('data-tplaceholder')];
 	$(this).attr('placeholder', strTr)
     });
 
-    $("[tvalue]").each(function(index) {
-        var strTr = data[$(this).attr('tvalue')];
+    $("[data-tvalue]").each(function(index) {
+        let strTr = data[$(this).attr('data-tvalue')];
         $(this).attr('value', strTr)
     });
 } 
@@ -348,11 +348,11 @@ var translate = function(data) {
 // Get language code from URL
 const $_GET = {};
 const args = location.search.substr(1).split(/&/);
-for (var i=0; i<args.length; ++i) {
+for (let i=0; i<args.length; ++i) {
     const tmp = args[i].split(/=/);
     if (tmp[0] != "") {
         $_GET[decodeURIComponent(tmp[0])] = decodeURIComponent(tmp.slice(1).join("").replace("+", " "));
-        var langCode = $_GET['lang'];    
+        langCode = $_GET['lang'];
     }
 }
 
@@ -373,12 +373,12 @@ function loadTranslations() {
 // Language selector
 function renderLangSelector() {
     // Desktop
-    var html = '';
-    var numLangs = 0;
+    let html = '';
+    let numLangs = 0;
     if (langs) {
         html += '<select id="newLang" class="form-control form-control-sm">';
-        for (var lang in langs) {
-            var selected = lang == langCode ? ' selected="selected"' : '';
+        for (let lang in langs) {
+            let selected = lang == langCode ? ' selected="selected"' : '';
             html += '<option value="' + lang + '"' + selected + '>' + langs[lang] + '</option>';
 	    numLangs ++;
         }
@@ -388,8 +388,8 @@ function renderLangSelector() {
         $('#langSelector').html(html);	
         $('#newLang').each(function(){
             $(this).change(function() {
-                var newLang = $(this).val();
-                var url = '?lang=' + newLang;
+                let newLang = $(this).val();
+                let url = '?lang=' + newLang;
                 if (window.location.hash) url += window.location.hash;
                 window.location.href = url;
             });
@@ -397,12 +397,12 @@ function renderLangSelector() {
     }	
 
     // Mobile
-    var html = '';
-    var numLangs = 0;
+    html = '';
+    numLangs = 0;
     if (langs) {
         html += '<select id="mNewLang" class="form-control form-control-sm">';
-        for (var lang in langs) {
-            var selected = lang == langCode ? ' selected="selected"' : '';
+        for (let lang in langs) {
+            let selected = lang == langCode ? ' selected="selected"' : '';
             html += '<option value="' + lang + '"' + selected + '>' + langs[lang] + '</option>';
 	    numLangs ++;
         }
@@ -412,8 +412,8 @@ function renderLangSelector() {
         $('#mLangSelector').html(html);	
         $('#mNewLang').each(function(){
             $(this).change(function() {
-                var newLang = $(this).val();
-                var url = '?lang=' + newLang;
+                let newLang = $(this).val();
+                let url = '?lang=' + newLang;
                 if (window.location.hash) url += window.location.hash;
                 window.location.href = url;
             });

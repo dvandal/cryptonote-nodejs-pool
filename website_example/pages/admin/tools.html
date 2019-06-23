@@ -1,5 +1,5 @@
 <!-- Test E-Mail notifications -->
-<h3><span tkey="testEmailNotifications">Test E-Mail notifications</span></h3>
+<h3><span data-tkey="testEmailNotifications">Test E-Mail notifications</span></h3>
 
 <div class="card padding-15 padding-b-10">
     <div>
@@ -7,18 +7,18 @@
     </div>
     <div class="row">
         <div class="col-lg-4 col-md-5 col-sm-6 push-down-5">
-            <input class="form-control" id="emailAddress" type="text" tplaceholder="emailAddress" placeholder="E-Mail Address">
+            <input class="form-control" id="emailAddress" type="text" data-tplaceholder="emailAddress" placeholder="E-Mail Address">
         </div>
         <div class="col-sm-4 push-down-5">
             <button class="btn btn-default" type="button" id="testEmailButton">
-                <span><i class="fa fa-check"></i>&nbsp; <span tkey="sendTest">Send test</span></span>
+                <span><i class="fa fa-check"></i>&nbsp; <span data-tkey="sendTest">Send test</span></span>
             </button>
         </div>
     </div>
 </div>
 
 <!-- Test Telegram notifications -->
-<h3><span tkey="testTelegramNotifications">Test Telegram Channel notifications</span></h3>
+<h3><span data-tkey="testTelegramNotifications">Test Telegram Channel notifications</span></h3>
 
 <div class="card padding-15 padding-b-10">
     <div>
@@ -27,7 +27,7 @@
     <div class="row">
         <div class="col-sm-4 push-down-5">
             <button class="btn btn-default" type="button" id="testTelegramButton">
-                <span><i class="fa fa-check"></i>&nbsp; <span tkey="sendTest">Send test</span></span>
+                <span><i class="fa fa-check"></i>&nbsp; <span data-tkey="sendTest">Send test</span></span>
             </button>
         </div>
     </div>
@@ -55,18 +55,18 @@ function showSuccess(testId, message) {
  **/
 
 function isEmail(email) {
-    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    let  regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     return regex.test(email);
 }
 
 $('#testEmailButton').click(function() {
-    var password = docCookies.getItem('password');
+    let  password = docCookies.getItem('password');
 
     if(!password) {
         password = prompt('Enter admin password');
     }
     
-    var email = $('#emailAddress').val().trim();
+    let  email = $('#emailAddress').val().trim();
     if (!email) {
         showError('email', 'No email address specified');
 	return;
@@ -99,7 +99,7 @@ $('#testEmailButton').click(function() {
  **/
 
 $('#testTelegramButton').click(function(){
-    var password = docCookies.getItem('password');
+    let  password = docCookies.getItem('password');
 
     if(!password) {
         password = prompt('Enter admin password');

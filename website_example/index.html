@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html>
-<head lang="en">
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
 
     <title>Cryptonote Mining Pool</title>
+    <meta name="Description" content="Description">
+    <meta name="keywords" content="keywords">
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.6.3/jquery.timeago.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -22,45 +24,45 @@
 
     <!-- Navigation -->
     <div class="nav-side-menu">
-        <div class="brand"><a href="/"><span id="coinSymbol"></span> <span tkey="miningPool">Mining Pool</span></a></div>
+        <div class="brand"><a href="/"><span id="coinSymbol"></span> <span data-tkey="miningPool">Mining Pool</span></a></div>
         <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>  
         <div class="menu-list">
             <ul id="menu-content" class="menu-content collapsed out">
         
                 <li><a class="hot_link" data-page="home.html" href="#">
-                    <i class="fa fa-home"></i> <span tkey="dashboard">Dashboard</span>
+                    <i class="fa fa-home"></i> <span data-tkey="dashboard">Dashboard</span>
                 </a></li>
 
                 <li><a class="hot_link" data-page="worker_stats.html" href="#worker_stats">
-                    <i class="fa fa-dashboard"></i> <span tkey="yourStats">Worker Statistics</span>
+                    <i class="fa fa-dashboard"></i> <span data-tkey="yourStats">Worker Statistics</span>
                 </a></li>
 
                 <li><a class="hot_link" data-page="getting_started.html" href="#getting_started">
-                    <i class="fa fa-rocket"></i> <span tkey="gettingStarted">Getting Started</span>
+                    <i class="fa fa-rocket"></i> <span data-tkey="gettingStarted">Getting Started</span>
                 </a></li>
 
                 <li><a class="hot_link" data-page="pool_blocks.html" href="#pool_blocks">
-                    <i class="fa fa-cubes"></i> <span tkey="poolBlocks">Pool Blocks</span>
+                    <i class="fa fa-cubes"></i> <span data-tkey="poolBlocks">Pool Blocks</span>
                 </a></li>
 
                 <li><a class="hot_link" data-page="payments.html" href="#payments">
-                    <i class="fa fa-money"></i> <span tkey="payments">Payments</span>
+                    <i class="fa fa-money"></i> <span data-tkey="payments">Payments</span>
                 </a></li>            
 
                 <li><a class="hot_link" data-page="top10miners.html" href="#top10miners">
-                    <i class="fa fa-trophy"></i> <span tkey="top10miners">Top 10 miners</span>
+                    <i class="fa fa-trophy"></i> <span data-tkey="top10miners">Top 10 miners</span>
                 </a></li>
 
                 <li><a class="hot_link" data-page="market.html" href="#market">
-                    <i class="fa fa-bank"></i> <span tkey="market">Market / Calculator</span>
+                    <i class="fa fa-bank"></i> <span data-tkey="market">Market / Calculator</span>
                 </a></li>
 
                 <li><a class="hot_link" data-page="settings.html" href="#settings">
-                    <i class="fa fa-gears"></i> <span tkey="settings">Settings</span>
+                    <i class="fa fa-gears"></i> <span data-tkey="settings">Settings</span>
                 </a></li>
 
                 <li><a class="hot_link" data-page="faq.html" href="#faq">
-                    <i class="fa fa-comments"></i> <span tkey="faq">FAQ</span>
+                    <i class="fa fa-comments"></i> <span data-tkey="faq">FAQ</span>
                 </a></li>
 
             </ul>
@@ -70,10 +72,11 @@
 
     <!-- Top Bar -->
     <div id="top-bar">
-        <div id="section"><span tkey="network">Network</span>: <strong><span id="g_networkHashrate"><span tkey="na">N/A</span></span></strong></div>
-        <div id="section"><span tkey="pool">Pool</span>: <strong><span id="g_poolHashrate"><span tkey="na">N/A</span></span></strong></div>
-        <div id="section"><span tkey="you">You</span>: <strong><span id="g_userHashrate"><span tkey="na">N/A</span></span></strong></div>
-        <div id="section"><span id="statsUpdated"><span tkey="statsUpdated">Stats Updated</span> &nbsp;<i class="fa fa-bolt"></i></span></div>
+        <div><span data-tkey="network">Network</span>: <strong><span id="g_networkHashrate"><span data-tkey="na">N/A</span></span></strong></div>
+        <div><span data-tkey="pool">Pool</span>: <strong><span id="g_poolHashrate"><span data-tkey="na">N/A</span></span></strong></div>
+        <div><span data-tkey="you">You</span>: <strong><span id="g_userHashrate"><span data-tkey="na">N/A</span></span></strong></div>
+	<div id="section"><span tkey="luck">Luck</span>: <strong><span id="g_poolLuck"><span tkey="na">N/A</span></span></strong></div>
+        <div><span id="statsUpdated"><span data-tkey="statsUpdated">Stats Updated</span> &nbsp;<i class="fa fa-bolt"></i></span></div>
 	<div id="langSelector"></div>
     </div>
     
@@ -88,9 +91,9 @@
 <!-- Footer -->
 <footer>
     <div class="text-muted">
-        <span tkey="poweredBy">Powered by</span> <a target="_blank" href="https://github.com/dvandal/cryptonote-nodejs-pool"><i class="fa fa-github"></i> cryptonote-nodejs-pool</a>
+        <span data-tkey="poweredBy">Powered by</span> <a target="_blank" href="https://github.com/muscleman/cryptonote-nodejs-pool"><i class="fa fa-github"></i> cryptonote-nodejs-pool</a>
         <span id="poolVersion"></span>
-        <span class="hidden-xs"><span tkey="openSource">open sourced under the</span> <a href="http://www.gnu.org/licenses/gpl-2.0.html">GPL</a></span>
+        <span class="hidden-xs"><span data-tkey="openSource">open sourced under the</span> <a href="http://www.gnu.org/licenses/gpl-2.0.html">GPL</a></span>
     </div>
 </footer>
 
@@ -142,7 +145,9 @@ function updateIndex(){
     }
     else{
         updateText('g_userHashrate', 'N/A');
-    }    
+    } 
+    if (lastStats.pool.totalDiff && lastStats.pool.totalShares)
+	$('#g_poolLuck').html(formatLuck(lastStats.pool.totalDiff, lastStats.pool.totalShares));
     updateText('poolVersion', lastStats.config.version);
 }
 
@@ -189,13 +194,16 @@ $(function(){
     
     // Add support informations to menu    
     if (typeof telegram !== 'undefined' && telegram) {
-        $('#menu-content').append('<li><a target="_new" href="'+telegram+'"><i class="fa fa-telegram"></i> <span tkey="telegram">Telegram group</span></a></li>');
+        $('#menu-content').append('<li><a target="_new" href="'+telegram+'"><i class="fa fa-telegram"></i> <span data-tkey="telegram">Telegram group</span></a></li>');
     }
     if (typeof discord !== 'undefined' && discord) {
-        $('#menu-content').append('<li><a target="_new" href="'+discord+'"><i class="fa fa-ticket"></i> <span tkey="discord">Discord</span></a></li>');
+        $('#menu-content').append('<li><a target="_new" href="'+discord+'"><i class="fa fa-ticket"></i> <span data-tkey="discord">Discord</span></a></li>');
     }
     if (typeof email !== 'undefined' && email) {
-        $('#menu-content').append('<li><a target="_new" href="mailto:'+email+'"><i class="fa fa-envelope"></i> <span tkey="contactUs">Contact Us</span></a></li>');
+        $('#menu-content').append('<li><a target="_new" href="mailto:'+email+'"><i class="fa fa-envelope"></i> <span data-tkey="contactUs">Contact Us</span></a></li>');
+    }
+        if (typeof facebook !== 'undefined' && facebook) {
+        $('#menu-content').append('<li><a target="_new" href="'+facebook+'"><i class="fa fa-facebook"></i> <span data-tkey="facebook">Facebook</span></a></li>');
     }
     if (typeof langs !== 'undefined' && langs) {
         $('#menu-content').append('<div id="mLangSelector"></div>');

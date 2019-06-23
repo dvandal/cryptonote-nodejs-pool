@@ -1,13 +1,14 @@
 {
-    "poolHost": "pool.website.com",
+    "poolHost": "your.pool.host",
 
-    "coin": "parsicoin",
-    "symbol": "PARS",
-    "coinUnits": 1000000000000,
+    "coin": "worktips",
+    "symbol": "WTIP",
+    "coinUnits": 100000000,
     "coinDecimalPlaces": 4,
     "coinDifficultyTarget": 120,
 
-    "cnAlgorithm": "cryptonight",
+    "daemonType": "bytecoin",
+    "cnAlgorithm": "cryptonight_light",
     "cnVariant": 1,
     "cnBlobType": 2,
 
@@ -26,7 +27,7 @@
     "poolServer": {
         "enabled": true,
         "clusterForks": "auto",
-        "poolAddress": "**Your Pool Wallet Address**",
+        "poolAddress": "** Your pool wallet address **",
         "intAddressPrefix": null,
         "blockRefreshInterval": 1000,
         "minerTimeout": 900,
@@ -70,17 +71,17 @@
         "varDiff": {
             "minDiff": 100,
             "maxDiff": 100000000,
-            "targetTime": 120,
+            "targetTime": 60,
             "retargetTime": 30,
             "variancePercent": 30,
             "maxJump": 100
         },
         "paymentId": {
-            "addressSeparator": "."
+            "addressSeparator": "+"
         },
         "fixedDiff": {
             "enabled": true,
-            "addressSeparator": "+"
+            "addressSeparator": "."
         },
         "shareTrust": {
             "enabled": true,
@@ -105,38 +106,38 @@
 
     "payments": {
         "enabled": true,
-        "interval": 120,
+        "interval": 1800,
         "maxAddresses": 50,
-        "mixin": 0,
+        "mixin": 1,
         "priority": 0,
-        "transferFee": 100000000000,
+        "transferFee": 50000000,
         "dynamicTransferFee": true,
         "minerPayFee" : true,
-        "minPayment": 1000000000000,
-        "maxPayment": null,
-        "maxTransactionAmount": 100000000000000,
-        "denomination": 1000000000000
+        "minPayment": 100000000000,
+        "maxTransactionAmount": 2000000000000000,
+        "denomination": 100000000
     },
 
     "blockUnlocker": {
         "enabled": true,
         "interval": 30,
         "depth": 10,
-        "poolFee": 1.0,
-        "devDonation": 0,
-        "networkFee": 0.0
+        "poolFee": 0.8,
+        "devDonation": 0.2,
+        "networkFee": 0.0,
+        "fixBlockHeightRPC": false
     },
 
     "api": {
         "enabled": true,
-        "hashrateWindow": 900,
+        "hashrateWindow": 600,
         "updateInterval": 5,
         "bindIp": "0.0.0.0",
         "port": 8117,
         "blocks": 30,
         "payments": 30,
         "password": "your_password",
-        "ssl": true,
+        "ssl": false,
         "sslPort": 8119,
         "sslCert": "./cert.pem",
         "sslKey": "./privkey.pem",
@@ -146,12 +147,13 @@
 
     "daemon": {
         "host": "127.0.0.1",
-        "port": 18240
+        "port": 18238
     },
 
     "wallet": {
         "host": "127.0.0.1",
-        "port": 18242
+        "port": 8082,
+        "password": "rpc_password"
     },
 
     "redis": {
@@ -159,7 +161,7 @@
         "port": 6379,
         "auth": null,
         "db": 0,
-	"cleanupInterval": 15
+        "cleanupInterval": 15
     },
 
     "notifications": {
@@ -222,7 +224,6 @@
 
     "telegram": {
         "enabled": false,
-        "botName": "",
         "token": "",
         "channel": "",
         "channelStats": {
@@ -231,9 +232,8 @@
         },
         "botCommands": {
             "stats": "/stats",
-            "report": "/report",
-            "notify": "/notify",
-            "blocks": "/blocks"
+            "enable": "/enable",
+            "disable": "/disable"
         }
     },
     
@@ -244,7 +244,7 @@
         },
         "wallet": {
             "checkInterval": 60,
-            "rpcMethod": "getbalance"
+            "rpcMethod": "getBalance"
         }
     },
 
@@ -252,10 +252,16 @@
         "source": "tradeogre",
         "currency": "USD"
     },
-    
+
     "charts": {
         "pool": {
             "hashrate": {
+                "enabled": true,
+                "updateInterval": 60,
+                "stepInterval": 1800,
+                "maximumPeriod": 86400
+            },
+            "miners": {
                 "enabled": true,
                 "updateInterval": 60,
                 "stepInterval": 1800,
@@ -302,11 +308,6 @@
             "payments": {
                 "enabled": true
             }
-        },
-        "blocks": {
-            "enabled": true,
-            "days": 30
         }
     }
 }
-

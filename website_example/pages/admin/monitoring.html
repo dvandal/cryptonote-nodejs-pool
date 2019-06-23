@@ -84,14 +84,14 @@ function getCheckTime(timestamp) {
 }
 
 function monitoringInfoParse(data) {
-    var monitoringDaemon = {
+    let  monitoringDaemon = {
         lastCheck: getCheckTime(data['monitoring'].daemon.lastCheck) || 'never',
         lastStatus: data['monitoring'].daemon.lastStatus || '',
         lastFail: getCheckTime(data['monitoring'].daemon.lastFail) || 'never',
         lastFailResponse: data['monitoring'].daemon.lastFailResponse || ' ',
         lastResponse: data['monitoring'].daemon.lastResponse || ' '
     };
-    var monitoringWallet = {
+    let  monitoringWallet = {
         lastCheck: getCheckTime(data['monitoring'].wallet.lastCheck) || 'never',
         lastStatus: data['monitoring'].wallet.lastStatus || '',
         lastFail: getCheckTime(data['monitoring'].wallet.lastFail) || 'never',
@@ -99,10 +99,10 @@ function monitoringInfoParse(data) {
         lastResponse: data['monitoring'].wallet.lastResponse || ' '
     };
     
-    var properData = {};
+    let  properData = {};
     if(data.hasOwnProperty('logs')) {
         properData['logs'] = data['logs'];
-        for(var log in data['logs']) {
+        for(let  log in data['logs']) {
             data['logs'][log].changed = formatDate(data['logs'][log].changed);
             data['logs'][log].link = api + '/admin_log?file=' + log + '&password=' + docCookies.getItem('password');
         }
@@ -114,7 +114,7 @@ function monitoringInfoParse(data) {
 }
 
 function renderLogInfo(promptPassword) {
-    var password = docCookies.getItem('password');
+    let  password = docCookies.getItem('password');
 
     if(!password || promptPassword) {
         password = prompt('Enter admin password');

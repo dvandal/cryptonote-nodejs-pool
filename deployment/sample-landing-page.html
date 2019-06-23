@@ -97,56 +97,65 @@
  
 // Get stats from pool API
 function getPoolStats(poolID, poolURL) {
-    var apiURL = poolURL + '/stats';
+    let  apiURL = poolURL + '/stats';
     $.get(apiURL, function(data){
         if (!data) return ;
         
-        var poolHashrate = 'N/A';
-        var poolMiners   = 'N/A';
-        var poolWorkers  = 'N/A';
+        let  poolHashrate = 'N/A';
+        let  poolMiners   = 'N/A';
+        let  poolWorkers  = 'N/A';
         if (data.pool) {
             poolHashrate = getReadableHashRate(data.pool.hashrate);
             poolMiners   = data.pool.miners || 0;
             poolWorkers  = data.pool.workers || 0;
         }
         
-        var networkHashrate = 'N/A';
-        var networkDiff     = 'N/A';
+        let  networkHashrate = 'N/A';
+        let  networkDiff     = 'N/A';
         if (data.network) {
             networkHashrate = getReadableHashRate(data.network.difficulty / data.config.coinDifficultyTarget);
             networkDiff     = data.network.difficulty;
         }
         
-        var hashPower = 'N/A';
+        let  hashPower = 'N/A';
         if (data.pool && data.network) {
             hashPower = data.pool.hashrate / (data.network.difficulty / data.config.coinDifficultyTarget) * 100;
             hashPower = hashPower.toFixed(2) + '%';
         }
         
-        var blocksFound = data.pool.totalBlocks.toString();
+        let  blocksFound = data.pool.totalBlocks.toString();
 
-        var cnAlgorithm = data.config.cnAlgorithm || "cryptonight";
-        var cnVariant = data.config.cnVariant || 0;
+        let  cnAlgorithm = data.config.cnAlgorithm || "cryptonight";
+        let  cnVariant = data.config.cnVariant || 0;
         
         if (cnAlgorithm == "cryptonight_light") {
             if (cnVariant === 1) {
-                algorithm = 'Cryptonight Light v7';
+                algorithm = 'Cryptonight Light (Aeon v7)';
             } else if (cnVariant === 2) {
-                algorithm = 'Cryptonight Light';
+                algorithm = 'Cryptonight Light (IPBC)';
             } else {
-                algorithm = 'Cryptonight Light';
+                algorithm = 'Cryptonight Light (Original)';
             }
         }
         else if (cnAlgorithm == "cryptonight_heavy") {
-            algorithm = 'Cryptonight Heavy';
+            if (cnVariant === 1) {
+                algorithm = 'Cryptonight Heavy (Haven)';
+            }
+            else {
+                algorithm = 'Cryptonight Heavy';
+            }
         }
         else {
             if (cnVariant === 1) {
-                algorithm = 'Cryptonight v7';
+                algorithm = 'Cryptonight (Monero v7)';
             } else if (cnVariant === 3) {
-                algorithm = 'Cryptonight v7';
+                algorithm = 'Cryptonight (Stellite v7)';
+	    } else if (cnVariant === 4) {
+                algorithm = 'Cryptonight Fast (Masari)';
+	    } else if (cnVariant === 8) {
+		algorithm = 'Cryptonight (Monero v8)';
             } else {
-                algorithm = 'Cryptonight';
+                algorithm = 'Cryptonight (Original)';
             }
         }
         
@@ -181,7 +190,7 @@ $(function() {
  
 // Update Text content
 function updateText(elementId, text){
-    var el = document.getElementById(elementId);
+    let  el = document.getElementById(elementId);
     if (el && el.textContent !== text){
         el.textContent = text;
     }
@@ -190,8 +199,8 @@ function updateText(elementId, text){
 
 // Get readable hashrate
 function getReadableHashRate(hashrate){
-    var i = 0;
-    var byteUnits = [' H', ' KH', ' MH', ' GH', ' TH', ' PH' ];
+    let  i = 0;
+    let  byteUnits = [' H', ' KH', ' MH', ' GH', ' TH', ' PH' ];
     while (hashrate > 1000){
         hashrate = hashrate / 1000;
         i++;

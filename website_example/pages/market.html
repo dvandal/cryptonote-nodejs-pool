@@ -1,10 +1,10 @@
 <!-- Market -->
 <div id="marketStats" class="row">
-    <div id="marketInfos" class="clearfix"><div class="col-xs-12"><span class="fa fa-spinner fa-spin"></span> <span tkey="loadingMarket">Loading market prices</span> ...</div></div>
+    <div id="marketInfos" class="clearfix"><div class="col-xs-12"><span class="fa fa-spinner fa-spin"></span> <span data-tkey="loadingMarket">Loading market prices</span> ...</div></div>
 
     <div class="col-sm-6 marketChart push-down-15">
         <div class="card">
-            <h4><span tkey="priceIn">Price in</span> <span id="priceChartCurrency">USD</span></h4>
+            <h4><span data-tkey="priceIn">Price in</span> <span id="priceChartCurrency">USD</span></h4>
             <div class="chart">
                 <canvas id="chart_price"></canvas>
                 <a class="chart-style"></a>
@@ -13,7 +13,7 @@
     </div>
     <div class="col-sm-6 marketChart push-down-15">
         <div class="card">
-            <h4><span tkey="hashPer">Hash/</span><span id="profitChartCurrency">USD</span> <span data-toggle="tooltip" data-placement="top" data-original-title="Reward * Rate / Difficulty"><i class="fa fa-question-circle"></i></span></h4>
+            <h4><span data-tkey="hashPer">Hash/</span><span id="profitChartCurrency">USD</span> <span data-toggle="tooltip" data-placement="top" data-original-title="Reward * Rate / Difficulty"><i class="fa fa-question-circle"></i></span></h4>
             <div class="chart">
                 <canvas id="chart_profit"></canvas>
                 <a class="chart-style"></a>
@@ -24,10 +24,10 @@
     
 <!-- Mining Profit Calculator -->
 <div id="miningProfitCalc">
-    <h3><span tkey="estimateProfit">Estimate Mining Profits</span></h3>
+    <h3><span data-tkey="estimateProfit">Estimate Mining Profits</span></h3>
     <div id="calcHashHolder">
         <div class="input-group">
-            <input class="form-control" id="calcHashRate" tplaceholder="enterYourHashrate" placeholder="Enter Your Hash Rate" type="number">
+            <input class="form-control" id="calcHashRate" data-tplaceholder="enterYourHashrate" placeholder="Enter Your Hash Rate" type="number">
             <div class="input-group-btn">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="calcHashDropdown">
                     <span id="calcHashUnit" data-mul="1">KH/s</span> <span class="caret"></span>
@@ -39,7 +39,7 @@
                 </ul>
             </div>
             <span class="input-group-addon">=</span>
-            <span class="input-group-addon" id="calcHashResultsHolder"><div id="calcHashAmount"><span id="calcHashAmount1"></span><br/><span id="calcHashAmount2"></span></div> <div id="calcHashPeriod"> <span tkey="perDay">per day</span></div></span>
+            <span class="input-group-addon" id="calcHashResultsHolder"><div id="calcHashAmount"><span id="calcHashAmount1"></span><br/><span id="calcHashAmount2"></span></div> <div id="calcHashPeriod"> <span data-tkey="perDay">per day</span></div></span>
         </div>
     </div>
 </div>
@@ -49,16 +49,16 @@
 <!-- Javascript -->
 <script>
 // Market settings
-var priceSource = 'cryptonator';
-var priceCurrency = 'USD';
+let  priceSource = 'cryptonator';
+let  priceCurrency = 'USD';
 
 if (typeof cryptonatorWidget !== 'undefined' && typeof marketCurrencies === 'undefined') {
-    var marketCurrencies = cryptonatorWidget;
+    let  marketCurrencies = cryptonatorWidget;
 }
 
 // Charts initialized
-var chartsInitialized = false;
-var intervalChartsUpdate;
+let  chartsInitialized = false;
+let  intervalChartsUpdate;
 
 // Update current page
 currentPage = {
@@ -95,16 +95,16 @@ $(function() {
  * Market prices
  **/
  
-var marketPrices = {};
-var xhrMarketGets;
+let  marketPrices = {};
+let  xhrMarketGets;
 
 // Load initial market data
-var loadedData = false;
+let  loadedData = false;
 function loadMarketData() {
     if (loadedData) return ;
         
     if (typeof marketCurrencies !== 'undefined' && marketCurrencies.length > 0){
-        var intervalMarketPolling = setInterval(updateMarkets, 300000);
+        let  intervalMarketPolling = setInterval(updateMarkets, 300000);
         updateMarkets();
     } else {
         $('#marketInfos').hide();
@@ -117,7 +117,7 @@ function loadMarketData() {
 function updateMarkets(){
     if (typeof marketCurrencies === 'undefined' || marketCurrencies.length === 0) return ;
 
-    for (var i = 0; i < marketCurrencies.length; i++){
+    for (let  i = 0; i < marketCurrencies.length; i++){
         marketCurrencies[i] = marketCurrencies[i].replace('{symbol}', lastStats.config.symbol).toUpperCase();
     }
 
@@ -133,17 +133,17 @@ function updateMarkets(){
             }
 
             $('#marketInfos').empty();
-            for (var i in data) {
+            for (let  i in data) {
                 if (!data[i] || !data[i].ticker) continue;
-                var ticker = data[i].ticker;
-                var tickerParts = ticker.split('-');
-                var tickerBase = tickerParts[0] || null;
-                var tickerTarget = tickerParts[1] || null;
+                let  ticker = data[i].ticker;
+                let  tickerParts = ticker.split('-');
+                let  tickerBase = tickerParts[0] || null;
+                let  tickerTarget = tickerParts[1] || null;
 
-                var price  = data[i].price;
+                let  price  = data[i].price;
                 if (!price || price === 0) continue;
 
-                var dataSource = data[i].source;
+                let  dataSource = data[i].source;
 
                 renderMarketPrice(tickerBase, tickerTarget, price, dataSource);
             }
@@ -157,7 +157,7 @@ function updateMarkets(){
 
 // Render market price
 function renderMarketPrice(base, target, price, source) {
-    var icon = 'fa-money';
+    let  icon = 'fa-money';
     if (target == 'BTC') icon = 'fa-btc';
     if (target == 'BCH') icon = 'fa-btc';
     if (target == 'USD') icon = 'fa-dollar';
@@ -176,7 +176,7 @@ function renderMarketPrice(base, target, price, source) {
         price = price.toFixed(8);
     }
 
-    var sourceURL = null;
+    let  sourceURL = null;
     if (source == 'cryptonator') sourceURL = 'https://www.cryptonator.com/';
     else if (source == 'altex') sourceURL = 'https://altex.exchange/';
     else if (source == 'crex24') sourceURL = 'https://crex24.com/';
@@ -206,18 +206,18 @@ function renderMarketPrice(base, target, price, source) {
 // Create charts
 function createCharts() {
     if (!lastStats || !lastStats.charts) return ;
-    var data = lastStats.charts;
+    let  data = lastStats.charts;
 
-    var graphData = {
+    let  graphData = {
         price: getGraphData(data.price),
         profit: getGraphData(data.profit)
     };
 
-    for(var graphType in graphData) {
+    for(let  graphType in graphData) {
         if (graphData[graphType].values.length > 1) {
-            var $chart = $('#chart_'+graphType);
-            var bgcolor = null, bordercolor = null, borderwidth = null;
-            var colorelem = $chart.siblings('a.chart-style');
+            let  $chart = $('#chart_'+graphType);
+            let  bgcolor = null, bordercolor = null, borderwidth = null;
+            let  colorelem = $chart.siblings('a.chart-style');
             if (colorelem.length == 1) {
                 bgcolor = colorelem.css('background-color');
                 bordercolor = colorelem.css('border-left-color');
@@ -226,7 +226,7 @@ function createCharts() {
             if (bgcolor === null) bgcolor = 'rgba(3, 169, 244, .4)';
             if (bordercolor === null) bordercolor = '#03a9f4';
             if (borderwidth === null || isNaN(borderwidth)) borderwidth = 1;
-            var chartObj = new Chart(document.getElementById('chart_'+graphType), {
+            let  chartObj = new Chart(document.getElementById('chart_'+graphType), {
                 type: 'line',
                 data: {
                     labels: graphData[graphType].names,
@@ -269,8 +269,8 @@ function createCharts() {
                     tooltips: {
                         callbacks: {
                             label: function(tooltipItem, data) {
-                                var dataType = data.datasets[tooltipItem.datasetIndex].dataType || '';
-                                var label = tooltipItem.yLabel;
+                                let  dataType = data.datasets[tooltipItem.datasetIndex].dataType || '';
+                                let  label = tooltipItem.yLabel;
                                 if (dataType == 'price') label = parseFloat(tooltipItem.yLabel).toFixed(4);
                                 else if (dataType == 'profit') label = parseFloat(tooltipItem.yLabel).toFixed(10);
                                 return ' ' + label;
@@ -286,12 +286,12 @@ function createCharts() {
 
 // Get chart data
 function getGraphData(rawData) {
-    var graphData = {
+    let  graphData = {
         names: [],
         values: []
     };
     if(rawData) {
-        for (var i = 0, xy; xy = rawData[i]; i++) {
+        for (let  i = 0, xy; xy = rawData[i]; i++) {
             graphData.names.push(new Date(xy[0]*1000).toLocaleString());
             graphData.values.push(xy[1]);
         }
@@ -316,9 +316,9 @@ $('#calcHashUnits > li > a').click(function(e){
 // Calculate current estimation
 function calcEstimateProfit(){
     try {
-        var rateUnit = Math.pow(1000,parseInt($('#calcHashUnit').data('mul')));
-        var hashRate = parseFloat($('#calcHashRate').val()) * rateUnit;
-        var profit = (hashRate * 86400 / lastStats.network.difficulty) * lastStats.lastblock.reward;
+        let  rateUnit = Math.pow(1000,parseInt($('#calcHashUnit').data('mul')));
+        let  hashRate = parseFloat($('#calcHashRate').val()) * rateUnit;
+        let  profit = (hashRate * 86400 / lastStats.network.difficulty) * lastStats.lastblock.reward;
         if (profit) {
             updateText('calcHashAmount1', getReadableCoins(profit));
             updateText('calcHashAmount2', getCurrencyPriceText(profit));
@@ -333,7 +333,7 @@ function calcEstimateProfit(){
 // Get price in specified currency
 function getCurrencyPriceText(coinsRaw) {    
     if (!priceCurrency || !marketPrices || !marketPrices[priceCurrency]) return ;    
-    var priceInCurrency = (Math.trunc(getReadableCoins(coinsRaw, 2, true) * marketPrices[priceCurrency] * 100) / 100);
+    let  priceInCurrency = (Math.trunc(getReadableCoins(coinsRaw, 2, true) * marketPrices[priceCurrency] * 100) / 100);
     return  priceInCurrency + ' ' + priceCurrency;
 }
 </script>

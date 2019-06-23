@@ -3,7 +3,8 @@ FROM node:8-slim
 
 RUN apt-get update \
   && DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs-legacy npm git libboost1.55-all libssl-dev \
-  && rm -rf /var/lib/apt/lists/* 
+  && rm -rf /var/lib/apt/lists/* && \
+  chmod +x /wait-for-it.sh
 
 ADD . /pool/
 WORKDIR /pool/

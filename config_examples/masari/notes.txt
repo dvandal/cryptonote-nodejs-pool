@@ -1,0 +1,1 @@
+after "npm update" in the node_modules renaming the cryptonote-util folder to "cryptoforknote-util".
