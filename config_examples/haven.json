@@ -9,7 +9,7 @@
 
     "daemonType": "default",
     "cnAlgorithm": "cryptonight_heavy",
-    "cnVariant": null,
+    "cnVariant": 1,
     "cnBlobType": 0,
 
     "logging": {
