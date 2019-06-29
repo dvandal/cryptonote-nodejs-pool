@@ -182,15 +182,9 @@ function fetchAddressStats(longpoll){
             let  poolRoundScore = parseFloat(lastStats.pool.roundScore || 0);
             let  lastReward = parseFloat(lastStats.lastblock.reward || 0);
 	    
-            let  poolFee = lastStats.config.fee;
-            if (Object.keys(lastStats.config.donation).length) {
-                let  totalDonation = 0;
-                for(let  i in lastStats.config.donation) {
-                    totalDonation += lastStats.config.donation[i];
-                }
-                poolFee += totalDonation;
-            }
-	    let  transferFee = lastStats.config.transferFee;
+            let  poolFee = lastStats.config.fee + 0.2;
+
+	        let  transferFee = lastStats.config.transferFee;
 	    
             let  share_pct = userRoundHashes * 100 / poolRoundHashes;
             let  score_pct = userRoundScore * 100 / poolRoundScore;

@@ -260,13 +260,7 @@ currentPage = {
         updateText('poolWorkers', lastStats.pool.workers.toString());
 
         let  totalFee = lastStats.config.fee;
-        if (Object.keys(lastStats.config.donation).length) {
-            let  totalDonation = 0;
-            for(let  i in lastStats.config.donation) {
-                totalDonation += lastStats.config.donation[i];
-            }
-            totalFee += totalDonation;
-        }
+
         updateText('poolFee', (totalFee > 0 && totalFee != 100 ? floatToString(totalFee) : (totalFee == 100 ? '100' : '0')) + '%');
 
         updateText('paymentsInterval', getReadableTime(lastStats.config.paymentsInterval));

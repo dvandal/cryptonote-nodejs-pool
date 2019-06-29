@@ -1,17 +1,19 @@
 {
     "poolHost": "your.pool.host",
 
-    "coin": "Iridium",
-    "symbol": "IRD",
-    "coinUnits": 100000000,
+    "coin": "loki",
+    "symbol": "LOKI",
+    "coinUnits": 1000000000,
     "coinDecimalPlaces": 4,
-    "coinDifficultyTarget": 175,
+    "coinDifficultyTarget": 120,
 
-    "daemonType": "bytecoin",
-    "cnAlgorithm": "cryptonight_pico",
-    "cnVariant": 2,
-    "cnBlobType": 2,
-
+    "daemonType": "default",
+    "cnAlgorithm": "randomx",
+    "cnVariant": 0,
+    "cnBlobType": 5,
+    "includeHeight": false,
+    "isRandomX": true,
+    
     "logging": {
         "files": {
             "level": "info",
@@ -28,7 +30,7 @@
         "enabled": true,
         "clusterForks": "auto",
         "poolAddress": "** Your pool wallet address **",
-        "intAddressPrefix": null,
+        "intAddressPrefix": 115,
         "blockRefreshInterval": 1000,
         "minerTimeout": 900,
         "sslCert": "./cert.pem",
@@ -108,24 +110,25 @@
         "enabled": true,
         "interval": 1800,
         "maxAddresses": 50,
-        "mixin": 5,
+        "mixin": 10,
         "priority": 0,
-        "transferFee": 5000000,
+        "transferFee": 50000000,
         "dynamicTransferFee": true,
         "minerPayFee" : true,
-        "minPayment": 100000000,
+        "minPayment": 5000000000,
         "maxPayment": null,
         "maxTransactionAmount": 0,
-        "denomination": 10000000
+        "denomination": 100000000
     },
 
     "blockUnlocker": {
         "enabled": true,
         "interval": 30,
-        "depth": 20,
+        "depth": 60,
         "poolFee": 0.8,
         "devDonation": 0.2,
-        "networkFee": 0.0
+        "networkFee": 5.0,
+        "useFirstVout": true
     },
 
     "api": {
@@ -147,12 +150,12 @@
 
     "daemon": {
         "host": "127.0.0.1",
-        "port": 13007
+        "port": 22023
     },
 
     "wallet": {
         "host": "127.0.0.1",
-        "port": 13008
+        "port": 22024
     },
 
     "redis": {
