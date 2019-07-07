@@ -307,7 +307,13 @@
                 "stepInterval": 1800,
                 "maximumPeriod": 86400
             },
- "payments": {
+        "worker_hashrate": {
+                "enabled": true,
+                "updateInterval": 60,
+                "stepInterval": 60,
+                "maximumPeriod": 86400
+            },
+        "payments": {
                 "enabled": true
             }
         }
