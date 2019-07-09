@@ -1,7 +1,7 @@
 {
     "poolHost": "your.pool.host",
 
-    "coin": "X-CASH",
+    "coin": "xcash",
     "symbol": "XCASH",
     "coinUnits": 1000000,
     "coinDecimalPlaces": 6,
@@ -23,20 +23,16 @@
         }
     },
 
-   "customlogfiles": {
-      "transactionDetails": "logs/payments_txkey.log"
-   },
-
     "poolServer": {
         "enabled": true,
         "clusterForks": "auto",
         "poolAddress": "YOUR_POOLS_XCASH_ADDRESS",
-        "intAddressPrefix": "0x3fc134",
+        "intAddressPrefix": 4178228,,
         "blockRefreshInterval": 1000,
         "minerTimeout": 600,
-        "sslCert": "miningpool.crt",
-        "sslKey": "miningpool.key",
-        "sslCA": "CA.pem",
+        "sslCert": "./cert.pem",
+        "sslKey": "./privkey.pem",
+        "sslCA": "./chain.pem",
         "ports": [
         {
                 "port": 3333,
@@ -75,7 +71,7 @@
         },
         "paymentId": {
             "addressSeparator": "+"
- },
+        },
         "fixedDiff": {
             "enabled": true,
             "addressSeparator": "."
@@ -95,7 +91,7 @@
         },
         "slushMining": {
             "enabled": false,
- "weight": 300,
+        "weight": 300,
             "blockTime": 60,
             "lastBlockCheckRate": 1
          }
@@ -104,11 +100,9 @@
     "payments": {
         "enabled": true,
         "interval": 3600,
-        "maxAddresses": 1,
-        "tx_privacy_settings": "settings",
+        "maxAddresses": 50,
         "mixin": 20,
         "priority": 1,
-        "get_tx_keys": true,
         "transferFee": 5000,
         "dynamicTransferFee": false,
         "minerPayFee" : true,
@@ -121,8 +115,8 @@
         "enabled": true,
         "interval": 30,
         "depth": 60,
-        "poolFee": 1,
-        "devDonation": 0.0,
+        "poolFee": 0.8,
+        "devDonation": 020,
         "networkFee": 0.0
     },
 
@@ -157,7 +151,7 @@
         "host": "127.0.0.1",
         "port": 6379,
         "auth": null,
- "db": 0,
+        "db": 0,
         "cleanupInterval": 15
     },
 
@@ -177,7 +171,7 @@
             "emailAdded": "Your email has been registered to receive pool notifications.",
             "workerConnected": "Your worker %WORKER_NAME% for address %MINER% is now connected from ip %IP%.",
             "workerTimeout": "Your worker %WORKER_NAME% for address %MINER% has stopped submitting hashes on %LAST_HASH%.",
- "workerBanned": "Worker %WORKER_NAME% banned",
+            "workerBanned": "Worker %WORKER_NAME% banned",
             "blockFound": "Block %HEIGHT% found !",
             "blockUnlocked": "Block %HEIGHT% unlocked !",
             "blockOrphaned": "Block %HEIGHT% orphaned !",
@@ -207,7 +201,7 @@
     "email": {
         "enabled": false,
         "fromAddress": "your@email.com",
-"transport": "sendmail",
+        "transport": "sendmail",
         "sendmail": {
             "path": "/usr/sbin/sendmail"
         },
@@ -247,7 +241,7 @@
 
     "monitoring": {
         "daemon": {
-    "checkInterval": 60,
+            "checkInterval": 60,
             "rpcMethod": "getblockcount"
         },
         "wallet": {
@@ -257,7 +251,7 @@
     },
 
     "prices": {
-        "source": "tradeogre",
+        "source": "tradesatoshi",
         "currency": "USD"
     },
 
@@ -307,13 +301,13 @@
                 "stepInterval": 1800,
                 "maximumPeriod": 86400
             },
-        "worker_hashrate": {
+            "worker_hashrate": {
                 "enabled": true,
                 "updateInterval": 60,
                 "stepInterval": 60,
                 "maximumPeriod": 86400
             },
-        "payments": {
+            "payments": {
                 "enabled": true
             }
         }
