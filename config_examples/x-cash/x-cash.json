@@ -27,7 +27,7 @@
         "enabled": true,
         "clusterForks": "auto",
         "poolAddress": "YOUR_POOLS_XCASH_ADDRESS",
-        "intAddressPrefix": 4178228,,
+        "intAddressPrefix": 4178228,
         "blockRefreshInterval": 1000,
         "minerTimeout": 600,
         "sslCert": "./cert.pem",
