@@ -57,8 +57,13 @@ if (typeof cryptonatorWidget !== 'undefined' && typeof marketCurrencies === 'und
 }
 
 // Charts initialized
+<<<<<<< HEAD
 let  chartsInitialized = false;
 let  intervalChartsUpdate;
+=======
+var chartsInitialized = false;
+var intervalChartsUpdate;
+>>>>>>> e24b699f6a8cf7daa83e06865a21d9cf518922c0
 
 // Update current page
 currentPage = {
@@ -215,9 +220,15 @@ function createCharts() {
 
     for(let  graphType in graphData) {
         if (graphData[graphType].values.length > 1) {
+<<<<<<< HEAD
             let  $chart = $('#chart_'+graphType);
             let  bgcolor = null, bordercolor = null, borderwidth = null;
             let  colorelem = $chart.siblings('a.chart-style');
+=======
+            var $chart = $('#chart_'+graphType);
+            var bgcolor = null, bordercolor = null, borderwidth = null;
+            var colorelem = $chart.siblings('a.chart-style');
+>>>>>>> e24b699f6a8cf7daa83e06865a21d9cf518922c0
             if (colorelem.length == 1) {
                 bgcolor = colorelem.css('background-color');
                 bordercolor = colorelem.css('border-left-color');
@@ -226,7 +237,11 @@ function createCharts() {
             if (bgcolor === null) bgcolor = 'rgba(3, 169, 244, .4)';
             if (bordercolor === null) bordercolor = '#03a9f4';
             if (borderwidth === null || isNaN(borderwidth)) borderwidth = 1;
+<<<<<<< HEAD
             let  chartObj = new Chart(document.getElementById('chart_'+graphType), {
+=======
+            var chartObj = new Chart(document.getElementById('chart_'+graphType), {
+>>>>>>> e24b699f6a8cf7daa83e06865a21d9cf518922c0
                 type: 'line',
                 data: {
                     labels: graphData[graphType].names,

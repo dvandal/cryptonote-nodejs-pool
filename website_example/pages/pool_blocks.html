@@ -133,9 +133,15 @@ function generateChart(data) {
         values.push(data[key]);
     }
 
+<<<<<<< HEAD
     let  $chart = $('#blocksChartObj');
     let  bgcolor = null, bordercolor = null, borderwidth = null;
     let  colorelem = $chart.siblings('a.chart-style');
+=======
+    var $chart = $('#blocksChartObj');
+    var bgcolor = null, bordercolor = null, borderwidth = null;
+    var colorelem = $chart.siblings('a.chart-style');
+>>>>>>> e24b699f6a8cf7daa83e06865a21d9cf518922c0
     if (colorelem.length == 1) {
         bgcolor = colorelem.css('background-color');
         bordercolor = colorelem.css('border-left-color');
@@ -145,7 +151,11 @@ function generateChart(data) {
     if (bordercolor === null) bordercolor = '#03a9f4';
     if (borderwidth === null || isNaN(borderwidth)) borderwidth = 1;
 
+<<<<<<< HEAD
     let  chart = new Chart(document.getElementById('blocksChartObj'), {
+=======
+    var chart = new Chart(document.getElementById('blocksChartObj'), {
+>>>>>>> e24b699f6a8cf7daa83e06865a21d9cf518922c0
         type: 'bar',
         data: {
             labels: labels,
@@ -177,7 +187,7 @@ function generateChart(data) {
             }
         }
     });
-    $('#blocksChart').show();
+    $chart.show();
     displayedChart = true;
 }
 
