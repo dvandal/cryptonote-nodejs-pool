@@ -310,6 +310,10 @@
             "payments": {
                 "enabled": true
             }
+        },
+        "blocks": {
+            "enabled": true,
+            "days": 30
         }
     }
 }

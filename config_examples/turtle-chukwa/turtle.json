@@ -1,18 +1,14 @@
 {
     "poolHost": "your.pool.host",
-
-    "coin": "wownero",
-    "symbol": "WOW",
-    "coinUnits": 100000000000,
+    "coin": "turtlecoin",
+    "symbol": "TRTL",
+    "coinUnits": 100,
     "coinDecimalPlaces": 4,
-    "coinDifficultyTarget": 300,
-
-    "daemonType": "default",
-    "cnAlgorithm": "random_wow",
-    "cnVariant": 17,
-    "cnBlobType": 0,
-    "includeHeight": false,
-    "isRandomX": true,
+    "coinDifficultyTarget": 30,
+    "daemonType": "bytecoin",
+    "cnAlgorithm": "chukwa",
+    "cnVariant": 2,
+    "cnBlobType": 2,
 
     "logging": {
         "files": {
@@ -25,12 +21,12 @@
             "colors": true
         }
     },
-
+    "hashingUtil": true,
     "poolServer": {
         "enabled": true,
-        "clusterForks": "auto",
-        "poolAddress": "Your pool wallet address",
-        "intAddressPrefix": 19,
+        "clusterForks": 6,
+        "poolAddress": "** Your pool wallet address **",
+        "intAddressPrefix": null,
         "blockRefreshInterval": 1000,
         "minerTimeout": 900,
         "sslCert": "./cert.pem",
@@ -38,7 +34,7 @@
         "sslCA": "./chain.pem",
         "ports": [
             {
-                "port": 4333,
+                "port": 3333,
                 "difficulty": 5000,
                 "desc": "Low end hardware"
             },
@@ -48,27 +44,32 @@
                 "desc": "Mid range hardware"
             },
             {
-                "port": 4555,
+                "port": 5555,
                 "difficulty": 25000,
                 "desc": "High end hardware"
             },
             {
-                "port": 4777,
+                "port": 7777,
                 "difficulty": 500000,
-		"hidden": true,
                 "desc": "Cloud-mining / NiceHash"
             },
             {
-                "port": 4888,
+                "port": 8888,
                 "difficulty": 25000,
                 "desc": "Hidden port",
                 "hidden": true
+            },
+            {
+                "port": 9999,
+                "difficulty": 20000,
+                "desc": "SSL connection",
+                "ssl": true
             }
         ],
         "varDiff": {
             "minDiff": 100,
-            "maxDiff": 1000000,
-            "targetTime": 60,
+            "maxDiff": 100000000,
+            "targetTime": 30,
             "retargetTime": 30,
             "variancePercent": 30,
             "maxJump": 100
@@ -76,6 +77,7 @@
         "paymentId": {
             "addressSeparator": "+"
         },
+	"separators": [{"value":"+","desc":"plus"}, {"value":".","desc":"dot"}],
         "fixedDiff": {
             "enabled": true,
             "addressSeparator": "."
@@ -105,37 +107,37 @@
         "enabled": true,
         "interval": 1800,
         "maxAddresses": 50,
-        "mixin": 16,
+        "mixin": 3,
         "priority": 0,
-        "transferFee": 14000000000,
+        "transferFee": 200,
         "dynamicTransferFee": true,
         "minerPayFee" : true,
-        "minPayment": 1000000000000,
-        "maxPayment": null,
-        "maxTransactionAmount": 0,
-        "denomination": 100000000000
+        "minPayment": 100000,
+        "maxTransactionAmount": 100000000,
+        "denomination": 100
     },
 
     "blockUnlocker": {
         "enabled": true,
         "interval": 30,
-        "depth": 60,
-        "poolFee": 2.0,
+        "depth": 120,
+        "poolFee": 0.8,
         "devDonation": 0.2,
-        "networkFee": 0.0
+        "networkFee": 0.0,
+        "fixBlockHeightRPC": false
     },
 
     "api": {
         "enabled": true,
         "hashrateWindow": 600,
         "updateInterval": 5,
-        "bindIp": "0.0.0.0",
-        "port": 34558,
+        "bindIp": "192.168.0.116",
+        "port": 3107,
         "blocks": 30,
         "payments": 30,
         "password": "your_password",
-        "ssl": false,
-        "sslPort": 8119,
+        "ssl": true,
+        "sslPort": 3109,
         "sslCert": "./cert.pem",
         "sslKey": "./privkey.pem",
         "sslCA": "./chain.pem",
@@ -144,12 +146,12 @@
 
     "daemon": {
         "host": "127.0.0.1",
-        "port": 34568
+        "port": 11898
     },
 
     "wallet": {
         "host": "127.0.0.1",
-        "port": 39578
+        "port": 8070
     },
 
     "redis": {
@@ -220,7 +222,6 @@
 
     "telegram": {
         "enabled": false,
-        "botName": "",
         "token": "",
         "channel": "",
         "channelStats": {
@@ -229,9 +230,8 @@
         },
         "botCommands": {
             "stats": "/stats",
-            "report": "/report",
-            "notify": "/notify",
-            "blocks": "/blocks"
+            "enable": "/enable",
+            "disable": "/disable"
         }
     },
     
@@ -250,32 +250,32 @@
         "source": "tradeogre",
         "currency": "USD"
     },
-    
+
     "charts": {
         "pool": {
             "hashrate": {
                 "enabled": true,
-                "updateInterval": 10,
-                "stepInterval": 600,
-                "maximumPeriod": 3600
+                "updateInterval": 60,
+                "stepInterval": 1800,
+                "maximumPeriod": 86400
             },
             "miners": {
                 "enabled": true,
-                "updateInterval": 10,
-                "stepInterval": 600,
-                "maximumPeriod": 3600
+                "updateInterval": 60,
+                "stepInterval": 1800,
+                "maximumPeriod": 86400
             },
             "workers": {
                 "enabled": true,
-                "updateInterval": 10,
-                "stepInterval": 6000,
-                "maximumPeriod": 3600
+                "updateInterval": 60,
+                "stepInterval": 1800,
+                "maximumPeriod": 86400
             },
             "difficulty": {
                 "enabled": true,
-                "updateInterval": 10,
-                "stepInterval": 600,
-                "maximumPeriod": 3600
+                "updateInterval": 1800,
+                "stepInterval": 10800,
+                "maximumPeriod": 604800
             },
             "price": {
                 "enabled": true,
