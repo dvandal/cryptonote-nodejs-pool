@@ -145,7 +145,7 @@
             <tr class="appInfo">
                 <td class="miningAppTitle">XMRig</td>
                 <td>CPU</td>
-                <td>Ligthweight but powerful CPU Mining App</td>
+                <td>Lightweight but powerful CPU Mining App</td>
                 <td><a class="btn btn-success" target="_blank" href="https://github.com/xmrig/xmrig/releases/latest"><span data-tkey="download">Download</span></a></td>
                 <td><a class="btn btn-default" role="button" data-toggle="collapse" href="#xmrig" aria-expanded="true" aria-controls="collapseExample"><span data-tkey="showConfig">See more</span></a></td>
             </tr>
@@ -160,7 +160,7 @@
         "pass": "<span class="examplePassword">YOUR_WORKER_NAME</span>",
         "keepalive": true,
         "nicehash": false,
-        "variant": 1
+        "variant": <span class="xmrigAlgo">0</span>
     }
 ],</code></pre>
 
@@ -187,7 +187,7 @@
         "pass": "<span class="examplePassword">YOUR_WORKER_NAME</span>"
         "keepalive": true,
         "nicehash": false,
-        "variant": 1
+        "variant": <span class="xmrigAlgo">0</span>
     }
 ],</code></pre>
 
@@ -214,7 +214,7 @@
         "pass": "<span class="examplePassword">YOUR_WORKER_NAME</span>"
         "keepalive": true,
         "nicehash": false,
-        "variant": 1
+        "variant": <span class="xmrigAlgo">0</span>
     }
 ],</code></pre>
 
@@ -365,10 +365,12 @@ currentPage = {
         xmrstakAlgo = '';
 
         if (cnAlgorithm == "randomx") {
-            algorithm = "RandomX";
-        }
-        else if (cnAlgorithm == "random_wow") {
-            algorithm = "randomx/wow"
+            if (cnVariant === 17)
+                algorithm = 'RandomWOW (WOW)';
+            else if (cnVariant === 18)
+                algorithm = 'RandomXL (Loki)';
+            else
+                algorithm = 'RandomX';
         }
         else if (cnAlgorithm == "cryptonight_light") {
             if (cnVariant === 1) {
@@ -445,6 +447,8 @@ currentPage = {
 
         updateText('cnAlgorithm', algorithm);
         updateText('xmrstakAlgo', xmrstakAlgo);
+
+        updateTextClasses('xmrigAlgo', cnVariant);
     }
 };
 
