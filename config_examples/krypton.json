@@ -107,7 +107,7 @@
         "enabled": true,
         "interval": 1800,
         "maxAddresses": 50,
-        "mixin": 0, // Default mixin is 0 which makes easier to send transactions
+        "mixin": 0,
         "priority": 0,
         "transferFee": 100,
         "dynamicTransferFee": true,
@@ -133,12 +133,12 @@
         "port": 8117,
         "blocks": 30,
         "payments": 30,
-        "password": "set_custom_password_here", // Accessible from admin.html
+        "password": "set_custom_password_here",
         "ssl": false,
         "sslPort": 3109,
-        "sslCert": "./cert.pem", // Not required
-        "sslKey": "./privkey.pem", // Not required
-        "sslCA": "./chain.pem", // Not required
+        "sslCert": "./cert.pem",
+        "sslKey": "./privkey.pem",
+        "sslCA": "./chain.pem",
         "trustProxyIP": true
     },
     "daemon": {
@@ -147,8 +147,7 @@
     },
     "wallet": {
         "host": "127.0.0.1",
-        "port": 8070,
-        "password": "setRPCpassword" // can also run without password with ./krypton-cli --rpc-legacy-security flag
+        "port": 8070
     },
     "redis": {
         "host": "127.0.0.1",
