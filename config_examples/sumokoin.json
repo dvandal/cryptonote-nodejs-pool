@@ -8,8 +8,8 @@
     "coinDifficultyTarget": 240,
 
     "daemonType": "default",
-    "cnAlgorithm": "cryptonight_heavy",
-    "cnVariant": null,
+    "cnAlgorithm": "cryptonight",
+    "cnVariant": 13,
     "cnBlobType": 0,
 
     "logging": {
@@ -23,12 +23,13 @@
             "colors": true
         }
     },
-
+    "includeHeight": true,
+    "includeAlgo": "cn/r",
     "poolServer": {
         "enabled": true,
         "clusterForks": "auto",
         "poolAddress": "** Your pool wallet address **",
-        "intAddressPrefix": 2700186,
+        "intAddressPrefix": 536986,
         "blockRefreshInterval": 1000,
         "minerTimeout": 900,
         "sslCert": "./cert.pem",
