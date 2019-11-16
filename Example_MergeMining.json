@@ -35,7 +35,7 @@
                      "pattern": "^XCY",
                      "blockchainExplorer": "http://explorer.mycypruscoin.com/?hash={id}#blockchain_block",
                      "transactionExporer": "http://explorer.mycypruscoin.com/?hash={id}#blockchain_transaction",
-                     "api": "https://api.arqma.com/apiMerged1",
+                     "api": "https://your.pool.host/apiMerged1",
                      "enabled": true
                     },
                      {"poolAddress":"** Your pool wallet address **",
@@ -48,7 +48,7 @@
                      "pattern": "^TRTL",
                      "blockchainExplorer": "https://explorer.turtlecoin.lol/block.html?hash={id}",
                      "transactionExporer": "https://explorer.turtlecoin.lol/block.html?hash={id}",
-                     "api": "https://api.arqma.com/apiMerged2",
+                     "api": "https://your.pool.host/apiMerged2",
                      "enabled": true
                     },
                      {"poolAddress":"** Your pool wallet address **",
@@ -61,7 +61,7 @@
                      "pattern": "^Pl",
                      "blockchainExplorer": "http://block-explorer.plenteum.com/?hash={id}#blockchain_block",
                      "transactionExporer": "http://block-explorer.plenteum.com/?hash={id}#blockchain_transaction",
-                     "api": "https://api.arqma.com/apiMerged3",
+                     "api": "https://your.pool.host/apiMerged3",
                      "enabled": true
                     },
                      {"poolAddress":"** Your pool wallet address **",
@@ -74,7 +74,7 @@
                      "pattern": "^ir",
                      "blockchainExplorer": "http://explorer.ird.cash/?hash={id}#block",
                      "transactionExporer": "http://explorer.ird.cash/?hash={id}#transaction",
-                     "api": "https://api.arqma.com/apiMerged4",
+                     "api": "https://your.pool.host/apiMerged4",
                      "enabled": true
                     },
                      {"poolAddress":"** Your pool wallet address **",
@@ -87,7 +87,7 @@
                      "pattern": "^Tri",
                      "blockchainExplorer": "http://www.tritaniumcoin.com/?hash={id}#blockchain_block",
                      "transactionExporer": "http://www.tritaniumcoin.com/?hash={id}#blockchain_transaction",
-                     "api": "https://api.arqma.com/apiMerged5",
+                     "api": "https://your.pool.host/apiMerged5",
                      "enabled": true
                     },
                      {"poolAddress":"** Your pool wallet address **",
@@ -100,7 +100,7 @@
                      "pattern": "^Wrkz",
                      "blockchainExplorer": "http://myexplorer.wrkz.work/?hash={id}#blockchain_block",
                      "transactionExporer": "http://myexplorer.wrkz.work/?hash={id}#blockchain_transaction",
-                     "api": "https://api.arqma.com/apiMerged6",
+                     "api": "https://your.pool.host/apiMerged6",
                      "enabled": true
                     },
                      {"poolAddress":"** Your pool wallet address **",
@@ -113,7 +113,7 @@
                      "pattern": "^Phy",
                      "blockchainExplorer": "http://explorer2.elphyrecoin.xyz/?hash={id}#blockchain_block",
                      "transactionExporer": "http://explorer2.elphyrecoin.xyz/?hash={id}#blockchain_transaction",
-                     "api": "https://api.arqma.com/apiMerged7",
+                     "api": "https://your.pool.host/apiMerged7",
                      "enabled": true
                     }
     ],  
