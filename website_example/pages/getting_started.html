@@ -348,7 +348,13 @@ currentPage = {
         algorithm = '';
         xmrstakAlgo = '';
 
-        if (cnAlgorithm == "randomx") {
+        if (cnAlgorithm == "argon2") {
+            if (cnVariant === 1)
+                algorithm = 'Argon2id WRKZ';
+            else
+                algorithm = 'Argon2id Chukwa';
+        }
+        else if (cnAlgorithm == "randomx") {
             if (cnVariant === 1)
                 algorithm = 'RandomX (Scala)';
             else if (cnVariant === 2)
