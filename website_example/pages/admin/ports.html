@@ -2,13 +2,13 @@
 
 <!-- Handlebars template -->
 <script id="portsListTable" type="text/x-handlebars-template">
-    {{#each ports}}
+    {{#ports}}
     <tr>
-        <td class="col1" data-sort="{{this.port.port}}">{{this.port}}</td>
-        <td class="col2" data-sort="{{this.port.users}}">{{this.users}}</td>
+        <td class="col1" data-sort="{{port.port}}">{{port}}</td>
+        <td class="col2" data-sort="{{port.users}}">{{users}}</td>
         <td class="col3">&nbsp;</td>
     </tr>
-    {{/each}}
+    {{/ports}}
 </script>
 
 <!-- Ports List -->
@@ -31,20 +31,20 @@
 <!-- Javascript -->
 <script>
 function parsePorts(ports) {
-    let  totalUsers = 0;
-    let  portsArray = [];
-    let  properObject = {};
-    for (let  port in ports) {
+    var totalUsers = 0;
+    var portsArray = [];
+    var properObject = {};
+    for (var port in ports) {
         if (ports.hasOwnProperty(port)) {
-            let  portsData = ports[port];
-	    let  usersCount = portsData.users ?parseInt(portsData.users) : 0;
-	    if (usersCount > 0) {
+            var portsData = ports[port];
+        var usersCount = portsData.users ?parseInt(portsData.users) : 0;
+        if (usersCount > 0) {
                 portsArray.push({
                     port: portsData.port,
                     users: usersCount
                 });
                 totalUsers += usersCount;
-	    }
+        }
         }
     }
     $('#totalUsers').html(totalUsers);
@@ -57,7 +57,7 @@ function parsePorts(ports) {
 }
 
 function createPortsTable(promptPassword) {
-    let  password = docCookies.getItem('password');
+    var password = docCookies.getItem('password');
 
     if(!password || promptPassword) {
         password = prompt('Enter admin password');

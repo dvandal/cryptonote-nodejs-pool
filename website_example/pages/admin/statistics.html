@@ -1,118 +1,139 @@
 <h3>Pool Statistics</h3>
 
-<!-- Statistics -->
-<div id="poolStats" class="row">
-
-    <!-- Total Mined -->
-    <div class="col-lg-3 col-sm-4">
-        <div class="infoBox hoverExpandEffect">
-            <div class="icon">
-                <span class="fa fa-money"></span>
-            </div>
-            <div class="content">
-                <div class="text">Total Mined</div>
-                <div class="value"><span id="totalMined">...</span></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Total Paid -->
-    <div class="col-lg-3 col-sm-4">
-        <div class="infoBox hoverExpandEffect">
-            <div class="icon">
-                <span class="fa fa-money"></span>
-            </div>
-            <div class="content">
-                <div class="text">Total Paid</div>
-                <div class="value"><span id="totalPaid">...</span></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Total Owed -->
-    <div class="col-lg-3 col-sm-4">
-        <div class="infoBox hoverExpandEffect">
-            <div class="icon">
-                <span class="fa fa-money"></span>
-            </div>
-            <div class="content">
-                <div class="text">Total Owed</div>
-                <div class="value"><span id="totalOwed">...</span></div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Profit (before tx fees) -->
-    <div class="col-lg-3 col-sm-4">
-        <div class="infoBox hoverExpandEffect">
-            <div class="icon">
-                <span class="fa fa-dollar"></span>
-            </div>
-            <div class="content">
-                <div class="text">Profit (before tx fees)</div>
-                <div class="value"><span id="profit">...</span></div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Registered Addresses -->
-    <div class="col-lg-3 col-sm-4">
-        <div class="infoBox hoverExpandEffect">
-            <div class="icon">
-                <span class="fa fa-users"></span>
-            </div>
-            <div class="content">
-                <div class="text">Registered Addresses</div>
-                <div class="value"><span id="registeredAddresses">...</span></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Blocks Unlocked -->
-    <div class="col-lg-3 col-sm-4">
-        <div class="infoBox hoverExpandEffect">
-            <div class="icon">
-                <span class="fa fa-cubes"></span>
-            </div>
-            <div class="content">
-                <div class="text">Blocks Unlocked</div>
-                <div class="value"><span id="blocksUnlocked">...</span></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Blocks Orphaned -->
-    <div class="col-lg-3 col-sm-4">
-        <div class="infoBox hoverExpandEffect">
-            <div class="icon">
-                <span class="fa fa-cubes"></span>
-            </div>
-            <div class="content">
-                <div class="text">Blocks Orphaned</div>
-                <div class="value"><span id="blocksOrphaned">...</span> <span class="smallText">(<span id="orphanPercent">0%</span>)</span></div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Average Luck (shares/diff) -->
-    <div class="col-lg-3 col-sm-4">
-        <div class="infoBox hoverExpandEffect">
-            <div class="icon">
-                <span class="fa fa-line-chart"></span>
-            </div>
-            <div class="content">
-                <div class="text">Average Luck (shares/diff)</div>
-                <div class="value"><span id="averageLuck">...</span></div>
-            </div>
-        </div>
-    </div>
-        
+<div id="tab-content">
 </div>
+
+<script id="siblingTemplate" type="text/x-handlebars-template">
+    <div id="poolStats{{coin}}" class="row">
+
+        <!-- Total Mined -->
+        <div class="col-lg-3 col-sm-4">
+            <div class="infoBox hoverExpandEffect mergedBg">
+                <div class="icon">
+                    <span class="fa fa-money"></span>
+                </div>
+                <div class="content">
+                    <div class="text">Total Mined</div>
+                    <div class="value"><span id="totalMined{{coin}}"></span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Paid -->
+        <div class="col-lg-3 col-sm-4">
+            <div class="infoBox hoverExpandEffect mergedBg">
+                <div class="icon">
+                    <span class="fa fa-money"></span>
+                </div>
+                <div class="content">
+                    <div class="text">Total Paid</div>
+                    <div class="value"><span id="totalPaid{{coin}}"></span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Owed -->
+        <div class="col-lg-3 col-sm-4">
+            <div class="infoBox hoverExpandEffect mergedBg">
+                <div class="icon">
+                    <span class="fa fa-money"></span>
+                </div>
+                <div class="content">
+                    <div class="text">Total Owed</div>
+                    <div class="value"><span id="totalOwed{{coin}}"></span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profit (before tx fees) -->
+        <div class="col-lg-3 col-sm-4">
+            <div class="infoBox hoverExpandEffect mergedBg">
+                <div class="icon">
+                    <span class="fa fa-dollar"></span>
+                </div>
+                <div class="content">
+                    <div class="text">Profit (before tx fees)</div>
+                    <div class="value"><span id="profit{{coin}}"></span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Registered Addresses -->
+        <div class="col-lg-3 col-sm-4">
+            <div class="infoBox hoverExpandEffect mergedBg">
+                <div class="icon">
+                    <span class="fa fa-users"></span>
+                </div>
+                <div class="content">
+                    <div class="text">Registered Addresses</div>
+                    <div class="value"><span id="registeredAddresses{{coin}}"></span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blocks Unlocked -->
+        <div class="col-lg-3 col-sm-4">
+            <div class="infoBox hoverExpandEffect mergedBg">
+                <div class="icon">
+                    <span class="fa fa-cubes"></span>
+                </div>
+                <div class="content">
+                    <div class="text">Blocks Unlocked</div>
+                    <div class="value"><span id="blocksUnlocked{{coin}}"></span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blocks Orphaned -->
+        <div class="col-lg-3 col-sm-4">
+            <div class="infoBox hoverExpandEffect mergedBg">
+                <div class="icon">
+                    <span class="fa fa-cubes"></span>
+                </div>
+                <div class="content">
+                    <div class="text">Blocks Orphaned</div>
+                    <div class="value"><span id="blocksOrphaned{{coin}}"></span> <span class="smallText">(<span id="orphanPercent{{coin}}">0%</span>)</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Average Luck (shares/diff) -->
+        <div class="col-lg-3 col-sm-4">
+            <div class="infoBox hoverExpandEffect mergedBg">
+                <div class="icon">
+                    <span class="fa fa-line-chart"></span>
+                </div>
+                <div class="content">
+                    <div class="text">Average Luck (shares/diff)</div>
+                    <div class="value"><span id="averageLuck{{coin}}"></span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
 
 <!-- Javascript -->
 <script>
-function formatLuck(difficulty, shares) {
-    let  percent = Math.round(shares / difficulty * 100);
+function formatLuck(difficulty, shares, stats) {
+    // Only an approximation to reverse the calculations done in pool.js, because the shares with their respective times are not recorded in redis
+    // Approximation assumes equal pool hashrate for the whole round
+    // Could potentially be replaced by storing the sum of all job.difficulty in the redis db.
+    if (stats.config.slushMiningEnabled) {
+        // Uses integral calculus to calculate the average of a dynamic function
+        var accurateShares = 1 / stats.config.blockTime * (  // 1/blockTime to get the average
+            shares * stats.config.weight * (                  // Basically calculates the 'area below the graph' between 0 and blockTime
+                1 - Math.pow(
+                    Math.E,
+                    ((- stats.config.blockTime) / stats.config.weight)  // blockTime is equal to the highest possible result of (dateNowSeconds - scoreTime)
+                )
+            )
+        );
+    }
+    else {
+        var accurateShares = shares;
+    }
+
+    var percent = Math.round(accurateShares / difficulty * 100);
     if(!percent){
         return '<span class="luckGood">?</span>';
     }
@@ -124,47 +145,60 @@ function formatLuck(difficulty, shares) {
     }
     else{
         return '<span class="luckBad">' + percent + '%</span>';
-    }	
+    }
 }
 
-function getStats(promptPassword) {
-    let  password = docCookies.getItem('password');
+function getStats(promptPassword, api, stats) {
+    var password = docCookies.getItem('password');
 
     if(!password || promptPassword) {
         password = prompt('Enter admin password');
     }
 
-    $('#loading').show();
     $.ajax({
-        url: api + '/admin_stats',
+        url: `${api}/admin_stats`,
         data: {password: password},
 	dataType: 'json',
         cache: 'false',
         success: function(data) {
             docCookies.setItem('password', password, Infinity);
-            $('#loading').hide();
-            renderData(data);
+            renderData(data, stats);
         },
         error: function(e) {
             docCookies.removeItem('password');
-            getStats(true);
+            getStats(true, api, stats);
         }
     });
 }
 
-function renderData(data) {
-    $('#totalOwed').text(getReadableCoins(data.totalOwed));
-    $('#totalPaid').text(getReadableCoins(data.totalPaid));
-    $('#totalMined').text(getReadableCoins(data.totalRevenue));
-    $('#profit').text(getReadableCoins(data.totalRevenue - data.totalOwed - data.totalPaid));
-    $('#blocksUnlocked').text(data.blocksUnlocked);
-    $('#averageLuck').html(formatLuck(data.totalDiff, data.totalShares));
-    $('#blocksOrphaned').text(data.blocksOrphaned);
-    $('#orphanPercent').text((data.blocksOrphaned / data.blocksUnlocked * 100).toFixed(2) + '%');
-    $('#registeredAddresses').text(data.totalWorkers);
+function renderData(data, stats) {
+        $(`#totalOwed${stats.config.coin}`).text(getReadableCoin(stats, data.totalOwed));
+        $(`#totalPaid${stats.config.coin}`).text(getReadableCoin(stats, data.totalPaid));
+        $(`#totalMined${stats.config.coin}`).text(getReadableCoin(stats, data.totalRevenue + data.totalRevenueSolo));
+        $(`#profit${stats.config.coin}`).text(getReadableCoin(stats, (data.totalRevenue + data.totalRevenueSolo) - data.totalOwed - data.totalPaid));
+        $(`#blocksUnlocked${stats.config.coin}`).text(data.blocksUnlocked);
+        $(`#averageLuck${stats.config.coin}`).html(formatLuck(data.totalDiff, data.totalShares, stats));
+        $(`#blocksOrphaned${stats.config.coin}`).text(data.blocksOrphaned);
+        $(`#orphanPercent${stats.config.coin}`).text((data.blocksOrphaned / data.blocksUnlocked * 100).toFixed(2) + '%');
+        $(`#registeredAddresses${stats.config.coin}`).text(data.totalWorkers);
+
 }
 
 $(function() {
-    getStats();
+
+    let template = $('#siblingTemplate').html()
+    Mustache.parse(template)
+    let rendered = Mustache.render(template, {coin:lastStats.config.coin})
+    $('#tab-content').append(rendered)
+    getStats(null, api, lastStats);
+
+    Object.keys(mergedApis).some(key => {
+        rendered = Mustache.render(template, {coin:key});
+        $('#tab-content').append(rendered)
+        getStats(null, mergedApis[key].api, mergedStats[key]); 
+    })
+
+
+
 });
 </script>

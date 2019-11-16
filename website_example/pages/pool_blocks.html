@@ -1,314 +1,147 @@
-<!-- Statistics -->
-<div id="blocksStats" class="row">
+<ul class="nav nav-tabs" id="blocksTabs">
+</ul>
 
-    <!-- Total Blocks Mined -->
-    <div class="col-lg-3 col-sm-4">
-        <div class="infoBox hoverExpandEffect">
-            <div class="icon">
-                <span class="fa fa-cubes"></span>
-            </div>
-            <div class="content">
-                <div class="text"><span data-tkey="blocksTotal">Total Blocks Mined</span></div>
-                <div class="value"><span id="blocksTotal">N/A</span> <span class="smallText">(<span id="lastBlockFound">Never</span>)</span></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Maturity Depth Requirement -->
-    <div class="col-lg-3 col-sm-4">
-        <div class="infoBox hoverExpandEffect">
-            <div class="icon">
-                <span class="fa fa-unlock-alt"></span>
-            </div>
-            <div class="content">
-                <div class="text"><span data-tkey="blocksMaturityCount">Maturity Requirement</span></div>
-                <div class="value"><span id="blocksMaturityCount">N/A</span></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Average Luck -->
-    <div class="col-lg-3 col-sm-4">
-        <div class="infoBox hoverExpandEffect">
-            <div class="icon">
-                <span class="fa fa-line-chart"></span>
-            </div>
-            <div class="content">
-                <div class="text"><span data-tkey="averageLuck">Average Luck</span></div>
-                <div class="value"><span id="averageLuck">N/A</span></div>
-            </div>
-        </div>
-    </div>
-    
+<div class="tab-content" id="tab-content">
 </div>
 
-<!-- Chart -->
-<div id="blocksChart" class="card padding-15 padding-t-5 padding-b-5">
-    <h4 id="blocksChartTitle">Blocks found</h4>
-    <div class="chart" style="height:200px;">
-        <canvas id="blocksChartObj"></canvas>
-        <a class="chart-style"></a>
-    </div>
-</div>
+<script id="siblingTabTemplate" type="text/x-handlebars-template">
+    <li id="blockTabs{{coin}} role="presentation" class="{{active}}"><a href="#{{coin}}">{{coin}} {{symbol}}</a></li>
+</script>
 
-<!-- Report -->
-<div class="card push-up-10">
-    <div id="blocksReport" class="table-responsive">
-        <table class="table table-hover table-striped">
-            <thead>
-            <tr>
-                <th class="col1"><span data-tkey="timeFound">Time Found</span></th>
-                <th class="col2"><span data-tkey="reward">Reward</span></th>
-                <th class="col3"><span data-tkey="height">Height</span></th>
-                <th class="col4"><span data-tkey="difficulty">Difficulty</span></th>
-                <th class="col5"><span data-tkey="blockHash">Block Hash</span></th>
-                <th class="col6"><span data-tkey="effort">Effort</span></th>
-                <th class="col7" title="How many more blocks network must mine before this block is matured"><span data-tkey="status">Status</span></th>
-            </tr>
-            </thead>
-            <tbody id="blocksReport_rows">
-            </tbody>
-        </table>
-    </div>
-</div>
+<script id="siblingTemplate" type="text/x-handlebars-template">
+    <div role="tabpanel" class="tab-pane {{active}}" id="{{coin}}">
+        <!-- Statistics -->
+        <div class="blocksStats row">
 
-<p class="text-center push-up-10">
-    <button type="button" class="btn btn-default" id="loadMoreBlocks"><span data-tkey="loadMore">Load More</span></button>
-</p>
+            <!-- Total Blocks Mined -->
+            <div class="col-lg-3 col-sm-4">
+                <div class="infoBox hoverExpandEffect mergedBg">
+                    <div class="icon">
+                        <span class="fa fa-cubes"></span>
+                    </div>
+                    <div class="content">
+                        <div class="text"><span data-tkey="blocksTotal">Total Prop Blocks Mined</span></div>
+                        <div class="value"><span id="blocksTotal{{coin}}">N/A</span> <span class="smallText">(<span id="lastBlockFound{{coin}}">Never</span>)</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-4">
+                <div class="infoBox hoverExpandEffect mergedBg">
+                    <div class="icon">
+                        <span class="fa fa-cubes"></span>
+                    </div>
+                    <div class="content">
+                        <div class="text"><span data-tkey="blocksTotalSolo">Total Solo Blocks Mined</span></div>
+                        <div class="value"><span id="blocksTotalSolo{{coin}}">N/A</span> <span class="smallText">(<span id="lastBlockFoundSolo{{coin}}">Never</span>)</span></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Maturity Depth Requirement -->
+            <div class="col-lg-3 col-sm-4">
+                <div class="infoBox hoverExpandEffect mergedBg">
+                    <div class="icon">
+                        <span class="fa fa-unlock-alt"></span>
+                    </div>
+                    <div class="content">
+                        <div class="text"><span data-tkey="blocksMaturityCount">Maturity Requirement</span></div>
+                        <div class="value"><span id="blocksMaturityCount{{coin}}">N/A</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Average Luck -->
+            <div class="col-lg-3 col-sm-4">
+                <div class="infoBox hoverExpandEffect mergedBg">
+                    <div class="icon">
+                        <span class="fa fa-line-chart"></span>
+                    </div>
+                    <div class="content">
+                        <div class="text"><span data-tkey="averageLuck">Average Luck</span></div>
+                        <div class="value"><span id="averageLuck{{coin}}">N/A</span></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+         <!-- Chart -->
+        <div id="blocksChart{{coin}}" class="card padding-15 padding-t-5 padding-b-5">
+            <h4 id="blocksChartTitle{{coin}}">Blocks found</h4>
+            <div class="chart" style="height:200px;">
+                <canvas id="blocksChartObj{{coin}}"></canvas>
+                <a class="chart-style"></a>
+            </div>
+        </div>
+        <!-- Report -->
+        <div class="card push-up-10">
+            <div class="table-responsive blocksReport">
+                <table class="table table-hover table-striped">
+                    <thead>
+                    <tr>
+                        <th class="col1"><span data-tkey="timeFound">Time Found</span></th>
+                        <th class="col2"><span data-tkey="reward">Reward</span></th>
+                        <th class="col3"><span data-tkey="height">Height</span></th>
+                        <th class="col4"><span data-tkey="difficulty">Difficulty</span></th>
+                        <th class="col5"><span data-tkey="blockHash">Block Hash</span></th>
+	                    <th class="col1"><span data-data-tkey="miner">Miner Address</span></th>
+                        <th class="col6"><span data-tkey="effort">Effort</span></th>
+                        <th class="col7" title="How many more blocks network must mine before this block is matured"><span data-tkey="status">Status</span></th>
+                    </tr>
+                    </thead>
+                    <tbody id="blocksReport{{coin}}_rows">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <p class="text-center push-up-10">
+            <button type="button" class="btn btn-default" id="loadMoreBlocks{{coin}}"><span data-tkey="loadMore">Load More</span></button>
+        </p>
+    </div>
+</script>
 
 <!-- Javascript -->
 <script>
-// Hide blocks chart on load
-$('#blocksChart').hide();
+$('#blocksChartarqma').hide();
+$('#blocksChartiridium').hide();
 
+let displayedChart = {};
+let xhrGetBlocks = {}
+let ranOnce = false
 // Update current page
 currentPage = {
     destroy: function(){
-        if (xhrGetBlocks) xhrGetBlocks.abort();
+        if (xhrGetBlocks) {
+            Object.keys(xhrGetBlocks).forEach(key => {
+                if (xhrGetBlocks[key])
+                    xhrGetBlocks[key].abort();
+                $(`#loadMoreBlocks${key}`).off('click')
+            })
+        }
+        $('#blocksTabs a').off('click')
     },
-    update: function(){
-        updateText('blocksTotal', lastStats.pool.totalBlocks.toString());
-        if (lastStats.pool.lastBlockFound) {
-            let  d = new Date(parseInt(lastStats.pool.lastBlockFound)).toISOString();
-            $('#lastBlockFound').timeago('update', d);
+    update: function(updateKey){
+        let stats = updateKey === parentCoin ? lastStats : mergedStats[updateKey]
+        if (stats) {
+            displayedChart[updateKey] = false
+            if (stats.charts.blocks) {
+                poolBlocks_GenerateChart(stats, displayedChart);
+            }
+            poolBlocks_RenderBlocks(stats.pool.blocks, stats);
         }
-        else {
-            $('#lastBlockFound').removeAttr('title').data('ts', '').update('Never');
-        }
-        updateText('blocksMaturityCount', lastStats.config.depth.toString());
-
-        $('#averageLuck').html(formatLuck(lastStats.pool.totalDiff, lastStats.pool.totalShares));
-
-        if (lastStats.charts.blocks) {
-            generateChart(lastStats.charts.blocks);
-        }
-        renderBlocks(lastStats.pool.blocks);
     }
 };
 
-// Chart
-let  displayedChart = false;
-function generateChart(data) {
-    if (displayedChart || !data || data === "undefined") return ;
 
-    let  chartDays = lastStats.config.blocksChartDays || null;
-    let  title = getTranslation('poolBlocks') ? getTranslation('poolBlocks') : 'Blocks found';
-    if (chartDays) {
-        if (chartDays === 1) title = getTranslation('blocksFoundLast24') ? getTranslation('blocksFoundLast24') : 'Blocks found in the last 24 hours';
-        else title = getTranslation('blocksFoundLastDays') ? getTranslation('blocksFoundLastDays') : 'Blocks found in the last {DAYS} days';
-        title = title.replace('{DAYS}', chartDays);
-    }
-    updateText('blocksChartTitle', title);
-
-    let  labels = [];
-    let  values = [];
-
-    for (let  key in data) {
-        let  label = key;
-        if (chartDays && chartDays === 1) {
-            let  keyParts = key.split(' ');
-            label = keyParts[1].replace(':00', '');
-        }
-        labels.push(label);
-        values.push(data[key]);
-    }
-
-    let  $chart = $('#blocksChartObj');
-    let  bgcolor = null, bordercolor = null, borderwidth = null;
-    let  colorelem = $chart.siblings('a.chart-style');
-    if (colorelem.length == 1) {
-        bgcolor = colorelem.css('background-color');
-        bordercolor = colorelem.css('border-left-color');
-        borderwidth = parseFloat(colorelem.css('width'));
-    }
-    if (bgcolor === null) bgcolor = 'rgba(3, 169, 244, .4)';
-    if (bordercolor === null) bordercolor = '#03a9f4';
-    if (borderwidth === null || isNaN(borderwidth)) borderwidth = 1;
-
-    let  chart = new Chart(document.getElementById('blocksChartObj'), {
-        type: 'bar',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'Blocks',
-                data: values,
-                fill: false,
-                backgroundColor: bgcolor,
-                borderColor: bordercolor,
-                borderWidth: borderwidth
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            legend: { display: false },
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true,
-                        userCallback: function(label, index, labels) {
-                            if (Math.floor(label) === label) return label;
-                        }
-                    }
-                }],
-            },
-            layout: {
-                padding: { top: 0, left: 0, right: 0, bottom: 0 }
-            }
-        }
-    });
-    $('#blocksChart').show();
-    displayedChart = true;
+function RunOnce() {
+    $('#blocksTabs a').click(function (e) {
+      e.preventDefault()
+      $(this).tab('show')
+    })
+    return true
 }
 
-// Parse block data
-function parseBlock(height, serializedBlock){
-    let  parts = serializedBlock.split(':');
-    let  block = {
-        height: parseInt(height),
-        hash: parts[0],
-        time: parts[1],
-        difficulty: parseInt(parts[2]),
-        shares: parseInt(parts[3]),
-        orphaned: parts[4],
-        reward: parts[5]
-    };
+poolBlocks_InitTemplate(ranOnce, displayedChart, xhrGetBlocks)
 
-    let  toGo = lastStats.config.depth - (lastStats.network.height - block.height) + 1;
-    if(toGo > 1){
-        block.maturity = toGo + ' to go';
-    } 
-    else if(toGo == 1){
-        block.maturity = "<i class='fa fa-spinner fa-spin'></i>";
-    } 
-    else if(toGo <= 0){
-        block.maturity = "<i class='fa fa-unlock-alt'></i>";
-    }
-        
-    switch (block.orphaned){
-        case '0':
-            block.status = 'unlocked';
-            block.maturity = "<i class='fa fa-unlock-alt'></i>";
-            break;
-       case '1':
-            block.status = 'orphaned';
-            block.maturity = "<i class='fa fa-times'></i>";
-            block.reward = 0;
-            break;
-        default:
-            block.status = 'pending';
-            break;
-    }
-    return block;
-}
 
-// Get block row element
-function getBlockRowElement(block, jsonString){        
-    function formatBlockLink(hash){
-        return '<a target="_blank" href="' + getBlockchainUrl(hash) + '">' + hash + '</a>';
-    }
-
-    let  blockStatusClasses = {
-        'pending': 'pending',
-        'unlocked': 'unlocked',
-        'orphaned': 'orphaned'
-    };
-    
-    let  row = document.createElement('tr');
-    row.setAttribute('data-json', jsonString);
-    row.setAttribute('data-height', block.height);
-    row.setAttribute('id', 'blockRow' + block.height);
-    row.setAttribute('title', block.status);
-    row.className = blockStatusClasses[block.status];
-                
-    let  reward = "";    
-    if(typeof block.reward == "undefined"){
-        reward = "Waiting...";
-    }
-    else{
-        reward = getReadableCoins(block.reward, null, true);
-    }
-    
-    let  columns =
-        '<td class="col1">' + formatDate(block.time) + '</td>' +
-        '<td class="col2">' + reward + '</td>' +
-        '<td class="col3">' + block.height + '</td>' +
-        '<td class="col4">' + block.difficulty + '</td>' +
-        '<td class="col5">' + formatBlockLink(block.hash) + '</td>' +
-        '<td class="col6" title="' + block.shares + ' shares submitted">' + formatLuck(block.difficulty, block.shares) + '</td>' +
-        '<td class="col7">' + block.maturity + '</td>';
-
-    row.innerHTML = columns;
-    
-    return row;
-}
-
-// Render blocks
-function renderBlocks(blocksResults){
-    let  $blocksRows = $('#blocksReport_rows');
-
-    for (let  i = 0; i < blocksResults.length; i += 2){
-        let  block = parseBlock(blocksResults[i + 1], blocksResults[i]);
-        let  blockJson = JSON.stringify(block);
-
-        let  existingRow = document.getElementById('blockRow' + block.height);
-        if (existingRow && existingRow.getAttribute('data-json') !== blockJson){
-            $(existingRow).replaceWith(getBlockRowElement(block, blockJson));
-        }
-        else if (!existingRow){
-            let  blockElement = getBlockRowElement(block, blockJson);
-
-            let  inserted = false;
-            let  rows = $blocksRows.children().get();
-            for (let  f = 0; f < rows.length; f++) {
-                let  bHeight = parseInt(rows[f].getAttribute('data-height'));
-                if (bHeight < block.height){
-                    inserted = true;
-                    $(rows[f]).before(blockElement);
-                    break;
-                }
-            }
-            if (!inserted){
-                $blocksRows.append(blockElement);
-            }
-        }
-    }
-}
-
-// Load more blocks button
-let  xhrGetBlocks;
-$('#loadMoreBlocks').click(function(){
-    if (xhrGetBlocks) xhrGetBlocks.abort();
-    xhrGetBlocks = $.ajax({
-        url: api + '/get_blocks',
-        data: {
-            height: $('#blocksReport_rows').children().last().data('height')
-        },
-        dataType: 'json',
-        cache: 'false',
-        success: function(data){
-            renderBlocks(data);
-        }
-    });
-});
 </script>
+

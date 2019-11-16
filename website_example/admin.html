@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
 
-    <title>Mining Pool Admin Panel</title>
+    <title>Arqma with PLE or XCY or TRTL Mining Pool - Admin Panel</title>
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.6.3/jquery.timeago.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.3.0/handlebars.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -20,10 +20,10 @@
     <!-- Navigation -->
     <div class="nav-side-menu">
         <div class="brand"><a href="/">Admin Panel</a></div>
-        <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>  
+        <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
         <div class="menu-list">
             <ul id="menu-content" class="menu-content collapsed out">
-        
+
                 <li><a class="hot_link" data-page="admin/statistics.html" href="#">
                     <i class="fa fa-bar-chart-o"></i> Statistics
                 </a></li>
@@ -31,15 +31,15 @@
                 <li><a class="hot_link" data-page="admin/monitoring.html" href="#monitoring">
                     <i class="fa fa-eye"></i> Monitoring
                 </a></li>
-        
+
                 <li><a class="hot_link" data-page="admin/userslist.html" href="#users_list">
                     <i class="fa fa-users"></i> Users List
                 </a></li>
-		
+
                 <li><a class="hot_link" data-page="admin/ports.html" href="#ports">
                     <i class="fa fa-link"></i> Ports Usage
                 </a></li>
-		
+
                 <li><a class="hot_link" data-page="admin/tools.html" href="#tools">
                     <i class="fa fa-gears"></i> Tools
                 </a></li>
@@ -57,7 +57,7 @@
         <div id="page"></div>
         <p id="loading" class="text-center"><i class="fa fa-circle-o-notch fa-spin"></i></p>
     </div>
-    
+
 </div>
 
 <!-- Footer -->
@@ -75,12 +75,42 @@
 <script>
 // Fetch pool statistics
 lastStats = {};
+mergedStats = {};
+let mergedApis = {};
+
 $(function() {
-    $.get(api + '/stats', function(data) {
-        lastStats = data;
-        $('#poolVersion').html(lastStats.config.version);
-        routePage();
-    });
+
+
+    let merged_apis = $.ajax({
+            url: `${api}/get_apis`,
+            dataType: 'json',
+            cache: 'false'
+        })
+
+    let poolStats = $.ajax({
+            url: `${api}/stats`,
+            dataType: 'json',
+            cache: 'false'
+        })
+
+    Promise.all([poolStats, merged_apis])
+        .then(values => {
+             lastStats = values[0]
+             mergedApis = values[1]
+	         let subs = [];
+             Object.keys(mergedApis).some(key => {
+                 let apiUrl = `${mergedApis[key].api}/stats`
+                 subs.push($.ajax({url: apiUrl, dataType: 'json', cache: 'false'}))
+             })
+		     Promise.all(subs)
+		         .then(data => {
+    			     data.forEach(item => {
+    	                 mergedStats[item.config.coin] = item
+    			     })
+                    $('#poolVersion').html(lastStats.config.version);
+                    routePage();
+		         })                          
+        })
 });
 
 function fetchLiveStats() {
@@ -97,19 +127,19 @@ function fetchLiveStats() {
     });
 }
 
-// Render template function
+
 function renderTemplate(usersData, templateId, view) {
-    var source = $(templateId).html(),
-        template = Handlebars.compile(source),
-        context = usersData,
-        html = template(context);
-    $(view).html(html);
+    let source = $(templateId).html()
+    Mustache.parse(source)
+    let rendered = Mustache.render(source, usersData)
+    $(view).append(rendered)
 }
 
 // Initialize
 $(function(){
     $("head").append("<link rel='stylesheet' href=" + themeCss + ">");
     $("head").append("<link rel='stylesheet' href=themes/admin.css>");
+    $("head").append("<link rel='stylesheet' href=themes/custom.css>");
 });
 </script>
 

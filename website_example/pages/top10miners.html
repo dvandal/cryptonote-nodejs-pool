@@ -1,68 +1,70 @@
 <!-- Top 10 miners -->
 <h3><span data-tkey="top10miners">Top 10 miners</span></h3>
-<div class="card">
-    <div id="top10miners" class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th class="col1 sort">#</th>
-                <th class="col2 sort"><span data-tkey="miner">Miner</span></th>
-                <th class="col3 sort"><span data-tkey="hashRate">Hash Rate</span></th>
-                <th class="col4 sort"><span data-tkey="lastShare">Last Share Submitted</span></th>
-                <th class="col5 sort"><span data-tkey="totalHashes">Total Hashes Submitted</span></th>
-            </tr>
-            </thead>
-            <tbody id="top10miners_rows">
-            </tbody>
-        </table>
-    </div>
+
+<ul class="nav nav-tabs" id="blocksTabs">
+</ul>
+
+<div class="tab-content" id="tab-content">
 </div>
+
+<script id="siblingTabTemplate" type="text/x-handlebars-template">
+    <li id="blockTab{{coin}}" role="presentation" class="{{active}}"><a href="#{{coin}}" data-coin="{{coin}}">{{coin}} {{symbol}}</a></li>
+</script>
+
+<script id="siblingTemplate" type="text/x-handlebars-template">
+    <div role="tabpanel" class="tab-pane {{active}}" id="{{coin}}">
+        <div class="card">
+            <div id="top10miners" class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th class="col1 sort">#</th>
+                        <th class="col2 sort"><span data-tkey="miner">Miner</span></th>
+                        <th class="col3 sort"><span data-tkey="hashRate">Hash Rate</span></th>
+                        <th class="col4 sort"><span data-tkey="lastShare">Last Share Submitted</span></th>
+                        <th class="col5 sort"><span data-tkey="totalHashes">Total Hashes Submitted</span></th>
+                    </tr>
+                    </thead>
+                    <tbody id="top10miners_rows{{coin}}">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</script>
 
 <!-- Javascript -->
 <script>
+let ranOnce = false
+let xhrGetMiners = {}
 // Update current page
 currentPage = {
-    destroy: function(){},
-    update: function(){}
+    destroy: function(){
+        if (xhrGetMiners) {
+            Object.keys(xhrGetMiners).forEach(key => {
+                if (xhrGetMiners[key])
+                    xhrGetMiners[key].abort();
+            })
+        }
+        $('#blocksTabs a').off('click')
+    },
+    update: function(updateKey){
+        let endPoint = updateKey === parentCoin ? api : mergedApis[updateKey] ? mergedApis[updateKey].api : null
+        if (endPoint) {
+           top10Miners_UpdateTop10(xhrGetMiners, endPoint, updateKey)
+        }       
+    }
 };
 
-// Get miner cells
-function getMinerCells(position, data){
-    let  miner = data.miner;
-    let  hashrate = data.hashrate ? data.hashrate : 0;
-    let  lastShare = data.lastShare ? data.lastShare : 0;
-    let  hashes = (data.hashes || 0).toString();
-    
-    return '<td class="col1" data-sort="' + position + '">' + position + '</td>' +
-           '<td class="col2" data-sort="' + miner + '">' + miner + '</td>' +
-           '<td class="col3" data-sort="' + hashrate + '">' + getReadableHashRateString(hashrate) + '/sec</td>' +
-           '<td class="col4" data-sort="' + lastShare + '">' + (lastShare ? $.timeago(new Date(parseInt(lastShare) * 1000).toISOString()) : 'Never') + '</td>' +
-           '<td class="col5" data-sort="' + hashes + '">' + hashes + '</td>';
+function RunOnce() {
+    $('#blocksTabs a').click(function (e) {
+      e.preventDefault()
+      $(this).tab('show')
+    })
+    return true
 }
 
-// Update top10 miners report
-function updateTop10() {
-    $("#top10miners_rows").empty();
 
-    let  xhrGetTOP = $.ajax({
-        url: api + '/get_top10miners',
-        data: {
-            time: $('#top10_rows').children().last().data('time')
-        },
-        dataType: 'json',
-        cache: 'false',
-        success: function(data){
-            if (!data) return;
-            for (let  i=0; i<data.length; ++i) {
-                $( "#top10miners_rows" ).append('<tr>' + getMinerCells(i+1, data[i]) + '</tr>');
-            }
-        }
-    });
-}
+top10Miners_InitTemplate(xhrGetMiners, ranOnce)
 
-// Load initial data
-updateTop10();
-
-// Start updates once per minute
-let  intervalUpdateTop10 = setInterval(updateTop10, (60*1000));
 </script>

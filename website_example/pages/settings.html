@@ -1,251 +1,82 @@
-<!-- Verification fields -->
-<h3><span data-tkey="verificationFields">Verification fields</span></h3>
-
-<div class="card padding-15 padding-b-10">
-    <p><span data-tkey="minerVerification">In order to get a little more confidence that the wallet address is yours we ask you to give one of the IP addresses that is used by your miner.</span></p>
-    <div>
-      <div id="action_update_message" role="alert" ></div>
-    </div>
-    <div class="row push-down-5">
-        <label class="col-lg-2 col-sm-3 col-form-label col-form-label-lg" for="yourAddress"><span data-tkey="minerAddress">Miner Address</span>:</label>
-        <div class="col-md-10 col-sm-9">
-            <input class="form-control" id="yourAddress" type="text" data-tplaceholder="enterYourAddress" placeholder="Enter Your Address">
-        </div>
-    </div>
-    <div class="row push-down-5">
-        <label class="col-lg-2 col-sm-3 col-form-label col-form-label-lg" for="yourIP"><span data-tkey="minerIP">Miner IP address</span>:</label>
-        <div class="col-md-4 col-sm-5">
-            <input class="form-control" id="yourIP" type="text" data-tkey="enterYourMinerIP" placeholder="An IP address your miners use (any)">
-        </div>
-    </div>
+<ul class="nav nav-tabs" id="blocksTabs">
+</ul>
+  
+<div class="tab-content" id="tab-content"> 
 </div>
 
-<!-- Minimum payout level -->
-<h3><span data-tkey="setMinimumPayout">Set your minimal payout level</span></h3>
-<div class="card padding-15 padding-b-10">
-    <p><span data-tkey="minerMinPayout">If you prefer a higher payout level than the pool's default then this is where you can change it for your miners. The amount you indicate here will become the minimum amount for pool payments to your address.</span></p>
-    <div class="row">
-        <label class="col-lg-2 col-sm-3 col-form-label col-form-label-lg" for="yourPayoutRate"><span data-tkey="minimumPayout">Minimum payout</span>:</label>
-        <div class="col-sm-2 push-down-5">
-          <input class="form-control" id="yourPayoutRate" type="number" value="">
-        </div>
-        <div class="col-sm-4 push-down-5">
-            <button class="btn btn-default" type="button" id="payoutSetButton">
-                <span><i class="fa fa-check"></i>&nbsp; <span data-tkey="set">Set</span></span>
-            </button>
-        </div>
-    </div>
-</div>
+<script id="siblingTabTemplate" type="text/x-handlebars-template">
+    <li id="blockTabs{{coin}}" role="presentation" class="{{active}}"><a href="#{{coin}}">{{coin}} {{symbol}}</a></li>
+</script>
 
-<!-- Email notifications -->
-<div id="emailNotifications">
-    <h3><span data-tkey="enableEmailNotifications">Enable email notifications</span></h3>
-    <div class="card padding-15 padding-b-10">
-        <p><span data-tkey="minerEmailNotify">This pool will send out email notification when a block is found and whenever a payout happens.</span></p>
-        <div class="row">
-            <label class="col-lg-2 col-sm-3 col-form-label col-form-label-lg" for="yourEmail"><span data-tkey="emailAddress">Email address</span>:</label>
-            <div class="col-sm-5 push-down-5">
-                <input class="form-control" id="yourEmail" type="text" data-tplaceholder="enterYourEmail" placeholder="Enter Your E-Mail Address (optional)">
+<script id="siblingTemplate" type="text/x-handlebars-template">
+    <div role="tabpanel" class="tab-pane {{active}}" id="{{coin}}">
+                <!-- Verification fields -->
+        <h3><span data-tkey="verificationFields">Verification fields</span></h3>
+
+        <div class="card padding-15 padding-b-10">
+            <p><span data-tkey="minerVerification">In order to get a little more confidence that the wallet address is yours we ask you to give one of the worker names that is used by your miner.</span></p>
+            <div>
+            <div id="action_update_message{{coin}}" role="alert" ></div>
             </div>
-            <div class="col-sm-4 push-down-5">
-                <button class="btn btn-success" type="button" id="enableButton">
-                    <span><i class="fa fa-check"></i>&nbsp; <span data-tkey="enable">Enable</span></span>
-                </button>
-                <button class="btn btn-danger" type="button" id="disableButton">
-                    <span><i class="fa fa-ban"></i>&nbsp; <span data-tkey="disable">Disable</span></span>
-                </button>
+            <div class="row push-down-5">
+                <label class="col-lg-2 col-sm-3 col-form-label col-form-label-lg" for="yourAddress"><span data-tkey="minerAddress">Miner Address:</span>:</label>
+                <div class="col-md-10 col-sm-9">
+                    <input class="form-control" id="yourAddress{{coin}}" type="text" data-tplaceholder="enterYourAddress" placeholder="Enter your address">
+                </div>
+            </div>
+            <div class="row push-down-5">
+                <label class="col-lg-2 col-sm-3 col-form-label col-form-label-lg" for="yourIP"><span data-tkey="minerIP">Miner IP Address::</span>:</label>
+                <div class="col-md-4 col-sm-5">
+                    <input class="form-control" id="yourIP{{coin}}" type="text" data-tkey="enterYourMinerIP" placeholder="An IP address your miners use (any)">
+                </div>
             </div>
         </div>
+
+        <!-- Minimum payout level -->
+        <h3><span data-tkey="setMinimumPayout">Set your minimal payout level</span></h3>
+        <div class="card padding-15 padding-b-10">
+            <p><span data-tkey="minerMinPayout">If you prefer a higher payout level than the pool's default then this is where you can change it for your miners. The amount you indicate here will become the minimum amount for pool payments to your address.</span></p>
+            <div class="row">
+                <label class="col-lg-2 col-sm-3 col-form-label col-form-label-lg" for="yourPayoutRate"><span data-tkey="minimumPayout">Minimum payout</span>:</label>
+                <div class="col-sm-2 push-down-5">
+                <input class="form-control" id="yourPayoutRate{{coin}}" type="number" value="">
+                </div>
+                <div class="col-sm-4 push-down-5">
+                    <button class="btn btn-default" type="button" id="payoutSetButton{{coin}}">
+                        <span><i class="fa fa-check"></i>&nbsp; <span data-tkey="set">Set</span></span>
+                    </button>
+                </div>
+            </div>
+        </div>      
     </div>
-</div>
+</script>
 
 <script>
+
+let ranOnce = false
 // Update current page
 currentPage = {
-    destroy: function(){},
-    update: function(){
-	if (!lastStats.config.sendEmails) $('#emailNotifications').hide();
+    destroy: function(){
+        Object.keys(mergedApis).forEach(key => {
+            $(`#payoutSetButton${key}`).off('click')
+            $(`#enableButton${key}`).off('click')
+            $(`#disableButton${key}`).off('click')
+        })
+        $('#blocksTabs a').off('click')
+    },
+    update: function(updateKey){
+        
     }
 };
 
-// Set current address and load initial values
-let  address = getCurrentAddress();
-if (address){
-    $('#yourAddress').val(address);
-    getPayoutLevel(address);
-    getEmailAddress(address);
+function RunOnce() {
+    $('#blocksTabs a').click(function (e) {
+      e.preventDefault()
+      $(this).tab('show')
+    })
+    return true
 }
 
-/**
- * Error Message
- **/
-function showError(id, message, extra) {
-    if (getTranslation(id)) message = getTranslation(id);
-    message = message.trim();
-    if (extra) message += ' ' + extra;
-    $('#action_update_message').text(message);
-    $('#action_update_message').removeClass().addClass('alert alert-danger');
-}
+settings_InitTemplate(ranOnce)
 
-/**
- * Success Message
- **/
-function showSuccess(id, message) {
-    if (getTranslation(id)) message = getTranslation(id);
-    $('#action_update_message').text(message);
-    $('#action_update_message').removeClass().addClass('alert alert-success');
-}
-
-/**
- * Payout level
- **/
-
-// Get current payout level
-function getPayoutLevel(address) {
-    if (!address || address == '') return;
-    
-    $.ajax({
-        url: api + '/get_miner_payout_level',
-        data: {
-            address: address
-        },
-        dataType: 'json',
-        cache: 'false'
-    }).done(function(data){
-        if (data.level != undefined) {
-            $('#yourPayoutRate').val(data.level);
-        }
-    });
-} 
-
-// Set payout level
-function setPayoutLevel(address, ip, level) {
-    $.ajax({
-        url: api + '/set_miner_payout_level',
-        data: {
-            address: address,
-            ip: ip,
-            level: level
-        },
-        dataType: 'json',
-        cache: 'false'
-    }).done(function(data){
-        if (data.status == 'done') {
-            showSuccess('minerPayoutSet', 'Done! Your minimum payout level was set');
-        } else {
-            showError('error', 'Error:', data.status);
-        }
-    });
-}
-
-// Handle click on Set button
-$('#payoutSetButton').click(function(){
-    let  address = $('#yourAddress').val().trim();
-    if (!address || address == '') {
-        showError('noMinerAddress', 'No miner address specified');
-        return;
-    }
-
-    let  ip = $('#yourIP').val().trim();
-    if (!ip || ip == '') {
-        showError('noMinerIP', 'No miner IP address specified');
-        return;
-    }
-
-    let  level = $('#yourPayoutRate').val().trim();
-    if (!level || level < 0) {
-        showError('noPayoutLevel', 'No payout level specified');
-        return;
-    }
-
-    setPayoutLevel(address, ip, level);
-});
-
-/**
- * Email Notifications
- **/
-
-// Check if specified value is a valid email
-function isEmail(email) {
-    let  regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-    return regex.test(email);
-}
-
-// Get current email address for notifications
-function getEmailAddress(address) {
-    if (!address || address == '') return;
-    
-    $.ajax({
-        url: api + '/get_email_notifications',
-        data: {
-            address: address
-        },
-        dataType: 'json',
-        cache: 'false'
-    }).done(function(data){
-        if (data.email != undefined) {
-            $('#yourEmail').val(data.email);
-        }
-    });
-}
-    
-// Set email address for notifications
-function setEmailNotifications(email, address, ip, enable) {
-    if (!address || address == '') {
-        showError('noMinerAddress', 'No miner address specified');
-        return;
-    }
-
-    if (!ip || ip == '') {
-        showError('noMinerIP', 'No miner IP address specified');
-        return;
-    }
-
-    if (enable && !email) {
-        showError('noEmail', 'No email address specified');
-        return;
-    }
-    if (enable && !isEmail(email)) {
-        showError('invalidEmail', 'Invalid email address specified');
-        return;
-    }
-
-    $.ajax({
-        url: api + '/set_email_notifications',
-        data: {
-            address: address,
-            ip: ip,
-            email: email,
-            action: enable ? 'enable' : 'disable'
-        },
-        dataType: 'json',
-        cache: 'false'
-    }).done(function(data){
-        if (data.status == "done") {
-            if (enable) {
-                showSuccess('notificationEnabled', 'Done! Email notifications have been enabled');
-        } else {
-                showSuccess('notificationDisabled', 'Done! Email notifications have been disabled');
-            }
-        } else {
-            showError('error', 'Error:', data.status);
-        }
-    });
-}
-
-// Handle click on Enable button
-$('#enableButton').click(function(){
-    let  address = $('#yourAddress').val().trim();
-    let  ip = $('#yourIP').val().trim();
-    let  email = $('#yourEmail').val();
-    setEmailNotifications(email, address, ip, true);
-});
-
-// Handle click on Disable button
-$('#disableButton').click(function(){
-    let  address = $('#yourAddress').val().trim();
-    let  ip = $('#yourIP').val().trim();
-    let  email = $('#yourEmail').val();
-    setEmailNotifications(email, address, ip, false);
-});
 </script>

@@ -49,8 +49,9 @@
     "difficulty": "Сложность",
     "blockHash": "Хеш блока",
     "effort": "Усилие",    
-    "blocksFoundLast24": "Blocks found in the last 24 hours",
-    "blocksFoundLastDays": "Blocks found in the last {DAYS} days",
+    "blocksFoundLast24": "Блоки найдены за последние 24 часа",
+    "blocksFoundLastDays": "Блоки найдены за последние {DAYS} дней",
+    "propSoloConnectedMiners": "PROP / SOLO Подключенные шахтеры",
 
     "payments": "Платежи",
     "paymentsHistory": "История платежей",

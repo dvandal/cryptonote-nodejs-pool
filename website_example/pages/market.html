@@ -1,339 +1,151 @@
+<ul class="nav nav-tabs" id="blocksTabs">
+</ul>
+
+<div class="tab-content" id="tab-content">
+</div>
+
+<div class="row" id="calculator">
+</div>
+
+<script id="siblingTabTemplate" type="text/x-handlebars-template">
+    <li id="blockTabs{{coin}} role="presentation" class="{{active}}"><a href="#{{coin}}">{{coin}} {{symbol}}</a></li>
+</script>
+
 <!-- Market -->
-<div id="marketStats" class="row">
-    <div id="marketInfos" class="clearfix"><div class="col-xs-12"><span class="fa fa-spinner fa-spin"></span> <span data-tkey="loadingMarket">Loading market prices</span> ...</div></div>
+<script id="siblingMarketTemplate" type="text/x-handlebars-template">
+    <div role="tabpanel" class="tab-pane {{active}}" id="{{coin}}">
+        <div id="marketStats{{coin}}" class="row">
+            <div id="marketInfos{{coin}}" class="clearfix marketInfos"><div class="col-xs-12"><span class="fa fa-spinner fa-spin"></span> <span data-tkey="loadingMarket">Loading market prices</span> ...</div></div>
 
-    <div class="col-sm-6 marketChart push-down-15">
-        <div class="card">
-            <h4><span data-tkey="priceIn">Price in</span> <span id="priceChartCurrency">USD</span></h4>
-            <div class="chart">
-                <canvas id="chart_price"></canvas>
-                <a class="chart-style"></a>
+            <div class="col-sm-6 marketChart push-down-15">
+                <div class="card">
+                    <h4><span data-tkey="priceIn">Price in</span> <span id="priceChartCurrency{{coin}}">USD</span></h4>
+                    <div class="chart" style="height:120px;">
+                        <canvas id="chart{{coin}}_price"></canvas>
+                        <a class="chart-style"></a>
+                    </div>
+                </div>        
             </div>
-        </div>        
-    </div>
-    <div class="col-sm-6 marketChart push-down-15">
-        <div class="card">
-            <h4><span data-tkey="hashPer">Hash/</span><span id="profitChartCurrency">USD</span> <span data-toggle="tooltip" data-placement="top" data-original-title="Reward * Rate / Difficulty"><i class="fa fa-question-circle"></i></span></h4>
-            <div class="chart">
-                <canvas id="chart_profit"></canvas>
-                <a class="chart-style"></a>
+            <div class="col-sm-6 marketChart push-down-15">
+                <div class="card">
+                    <h4><span data-tkey="hashPer">Hash/</span><span id="profitChartProfit{{coin}}">USD</span> <span data-toggle="tooltip" data-placement="top" data-original-title="Reward * Rate / Difficulty"><i class="fa fa-question-circle"></i></span></h4>
+                    <div class="chart" style="height:120px;">
+                        <canvas id="chart{{coin}}_profit"></canvas>
+                        <a class="chart-style"></a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
-    
-<!-- Mining Profit Calculator -->
-<div id="miningProfitCalc">
-    <h3><span data-tkey="estimateProfit">Estimate Mining Profits</span></h3>
-    <div id="calcHashHolder">
-        <div class="input-group">
-            <input class="form-control" id="calcHashRate" data-tplaceholder="enterYourHashrate" placeholder="Enter Your Hash Rate" type="number">
-            <div class="input-group-btn">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="calcHashDropdown">
-                    <span id="calcHashUnit" data-mul="1">KH/s</span> <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-right" role="menu" id="calcHashUnits">
-                    <li><a href="#" data-mul="0">H/s</a></li>
-                    <li><a href="#" data-mul="1">KH/s</a></li>
-                    <li><a href="#" data-mul="2">MH/s</a></li>
-                </ul>
+</script>
+
+<script id="siblingCalculatorTemplate" type="text/x-handlebars-template">    
+    <!-- Mining Profit Calculator -->
+    <div id="miningProfitCalc{{coin}}">
+        <h3><span data-tkey="estimateProfit">Estimate Mining Profits</span></h3>
+        <div id="calcHashHolder">
+            <div class="input-group">
+                <input class="form-control" id="calcHashRate" data-tplaceholder="enterYourHashrate" placeholder="Enter Your Hash Rate" type="number">
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="calcHashDropdown">
+                        <span id="calcHashUnit" data-mul="1">KH/s</span> <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu" id="calcHashUnits">
+                        <li><a href="#" data-mul="0">H/s</a></li>
+                        <li><a href="#" data-mul="1">KH/s</a></li>
+                        <li><a href="#" data-mul="2">MH/s</a></li>
+                    </ul>
+                </div>
+                <span class="input-group-addon">=</span>
             </div>
-            <span class="input-group-addon">=</span>
-            <span class="input-group-addon" id="calcHashResultsHolder"><div id="calcHashAmount"><span id="calcHashAmount1"></span><br/><span id="calcHashAmount2"></span></div> <div id="calcHashPeriod"> <span data-tkey="perDay">per day</span></div></span>
         </div>
     </div>
-</div>
+</script>
 
-<div id="test"></div>
+<script id="calcHashResultTemplate" type="text/x-handlebars-template">
+    <span class="input-group-addon" id="calcHashResultsHolder{{coin}}"><div id="calcHashAmount{{coin}}"><span id="calcHashAmount{{coin}}1"></span><br/><span id="calcHashAmount{{coin}}2"></span></div> <div id="calcHashPeriod{{coin}}"><span data-tkey="perDay">per day</span></div></span>
+</script>
+
 
 <!-- Javascript -->
 <script>
 // Market settings
-let  priceSource = 'cryptonator';
-let  priceCurrency = 'USD';
+let priceSource = 'cryptonator';
+let priceCurrency = 'USD';
 
 if (typeof cryptonatorWidget !== 'undefined' && typeof marketCurrencies === 'undefined') {
-    let  marketCurrencies = cryptonatorWidget;
+    let marketCurrencies = cryptonatorWidget;
 }
 
 // Charts initialized
-let  chartsInitialized = false;
-let  intervalChartsUpdate;
-
+let chartsInitialized = {}
+let loadedData = {}
+let intervalChartsUpdate = {}
+let ranOnce = false
+let xhrMarketGets = {}
+let marketPrices = {}
+let currencyPairs = {}
 // Update current page
 currentPage = {
     destroy: function(){
         if (chartsInitialized) {
-            chartsInitialized = false;
-            clearInterval(intervalChartsUpdate);
+            Object.keys(chartsInitialized).forEach(key => {
+                chartsInitialized[key] = false;
+                clearInterval(intervalChartsUpdate[key]);
+            })
         }
+        if (xhrMarketGets) {
+            Object.keys(xhrMarketGets).forEach(key => {
+                if (xhrMarketGets[key])
+                    xhrMarketGets[key].abort();
+            })
+        }
+
+        $('#blocksTabs a').off('click')
+        $('#calcHashUnits > li > a').off('click')
+        $('#calcHashRate').off('keyup')
     },
-    update: function(){
-        priceSource = lastStats.config.priceSource || 'cryptonator';
-        priceCurrency = lastStats.config.priceCurrency || 'USD';
-	
-        updateText('priceChartCurrency', priceCurrency);
-        updateText('profitChartCurrency', priceCurrency);
-	
-        loadMarketData();
-        calcEstimateProfit();
-	
-        if (lastStats.charts && !chartsInitialized) {
-            intervalChartsUpdate = setInterval(createCharts, 60*1000);
-            createCharts();
-            chartsInitialized = true;
-        }	
+    update: function(updateKey){
+
     }
 };
+
+function RunOnce() {
+
+    /**
+     * Hash Profitability Calculator
+     **/
+     
+    // Automatically update profit calculation on key press
+    $('#calcHashRate')
+        .keyup((e) => {
+                market_CalcEstimateProfit(marketPrices)
+        })
+        .change((e) => {
+                market_CalcEstimateProfit(marketPrices)
+        })
+
+
+    // Click on button
+    $('#calcHashUnits > li > a').click(function(e){
+        e.preventDefault();
+        $('#calcHashUnit').text($(this).text()).data('mul', $(this).data('mul'));
+        market_CalcEstimateProfit(marketPrices);
+    });
+
+    $('#blocksTabs a').click(function (e) {
+      e.preventDefault()
+      $(this).tab('show')
+    })
+    return true
+}
 
 // Handle tooltip
 $(function() {
     $('[data-toggle="tooltip"]').tooltip();
 });
 
-/**
- * Market prices
- **/
- 
-let  marketPrices = {};
-let  xhrMarketGets;
 
-// Load initial market data
-let  loadedData = false;
-function loadMarketData() {
-    if (loadedData) return ;
-        
-    if (typeof marketCurrencies !== 'undefined' && marketCurrencies.length > 0){
-        let  intervalMarketPolling = setInterval(updateMarkets, 300000);
-        updateMarkets();
-    } else {
-        $('#marketInfos').hide();
-    }
-    
-    loadedData = true;
-}
-    
-// Market data polling (poll data every 5 minutes)
-function updateMarkets(){
-    if (typeof marketCurrencies === 'undefined' || marketCurrencies.length === 0) return ;
+market_InitTemplate(ranOnce, chartsInitialized, loadedData, marketPrices, intervalChartsUpdate, currencyPairs, xhrMarketGets)
 
-    for (let  i = 0; i < marketCurrencies.length; i++){
-        marketCurrencies[i] = marketCurrencies[i].replace('{symbol}', lastStats.config.symbol).toUpperCase();
-    }
-
-    xhrMarketGets = $.ajax({
-        url: api + '/get_market',
-        data: { tickers: marketCurrencies },
-        dataType: 'json',
-        cache: 'false',
-        success: function(data) {
-            if (!data || data.length === 0) {
-                $('#marketInfos').hide();
-                return;
-            }
-
-            $('#marketInfos').empty();
-            for (let  i in data) {
-                if (!data[i] || !data[i].ticker) continue;
-                let  ticker = data[i].ticker;
-                let  tickerParts = ticker.split('-');
-                let  tickerBase = tickerParts[0] || null;
-                let  tickerTarget = tickerParts[1] || null;
-
-                let  price  = data[i].price;
-                if (!price || price === 0) continue;
-
-                let  dataSource = data[i].source;
-
-                renderMarketPrice(tickerBase, tickerTarget, price, dataSource);
-            }
-            $('#marketInfos').show();
-	},
-        error: function() {
-            $('#marketInfos').hide();
-        }
-    });
-}
-
-// Render market price
-function renderMarketPrice(base, target, price, source) {
-    let  icon = 'fa-money';
-    if (target == 'BTC') icon = 'fa-btc';
-    if (target == 'BCH') icon = 'fa-btc';
-    if (target == 'USD') icon = 'fa-dollar';
-    if (target == 'CAD') icon = 'fa-dollar';
-    if (target == 'EUR') icon = 'fa-eur';
-    if (target == 'GBP') icon = 'fa-gbp';
-    if (target == 'JPY') icon = 'fa-jpy';
-            
-    if (base == lastStats.config.symbol.toUpperCase()) {
-        marketPrices[target] = price;
-    }
-
-    if (target == 'USD' || target == 'CAD' ||  target == 'EUR' || target == 'GBP' || target == 'JPY') {
-        price = price.toFixed(4);
-    } else {
-        price = price.toFixed(8);
-    }
-
-    let  sourceURL = null;
-    if (source == 'cryptonator') sourceURL = 'https://www.cryptonator.com/';
-    else if (source == 'altex') sourceURL = 'https://altex.exchange/';
-    else if (source == 'crex24') sourceURL = 'https://crex24.com/';
-    else if (source == 'cryptopia') sourceURL = 'https://www.cryptopia.co.nz/';
-    else if (source == 'stocks.exchange') sourceURL = 'https://stocks.exchange/';
-    else if (source == 'tradeogre') sourceURL = 'https://tradeogre.com/';
-
-    source = source.charAt(0).toUpperCase() + source.slice(1);
-    if (sourceURL) source = '<a href="'+sourceURL+'" target="_blank" rel="nofollow">'+source+'</a>';
-
-    $('#marketInfos').append(
-        '<div class="col-lg-3 col-md-4 col-sm-6 marketTicker"><div class="infoBox hoverExpandEffect">' +
-	    '<div class="icon"><span class="fa '+ icon + '"></span></div>' +
-	    '<div class="content">' + 
-                '<div class="text">' + base + ' to ' + target + '</div>' +
-                '<div class="value">' + price + '</div>' +
-		'<div class="source">Source: ' + source + '</div>' +
-	    '</div>' +
-        '</div>'
-    );
-}
-
-/**
- * Market Charts
- **/
-
-// Create charts
-function createCharts() {
-    if (!lastStats || !lastStats.charts) return ;
-    let  data = lastStats.charts;
-
-    let  graphData = {
-        price: getGraphData(data.price),
-        profit: getGraphData(data.profit)
-    };
-
-    for(let  graphType in graphData) {
-        if (graphData[graphType].values.length > 1) {
-            let  $chart = $('#chart_'+graphType);
-            let  bgcolor = null, bordercolor = null, borderwidth = null;
-            let  colorelem = $chart.siblings('a.chart-style');
-            if (colorelem.length == 1) {
-                bgcolor = colorelem.css('background-color');
-                bordercolor = colorelem.css('border-left-color');
-                borderwidth = parseFloat(colorelem.css('width'));
-            }
-            if (bgcolor === null) bgcolor = 'rgba(3, 169, 244, .4)';
-            if (bordercolor === null) bordercolor = '#03a9f4';
-            if (borderwidth === null || isNaN(borderwidth)) borderwidth = 1;
-            let  chartObj = new Chart(document.getElementById('chart_'+graphType), {
-                type: 'line',
-                data: {
-                    labels: graphData[graphType].names,
-                    datasets: [{
-                        data: graphData[graphType].values,
-                        dataType: graphType,
-                        fill: true,
-                        backgroundColor: bgcolor,
-                        borderColor: bordercolor,
-                        borderWidth: borderwidth
-                    }]
-                },
-                options: {
-                    animation: false,
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    legend: { display: false },
-                    elements: { point: { radius: 0, hitRadius: 10, hoverRadius: 5 } },
-                    scales: {
-                        xAxes: [{
-                            display: false,
-                            ticks: { display: false },
-                            gridLines: { display: false }
-                        }],
-                        yAxes: [{
-                            display: false,
-                            ticks: {
-                                display: false,
-                                beginAtZero: true,
-                                userCallback: function(label, index, labels) {
-                                    if (Math.floor(label) === label) return label;
-                                }
-                            },
-                            gridLines: { display: false }
-                        }]
-                    },
-                    layout: {
-                        padding: { top: 5, left: 10, right: 10, bottom: 10 }
-                    },
-                    tooltips: {
-                        callbacks: {
-                            label: function(tooltipItem, data) {
-                                let  dataType = data.datasets[tooltipItem.datasetIndex].dataType || '';
-                                let  label = tooltipItem.yLabel;
-                                if (dataType == 'price') label = parseFloat(tooltipItem.yLabel).toFixed(4);
-                                else if (dataType == 'profit') label = parseFloat(tooltipItem.yLabel).toFixed(10);
-                                return ' ' + label;
-                            }
-                        }
-                    }
-                }
-            });
-            $chart.closest('.marketChart').show();
-        }
-    }
-}
-
-// Get chart data
-function getGraphData(rawData) {
-    let  graphData = {
-        names: [],
-        values: []
-    };
-    if(rawData) {
-        for (let  i = 0, xy; xy = rawData[i]; i++) {
-            graphData.names.push(new Date(xy[0]*1000).toLocaleString());
-            graphData.values.push(xy[1]);
-        }
-    }
-    return graphData;
-}
-
-/**
- * Hash Profitability Calculator
- **/
- 
-// Automatically update profit calculation on key press
-$('#calcHashRate').keyup(calcEstimateProfit).change(calcEstimateProfit);
-
-// Click on button
-$('#calcHashUnits > li > a').click(function(e){
-    e.preventDefault();
-    $('#calcHashUnit').text($(this).text()).data('mul', $(this).data('mul'));
-    calcEstimateProfit();
-});
-
-// Calculate current estimation
-function calcEstimateProfit(){
-    try {
-        let  rateUnit = Math.pow(1000,parseInt($('#calcHashUnit').data('mul')));
-        let  hashRate = parseFloat($('#calcHashRate').val()) * rateUnit;
-        let  profit = (hashRate * 86400 / lastStats.network.difficulty) * lastStats.lastblock.reward;
-        if (profit) {
-            updateText('calcHashAmount1', getReadableCoins(profit));
-            updateText('calcHashAmount2', getCurrencyPriceText(profit));
-            return;
-        }
-    }
-    catch(e){ }
-    updateText('calcHashAmount1', '');
-    updateText('calcHashAmount2', '');
-}
-
-// Get price in specified currency
-function getCurrencyPriceText(coinsRaw) {    
-    if (!priceCurrency || !marketPrices || !marketPrices[priceCurrency]) return ;    
-    let  priceInCurrency = (Math.trunc(getReadableCoins(coinsRaw, 2, true) * marketPrices[priceCurrency] * 100) / 100);
-    return  priceInCurrency + ' ' + priceCurrency;
-}
 </script>

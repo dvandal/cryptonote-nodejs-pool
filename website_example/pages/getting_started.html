@@ -13,16 +13,19 @@
         <div class="card padding-l-10 padding-r-10">
             <div class="stats">
                 <div><i class="fa fa-key"></i> <span data-tkey="usernameDesc">This is your wallet address</span></div>
-                <div id="paymentId"><i class="fa fa-exchange"></i> <span data-tkey="paymentId">Exchange Payment ID</span>: <span><u data-tkey="address">address</u><span id="paymentIdSeparator">.</span><u data-tkey="addrPaymentId">paymentID</u></span></div>
-                <div id="fixedDiff"><i class="fa fa-wrench"></i> <span data-tkey="fixedDiff">Difficulty locking</span>: <span><u data-tkey="address">address</u><span id="fixedDiffSeparator">+</span><u data-tkey="addrDiff">diff</u></span></div>
+                <div id="paymentId"><i class="fa fa-exchange"></i> <span data-tkey="paymentId">Exchange Payment ID</span>: <span><u data-tkey="parentaddress">parent address</u><span id="paymentIdSeparator">.</span><u data-tkey="addrPaymentId">paymentID</u></span></div>
+                <div id="fixedDiff"><i class="fa fa-wrench"></i> <span data-tkey="fixedDiff">Difficulty locking</span>: <span><u data-tkey="parentaddress">parent address</u><span id="fixedDiffSeparator">+</span><u data-tkey="addrDiff">diff</u></span></div>
             </div>
         </div>
-	    
+
         <h4 class="push-up-15"><span data-tkey="password">Password</span></h4>
         <div class="card padding-l-10 padding-r-10">
-            <div class="stats">
-                <div><i class="fa fa-server"></i> <span data-tkey="passwordDesc">This is your worker name</span></div>
-            </div>
+                <div class="stats">
+                    <div><i class="fa fa-key"></i> <span data-tkey="usernameDesc2">Use your <strong  id="paymentChildCoins">Iridium OR Nibble wallet address</strong> in the password field for merged mining.</span></div>
+                    <div id="paymentId"><i class="fa fa-exchange"></i> <span data-tkey="paymentId">Exchange Payment ID</span>: <span><u data-tkey="childaddress">child address</u><span id="paymentIdSeparator">+</span><u data-tkey="addrPaymentId">paymentID</u></span></div>
+                    <div><i class="fa fa-server"></i> <span data-tkey="fixedDiff2">Worker Name</span>: <span><u data-tkey="childaddress">child-address</u><span id="fixedDiffSeparator2">@</span><u data-tkey="addrDiff2">workerName</u></span></div>
+                    <div><i class="fa fa-exchange fa-server"></i> <span data-tkey="fixedDiff2PaymentId">Payment ID and Worker Name</span>: <span><u data-tkey="childaddress">child-address</u>+<u data-tkey="">paymentID</u><span id="fixedDiffSeparator2">@</span><u data-tkey="addrDiff2">workerName</u></span></div>
+                </div>
         </div>
     </div>
 
@@ -60,10 +63,23 @@
 <div class="card padding-15">
     <p><span data-tkey="configGeneratorDesc">Generate your custom configuration to mine on our pool</span></p>
     <div id="configGenerator" class="row">
-        <div class="col-md-12">
+        <div class="col-sm-3 col-xs-8">
             <div class="input-group push-down-5">
                 <span class="input-group-addon"><i class="fa fa-link"></i></span>
                 <select class="form-control" id="gMiningPort"></select>
+            </div>
+        </div>
+        <div class="col-sm-3 col-xs-4">
+            <div class="input-group push-down-5">
+                <span style="white-space: nowrap;">Solo Mining
+                    <label><input type="checkbox" name="solo" id="gSolo" value="1" title="Check if want to mine both pools solo"></label>
+                </span>
+           </div>
+        </div>
+        <div class="col-sm-6 col-xs-12">
+            <div class="input-group push-down-5">
+                <span class="input-group-addon"><i class="fa fa-server"></i></span>
+                <input class="form-control" id="gWorkerName" data-tplaceholder="workerNameField" type="text" placeholder="Worker_Name" /> 
             </div>
         </div>
         <div class="col-sm-6 col-xs-12">
@@ -75,13 +91,19 @@
         <div class="col-sm-6 col-xs-12">
             <div class="input-group push-down-5">
                 <span class="input-group-addon"><i class="fa fa-exchange"></i></span>
-                <input class="form-control" id="gPaymentID" type="text" data-tplaceholder="paymentIdField" placeholder="Payment ID for exchanges (optional)" />
+                <input class="form-control" id="gPaymentID" type="text" data-tplaceholder="paymentIdField" placeholder="Parent Payment ID for exchanges (optional)" />
             </div>
         </div>
         <div class="col-sm-6 col-xs-12">
             <div class="input-group push-down-5">
-                <span class="input-group-addon"><i class="fa fa-server"></i></span>
-                <input class="form-control" id="gWorkerName" data-tplaceholder="workerNameField" type="text" placeholder="Worker_Name" /> 
+                <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                <input class="form-control" id="gChildAddress" type="text" data-tplaceholder="childAddressField" placeholder="Child Address" required="required" />
+            </div>
+        </div>
+        <div class="col-sm-6 col-xs-12">
+            <div class="input-group push-down-5">
+                <span class="input-group-addon"><i class="fa fa-exchange"></i></span>
+                <input class="form-control" id="gChildPaymentID" type="text" data-tplaceholder="childPaymentIdField" placeholder="Child Payment ID for exchanges (optional)" />
             </div>
         </div>
         <div class="col-sm-6 col-xs-12">
@@ -91,7 +113,7 @@
             </div>
         </div>
         <div class="col-md-12 push-up-5">
-            <input id="generateConf" type="submit" data-tvalue="generateConfig" value="Generate configuration" class="btn btn-default"  data-toggle="collapse" href="#xmrstak" />
+            <input id="generateConf" type="submit" tvalue="generateConfig" value="Generate configuration" class="btn btn-default"  data-toggle="collapse" href="#xmrstak" />
         </div>
     </div>
 </div>
@@ -127,8 +149,8 @@
     {
         "pool_address": "<span class="exampleHost">POOL_HOST</span>:<span class="examplePort">PORT</span>",
         "wallet_address": "<span class="exampleLogin">YOUR_WALLET_ADDRESS</span>",
-        "rig_id": "<span class="examplePassword">YOUR_WORKER_NAME</span>",
-        "pool_password": "x",
+        "rig_id": "",
+        "pool_password": /* Solo Mining set [solo:] */"<span class="examplePassword">YOUR_WORKER_NAME</span>",
         "use_nicehash": false,
         "use_tls": false, /* Set to true if you are using an SSL port */
         "tls_fingerprint": "",
@@ -145,7 +167,7 @@
             <tr class="appInfo">
                 <td class="miningAppTitle">XMRig</td>
                 <td>CPU</td>
-                <td>Lightweight but powerful CPU Mining App</td>
+                <td>Ligthweight but powerful CPU Mining App</td>
                 <td><a class="btn btn-success" target="_blank" href="https://github.com/xmrig/xmrig/releases/latest"><span data-tkey="download">Download</span></a></td>
                 <td><a class="btn btn-default" role="button" data-toggle="collapse" href="#xmrig" aria-expanded="true" aria-controls="collapseExample"><span data-tkey="showConfig">See more</span></a></td>
             </tr>
@@ -160,7 +182,8 @@
         "pass": "<span class="examplePassword">YOUR_WORKER_NAME</span>",
         "keepalive": true,
         "nicehash": false,
-        "variant": <span class="xmrigAlgo">0</span>
+        "variant": "trtl",
+        "algo": "cryptonight-pico/trtl"
     }
 ],</code></pre>
 
@@ -187,7 +210,8 @@
         "pass": "<span class="examplePassword">YOUR_WORKER_NAME</span>"
         "keepalive": true,
         "nicehash": false,
-        "variant": <span class="xmrigAlgo">0</span>
+        "variant": "trtl",
+        "algo": "cryptonight-pico/trtl"
     }
 ],</code></pre>
 
@@ -213,8 +237,9 @@
         "user": "<span class="exampleLogin">YOUR_WALLET_ADDRESS</span>",
         "pass": "<span class="examplePassword">YOUR_WORKER_NAME</span>"
         "keepalive": true,
-        "nicehash": false,
-        "variant": <span class="xmrigAlgo">0</span>
+        "nicehash": false
+        "variant": "trtl",
+        "algo": "cryptonight-pico/trtl"
     }
 ],</code></pre>
 
@@ -240,76 +265,33 @@
         "user": "<span class="exampleLogin">YOUR_WALLET_ADDRESS</span>",
         "pass": "<span class="examplePassword">YOUR_WORKER_NAME</span>",
         "keepalive": true,
-        "nicehash": false
+        "nicehash": false,
+        "algo": "cryptonight-ultralite",
+        "pow-variant": "2"
     },
 ],</code></pre>
 
                     </div>
                 </td>
             </tr>
-		    
-	    <!-- SRBMiner -->
+
+                    <!-- Team Red Miner -->
             <tr class="appInfo">
-                <td class="miningAppTitle">SRBMiner Cryptonight AMD GPU Miner</td>
-                <td>OpenCL (AMD)</td>
-                <td>XMRIG version for AMD GPU</td>
-                <td><a class="btn btn-success" target="_blank" href="https://bitcointalk.org/index.php?topic=3167363.0"><span data-tkey="download">Download</span></a></td>
-                <td><a class="btn btn-default" role="button" data-toggle="collapse" href="#srbminer" aria-expanded="true" aria-controls="collapseExample"><span data-tkey="showConfig">See more</span></a></td>
+                <td class="miningAppTitle">Team Red Miner</td>
+                <td>GPU</td>
+                <td>AMD GPU Optimized Cryptocurrency Miner</td>
+                <td><a class="btn btn-success" target="_blank" href="https://github.com/todxx/teamredminer/releases/latestt"><span data-tkey="download">Download</span></a></td>
+                <td><a class="btn btn-default" role="button" data-toggle="collapse" href="#teamRedMiner" aria-expanded="true" aria-controls="collapseExample"><span data-tkey="showConfig">See more</span></a></td>
             </tr>
             <tr class="appConfig">
                 <td colspan="5">
-                    <div class="collapse" id="srbminer">
-		
-<pre><code>
-{
-/* Type can be : normal, lite, heavy  */
-"cryptonight_type" : "heavy",
+                    <div class="collapse" id="teamRedMiner">
+<pre><code>teamredminer.ext -a cnv8 trtle -o stratum+tcp//<span class="exampleHost">POOL_HOST</span>:<span class="examplePort">PORT</span> -u "<span class="exampleLogin">YOUR_WALLET_ADDRESS</span>" -p "<span class="examplePassword">YOUR_WORKER_NAME</span>" 
+</code></pre>
 
-/* Intensity 0-> auto intensity, or value from 1-200  */
-"intensity" : 0,
-
-/* To use 2 threads per card set double_threads to true  */
-"double_threads" : false,
-
-/* Gpu target temperature, leave it on 0 if you don't want to use this option  */
-"target_temperature" : 0,
-
-/* If you use a SSL/TLS encrypted pool set this to true*/
-"pool_use_tls" : false,
-
-/* Mining pool address WITHOUT the stratum+tcp:// or stratum+tls:// part  */
-"pool" : "<span class="exampleHost">POOL_HOST</span>:<span class="examplePort">PORT</span>",
-
-/* Address of you wallet  */
-"wallet" : "<span class="exampleLogin">YOUR_WALLET_ADDRESS</span>",
-
-/* Password for your wallet, probably just x  */
-"password" : "<span class="examplePassword">YOUR_WORKER_NAME</span>",
-
-/* Location for devfee servers, to get better latency  */
-"location" : "europe",
-
-/* If you want to log console output, put a filename here  */
-"log_file" : "",
-
-/* Charity mining, if you want to disable charity mining just delete these lines, or set values to "" (empty) */
-"charity_pool" : "<span class="exampleHost">POOL_HOST</span>:<span class="examplePort">PORT</span>",
-"charity_wallet" : "<span class="exampleLogin">YOUR_WALLET_ADDRESS</span>",
-"charity_password" : "<span class="examplePassword">YOUR_WORKER_NAME</span>",
-
-/* Settings for each GPU manually */
-/* Put in devices that you want to use, if you for ex. don't want to use gpu 2, just don't insert it,like in this example */
-/* Id starts from 0 , not from 1 !! */
-/* To get a list of available devices with their id's, use --listdevices parameter */
-/* This is just an example, edit it and remove comment lines (the slash and star) !! */
-/*"gpu_conf" : 
-[ 
-	{ "id" : 0, "intensity" : 0, "double_threads" : true},
-	{ "id" : 1, "intensity" : 60, "double_threads" : false},
-	{ "id" : 3, "intensity" : 50, "double_threads" : true},
-	{ "id" : 4, "intensity" : 0, "double_threads" : true},
-]*/
-}		    
+                    </div>
+                </td>
+            </tr>
 	    
             </tbody>
         </table>
@@ -319,27 +301,27 @@
 <!-- Javascript -->
 <script>
 // Cleanup mining ports
-let  lastPortsJson = '';
-let  $miningPorts = $('#miningPorts_rows');
-let  miningPortTemplate = $miningPorts.html();
+var lastPortsJson = '';
+var $miningPorts = $('#miningPorts_rows');
+var miningPortTemplate = $miningPorts.html();
 $miningPorts.empty();
 
-let  $miningPortSelect = $('#gMiningPort');
+var $miningPortSelect = $('#gMiningPort');
 $miningPortSelect.empty();
 
 // Update current page
 currentPage = {
     destroy: function(){
     },
-    update: function(){
-        let  portsJson = JSON.stringify(lastStats.config.ports);
+    update: function(updateKey){
+        var portsJson = JSON.stringify(lastStats.config.ports);
         if (lastPortsJson !== portsJson) {
             lastPortsJson = portsJson;
-            let  $miningPortChildren = [];
-	    let  $miningPortOptions = [];
-            for (let  i = 0; i < lastStats.config.ports.length; i++) {
-                let  portData = lastStats.config.ports[i];
-                let  $portChild = $(miningPortTemplate);
+            var $miningPortChildren = [];
+	    var $miningPortOptions = [];
+            for (var i = 0; i < lastStats.config.ports.length; i++) {
+                var portData = lastStats.config.ports[i];
+                var $portChild = $(miningPortTemplate);
                 $portChild.find('.miningPort').text(portData.port);
                 $portChild.find('.miningPortDiff').text(formatDifficulty(portData.difficulty));
                 $portChild.find('.miningPortDesc').text(portData.desc);
@@ -355,24 +337,18 @@ currentPage = {
         updateTextClasses('exampleHost', getPoolHost());
         updateText('paymentIdSeparator', lastStats.config.paymentIdSeparator);
         updateText('fixedDiffSeparator', lastStats.config.fixedDiffSeparator);
+        let childCoins = Object.keys(mergedStats).join(' or ')
+        updateText('paymentChildCoins', `${childCoins} wallet address`);
         if (!lastStats.config.fixedDiffEnabled) $('#fixedDiff').hide();
 
-        let  coin = lastStats.config.coin.toLowerCase() || null;
-        let  cnAlgorithm = lastStats.config.cnAlgorithm || "cryptonight";
-        let  cnVariant = lastStats.config.cnVariant || 0;
+        var coin = lastStats.config.coin.toLowerCase() || null;
+        var cnAlgorithm = lastStats.config.cnAlgorithm || "cryptonight";
+        var cnVariant = lastStats.config.cnVariant || 0;
 
         algorithm = '';
         xmrstakAlgo = '';
 
-        if (cnAlgorithm == "randomx") {
-            if (cnVariant === 17)
-                algorithm = 'RandomWOW (WOW)';
-            else if (cnVariant === 18)
-                algorithm = 'RandomXL (Loki)';
-            else
-                algorithm = 'RandomX';
-        }
-        else if (cnAlgorithm == "cryptonight_light") {
+        if (cnAlgorithm == "cryptonight_light") {
             if (cnVariant === 1) {
                 algorithm = 'Cryptonight Light (Aeon v7)';
                 xmrstakAlgo = 'cryptonight_lite_v7';
@@ -385,70 +361,33 @@ currentPage = {
             }
         }
         else if (cnAlgorithm == "cryptonight_pico") {
-            if (cnVariant === 2) {
+            if (cnVariant === 2 || cnVariant === 10) {
                     algorithm = 'Cryptonight Turtle';
                     xmrstakAlgo = 'cryptonight_turtle';
             }
         }
         else if (cnAlgorithm == "cryptonight_heavy") {
-	    if (cnVariant === 1) {
-		algorithm = 'Crytonight Heavy (Haven)';
-		xmrstakAlgo = 'haven';
-	    } else {
-            	algorithm = 'Cryptonight Heavy';
-            	xmrstakAlgo = 'cryptonight_heavy';
-	    }
+            algorithm = 'Cryptonight Heavy';
+            xmrstakAlgo = 'cryptonight_heavy';
         }
         else {
             if (cnVariant === 1) {
                 algorithm = 'Cryptonight (Monero v7)';
                 xmrstakAlgo = 'cryptonight_v7';
-            } else if (cnVariant === 9) {
+            } else if (cnVariant === 3) {
                 algorithm = 'Cryptonight (Stellite v7)';
                 xmrstakAlgo = 'cryptonight_v7_stellite';
 	    } else if (cnVariant === 4) {
                 algorithm = 'Cryptonight Fast (Masari)';
                 xmrstakAlgo = 'cryptonight_masari';
-	   } else if (cnVariant === 9) {
-                algorithm = 'Cryptonight HeavyX';
-                xmrstakAlgo = 'Cryptonight HeavyX';
-	    } else if (cnVariant === 8) {
-		      algorithm = 'Cryptonight (Monero v8)';
-		      xmrstakAlgo = 'cryptonight_v8';
-        } else if (cnVariant === 14) {
-            algorithm = 'Cryptonight v8 Waltz';
-            xmrstakAlgo = 'cryptonight_v8_waltz';
-        } else if (cnVariant === 15) {
-            algorithm = 'Cryptonight v8 ReverseWaltz';
-            xmrstakAlgo = 'cryptonight_v8_reversewaltz';
-	    } else {
+            } else {
                 algorithm = 'Cryptonight (Original)';
                 xmrstakAlgo = 'cryptonight';
             }
         }
 
-        /*
-        if (coin == 'aeon') xmrstakAlgo = 'aeon7';
-        if (coin == 'bbscoin') xmrstakAlgo = 'bbscoin';
-        if (coin == 'croat') xmrstakAlgo = 'croat';
-        if (coin == 'edollar') xmrstakAlgo = 'edollar';
-        if (coin == 'electroneum') xmrstakAlgo = 'electroneum';
-        if (coin == 'graft') xmrstakAlgo = 'graft';
-        if (coin == 'haven') xmrstakAlgo = 'haven';
-        if (coin == 'intense') xmrstakAlgo = 'intense';
-        if (coin == 'ipbc') xmrstakAlgo = 'ipbc';
-        if (coin == 'karbo') xmrstakAlgo = 'karbo';
-        if (coin == 'masari') xmrstakAlgo = 'masari';
-        if (coin == 'monero') xmrstakAlgo = 'monero7';
-        if (coin == 'stellite') xmrstakAlgo = 'stellite';
-        if (coin == 'sumokoin') xmrstakAlgo = 'sumokoin';
-        if (coin == 'turtlecoin') xmrstakAlgo = 'turtlecoin';
-        */
-
         updateText('cnAlgorithm', algorithm);
         updateText('xmrstakAlgo', xmrstakAlgo);
-
-        updateTextClasses('xmrigAlgo', cnVariant);
     }
 };
 
@@ -458,23 +397,32 @@ currentPage = {
 
 $('#generateConf').click(function() {
     // Mining Port
-    let  port = $('#gMiningPort').val();
+    var port = $('#gMiningPort').val();
     updateTextClasses('examplePort', port);
 
     // Username
-    let  address = $('#gAddress').val().replace(/\s+/g, '').trim();
-    let  paymentID = $('#gPaymentID').val().replace(/\s+/g, '').trim();
-    let  difficulty = parseInt($('#gDifficulty').val().replace(/\s+/g, '').trim());
-    
-    let  login = address ? address : 'YOUR_WALLET_ADDRESS';
+    var address = $('#gAddress').val().replace(/\s+/g, '').trim();
+    var childAddress = $('#gChildAddress').val().replace(/\s+/g, '').trim();
+    var solo = $('#gSolo').val();
+    var paymentID = $('#gPaymentID').val().replace(/\s+/g, '').trim();
+    var childPaymentID = $('#gChildPaymentID').val().replace(/\s+/g, '').trim();
+    var difficulty = parseInt($('#gDifficulty').val().replace(/\s+/g, '').trim());
+    var workerName = $('#gWorkerName').val().replace(/\s+/g, '').trim();
+
+    var login = address ? address : 'YOUR_WALLET_ADDRESS';
     if (paymentID) login = login + lastStats.config.paymentIdSeparator + paymentID;
     if (difficulty) login = login + lastStats.config.fixedDiffSeparator + difficulty;
+    if ($('input[name=solo]').is(':checked')) login = `solo:${login}`
     updateTextClasses('exampleLogin', login);
 
     // Password
-    let  workerName = $('#gWorkerName').val().replace(/\s+/g, '').trim();
+    var childLogin = childAddress ? childAddress : 'YOUR_CHILD_WALLET_ADDRESS';
+    if (childPaymentID) childLogin = childLogin + lastStats.config.paymentIdSeparator + childPaymentID;
+    if (difficulty) childLogin = childLogin + lastStats.config.fixedDiffSeparator + difficulty;
+    if (workerName) childLogin = `${childLogin}@${workerName}`
 
-    let  password = workerName ? workerName : 'x';
-    updateTextClasses('examplePassword', password);    
+    updateTextClasses('examplePassword', childLogin);
 });
+
 </script>
+

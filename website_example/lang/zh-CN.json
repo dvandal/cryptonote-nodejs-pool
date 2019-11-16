@@ -49,9 +49,10 @@
     "height": "高度",
     "difficulty": "难度",
     "blockHash": "区块Hash",
-    "effort": "Effort",
+    "effort": "功夫",
     "blocksFoundLast24": "过去24小时内发现区块",
     "blocksFoundLastDays": "过去{DAYS}天中发现区块",
+    "propSoloConnectedMiners": "成比例的 / 独奏 连接的 矿工",
 
     "payments": "支付",
     "paymentsHistory": "支付历史",

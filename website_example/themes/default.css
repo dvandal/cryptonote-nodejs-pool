@@ -449,7 +449,7 @@ table th.sort:hover{
 .infoBox {
   background-color: #03a9f4;
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
-  height: 80px;  
+  height: 90px;  
   cursor: default;
   position: relative;
   overflow: hidden;
@@ -483,8 +483,8 @@ table th.sort:hover{
   text-transform: uppercase;
 }
 .infoBox .content .value {
-  font-size: 26px;
-  font-weight: 800;
+  font-size: 22px;
+  font-weight: 700;
   margin-top: -4px;
   color: #fff;
   text-shadow: 1px 1px 1px #000;
@@ -514,12 +514,12 @@ table th.sort:hover{
   padding: 15px;
   border-radius: 3px;
   color: #fff;
-  margin-bottom: 30px;
+/*  margin-bottom: 30px;
 }
 @media (max-width: 767px){
   .hashInfo {
     margin-bottom: 15px;
-  }
+  } */
 }
 .hashInfo .text {
   font-size: 13px;

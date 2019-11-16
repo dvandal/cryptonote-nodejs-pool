@@ -6,3 +6,4 @@ build/
 logs/
 website/
 custom_coins/
+*.swp

@@ -1,200 +1,138 @@
-<!-- Statistics -->
-<div id="paymentsStats" class="row">
+<ul class="nav nav-tabs" id="blocksTabs">
+</ul>
 
-    <!-- Total Payments -->
-    <div class="col-lg-3 col-sm-6">
-        <div class="infoBox hoverExpandEffect">
-            <div class="icon">
-                <span class="fa fa-money"></span>
-            </div>
-            <div class="content">
-                <div class="text"><span data-tkey="paymentsTotal">Total Payments</span></div>
-                <div class="value"><span id="paymentsTotal">N/A</span> <span class="smallText">(<strong><span id="paymentsTotalPaid">N/A</span></strong> <span data-tkey="minersCount">miners</span>)</span></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Minimum Payment Threshold -->
-    <div class="col-lg-3 col-sm-6">
-        <div class="infoBox hoverExpandEffect">
-            <div class="icon">
-                <span class="fa fa-dollar"></span>
-            </div>
-            <div class="content">
-                <div class="text"><span data-tkey="paymentsMinimum">Minimum Payout</span></div>
-                <div class="value"><span id="paymentsMinimum">N/A</span></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Payment Interval -->
-    <div class="col-lg-3 col-sm-6">
-        <div class="infoBox hoverExpandEffect">
-            <div class="icon">
-                <span class="fa fa-clock-o"></span>
-            </div>
-            <div class="content">
-                <div class="text"><span data-tkey="paymentsInterval">Payment Interval</span></div>
-                <div class="value"><span id="paymentsInterval">N/A</span></div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Denomination Unit -->
-    <div class="col-lg-3 col-sm-6">
-        <div class="infoBox hoverExpandEffect">
-            <div class="icon">
-                <span class="fa fa-hashtag"></span>
-            </div>
-            <div class="content">
-                <div class="text"><span data-tkey="paymentsDenomination">Denomination Unit</span></div>
-                <div class="value"><span id="paymentsDenomination">N/A</span></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Payment mechanism -->
-    <div class="col-sm-12" id="slush_description">
-        <div class="slushInfo hoverExpandEffect">
-            <div class="text"><span>Payment system</span></div>
-            <div class="content clearfix">
-                <div class="value"><p>This pool uses the "Score" payment system, under which later
-                  shares submitted by miners receive more weight in determining the miner's reward than earlier shares.
-
-                    <p>For more details (including the specific mathematics involved) see the <a
-                     href="https://slushpool.com/help/manual/rewards">slushpool reward
-                     description</a>.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    
+<div class="tab-content" id="tab-content">
 </div>
 
-<!-- Report -->
-<div class="card push-up-10">
-    <div id="paymentsReport" class="table-responsive">
-        <table class="table table-hover table-striped">
-            <thead>
-            <tr>
-                <th class="col1"><span data-tkey="timeSent">Time Sent</span></th>
-                <th class="col2"><span data-tkey="transactionHash">Transaction Hash</span></th>
-                <th class="col3"><span data-tkey="amount">Amount</span></th>
-                <th class="col4"><span data-tkey="fee">Fee</span></th>
-                <th class="col5"><span data-tkey="mixin">Mixin</span></th>
-                <th class="col6"><span data-tkey="payees">Payees</span></th>
-            </tr>
-            </thead>
-            <tbody id="paymentsReport_rows">
-    
-            </tbody>
-        </table>
-    </div>
-</div>
+<script id="siblingTabTemplate" type="text/x-handlebars-template">
+    <li id="blockTabs{{coin}}" role="presentation" class="{{active}}"><a href="#{{coin}}">{{coin}} {{symbol}}</a></li>
+</script>
 
-<p class="text-center push-up-10">
-    <button type="button" class="btn btn-default" id="loadMorePayments"><span data-tkey="loadMore">Load More</span></button>
-</p>
+<script id="siblingTemplate" type="text/x-handlebars-template">
+  <div role="tabpanel" class="tab-pane {{active}}" id="{{coin}}">
+      <!-- Statistics -->
+      <div class="row paymentsStats">
+
+          <!-- Total Payments -->
+          <div class="col-lg-3 col-sm-6">
+              <div class="infoBox hoverExpandEffect mergedBg">
+                  <div class="icon">
+                      <span class="fa fa-money"></span>
+                  </div>
+                  <div class="content">
+                      <div class="text"><span data-tkey="paymentsTotal">Total Payments</span></div>
+                      <div class="value"><span id="paymentsTotal{{coin}}">N/A</span> <span class="smallText">(<strong><span id="paymentsTotalPaid{{coin}}">N/A</span></strong> <span data-tkey="minersCount">miners</span>)</span></div>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Minimum Payment Threshold -->
+          <div class="col-lg-3 col-sm-6">
+              <div class="infoBox hoverExpandEffect mergedBg">
+                  <div class="icon">
+                      <span class="fa fa-dollar"></span>
+                  </div>
+                  <div class="content">
+                      <div class="text"><span data-tkey="paymentsMinimum">Minimum Payout</span></div>
+                      <div class="value"><span id="paymentsMinimum{{coin}}">N/A</span></div>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Payment Interval -->
+          <div class="col-lg-3 col-sm-6">
+              <div class="infoBox hoverExpandEffect mergedBg">
+                  <div class="icon">
+                      <span class="fa fa-clock-o"></span>
+                  </div>
+                  <div class="content">
+                      <div class="text"><span data-tkey="paymentsInterval">Payment Interval</span></div>
+                      <div class="value"><span id="paymentsInterval{{coin}}">N/A</span></div>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Denomination Unit -->
+          <div class="col-lg-3 col-sm-6">
+              <div class="infoBox hoverExpandEffect mergedBg">
+                  <div class="icon">
+                      <span class="fa fa-hashtag"></span>
+                  </div>
+                  <div class="content">
+                      <div class="text"><span data-tkey="paymentsDenomination">Denomination Unit</span></div>
+                      <div class="value"><span id="paymentsDenomination{{coin}}">N/A</span></div>
+                  </div>
+              </div>
+          </div>
+
+      </div>
+
+      <!-- Report -->
+      <div class="card push-up-10">
+          <div id="paymentsReport{{coin}}" class="table-responsive">
+              <table class="table table-hover table-striped">
+                  <thead>
+                  <tr>
+                      <th class="col1"><span data-tkey="timeSent">Time Sent</span></th>
+                      <th class="col2"><span data-tkey="transactionHash">Transaction Hash</span></th>
+                      <th class="col3"><span data-tkey="amount">Amount</span></th>
+                      <th class="col4"><span data-tkey="fee">Fee</span></th>
+                      <th class="col5"><span data-tkey="mixin">Mixin</span></th>
+                      <th class="col6"><span data-tkey="payees">Payees</span></th>
+                  </tr>
+                  </thead>
+                  <tbody id="paymentsReport{{coin}}_rows">
+
+                  </tbody>
+              </table>
+          </div>
+      </div>
+
+      <p class="text-center push-up-10">
+          <button type="button" class="btn btn-default" id="loadMorePayments{{coin}}"><span data-tkey="loadMore">Load More</span></button>
+      </p>
+  </div>
+</script>
 
 <!-- Javascript -->
 <script>
+
+let xhrGetPayments = {}
+let ranOnce = false
 // Update current page
 currentPage = {
     destroy: function(){
-        if (xhrGetPayments) xhrGetPayments.abort();
+        if (xhrGetPayments) {
+            Object.keys(xhrGetPayments).forEach(key => {
+                if (xhrGetPayments[key])
+                    xhrGetPayments[key].abort();
+                $(`#loadMorePayments${key}`).off('click')
+            })
+        }
+        $('#blocksTabs a').off('click')
     },
-    update: function(){
-        updateText('paymentsTotal', lastStats.pool.totalPayments.toString());
-        updateText('paymentsTotalPaid', lastStats.pool.totalMinersPaid.toString());
-        updateText('paymentsInterval', getReadableTime(lastStats.config.paymentsInterval));
-        updateText('paymentsMinimum', getReadableCoins(lastStats.config.minPaymentThreshold));
-        updateText('paymentsDenomination', getReadableCoins(lastStats.config.denominationUnit, 3));
-        if (!lastStats.config.slushMiningEnabled)
-            $('#slush_description').hide()
-        renderPayments(lastStats.pool.payments);
+    update: function(updateKey){
+        let stats = updateKey === parentCoin ? lastStats : mergedStats[updateKey]
+        if (stats) {
+            updateText(`paymentsTotal${updateKey}`, stats.pool.totalPayments.toString());
+            updateText(`paymentsTotalPaid${updateKey}`, stats.pool.totalMinersPaid.toString());
+            updateText(`paymentsInterval${updateKey}`, getReadableTime(stats.config.paymentsInterval));
+            updateText(`paymentsMinimum${updateKey}`, getReadableCoin(stats, stats.config.minPaymentThreshold));
+            updateText(`paymentsDenomination${updateKey}`, getReadableCoin(stats, stats.config.denominationUnit, 3));
+            payments_renderPayments(stats.pool.payments, stats);
+        }
     }
 };
 
-// Parse payment data
-function parsePayment(time, serializedPayment){
-    let  parts = serializedPayment.split(':');
-    return {
-        time: parseInt(time),
-        hash: parts[0],
-        amount: parts[1],
-        fee: parts[2],
-        mixin: parts[3],
-        recipients: parts[4]
-    };
+function RunOnce() {
+    $('#blocksTabs a').click(function (e) {
+      e.preventDefault()
+      $(this).tab('show')
+    })
+    return true
 }
 
-// Get payment cells
-function getPaymentCells(payment){
-    return '<td class="col1">' + formatDate(payment.time) + '</td>' +
-           '<td class="col2">' + formatPaymentLink(payment.hash) + '</td>' +
-           '<td class="col3">' + getReadableCoins(payment.amount) + '</td>' +
-           '<td class="col4">' + getReadableCoins(payment.fee) + '</td>' +
-           '<td class="col5">' + payment.mixin + '</td>' +
-           '<td class="col6">' + payment.recipients + '</td>';
-}
+payments_InitTemplate(xhrGetPayments, ranOnce)
 
-// Get payment row element
-function getPaymentRowElement(payment, jsonString){
-    let  row = document.createElement('tr');
-    row.setAttribute('data-json', jsonString);
-    row.setAttribute('data-time', payment.time);
-    row.setAttribute('id', 'paymentRow' + payment.hash);
-
-    row.innerHTML = getPaymentCells(payment);
-
-    return row;
-}
-
-// Render payments data
-function renderPayments(paymentsResults){
-    let  $paymentsRows = $('#paymentsReport_rows');
-    for (let  i = 0; i < paymentsResults.length; i += 2){
-        let  payment = parsePayment(paymentsResults[i + 1], paymentsResults[i]);
-        let  paymentJson = JSON.stringify(payment);
-        let  existingRow = document.getElementById('paymentRow' + payment.hash);
-
-        if (existingRow && existingRow.getAttribute('data-json') !== paymentJson){
-            $(existingRow).replaceWith(getPaymentRowElement(payment, paymentJson));
-        }
-        else if (!existingRow){
-            let  paymentElement = getPaymentRowElement(payment, paymentJson);
-
-            let  inserted = false;
-            let  rows = $paymentsRows.children().get();
-            for (let  f = 0; f < rows.length; f++) {
-                let  pTime = parseInt(rows[f].getAttribute('data-time'));
-                if (pTime < payment.time){
-                    inserted = true;
-                    $(rows[f]).before(paymentElement);
-                    break;
-                }
-            }
-            if (!inserted) {
-                $paymentsRows.append(paymentElement);
-            }
-        }
-    }
-}
-
-// Load more payments button
-let  xhrGetPayments;
-$('#loadMorePayments').click(function(){
-    if (xhrGetPayments) xhrGetPayments.abort();
-    xhrGetPayments = $.ajax({
-        url: api + '/get_payments',
-        data: {
-            time: $('#paymentsReport_rows').children().last().data('time')
-        },
-        dataType: 'json',
-        cache: 'false',
-        success: function(data){
-            renderPayments(data);
-        }
-    });
-});
 </script>
+

@@ -1,1 +1,133 @@
 /* Insert your pool's unique CSS here */
+
+.nav-side-menu {
+    background: #164450;
+}
+
+.nav-side-menu .brand {
+    background: #164450;
+    color: #fff;
+    padding: 10px;
+}
+.nav-side-menu .brand a {
+    color: #fff;
+    font-size: 16px;
+}
+
+.brand { padding-top: 5px }
+.brand img.img-responsive {
+  margin: 0 auto;
+}
+
+.nav-side-menu ul .active, .nav-side-menu li .active {
+    border-left: 3px solid #5fbcd3;
+    background-color: #2c89a0;
+}
+
+.infoBox {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#2c89a0+0,5fbcd3+100 */
+background: #2c89a0; /* Old browsers */
+background: -moz-linear-gradient(45deg, #2c89a0 0%, #5fbcd3 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(45deg, #2c89a0 0%,#5fbcd3 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(45deg, #2c89a0 0%,#5fbcd3 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2c89a0', endColorstr='#5fbcd3',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+.mergedBg {
+    background: #3b5ca3;
+}
+
+#top-bar {
+    background-color: #164450;
+}
+
+.infoBox .content .value sup {
+    top: -.9em;
+    text-decoration: none;
+    text-shadow: none;
+    font-size: 45%;
+    right: -3px;
+    font-weight: normal;
+}
+
+#infoBlocksTotal .content .value .smallText {
+    font-size: 15px;
+    font-weight: normal;
+    /*display: block;*/
+    /*text-shadow: none;*/
+    margin-top: -3px;
+}
+
+#infoBlocksFound .content .value .smallText {
+    font-size: 15px;
+    font-weight: normal;
+    /*display: block;*/
+    /*text-shadow: none;*/
+    margin-top: -3px;
+/* Insert your pool's unique CSS here */
+
+.nav-side-menu {
+    background: #164450;
+}
+
+.nav-side-menu .brand {
+    background: #164450;
+    color: #fff;
+    padding: 10px;
+}
+.nav-side-menu .brand a {
+    color: #fff;
+    font-size: 16px;
+}
+
+.brand { padding-top: 5px }
+.brand img.img-responsive {
+  margin: 0 auto;
+}
+
+.nav-side-menu ul .active, .nav-side-menu li .active {
+    border-left: 3px solid #5fbcd3;
+    background-color: #2c89a0;
+}
+
+.infoBox {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#2c89a0+0,5fbcd3+100 */
+background: #2c89a0; /* Old browsers */
+background: -moz-linear-gradient(45deg, #2c89a0 0%, #5fbcd3 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(45deg, #2c89a0 0%,#5fbcd3 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(45deg, #2c89a0 0%,#5fbcd3 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2c89a0', endColorstr='#5fbcd3',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+.mergedBg {
+    background: #3b5ca3;
+}
+
+#top-bar {
+    background-color: #164450;
+}
+
+.infoBox .content .value sup {
+    top: -.9em;
+    text-decoration: none;
+    text-shadow: none;
+    font-size: 45%;
+    right: -3px;
+    font-weight: normal;
+}
+
+#infoBlocksTotal .content .value .smallText {
+    font-size: 15px;
+    font-weight: normal;
+    /*display: block;*/
+    /*text-shadow: none;*/
+    margin-top: -3px;
+}
+
+#infoBlocksFound .content .value .smallText {
+    font-size: 15px;
+    font-weight: normal;
+    /*display: block;*/
+    /*text-shadow: none;*/
+    margin-top: -3px;
+}
