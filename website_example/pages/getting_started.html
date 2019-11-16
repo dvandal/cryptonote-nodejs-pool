@@ -348,7 +348,28 @@ currentPage = {
         algorithm = '';
         xmrstakAlgo = '';
 
-        if (cnAlgorithm == "cryptonight_light") {
+        if (cnAlgorithm == "argon2") {
+            if (cnVariant === 1)
+                algorithm = 'Argon2id WRKZ';
+            else
+                algorithm = 'Argon2id Chukwa';
+        }
+        else if (cnAlgorithm == "randomx") {
+            if (cnVariant === 1)
+                algorithm = 'RandomX (Scala)';
+            else if (cnVariant === 2)
+                algorithm = 'RandomX (Arqma)';
+            else if (cnVariant === 17)
+                algorithm = 'RandomX (Wownero)';
+                xmrstakAlgo = 'randomX_wow';
+            else if (cnVariant === 18)
+                algorithm = 'RandomX (Loki)';
+                xmrstakAlgo = 'randomX_loki';
+            else
+                algorithm = 'RandomX (Monero)';
+                xmrstakAlgo = 'randomX';
+        }
+        else if (cnAlgorithm == "cryptonight_light") {
             if (cnVariant === 1) {
                 algorithm = 'Cryptonight Light (Aeon v7)';
                 xmrstakAlgo = 'cryptonight_lite_v7';
