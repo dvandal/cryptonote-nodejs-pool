@@ -5,7 +5,7 @@
 </div>
 
 <script id="siblingTabTemplate" type="text/x-handlebars-template">
-    <li role="presentation" class="{{active}}"><a href="#{{coin}}">{{coin}} {{symbol}}</a></li>
+    <li id="UserListTabs{{coin}} role="presentation" class="{{active}}"><a href="#{{coin}}">{{coin}} {{symbol}}</a></li>
 </script>
 
 <script id="siblingTemplate" type="text/x-handlebars-template">
@@ -26,16 +26,16 @@
                             </tr>
                         </thead>
                         <tbody id="template">
-                {{#users}}
-                        <tr>
-                            <td class="col1"><a href="/?{{coin}}={{miner}}{{#childWallet}}&{{childWallet}}{{/childWallet}}#worker_stats">{{miner}}</a></td>
-                            <td class="col2" data-sort="{{wallet.hashrate}}">{{readableHashrate}}</td>
-                            <td class="col3" data-sort="{{wallet.hashes}}">{{readableHashes}}</td>
-                            <td class="col4" data-sort="{{wallet.pending}}">{{readablePending}}</td>
-                            <td class="col5" data-sort="{{wallet.paid}}">{{readablePaid}}</td>
-                            <td class="col6" data-sort="{{wallet.lastShare}}">{{timeago}}</td>
-                        </tr>
-                    {{/users}}
+    			{{#users}}
+            		    <tr>
+                	        <td class="col1"><a href="/?{{coin}}={{miner}}{{#childWallet}}&{{childWallet}}{{/childWallet}}#worker_stats">{{miner}}</a></td>
+                    		<td class="col2" data-sort="{{wallet.hashrate}}">{{readableHashrate}}</td>
+                    		<td class="col3" data-sort="{{wallet.hashes}}">{{readableHashes}}</td>
+                    		<td class="col4" data-sort="{{wallet.pending}}">{{readablePending}}</td>
+                    		<td class="col5" data-sort="{{wallet.paid}}">{{readablePaid}}</td>
+                    		<td class="col6" data-sort="{{wallet.lastShare}}">{{timeago}}</td>
+            		    </tr>
+            		{{/users}}
                         </tbody>
                     </table>
                 </div>
@@ -116,7 +116,7 @@ function Setup() {
         createUserTable(null, mergedApis[key].api, mergedStats[key], lastStats);
     })
 
-
+    sortElementList($(`#UserListTabs`), $(`#UserListTabs>li`), mergedStats)
 
 
     $('#UserListTabs a').click(function (e) {

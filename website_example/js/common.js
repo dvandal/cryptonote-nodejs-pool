@@ -771,6 +771,7 @@ function poolBlocks_InitTemplate(ranOnce, displayedChart, xhrGetBlocks) {
         }
         poolBlocks_RenderBlocks(mergedStats[key].pool.blocks, mergedStats[key]);
     })
+    sortElementList($(`#blocksTabs`), $(`#blocksTabs>div`), mergedStats)
     if (!ranOnce) 
         ranOnce = RunOnce()
 }
@@ -848,7 +849,7 @@ function top10Miners_InitTemplate(xhrGetMiners, ranOnce) {
         }
         top10Miners_UpdateTop10(xhrGetMiners, mergedApis[key].api, key);
     })
-
+    sortElementList($(`#blocksTabs`), $(`#blocksTabs>li`), mergedStats)
     if (!ranOnce)
         ranOnce = RunOnce()
 }
@@ -1079,6 +1080,7 @@ function settings_InitTemplate(ranOnce) {
             settings_Setup(mergedApis[key].api, mergedStats[key])
         }
     })
+    sortElementList($(`#blocksTabs`), $(`#blocksTabs>li`), mergedStats)
     if (!ranOnce) 
       ranOnce = RunOnce()
 }
@@ -1218,6 +1220,7 @@ function payments_InitTemplate(xhrGetPayments, ranOnce) {
           updateText(`paymentsDenomination${key}`, getReadableCoin(mergedStats[key], mergedStats[key].config.denominationUnit, 3));
           payments_renderPayments(mergedStats[key].pool.payments, mergedStats[key]);
         })
+        sortElementList($(`#blocksTabs`), $(`#blocksTabs>li`), mergedStats)
         if (!ranOnce) 
           ranOnce = RunOnce()
 }
@@ -1566,6 +1569,7 @@ function market_InitTemplate(ranOnce, chartsInitialized, loadedData, marketPrice
 
     market_CalcEstimateProfit(marketPrices);
 
+sortElementList($(`#blocksTabs`), $(`#blocksTabs>li`), mergedStats)
 
    if (!ranOnce) 
         ranOnce = RunOnce()
@@ -2091,6 +2095,9 @@ function workerstats_InitTemplate(ranOnce, addressTimeout, xhrAddressPoll, xhrGe
             workerstats_Setup(mergedStats[key], mergedApis[key].api, addressTimeout, xhrAddressPoll, xhrGetPayments)
         }
     })
+
+    sortElementList($(`#blocksTabs`), $(`#blocksTabs>li`), mergedStats)
+
     if (!ranOnce) 
         ranOnce = RunOnce()    
 }
@@ -2166,6 +2173,16 @@ function home_GenerateNetworkStats(key, symbol) {
     }
 }
 
+function sortElementList(container, siblings,  stats) {
+    let sorted = (a,b) => {
+        return ((a.id.toLowerCase() < b.id.toLowerCase()) ? -1 : ((a.id.toLowerCase() > b.id.toLowerCase()) ? 1 : 0))
+    }
+    if (stats && siblings.length -1 === Object.keys(stats).length) {
+        siblings.sort(sorted).appendTo(container)
+    }
+}
+
+
 function home_InitTemplate(parentStats, siblingStats) {
     $('#networkLastBlockFound').timeago('update', new Date(parentStats.lastblock.timestamp * 1000).toISOString());
 
@@ -2229,6 +2246,8 @@ function home_InitTemplate(parentStats, siblingStats) {
         updateText(`currentEffort${key}`, (siblingStats[key].pool.roundHashes / siblingStats[key].network.difficulty * 100).toFixed(1) + '%');
     })
 
+    sortElementList($(`#networkStats`), $(`#networkStats>div`), siblingStats)
+    
     if ($(`#poolDetails > div`).length == 0) {
         let template = $('#poolDetailTemplate').html()
         Mustache.parse(template)

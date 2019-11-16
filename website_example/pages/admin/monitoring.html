@@ -6,7 +6,7 @@
 </div>
 
 <script id="siblingTabTemplate" type="text/x-handlebars-template">
-    <li id="tab{{coin}}" role="presentation" class="{{active}}"><a href="#{{coin}}" data-coin="{{coin}}">{{coin}} {{symbol}}</a></li>
+    <li id="coinTabs{{coin}}" role="presentation" class="{{active}}"><a href="#{{coin}}" data-coin="{{coin}}">{{coin}} {{symbol}}</a></li>
 </script>
 
 <!-- Handlebars template -->
@@ -167,9 +167,11 @@ $(function() {
 
         renderLogInfo(mergedApis[key].api, key, '', password)
     })
+    sortElementList($(`#coinTabs`), $(`#coinTabs>li`), mergedStats)
     $('#coinTabs a').click(function (e) {
         e.preventDefault()
         $(this).tab('show')
     })
+
 });
 </script>

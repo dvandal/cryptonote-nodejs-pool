@@ -37,14 +37,14 @@ function parsePorts(ports) {
     for (var port in ports) {
         if (ports.hasOwnProperty(port)) {
             var portsData = ports[port];
-        var usersCount = portsData.users ?parseInt(portsData.users) : 0;
-        if (usersCount > 0) {
+	    var usersCount = portsData.users ?parseInt(portsData.users) : 0;
+	    if (usersCount > 0) {
                 portsArray.push({
                     port: portsData.port,
                     users: usersCount
                 });
                 totalUsers += usersCount;
-        }
+	    }
         }
     }
     $('#totalUsers').html(totalUsers);
