@@ -23,7 +23,9 @@ var redisDB = (config.redis.db && config.redis.db > 0) ? config.redis.db : 0;
 global.redisClient = redis.createClient(config.redis.port, config.redis.host, { db: redisDB, auth_pass: config.redis.auth });
 
 if (typeof config.childPools !== 'undefined')
-    config.childPools = config.childPools.filter(pool => pool.enabled)
+    config.childPools = config.childPools.filter(pool => pool.enabled);
+else
+    config.childPools = [];
 
 // Load pool modules
 if (cluster.isWorker){
