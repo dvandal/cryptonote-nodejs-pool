@@ -8,11 +8,11 @@
     "coinDifficultyTarget": 120,
 
     "daemonType": "default",
-    "cnAlgorithm": "cryptonight",
-    "cnVariant": 13,
+    "cnAlgorithm": "randomx",
+    "cnVariant": 15,
     "cnBlobType": 0,
-    "includeHeight": true,
-    "includeAlgo": "cn/r",
+    "includeHeight": false,
+    "isRandomX": true,
 
     "logging": {
         "files": {
