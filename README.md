@@ -209,7 +209,9 @@ Explanation for each field:
 "cnAlgorithm": "cryptonight",
 "cnVariant": 1,
 "cnBlobType": 0,
-
+"includeHeight":false, /*true to include block.height in job to miner*/
+"includeAlgo":"cn/wow", /*wownero specific change to include algo in job to miner*/	"includeAlgo":"cn/wow", /*wownero specific change to include algo in job to miner*/
+"isRandomX": true,
 /* Logging */
 "logging": {
 
@@ -233,12 +235,24 @@ Explanation for each field:
         "colors": true
     }
 },
-/*Which Hashing Package to use: cryptonight-hashing=false, multi-hashing=true*/
-"hashingUtil":false,
+"childPools":[ "poolAddress":"your wallet",
+                    "intAddressPrefix": null,
+                    "coin": "MCN",
+                    "childDaemon": {
+                        "host": "127.0.0.1",
+                        "port": 26081
+                    },
+                    "pattern": "Vdu",
+                    "blockchainExplorer": "https://explorer.mcn.green/?hash={id}#blockchain_block",
+                    "transactionExporer": "https://explorer.mcn.green/?hash={id}#blockchain_transaction",
+                    "api": "https://multi-miner.smartcoinpool.net/apiMerged1",
+                    "enabled": true
+                    }
+]
 /* Modular Pool Server */
 "poolServer": {
     "enabled": true,
-
+    "mergedMining":false,
     /* Set to "auto" by default which will spawn one process/fork/worker for each CPU
        core in your system. Each of these workers will run a separate instance of your
        pool(s), and the kernel will load balance miners using these forks. Optionally,
@@ -246,7 +260,7 @@ Explanation for each field:
     "clusterForks": "auto",
 
     /* Address where block rewards go, and miner payments come from. */
-    "poolAddress": "GBqRuitSoU3PFPBAkXMEnLdBRWXH4iDSD6RDxnQiEFjVJhWUi1UuqfV5EzosmaXgpPGE6JJQjMYhZZgWY8EJQn8jQTsuTit",
+    "poolAddress": "your wallet",
 
     /* This is the integrated address prefix used for miner login validation. */
     "intAddressPrefix": 91,
