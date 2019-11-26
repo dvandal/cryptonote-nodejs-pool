@@ -9,7 +9,7 @@
 
     "daemonType": "default",
     "cnAlgorithm": "randomx",
-    "cnVariant": 15,
+    "cnVariant": 0,
     "cnBlobType": 0,
     "includeHeight": false,
     "isRandomX": true,
