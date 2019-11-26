@@ -235,7 +235,7 @@ Explanation for each field:
         "colors": true
     }
 },
-"childPools":[ "poolAddress":"your wallet",
+"childPools":[ {"poolAddress":"your wallet",
                     "intAddressPrefix": null,
                     "coin": "MCN",
                     "childDaemon": {
