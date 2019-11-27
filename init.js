@@ -231,14 +231,8 @@ function spawnChildDaemons(){
         return;
     }
 
-    var numForks = (function(){
-        if (!config.poolServer.mergedMining)
-            return 0;
-        if (typeof config.childPools !== 'undefined') {
-	    return config.childPools.length
-	}
-        return 0;
-    })();
+    let numForks = config.childPools.length;
+    if (numForks === 0) return;
     var daemonWorkers = {};
 
     var createDaemonWorker = function(poolId){
