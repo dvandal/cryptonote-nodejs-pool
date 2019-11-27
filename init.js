@@ -22,7 +22,7 @@ var redis = require('redis');
 var redisDB = (config.redis.db && config.redis.db > 0) ? config.redis.db : 0;
 global.redisClient = redis.createClient(config.redis.port, config.redis.host, { db: redisDB, auth_pass: config.redis.auth });
 
-if (typeof config.childPools !== 'undefined')
+if (typeof config.childPools !== 'undefined' && (typeof config.mergedMining !== 'undefined' && config.mergedMining))
     config.childPools = config.childPools.filter(pool => pool.enabled);
 else
     config.childPools = [];
