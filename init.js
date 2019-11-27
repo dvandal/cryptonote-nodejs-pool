@@ -64,6 +64,10 @@ require('./lib/exceptionWriter.js')(logSystem);
 
 // Pool informations
 log('info', logSystem, 'Starting Cryptonote Node.JS pool version %s', [version]);
+
+// Developer donations
+if (devFee < 0.2)
+    log('info', logSystem, 'Developer donation \(devDonation\) is set to %d\%, Please consider raising it to 0.2\% or higher !!!', [devFee]);
  
 // Run a single module ?
 var singleModule = (function(){

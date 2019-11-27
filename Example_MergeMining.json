@@ -7,7 +7,7 @@
     "coinDecimalPlaces": 9,
     "coinDifficultyTarget": 120,
     "blockchainExplorer": "http://blockexplorer.arqma.com/block/{id}",
-    "transactionExporer": "http://blockexplorer.arqma.com/tx/{id}",
+    "transactionExplorer": "http://blockexplorer.arqma.com/tx/{id}",
 
     "daemonType": "default",
     "cnAlgorithm": "cryptonight_pico",
