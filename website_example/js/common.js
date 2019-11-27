@@ -2112,7 +2112,7 @@ workerstats methods
 let home_GraphSettings = {
     type: 'line',
     width: '100%',
-    height: '120',
+    height: '140',
     lineColor: '#03a9f4',
     fillColor: 'rgba(3, 169, 244, .4)',
     spotColor: null,
