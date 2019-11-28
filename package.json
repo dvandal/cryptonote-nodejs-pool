@@ -14,7 +14,7 @@
         "bignum": "*",
         "cli-color": "*",
         "cryptoforknote-util": "git://github.com/MoneroOcean/node-cryptoforknote-util.git",
-        "cryptonight-hashing": "git://github.com/MoneroOcean/node-cryptonight-hashing.git",
+        "cryptonight-hashing": "git://github.com/VanGrx/node-cryptonight-hashing.git",
         "dateformat": "*",
         "mailgun.js": "*",
         "node-telegram-bot-api": "*",
