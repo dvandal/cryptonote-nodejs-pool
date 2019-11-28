@@ -2112,7 +2112,7 @@ workerstats methods
 let home_GraphSettings = {
     type: 'line',
     width: '100%',
-    height: '120',
+    height: '140',
     lineColor: '#03a9f4',
     fillColor: 'rgba(3, 169, 244, .4)',
     spotColor: null,
@@ -2275,8 +2275,8 @@ function home_InitTemplate(parentStats, siblingStats) {
         lastHash.setAttribute('href', getBlockchainUrl(parentStats.lastblock.hash, parentStats));
 
 
-    updateText('poolHashrate', `PROP ${getReadableHashRateString(parentStats.pool.hashrate)}/sec`);
-    updateText('poolHashrateSolo', `SOLO ${getReadableHashRateString(parentStats.pool.hashrateSolo)}/sec`);
+    updateText('poolHashrate', `PROP: ${getReadableHashRateString(parentStats.pool.hashrate)}/sec`);
+    updateText('poolHashrateSolo', `SOLO: ${getReadableHashRateString(parentStats.pool.hashrateSolo)}/sec`);
 
 
     var hashPowerSolo = parentStats.pool.hashrateSolo / (parentStats.network.difficulty / parentStats.config.coinDifficultyTarget) * 100;

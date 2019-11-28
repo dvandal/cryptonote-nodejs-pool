@@ -27,7 +27,7 @@
                 <span class="fa fa-cubes"></span>
             </div>
             <div class="content">
-                <div class="text"><span data-tkey="blocksTotal">PROP/SOLO Blocks Found</span></div>
+                <div class="text"><span data-tkey="blocksTotal">Blocks Found</span> (PROP/SOLO)</div>
                 <div class="value">
                     {{#blocks}}
                     <span class="smallText" id="blocksTotal{{coin}}">{{blocks}}/{{blocksSolo}}</span><sup>{{symbol}}</sup>&nbsp;
@@ -49,7 +49,7 @@
                     <span class="smallText" id="blockSolvedTime">N/A</span> <span class="smallText">(<span class="smallText">estimated</span>)</span>
                 </div>
                 <div class="value">
-                    <span class="smallText">LAST BLOCK <span>(<span id="poolLastBlockFound">Never</span>)</span>
+                    <span class="smallText">LAST BLOCK: <span id="poolLastBlockFound">Never</span>
                 </div>
             </div>
         </div>
@@ -134,7 +134,7 @@
                 <span class="fa fa-group"></span>
             </div>
             <div class="content">
-                <div class="text"><span data-tkey="propSoloConnectedMiners">PROP/SOLO Connected Miners</span></div>
+                <div class="text"><span data-tkey="propSoloConnectedMiners">Connected Miners</span> (PROP/SOLO)</div>
                 <div class="value">
                     {{#blocks}}
                       <span class="smallText" id="poolMiners{{coin}}">{{miners}}/{{minersSolo}}</span><sup>{{symbol}}</sup>&nbsp;
@@ -152,7 +152,7 @@
             </div>
             <div class="content">
                 <div class="text"><span data-tkey="poolFee">Pool Fee</span></div>
-                <div class="value"><span id="poolFee">N/A</span><sup>({{symbol}})</sup></div>
+                <div class="value"><span id="poolFee">N/A</span><sup>{{symbol}}</sup></div>
             </div>
         </div>
     </div>
@@ -265,8 +265,8 @@ currentPage = {
             let el = updateText('lastHash', lastStats.lastblock.hash)
             if (el)
                 el.setAttribute('href', getBlockchainUrl(lastStats.lastblock.hash, lastStats));
-            updateText('poolHashrate', getReadableHashRateString(lastStats.pool.hashrate) + '/sec');
-            updateText('poolHashrateSolo', getReadableHashRateString(lastStats.pool.hashrateSolo) + '/sec');
+            updateText('poolHashrate', 'PROP: ' + getReadableHashRateString(lastStats.pool.hashrate) + '/sec');
+            updateText('poolHashrateSolo', 'SOLO: ' + getReadableHashRateString(lastStats.pool.hashrateSolo) + '/sec');
             var hashPowerSolo = lastStats.pool.hashrateSolo / (lastStats.network.difficulty / lastStats.config.coinDifficultyTarget) * 100;
             updateText ('hashPowerSolo', hashPowerSolo.toFixed(2) + '%');
             var hashPower = lastStats.pool.hashrate / (lastStats.network.difficulty / lastStats.config.coinDifficultyTarget) * 100;
