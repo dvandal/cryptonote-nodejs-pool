@@ -7,9 +7,11 @@
     "coinDecimalPlaces": 9,
     "coinDifficultyTarget": 120,
 
-    "cnAlgorithm": "cryptonight_pico",
+    "cnAlgorithm": "randomx",
     "cnVariant": 2,
     "cnBlobType": 0,
+    "isRandomX": true,
+    "includeHeight": false,
 
     "logging": {
         "files": {
