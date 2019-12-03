@@ -237,12 +237,12 @@ Explanation for each field:
 },
 "childPools":[ {"poolAddress":"your wallet",
                     "intAddressPrefix": null,
-                    "coin": "MCN",
+                    "coin": "MCN",  	//must match COIN name in the child pools config.json
                     "childDaemon": {
                         "host": "127.0.0.1",
                         "port": 26081
                     },
-                    "pattern": "Vdu",
+                    "pattern": "^Vdu",  //regex to identify which childcoin the miner specified in password. eg) Vdu is first 3 chars of a MCN wallet address.
                     "blockchainExplorer": "https://explorer.mcn.green/?hash={id}#blockchain_block",
                     "transactionExporer": "https://explorer.mcn.green/?hash={id}#blockchain_transaction",
                     "api": "https://multi-miner.smartcoinpool.net/apiMerged1",
