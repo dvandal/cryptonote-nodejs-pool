@@ -2291,15 +2291,17 @@ function home_InitTemplate(parentStats, siblingStats) {
 
 
     var totalFee = parentStats.config.fee;
+    var soloFee = parentStats.config.soloFee;
     if (Object.keys(parentStats.config.donation).length) {
         var totalDonation = 0;
         for(var i in parentStats.config.donation) {
             totalDonation += parentStats.config.donation[i];
         }
         totalFee += totalDonation;
+        soloFee += totalDonation;
     }
 
-    updateText('poolFee', (totalFee > 0 && totalFee != 100 ? floatToString(totalFee) : (totalFee == 100 ? '100' : '0')) + '%');
+    updateText('poolFee', (totalFee > 0 && totalFee != 100 ? floatToString(totalFee) : (totalFee == 100 ? '100' : '0')) + '%/' + soloFee + '%');
 
     updateText('paymentsInterval', getReadableTime(parentStats.config.paymentsInterval));
     updateText('paymentsMinimum', getReadableCoin(parentStats, parentStats.config.minPaymentThreshold));
