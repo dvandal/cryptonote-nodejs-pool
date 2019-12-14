@@ -13,7 +13,8 @@
     "cnBlobType": 0,
     "includeHeight": true,
     "includeAlgo": "cn/r",
-
+    "isRandomX": false,
+    
     "logging": {
         "files": {
             "level": "info",
@@ -28,6 +29,7 @@
 
     "poolServer": {
         "enabled": true,
+        "mergedMining": false,
         "clusterForks": "auto",
         "poolAddress": "** Your pool wallet address **",
         "intAddressPrefix": 251,
