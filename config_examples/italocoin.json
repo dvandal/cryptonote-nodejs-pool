@@ -27,6 +27,8 @@
         }
     },
 
+    "childPools": null,
+    
     "poolServer": {
         "enabled": true,
         "mergedMining": false,
