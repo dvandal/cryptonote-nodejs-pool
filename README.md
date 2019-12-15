@@ -184,7 +184,7 @@ Explanation for each field:
 "poolHost": "your.pool.host",
 
 /* Used for storage in redis so multiple coins can share the same redis instance. */
-"coin": "graft",
+"coin": "graft", // Must match the parentCoin variable in config.js
 
 /* Used for front-end display */
 "symbol": "GRFT",
