@@ -35,6 +35,7 @@
         "clusterForks": "auto",
         "poolAddress": "** Your pool wallet address **",
         "intAddressPrefix": 251,
+        "subAddressPrefix": 252,
         "blockRefreshInterval": 1000,
         "minerTimeout": 900,
         "sslCert": "./cert.pem",
