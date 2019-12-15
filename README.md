@@ -266,7 +266,7 @@ Explanation for each field:
     "intAddressPrefix": 91,
     
     /* This is the Subaddress prefix used for miner login validation. */
-    "intAddressPrefix": 252,
+    "subAddressPrefix": 252,
     
     /* Poll RPC daemons for new blocks every this many milliseconds. */
     "blockRefreshInterval": 1000,
