@@ -23,6 +23,7 @@
     "networkLastReward": "Последнее вознаграждение",
     "poolMiners": "Пользователи пула",
     "poolFee": "Комиссия пула",
+    "finderReward": "Finder Reward",
     
     "minerStats": "Ваша статистика и история платежей",
     "workerStats": "Статистика ферм",

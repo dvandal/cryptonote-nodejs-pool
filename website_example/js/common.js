@@ -2303,6 +2303,8 @@ function home_InitTemplate(parentStats, siblingStats) {
 
     updateText('poolFee', (totalFee > 0 && totalFee != 100 ? floatToString(totalFee) : (totalFee == 100 ? '100' : '0')) + '%/' + soloFee + '%');
 
+    updateText('finderReward', parentStats.config.finderReward + '%');
+
     updateText('paymentsInterval', getReadableTime(parentStats.config.paymentsInterval));
     updateText('paymentsMinimum', getReadableCoin(parentStats, parentStats.config.minPaymentThreshold));
 

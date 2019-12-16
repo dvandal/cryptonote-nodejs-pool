@@ -23,6 +23,7 @@
     "networkLastReward": "上次收益",
     "poolMiners": "在线矿工",
     "poolFee": "矿池税",
+    "finderReward": "Finder奖励",
     
     "minerStats": "用户数据及支付历史",
     "workerStats": "设备数据",
