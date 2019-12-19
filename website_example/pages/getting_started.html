@@ -376,9 +376,13 @@ currentPage = {
                 algorithm = 'CryptoNight Lite';
                 xmrstakAlgo = 'cryptonight_lite';
             }
-        } else if (cnAlgorithm == "cryptonight_pico") {
-            algorithm = 'CryptoNight Turtle';
-            xmrstakAlgo = 'cryptonight_turtle';
+        } else if (cnAlgorithm == "cryptonight_pico" || cnAlgorithm == "cryptonight-turtle") {
+            if (cnAlgorithm == "cryptonight-turtle" && cnVariant === 2) {
+                algorithm = 'CryptoNight Ultra v2';
+            } else {
+                algorithm = 'CryptoNight Turtle';
+                xmrstakAlgo = 'cryptonight_turtle';
+            }
         } else if (cnAlgorithm == "cryptonight_heavy") {
             if (cnVariant === 1) {
                 algorithm = 'CryptoNight Haven';
