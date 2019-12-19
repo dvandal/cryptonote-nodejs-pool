@@ -6,6 +6,8 @@
     "coinUnits": 100000000,
     "coinDecimalPlaces": 4,
     "coinDifficultyTarget": 175,
+    "blockchainExplorer": "http://explorer.ird.cash/?hash={id}#block",
+    "transactionExporer": "http://explorer.ird.cash/?hash={id}#transaction",
 
     "daemonType": "bytecoin",
     "cnAlgorithm": "cryptonight_pico",
@@ -23,9 +25,10 @@
             "colors": true
         }
     },
-
+    "childPools": null,
     "poolServer": {
         "enabled": true,
+        "mergedMining": false,
         "clusterForks": "auto",
         "poolAddress": "** Your pool wallet address **",
         "intAddressPrefix": null,
