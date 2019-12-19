@@ -6,7 +6,8 @@
     "coinUnits": 1000000000,
     "coinDecimalPlaces": 9,
     "coinDifficultyTarget": 120,
-
+    "blockchainExplorer": "http://blockexplorer.arqma.com/block/{id}",
+    "transactionExplorer": "http://blockexplorer.arqma.com/tx/{id}",
     "cnAlgorithm": "randomx",
     "cnVariant": 2,
     "cnBlobType": 0,
@@ -24,9 +25,10 @@
             "colors": true
         }
     },
-
+    "childPools": null,
     "poolServer": {
         "enabled": true,
+        "mergedMining": false,
         "clusterForks": "auto",
         "poolAddress": "** Your pool wallet address **",
         "intAddressPrefix": 19,
