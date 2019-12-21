@@ -5,6 +5,8 @@
     "coinUnits": 100,
     "coinDecimalPlaces": 4,
     "coinDifficultyTarget": 30,
+    "blockchainExplorer": "http://blockexplorer.arqma.com/block/{id}",
+    "transactionExplorer": "http://blockexplorer.arqma.com/tx/{id}",
     "daemonType": "bytecoin",
     "cnAlgorithm": "cryptonight_pico",
     "cnVariant": 2,

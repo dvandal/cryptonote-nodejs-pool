@@ -6,7 +6,8 @@
     "coinUnits": 1000000000000,
     "coinDecimalPlaces": 12,
     "coinDifficultyTarget": 240,
-
+    "blockchainExplorer": "https://aeonblockexplorer.com/search?value={id}",
+    "transactionExplorer": "https://aeonblockexplorer.com/search?value={id}",
     "cnAlgorithm": "cryptonight_light",
     "cnVariant": 1,
     "cnBlobType": 0,

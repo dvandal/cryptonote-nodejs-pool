@@ -3,7 +3,8 @@
     "symbol": "NCP",
     "coinUnits": 100000000,
     "coinDifficultyTarget": 120,
-
+    "blockchainExplorer": "http://blockexplorer.arqma.com/block/{id}",
+    "transactionExplorer": "http://blockexplorer.arqma.com/tx/{id}",
     "logging": {
         "files": {
             "level": "info",

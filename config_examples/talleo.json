@@ -8,7 +8,6 @@
     "coinDifficultyTarget": 60,
     "blockchainExplorer": "https://pool.talleo.org/?hash={id}#blockchain_block",
     "transactionExplorer": "https://pool.talleo.org/?hash={id}#blockchain_transaction",
-
     "daemonType": "bytecoin",
     "previousOffset": null,
     "cnAlgorithm": "cryptonight-turtle",

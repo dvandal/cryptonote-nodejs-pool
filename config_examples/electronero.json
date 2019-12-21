@@ -6,7 +6,8 @@
     "coinUnits": 100,
     "coinDecimalPlaces": 2,
     "coinDifficultyTarget": 120,
-
+    "blockchainExplorer": "http://blockexplorer.arqma.com/block/{id}",
+    "transactionExplorer": "http://blockexplorer.arqma.com/tx/{id}",
     "daemonType": "default",
     "cnAlgorithm": "cryptonight",
     "cnVariant": 4,
