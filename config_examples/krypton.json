@@ -20,16 +20,18 @@
             "colors": true
         }
     },
+    "childPools": null,
     "poolServer": {
         "enabled": true,
+        "mergedMining": false,
         "clusterForks": 6,
         "poolAddress": "your_KRYPTON_ADDRESS_to_receive_block_rewards",
         "intAddressPrefix": null,
         "blockRefreshInterval": 1000,
         "minerTimeout": 900,
-        "sslCert": "./cert.pem", // Not required
-        "sslKey": "./privkey.pem", // Not required
-        "sslCA": "./chain.pem", // Not required
+        "sslCert": "./cert.pem", 
+        "sslKey": "./privkey.pem", 
+        "sslCA": "./chain.pem", 
         "ports": [
             {
                 "port": 3333,
@@ -67,7 +69,10 @@
             "maxJump": 100
         },
         "paymentId": {
-            "addressSeparator": "+"
+            "addressSeparator": ".", 
+            "validation": false,
+            "validations": ["1,16", "64"],
+            "ban": true
         },
         "separators": [
             {

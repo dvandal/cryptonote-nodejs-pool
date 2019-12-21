@@ -22,9 +22,10 @@
             "colors": true
         }
     },
-
+    "childPools": null,
     "poolServer": {
         "enabled": true,
+        "mergedMining": false,
         "clusterForks": "auto",
         "poolAddress": "YOUR_POOLS_XCASH_ADDRESS",
         "intAddressPrefix": 4178228,
@@ -70,7 +71,10 @@
             "maxJump": 100
         },
         "paymentId": {
-            "addressSeparator": "+"
+            "addressSeparator": ".", 
+            "validation": false,
+            "validations": ["1,16", "64"],
+            "ban": true
         },
         "fixedDiff": {
             "enabled": true,

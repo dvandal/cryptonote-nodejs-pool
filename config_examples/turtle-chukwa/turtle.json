@@ -22,8 +22,10 @@
         }
     },
     "hashingUtil": true,
+    "childPools": null,
     "poolServer": {
         "enabled": true,
+        "mergedMining": false,
         "clusterForks": 6,
         "poolAddress": "** Your pool wallet address **",
         "intAddressPrefix": null,
@@ -75,9 +77,11 @@
             "maxJump": 100
         },
         "paymentId": {
-            "addressSeparator": "+"
+            "addressSeparator": ".", 
+            "validation": false,
+            "validations": ["1,16", "64"],
+            "ban": true
         },
-	"separators": [{"value":"+","desc":"plus"}, {"value":".","desc":"dot"}],
         "fixedDiff": {
             "enabled": true,
             "addressSeparator": "."

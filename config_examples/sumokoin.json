@@ -25,8 +25,10 @@
     },
     "includeHeight": true,
     "includeAlgo": "cn/r",
+    "childPools": null,
     "poolServer": {
         "enabled": true,
+        "mergedMining": false,
         "clusterForks": "auto",
         "poolAddress": "** Your pool wallet address **",
         "intAddressPrefix": 536986,
@@ -78,7 +80,10 @@
             "maxJump": 100
         },
         "paymentId": {
-            "addressSeparator": "+"
+            "addressSeparator": ".", 
+            "validation": false,
+            "validations": ["1,16", "64"],
+            "ban": true
         },
         "fixedDiff": {
             "enabled": true,

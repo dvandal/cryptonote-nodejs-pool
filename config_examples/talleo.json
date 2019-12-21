@@ -31,9 +31,7 @@
             "colors": true
         }
     },
-
     "childPools": null,
-
     "poolServer": {
         "enabled": true,
         "mergedMining": false,
@@ -88,7 +86,10 @@
             "maxJump": 50
         },
         "paymentId": {
-            "addressSeparator": "+"
+            "addressSeparator": ".", 
+            "validation": false,
+            "validations": ["1,16", "64"],
+            "ban": true
         },
         "fixedDiff": {
             "enabled": true,

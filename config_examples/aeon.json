@@ -22,9 +22,10 @@
             "colors": true
         }
     },
-
+    "childPools": null,
     "poolServer": {
         "enabled": true,
+        "mergedMining": false,
         "clusterForks": "auto",
         "poolAddress": "** Your pool wallet address **",
         "blockRefreshInterval": 1000,
@@ -75,8 +76,10 @@
             "maxJump": 100
         },
         "paymentId": {
-            "addressSeparator": "+",
-            "validation": true
+            "addressSeparator": ".", 
+            "validation": false,
+            "validations": ["1,16", "64"],
+            "ban": true
         },
         "fixedDiff": {
             "enabled": true,
