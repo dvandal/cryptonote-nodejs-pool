@@ -15,7 +15,7 @@
     "cnVariant": 2,
     "cnBlobType": 2,
     "includeHeight": false,
-    "includeAlgo": false,
+    "includeAlgo": "cn/ultra",
 
     "hashingUtil": true,
 
