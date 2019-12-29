@@ -1778,8 +1778,8 @@ function workerstats_FetchAddressStats(longpoll, stats, api, xhrAddressPoll){
 
             let share_pct = userRoundHashes * 100 / poolRoundHashes;
             let score_pct = userRoundScore * 100 / poolRoundScore;
-            updateText(`yourRoundShareProportion${stats.config.coin}`, Math.round(share_pct * 1000) / 1000);
-            updateText(`yourRoundScoreProportion${stats.config.coin}`, Math.round(score_pct * 1000) / 1000);
+            updateText(`yourRoundShareProportion${stats.config.coin}`, isNaN(share_pct) ? 0.0 : Math.round(share_pct * 1000) / 1000);
+            updateText(`yourRoundScoreProportion${stats.config.coin}`, isNaN(score_pct) ? 0.0 : Math.round(score_pct * 1000) / 1000);
             if (!lastStats.config.slushMiningEnabled) {
                 $(`#slush_round_info${stats.config.coin}`).hide();
             }
