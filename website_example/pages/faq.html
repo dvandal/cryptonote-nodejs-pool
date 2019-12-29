@@ -126,13 +126,13 @@ currentPage = {
             var botStats = lastStats.config.telegramBotStats;
             if (botStats) updateText('botStats', botStats);
 
-            var botReport = lastReport.config.telegramBotReport;
+            var botReport = lastStats.config.telegramBotReport;
             if (botReport) updateText('botReport', botReport);
 
-            var botNotify = lastNotify.config.telegramBotNotify;
+            var botNotify = lastStats.config.telegramBotNotify;
             if (botNotify) updateText('botNotify', botNotify);
 
-            var botBlocks = lastBlocks.config.telegramBotBlocks;
+            var botBlocks = lastStats.config.telegramBotBlocks;
             if (botBlocks) updateText('botBlocks', botBlocks);
         }   
     }
