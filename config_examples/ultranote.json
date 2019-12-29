@@ -6,7 +6,8 @@
     "coinUnits": 1000000,
     "coinDecimalPlaces": 6,
     "coinDifficultyTarget": 120,
-
+    "blockchainExplorer": "http://blockexplorer.arqma.com/block/{id}",
+    "transactionExplorer": "http://blockexplorer.arqma.com/tx/{id}",
     "daemonType": "default",
     "cnAlgorithm": "cryptonight_light",
     "cnVariant": 1,
@@ -23,11 +24,12 @@
             "colors": true
         }
     },
-
+    "childPools": null,
     "poolServer": {
         "enabled": true,
+        "mergedMining": false,
         "clusterForks": "auto",
-        "poolAddress": "Xun3axmpXEAQ9QwjUzeW41NKPhn2Cu4XcSF5H4gCDdn9b9FnVTkmU4gfibRxBWkyyEdFh5DuhrJFFWo5pXEJdeoS2WWdJXeaUx",
+        "poolAddress": "** your pool wallet **",
         "intAddressPrefix": null,
         "blockRefreshInterval": 1000,
         "minerTimeout": 900,
@@ -58,7 +60,10 @@
             "maxJump": 100
         },
         "paymentId": {
-            "addressSeparator": "+"
+            "addressSeparator": ".", 
+            "validation": false,
+            "validations": ["1,16", "64"],
+            "ban": true
         },
         "fixedDiff": {
             "enabled": true,

@@ -7,8 +7,7 @@
     "coinDecimalPlaces": 4,
     "coinDifficultyTarget": 175,
     "blockchainExplorer": "http://explorer.ird.cash/?hash={id}#block",
-    "transactionExporer": "http://explorer.ird.cash/?hash={id}#transaction",
-
+    "transactionExplorer": "http://explorer.ird.cash/?hash={id}#transaction",
     "daemonType": "bytecoin",
     "cnAlgorithm": "cryptonight_pico",
     "cnVariant": 2,
@@ -80,7 +79,10 @@
             "maxJump": 100
         },
         "paymentId": {
-            "addressSeparator": "+"
+            "addressSeparator": ".", 
+            "validation": false,
+            "validations": ["1,16", "64"],
+            "ban": true
         },
         "fixedDiff": {
             "enabled": true,

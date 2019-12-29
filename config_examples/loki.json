@@ -6,7 +6,8 @@
     "coinUnits": 1000000000,
     "coinDecimalPlaces": 4,
     "coinDifficultyTarget": 120,
-
+    "blockchainExplorer": "http://blockexplorer.arqma.com/block/{id}",
+    "transactionExplorer": "http://blockexplorer.arqma.com/tx/{id}",
     "daemonType": "default",
     "cnAlgorithm": "randomx",
     "isRandomX": true,
@@ -24,9 +25,10 @@
             "colors": true
         }
     },
-
+    "childPools": null,
     "poolServer": {
         "enabled": true,
+        "mergedMining": false,
         "clusterForks": "auto",
         "poolAddress": "** Your pool wallet address **",
         "intAddressPrefix": 115,
@@ -78,7 +80,10 @@
             "maxJump": 100
         },
         "paymentId": {
-            "addressSeparator": "+"
+            "addressSeparator": ".", 
+            "validation": false,
+            "validations": ["1,16", "64"],
+            "ban": true
         },
         "fixedDiff": {
             "enabled": true,

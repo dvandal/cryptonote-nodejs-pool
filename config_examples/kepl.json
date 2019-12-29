@@ -1,17 +1,17 @@
 {
-    "poolHost": "your.pool.host",
+    "poolHost": "your.poolhost.tld",
 
-    "coin": "graft",
-    "symbol": "GRFT",
-    "coinUnits": 10000000000,
-    "coinDecimalPlaces": 4,
+    "coin": "kepl",
+    "symbol": "KEPL",
+    "coinUnits": 100000000,
+    "coinDecimalPlaces": 2,
     "coinDifficultyTarget": 120,
     "blockchainExplorer": "http://blockexplorer.arqma.com/block/{id}",
     "transactionExplorer": "http://blockexplorer.arqma.com/tx/{id}",
-    "daemonType": "default",
-    "cnAlgorithm": "cryptonight",
-    "cnVariant": 15,
-    "cnBlobType": 0,
+    "daemonType": "bytecoin",
+    "cnAlgorithm": "cryptonight_light",
+    "cnVariant": 4,
+    "cnBlobType": 2,
 
     "logging": {
         "files": {
@@ -29,8 +29,8 @@
         "enabled": true,
         "mergedMining": false,
         "clusterForks": "auto",
-        "poolAddress": "** Your pool wallet address **",
-        "intAddressPrefix": 91,
+        "poolAddress": "**Your Pool Wallet Address**",
+        "intAddressPrefix": null,
         "blockRefreshInterval": 1000,
         "minerTimeout": 900,
         "sslCert": "./cert.pem",
@@ -56,7 +56,7 @@
                 "port": 7777,
                 "difficulty": 500000,
                 "desc": "Cloud-mining / NiceHash"
-            },
+            }
             {
                 "port": 8888,
                 "difficulty": 25000,
@@ -72,8 +72,8 @@
         ],
         "varDiff": {
             "minDiff": 100,
-            "maxDiff": 100000000,
-            "targetTime": 60,
+            "maxDiff": 500000,
+            "targetTime": 10,
             "retargetTime": 30,
             "variancePercent": 30,
             "maxJump": 100
@@ -86,7 +86,7 @@
         },
         "fixedDiff": {
             "enabled": true,
-            "addressSeparator": "."
+            "addressSeparator": "+"
         },
         "shareTrust": {
             "enabled": true,
@@ -111,25 +111,25 @@
 
     "payments": {
         "enabled": true,
-        "interval": 1800,
+        "interval": 600,
         "maxAddresses": 50,
-        "mixin": 5,
+        "mixin": 3,
         "priority": 0,
-        "transferFee": 4000000000,
+        "transferFee": 10000,
         "dynamicTransferFee": true,
         "minerPayFee" : true,
-        "minPayment": 100000000000,
+        "minPayment": 500000,
         "maxPayment": null,
         "maxTransactionAmount": 0,
-        "denomination": 1000000000
+        "denomination": 100
     },
 
     "blockUnlocker": {
         "enabled": true,
         "interval": 30,
-        "depth": 60,
-        "poolFee": 0.8,
-        "devDonation": 0.2,
+        "depth": 10,
+        "poolFee": 100,
+        "devDonation": 0.0,
         "networkFee": 0.0
     },
 
@@ -141,7 +141,8 @@
         "port": 8117,
         "blocks": 30,
         "payments": 30,
-        "password": "your_password",
+        "host": "api",
+        "password": "CHANGE ME",
         "ssl": false,
         "sslPort": 8119,
         "sslCert": "./cert.pem",
@@ -152,20 +153,21 @@
 
     "daemon": {
         "host": "127.0.0.1",
-        "port": 18981
+        "port": 8581
     },
 
     "wallet": {
         "host": "127.0.0.1",
-        "port": 18982
+        "port": 8070,
+	"password": "**YOUR WALLET RPC PASSWORD - REQUIRES PR#305 **"
     },
 
     "redis": {
-        "host": "127.0.0.1",
+        "host": "redis",
         "port": 6379,
         "auth": null,
         "db": 0,
-        "cleanupInterval": 15
+	"cleanupInterval": 15
     },
 
     "notifications": {
@@ -262,12 +264,6 @@
     "charts": {
         "pool": {
             "hashrate": {
-                "enabled": true,
-                "updateInterval": 60,
-                "stepInterval": 1800,
-                "maximumPeriod": 86400
-            },
-            "miners": {
                 "enabled": true,
                 "updateInterval": 60,
                 "stepInterval": 1800,

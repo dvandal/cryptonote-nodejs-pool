@@ -3,7 +3,8 @@
     "symbol": "NCP",
     "coinUnits": 100000000,
     "coinDifficultyTarget": 120,
-
+    "blockchainExplorer": "http://blockexplorer.arqma.com/block/{id}",
+    "transactionExplorer": "http://blockexplorer.arqma.com/tx/{id}",
     "logging": {
         "files": {
             "level": "info",
@@ -15,11 +16,12 @@
             "colors": true
         }
     },
-
+    "childPools": null,
     "poolServer": {
         "enabled": true,
+        "mergedMining": false,
         "clusterForks": "auto",
-        "poolAddress": "** Your pool wallet address **"                                                                                        uhXd9FrWpYidBFMuaHBkECaRnjRsKf5g7Ukr2mcCD6",
+        "poolAddress": "** Your pool wallet address **",
         "blockRefreshInterval": 1000,
         "minerTimeout": 900,
         "ports": [
@@ -65,11 +67,14 @@
             "maxJump": 100
         },
         "paymentId": {
-            "addressSeparator": "+"
+            "addressSeparator": ".", 
+            "validation": false,
+            "validations": ["1,16", "64"],
+            "ban": true
         },
         "fixedDiff": {
             "enabled": true,
-            "addressSeparator": "."
+            "addressSeparator": ".",
             "shareTrust": {
             "enabled": true,
             "min": 10,

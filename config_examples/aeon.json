@@ -6,7 +6,8 @@
     "coinUnits": 1000000000000,
     "coinDecimalPlaces": 12,
     "coinDifficultyTarget": 240,
-
+    "blockchainExplorer": "https://aeonblockexplorer.com/search?value={id}",
+    "transactionExplorer": "https://aeonblockexplorer.com/search?value={id}",
     "cnAlgorithm": "cryptonight_light",
     "cnVariant": 1,
     "cnBlobType": 0,
@@ -22,9 +23,10 @@
             "colors": true
         }
     },
-
+    "childPools": null,
     "poolServer": {
         "enabled": true,
+        "mergedMining": false,
         "clusterForks": "auto",
         "poolAddress": "** Your pool wallet address **",
         "blockRefreshInterval": 1000,
@@ -75,8 +77,10 @@
             "maxJump": 100
         },
         "paymentId": {
-            "addressSeparator": "+",
-            "validation": true
+            "addressSeparator": ".", 
+            "validation": false,
+            "validations": ["1,16", "64"],
+            "ban": true
         },
         "fixedDiff": {
             "enabled": true,
