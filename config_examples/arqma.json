@@ -31,7 +31,8 @@
         "mergedMining": false,
         "clusterForks": "auto",
         "poolAddress": "** Your pool wallet address **",
-        "intAddressPrefix": 19,
+        "intAddressPrefix": "0x116bc7",
+        "subAddressPrefix": "0x6847",
         "blockRefreshInterval": 1000,
         "minerTimeout": 900,
         "sslCert": "./cert.pem",
@@ -157,7 +158,7 @@
 
     "wallet": {
         "host": "127.0.0.1",
-        "port": 19995
+        "port": 19999
     },
 
     "redis": {
