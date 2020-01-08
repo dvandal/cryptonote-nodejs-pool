@@ -8,7 +8,7 @@
     "coinDifficultyTarget": 120,
     "blockchainExplorer": "https://explorer.equilibria.network/block/{id}",
     "transactionExplorer": "https://explorer.equilibria.network/tx/{id}",
-	"daemonType": "default",
+    "daemonType": "default",
     "cnAlgorithm": "cryptonight_gpu",
     "cnVariant": 11,
     "cnBlobType": 5,
