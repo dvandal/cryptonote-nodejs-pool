@@ -255,7 +255,9 @@ currentPage = {
             updateText(`networkHashrate${updateKey}`, getReadableHashRateString(stats.network.difficulty / stats.config.coinDifficultyTarget) + '/sec');
             updateText(`networkDifficulty${updateKey}`, formatNumber(stats.network.difficulty.toString(), ' '));
             updateText(`blockchainHeight${updateKey}`, formatNumber(stats.network.height.toString(), ' '));
-            updateText(`networkLastReward${updateKey}`, getReadableCoin(stats, stats.lastblock.reward));
+	    let rewardMinusNetworkFee = stats.lastblock.reward - (stats.lastblock.reward * (stats.config.networkFee ? stats.config.networkFee / 100 : 0))
+    	    updateText(`networkLastReward${updateKey}`, getReadableCoin(stats, rewardMinusNetworkFee));
+
 
             updateText(`poolMiners${updateKey}`, `${stats.pool.miners}/${stats.pool.minersSolo}`);
             updateText(`blocksTotal${updateKey}`, `${stats.pool.totalBlocks}/${stats.pool.totalBlocksSolo}`);
