@@ -1,13 +1,13 @@
 {
     "poolHost": "your.pool.host",
 
-    "coin": "italoCoin",
-    "symbol": "XTA",
-    "coinUnits": 1000000000000,
+    "coin": "Lethean",
+    "symbol": "LTHN",
+    "coinUnits": 100000000,
     "coinDecimalPlaces": 4,
     "coinDifficultyTarget": 120,
-    "blockchainExplorer": "https://explorer.italo.network/block/{id}",
-    "transactionExplorer": "https://explorer.italo.network/tx/{id}",
+    "blockchainExplorer": "https://explorer.lethean.io/search?value={id}",
+    "transactionExplorer": "https://explorer.lethean.io/search?value={id}",
     "daemonType": "default",
     "cnAlgorithm": "cryptonight",
     "cnVariant": 13,
@@ -33,8 +33,8 @@
         "mergedMining": false,
         "clusterForks": "auto",
         "poolAddress": "** Your pool wallet address **",
-        "intAddressPrefix": "251",
-        "subAddressPrefix": "252",
+        "intAddressPrefix": "129",
+        "subAddressPrefix": "",
         "blockRefreshInterval": 1000,
         "minerTimeout": 900,
         "sslCert": "./cert.pem",
@@ -118,26 +118,25 @@
         "enabled": true,
         "interval": 1800,
         "maxAddresses": 50,
-        "mixin": 5,
-        "priority": 3,
-        "transferFee": 2500000000,
+        "mixin": 4,
+        "priority": 0,
+        "transferFee": 500000,
         "dynamicTransferFee": true,
         "minerPayFee" : true,
-        "minPayment": 1000000000000,
+        "minPayment": 100000000,
         "maxPayment": null,
         "maxTransactionAmount": 0,
-        "denomination": 100000000000
+        "denomination": 10000000
     },
 
     "blockUnlocker": {
         "enabled": true,
-        "interval": 60,
-        "depth": 50,
+        "interval": 30,
+        "depth": 40,
         "poolFee": 0,
         "devDonation": 0,
-        "networkFee": 30
+        "networkFee": 0.0 
     },
-
 
     "api": {
         "enabled": true,
@@ -158,12 +157,12 @@
 
     "daemon": {
         "host": "127.0.0.1",
-        "port": 13102
+        "port": 48782
     },
 
     "wallet": {
         "host": "127.0.0.1",
-        "port": 13100
+        "port": 48781
     },
 
     "redis": {
