@@ -1,3 +1,5 @@
+# FrontEnd
+
 ## Workers Stats
 
 ### Hash Rate Panel
@@ -16,3 +18,11 @@
 
 ### Current Effort Panel
 1. No Display if only solo miner. needs some thought!
+
+
+# BackEnd
+
+## PaymentProcessor.js
+1. incorporate daemontype = "bytecoin2", "bytecoin"
+
+
