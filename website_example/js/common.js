@@ -2140,9 +2140,7 @@ function home_CreateCharts(data) {
                 settings.tooltipValueLookups = {names: graphData[graphType].names};
                 var $chart = $('[data-chart=' + graphType + '] .chart');
                 $chart.closest('.poolChart').show();
-<<<<<<< HEAD
                 $chart.sparkline(graphData[graphType].values, settings);
-=======
 		settings.tooltipFormat = graphData[graphType].data[1] ? '<b>PROP: {{y}}</b> &ndash; {{offset:names}}' : '<b>{{y}}</b> &ndash; {{offset:names}}'
                 $chart.sparkline(graphData[graphType].data[0].values, settings);
 		if (graphData[graphType].data[1]) {
@@ -2151,7 +2149,6 @@ function home_CreateCharts(data) {
 		    settings.tooltipFormat = '<b>SOLO:{{y}}</b> &ndash; {{offset:names}}'
 		    $chart.sparkline(graphData[graphType].data[1].values, settings);
 		}
->>>>>>> 6dffdb8... Prop and Solo Graph Data
             }
         }
     }
