@@ -1,6 +1,6 @@
 # API
 
-__Underlined__ arguments are **required**.
+_Italic_ arguments are **required**.
 
 ## Endpoints
 
@@ -24,7 +24,7 @@ Returns all payments before `time`
 
 Arguments:
 
-* __`time`__: UNIX Timestamp
+* _`time`_: UNIX Timestamp
 
 #### `/get_blocks`
 
@@ -32,7 +32,7 @@ Returns all blocks found by the pool before `height`
 
 Arguments:
 
-* __`height`__: Block height
+* _`height`_: Block height
 
 #### `/get_market`
 
@@ -40,7 +40,7 @@ Returns the market data
 
 Arguments:
 
-* __`tickers[]`__: Tickers (can be used multiple times in the request)
+* _`tickers[]`_: Tickers (can be used multiple times in the request)
 
 #### `/get_top10miners`
 
@@ -54,7 +54,7 @@ Returns the miner payout level
 
 Arguments:
 
-* __`address`__: Wallet address
+* _`address`_: Wallet address
 
 #### `/set_miner_payout_level`
 
@@ -62,9 +62,9 @@ Sets the minimum payout for a miner
 
 Arguments:
 
-* __`address`__: Wallet address
-* __`ip`__: IP of the miner
-* __`level`__: Payout level to be set
+* _`address`_: Wallet address
+* _`ip`_: IP of the miner
+* _`level`_: Payout level to be set
 
 #### `/get_miner_email_notifications`
 
@@ -72,7 +72,7 @@ Returns the email of the miner
 
 Arguments:
 
-* __`address`__: Wallet address
+* _`address`_: Wallet address
 
 #### `/set_miner_email_notifications`
 
@@ -80,9 +80,9 @@ Sets the minimum payout for a miner
 
 Arguments:
 
-* __`address`__: Wallet address
-* __`ip`__: IP of the miner
-* __`level`__: Payout level to be set
+* _`address`_: Wallet address
+* _`ip`_: IPof the miner
+* _`level`_: Payout level to be set
 
 #### `/get_telegram_notifications`
 
@@ -94,9 +94,9 @@ Sets the minimum payout for a miner
 
 Arguments:
 
-* __`address`__: Wallet address
-* __`ip`__: IP of the miner
-* __`level`__: Payout level to be set
+* _`address`_: Wallet address
+* _`ip`_: IP of the miner
+* _`level`_: Payout level to be set
 
 ### Miners/workers hashrate (for charts)
 
@@ -106,7 +106,7 @@ Returns the hashrate, sorted by miners
 
 Arguments:
 
-* __`password`__: Admin password
+* _`password`_: Admin password
 
 #### `/workers_hashrate`
 
@@ -114,7 +114,7 @@ Returns the hashrate, sorted by workers
 
 Arguments:
 
-* __`password`__: Admin password
+* _`password`_: Admin password
 
 ### Pool administration
 
@@ -124,7 +124,7 @@ Returns the entire stats of the pool
 
 Arguments:
 
-* __`password`__: Admin password
+* _`password`_: Admin password
 
 #### `/admin_monitoring`
 
@@ -132,7 +132,7 @@ Returns the monitoring of the pool
 
 Arguments:
 
-* __`password`__: Admin password
+* _`password`_: Admin password
 
 #### `/admin_log`
 
@@ -140,8 +140,8 @@ Returns the log of the pool
 
 Arguments:
 
-* __`password`__: Admin password
-* __`file`__: The file
+* _`password`_: Admin password
+* _`file`_: The file
 
 #### `/admin_users`
 
@@ -149,7 +149,7 @@ Returns the users of the pool
 
 Arguments:
 
-* __`password`__: Admin password
+* _`password`_: Admin password
 
 #### `/admin_ports`
 
@@ -157,7 +157,7 @@ Returns the ports of the pool with the connected workers
 
 Arguments:
 
-* __`password`__: Admin password
+* _`password`_: Admin password
 
 #### `/test_email_notification`
 
@@ -165,7 +165,7 @@ Sends an email notification
 
 Arguments:
 
-* __`password`__: Admin password
+* _`password`_: Admin password
 
 #### `/test_telegram_notification`
 
@@ -173,4 +173,4 @@ Sends an telegram notification
 
 Arguments:
 
-* __`password`__: Admin password
+* _`password`_: Admin password
