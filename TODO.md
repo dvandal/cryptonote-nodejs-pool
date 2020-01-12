@@ -25,4 +25,8 @@
 ## PaymentProcessor.js
 1. incorporate daemontype = "bytecoin2", "bytecoin"
 
+## apiInterfaces.js
+1. upgrade to get digest auth working. see [arqma-rpc](https://github.com/arqma/arqma-rpc-js)
+2. upgrade to use turtle auth.
+
 
