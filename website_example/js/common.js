@@ -2128,25 +2128,24 @@ let home_GraphSettings = {
 function home_CreateCharts(data) {
     if (data.hasOwnProperty("charts")) {
         var graphData = {
-            hashrate: home_GetGraphData(data.charts.hashrate),
-            diff: home_GetGraphData(data.charts.difficulty),
-            miners: home_GetGraphData(data.charts.miners),
-            workers: home_GetGraphData(data.charts.workers)
+            hashrate: {data: [home_GetGraphData(data.charts.hashrate), home_GetGraphData(data.charts.hashrateSolo)], options: {lineColor: 'green'}},
+            diff: {data: [home_GetGraphData(data.charts.difficulty)]},
+            miners: {data: [home_GetGraphData(data.charts.miners), home_GetGraphData(data.charts.minersSolo)], options: {lineColor: 'green'}},
+            workers: {data: [home_GetGraphData(data.charts.workers)]},
         };
 
         for(var graphType in graphData) {
-            if(graphData[graphType].values.length > 1) {
+            if(graphData[graphType].data[0].values.length > 1) {
                 var settings = jQuery.extend({}, home_GraphSettings);
-                settings.tooltipValueLookups = {names: graphData[graphType].names};
+                settings.tooltipValueLookups = {names: graphData[graphType].data[0].names};
                 var $chart = $('[data-chart=' + graphType + '] .chart');
                 $chart.closest('.poolChart').show();
-                $chart.sparkline(graphData[graphType].values, settings);
 		settings.tooltipFormat = graphData[graphType].data[1] ? '<b>PROP: {{y}}</b> &ndash; {{offset:names}}' : '<b>{{y}}</b> &ndash; {{offset:names}}'
                 $chart.sparkline(graphData[graphType].data[0].values, settings);
 		if (graphData[graphType].data[1]) {
 		    settings.composite = true
 		    settings.lineColor = graphData[graphType].options.lineColor
-		    settings.tooltipFormat = '<b>SOLO:{{y}}</b> &ndash; {{offset:names}}'
+		    settings.tooltipFormat = '<b>SOLO: {{y}}</b> &ndash; {{offset:names}}'
 		    $chart.sparkline(graphData[graphType].data[1].values, settings);
 		}
             }
@@ -2166,7 +2165,6 @@ function home_GetGraphData(rawData, fixValueToCoins) {
             graphData.values.push(fixValueToCoins ? getReadableCoin(lastStats, xy[1], null, true) : xy[1]);
         }
     }
-
     return graphData;
 }
 
@@ -2249,7 +2247,7 @@ function home_InitTemplate(parentStats, siblingStats) {
         updateText(`networkHashrate${key}`, getReadableHashRateString(siblingStats[key].network.difficulty / siblingStats[key].config.coinDifficultyTarget) + '/sec');
         updateText(`networkDifficulty${key}`, formatNumber(siblingStats[key].network.difficulty.toString(), ' '));
         updateText(`blockchainHeight${key}`, formatNumber(siblingStats[key].network.height.toString(), ' '));
-        updateText(`networkLastReward${key}`, getReadableCoin(siblingStats[key], siblingStats[key].lastblock.reward));
+//        updateText(`networkLastReward${key}`, getReadableCoin(siblingStats[key], siblingStats[key].lastblock.reward));
         updateText(`poolMiners${key}`, `${siblingStats[key].pool.miners}/${siblingStats[key].pool.minersSolo}`);
         updateText(`blocksTotal${key}`, `${siblingStats[key].pool.totalBlocks}/${siblingStats[key].pool.totalBlocksSolo}`);
         updateText(`currentEffort${key}`, (siblingStats[key].pool.roundHashes / siblingStats[key].network.difficulty * 100).toFixed(1) + '%');
