@@ -2141,6 +2141,14 @@ function home_CreateCharts(data) {
                 var $chart = $('[data-chart=' + graphType + '] .chart');
                 $chart.closest('.poolChart').show();
                 $chart.sparkline(graphData[graphType].values, settings);
+		settings.tooltipFormat = graphData[graphType].data[1] ? '<b>PROP: {{y}}</b> &ndash; {{offset:names}}' : '<b>{{y}}</b> &ndash; {{offset:names}}'
+                $chart.sparkline(graphData[graphType].data[0].values, settings);
+		if (graphData[graphType].data[1]) {
+		    settings.composite = true
+		    settings.lineColor = graphData[graphType].options.lineColor
+		    settings.tooltipFormat = '<b>SOLO:{{y}}</b> &ndash; {{offset:names}}'
+		    $chart.sparkline(graphData[graphType].data[1].values, settings);
+		}
             }
         }
     }

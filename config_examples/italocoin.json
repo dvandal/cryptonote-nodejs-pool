@@ -2,12 +2,12 @@
     "poolHost": "your.pool.host",
 
     "coin": "italoCoin",
-    "symbol": "ITA",
+    "symbol": "XTA",
     "coinUnits": 1000000000000,
     "coinDecimalPlaces": 4,
     "coinDifficultyTarget": 120,
-    "blockchainExplorer": "http://blockexplorer.arqma.com/block/{id}",
-    "transactionExplorer": "http://blockexplorer.arqma.com/tx/{id}",
+    "blockchainExplorer": "https://explorer.italo.network/block/{id}",
+    "transactionExplorer": "https://explorer.italo.network/tx/{id}",
     "daemonType": "default",
     "cnAlgorithm": "cryptonight",
     "cnVariant": 13,
@@ -15,7 +15,7 @@
     "includeHeight": true,
     "includeAlgo": "cn/r",
     "isRandomX": false,
-    
+
     "logging": {
         "files": {
             "level": "info",
@@ -27,15 +27,14 @@
             "colors": true
         }
     },
-
-    "childPools": null,    
+    "childPools": null,
     "poolServer": {
         "enabled": true,
         "mergedMining": false,
         "clusterForks": "auto",
         "poolAddress": "** Your pool wallet address **",
-        "intAddressPrefix": 251,
-        "subAddressPrefix": 252,
+        "intAddressPrefix": "251",
+        "subAddressPrefix": "252",
         "blockRefreshInterval": 1000,
         "minerTimeout": 900,
         "sslCert": "./cert.pem",
@@ -74,6 +73,7 @@
                 "desc": "SSL connection",
                 "ssl": true
             }
+
         ],
         "varDiff": {
             "minDiff": 100,
@@ -85,7 +85,7 @@
         },
         "paymentId": {
             "addressSeparator": ".", 
-            "validation": false,
+            "validation": true,
             "validations": ["1,16", "64"],
             "ban": true
         },
@@ -119,8 +119,8 @@
         "interval": 1800,
         "maxAddresses": 50,
         "mixin": 5,
-        "priority": 0,
-        "transferFee": 20000000,
+        "priority": 3,
+        "transferFee": 2500000000,
         "dynamicTransferFee": true,
         "minerPayFee" : true,
         "minPayment": 1000000000000,
@@ -131,12 +131,13 @@
 
     "blockUnlocker": {
         "enabled": true,
-        "interval": 30,
-        "depth": 60,
-        "poolFee": 0.8,
-        "devDonation": 0.2,
-        "networkFee": 0.0
+        "interval": 60,
+        "depth": 50,
+        "poolFee": 0,
+        "devDonation": 0,
+        "networkFee": 30
     },
+
 
     "api": {
         "enabled": true,
@@ -162,7 +163,7 @@
 
     "wallet": {
         "host": "127.0.0.1",
-        "port": 13103
+        "port": 13100
     },
 
     "redis": {
@@ -242,9 +243,8 @@
         },
         "botCommands": {
             "stats": "/stats",
-            "report": "/report",
-            "notify": "/notify",
-            "blocks": "/blocks"
+            "enable": "/enable",
+            "disable": "/disable"
         }
     },
     
