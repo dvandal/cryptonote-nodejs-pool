@@ -1,18 +1,18 @@
-### Workers Stats
+## Workers Stats
 
-## Hash Rate Panel
+### Hash Rate Panel
 1. Hashrate graph need solo/prop
 
-## Payments Panel
+### Payments Panel
 1. Round contribution for solo/prop 
 
 
-### Pool Blocks
+## Pool Blocks
 
-## Average Luck
+### Average Luck
 1. Needs solo/prop results
 
-### Dashboard
+## Dashboard
 
-## Current Effort Panel
+### Current Effort Panel
 1. No Display if only solo miner. needs some thought!
