@@ -2520,7 +2520,7 @@ function home_CreateCharts (data) {
 			hashrate: {
 				data: [home_GetGraphData(data.charts.hashrate), home_GetGraphData(data.charts.hashrateSolo)],
 				options: {
-					lineColor: 'green'
+					lineColor: 'orange'
 				}
 			},
 			diff: {
@@ -2529,11 +2529,14 @@ function home_CreateCharts (data) {
 			miners: {
 				data: [home_GetGraphData(data.charts.miners), home_GetGraphData(data.charts.minersSolo)],
 				options: {
-					lineColor: 'green'
+					lineColor: 'orange'
 				}
 			},
 			workers: {
-				data: [home_GetGraphData(data.charts.workers)]
+				data: [home_GetGraphData(data.charts.workers), home_GetGraphData(data.charts.workersSolo)],
+                                options: {
+                                        lineColor: 'orange'
+                                }
 			},
 		};
 
@@ -2546,12 +2549,12 @@ function home_CreateCharts (data) {
 				var $chart = $('[data-chart=' + graphType + '] .chart');
 				$chart.closest('.poolChart')
 					.show();
-				settings.tooltipFormat = graphData[graphType].data[1] ? '<b>PROP: {{y}}</b> &ndash; {{offset:names}}' : '<b>{{y}}</b> &ndash; {{offset:names}}'
+		                settings.tooltipFormat = graphData[graphType].data[1] ? '<span style="color:{{color}}">PROP: {{y}}</span> &ndash; {{offset:names}}' : '<span>{{y}}</span> &ndash; {{offset:names}}'
 				$chart.sparkline(graphData[graphType].data[0].values, settings);
 				if (graphData[graphType].data[1]) {
 					settings.composite = true
 					settings.lineColor = graphData[graphType].options.lineColor
-					settings.tooltipFormat = '<b>SOLO: {{y}}</b> &ndash; {{offset:names}}'
+			                settings.tooltipFormat = '<span style="color:orange">SOLO: {{y}}</span> &ndash; {{offset:names}}'
 					$chart.sparkline(graphData[graphType].data[1].values, settings);
 				}
 			}
