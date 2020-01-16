@@ -33,30 +33,30 @@
  // Load pool modules
  if (cluster.isWorker) {
  	switch (process.env.workerType) {
- 	case 'pool':
- 		require('./lib/pool.js');
- 		break;
- 	case 'daemon':
- 		require('./lib/daemon.js')
- 		break
- 	case 'childDaemon':
- 		require('./lib/childDaemon.js')
- 		break
- 	case 'blockUnlocker':
- 		require('./lib/blockUnlocker.js');
- 		break;
- 	case 'paymentProcessor':
- 		require('./lib/paymentProcessor.js');
- 		break;
- 	case 'api':
- 		require('./lib/api.js');
- 		break;
- 	case 'chartsDataCollector':
- 		require('./lib/chartsDataCollector.js');
- 		break;
- 	case 'telegramBot':
- 		require('./lib/telegramBot.js');
- 		break;
+ 		case 'pool':
+ 			require('./lib/pool.js');
+ 			break;
+ 		case 'daemon':
+ 			require('./lib/daemon.js')
+ 			break
+ 		case 'childDaemon':
+ 			require('./lib/childDaemon.js')
+ 			break
+ 		case 'blockUnlocker':
+ 			require('./lib/blockUnlocker.js');
+ 			break;
+ 		case 'paymentProcessor':
+ 			require('./lib/paymentProcessor.js');
+ 			break;
+ 		case 'api':
+ 			require('./lib/api.js');
+ 			break;
+ 		case 'chartsDataCollector':
+ 			require('./lib/chartsDataCollector.js');
+ 			break;
+ 		case 'telegramBot':
+ 			require('./lib/telegramBot.js');
+ 			break;
  	}
  	return;
  }
@@ -97,27 +97,27 @@
  			log('info', logSystem, 'Running in single module mode: %s', [singleModule]);
 
  			switch (singleModule) {
- 			case 'daemon':
- 				spawnDaemon()
- 				break
- 			case 'pool':
- 				spawnPoolWorkers();
- 				break;
- 			case 'unlocker':
- 				spawnBlockUnlocker();
- 				break;
- 			case 'payments':
- 				spawnPaymentProcessor();
- 				break;
- 			case 'api':
- 				spawnApi();
- 				break;
- 			case 'chartsDataCollector':
- 				spawnChartsDataCollector();
- 				break;
- 			case 'telegramBot':
- 				spawnTelegramBot();
- 				break;
+ 				case 'daemon':
+ 					spawnDaemon()
+ 					break
+ 				case 'pool':
+ 					spawnPoolWorkers();
+ 					break;
+ 				case 'unlocker':
+ 					spawnBlockUnlocker();
+ 					break;
+ 				case 'payments':
+ 					spawnPaymentProcessor();
+ 					break;
+ 				case 'api':
+ 					spawnApi();
+ 					break;
+ 				case 'chartsDataCollector':
+ 					spawnChartsDataCollector();
+ 					break;
+ 				case 'telegramBot':
+ 					spawnTelegramBot();
+ 					break;
  			}
  		} else {
  			spawnPoolWorkers();
@@ -205,17 +205,17 @@
  			})
  			.on('message', function (msg) {
  				switch (msg.type) {
- 				case 'banIP':
- 					Object.keys(cluster.workers)
- 						.forEach(function (id) {
- 							if (cluster.workers[id].type === 'pool') {
- 								cluster.workers[id].send({
- 									type: 'banIP',
- 									ip: msg.ip
- 								});
- 							}
- 						});
- 					break;
+ 					case 'banIP':
+ 						Object.keys(cluster.workers)
+ 							.forEach(function (id) {
+ 								if (cluster.workers[id].type === 'pool') {
+ 									cluster.workers[id].send({
+ 										type: 'banIP',
+ 										ip: msg.ip
+ 									});
+ 								}
+ 							});
+ 						break;
  				}
  			});
  	};
@@ -262,18 +262,18 @@
  			})
  			.on('message', function (msg) {
  				switch (msg.type) {
- 				case 'ChildBlockTemplate':
- 					Object.keys(cluster.workers)
- 						.forEach(function (id) {
- 							if (cluster.workers[id].type === 'pool') {
- 								cluster.workers[id].send({
- 									type: 'ChildBlockTemplate',
- 									block: msg.block,
- 									poolIndex: msg.poolIndex
- 								});
- 							}
- 						});
- 					break;
+ 					case 'ChildBlockTemplate':
+ 						Object.keys(cluster.workers)
+ 							.forEach(function (id) {
+ 								if (cluster.workers[id].type === 'pool') {
+ 									cluster.workers[id].send({
+ 										type: 'ChildBlockTemplate',
+ 										block: msg.block,
+ 										poolIndex: msg.poolIndex
+ 									});
+ 								}
+ 							});
+ 						break;
  				}
  			});
  	};
@@ -307,17 +307,17 @@
  		})
  		.on('message', function (msg) {
  			switch (msg.type) {
- 			case 'BlockTemplate':
- 				Object.keys(cluster.workers)
- 					.forEach(function (id) {
- 						if (cluster.workers[id].type === 'pool') {
- 							cluster.workers[id].send({
- 								type: 'BlockTemplate',
- 								block: msg.block
- 							});
- 						}
- 					});
- 				break;
+ 				case 'BlockTemplate':
+ 					Object.keys(cluster.workers)
+ 						.forEach(function (id) {
+ 							if (cluster.workers[id].type === 'pool') {
+ 								cluster.workers[id].send({
+ 									type: 'BlockTemplate',
+ 									block: msg.block
+ 								});
+ 							}
+ 						});
+ 					break;
  			}
  		});
  }
