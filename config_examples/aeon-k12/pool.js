@@ -133,9 +133,9 @@ setInterval(function () {
  **/
 process.on('message', function (message) {
 	switch (message.type) {
-	case 'banIP':
-		bannedIPs[message.ip] = Date.now();
-		break;
+		case 'banIP':
+			bannedIPs[message.ip] = Date.now();
+			break;
 	}
 });
 
@@ -219,7 +219,7 @@ function getLastBlockHeader (daemon, callback) {
  **/
 function jobRefresh (loop) {
 	async.waterfall([
-        function (callback) {
+			function (callback) {
 				if (!poolStarted) {
 					startPoolServerTcp(function (successful) {
 						poolStarted = true
@@ -248,8 +248,8 @@ function jobRefresh (loop) {
 					}
 				});
 
-        },
-        function (getbc, callback) {
+			},
+			function (getbc, callback) {
 				let start = new Date();
 				getBlockTemplate(function (err, result) {
 					if (err) {
@@ -276,7 +276,8 @@ function jobRefresh (loop) {
 						console.log(`getBlockTemplate ${e}`)
 					}
 				})
-        }],
+			}
+		],
 		function (err) {
 			if (loop === true) {
 				setTimeout(function () {
@@ -531,169 +532,139 @@ function handleMinerMethod (method, params, ip, portData, sendReply, pushMessage
 	}
 
 	switch (method) {
-	case 'login':
-		let login = params.login;
-		if (!login) {
-			sendReply('Missing login');
-			return;
-		}
-
-		let port = portData.port;
-
-		let pass = params.pass;
-		let workerName = '';
-		if (params.rigid) {
-			workerName = params.rigid.trim();
-		} else if (pass) {
-			workerName = pass.trim();
-			if (pass.indexOf(':') >= 0 && pass.indexOf('@') >= 0) {
-				passDelimiterPos = pass.lastIndexOf(':');
-				workerName = pass.substr(0, passDelimiterPos)
-					.trim();
-			}
-			workerName = workerName.replace(/:/g, '');
-			workerName = workerName.replace(/\+/g, '');
-			workerName = workerName.replace(/\s/g, '');
-			if (workerName.toLowerCase() === 'x') {
-				workerName = '';
-			}
-		}
-		if (!workerName || workerName === '') {
-			workerName = 'undefined';
-		}
-		workerName = utils.cleanupSpecialChars(workerName);
-
-		let difficulty = portData.difficulty;
-		let noRetarget = false;
-		if (config.poolServer.fixedDiff.enabled) {
-			let fixedDiffCharPos = login.lastIndexOf(config.poolServer.fixedDiff.addressSeparator);
-			if (fixedDiffCharPos !== -1 && (login.length - fixedDiffCharPos < 32)) {
-				diffValue = login.substr(fixedDiffCharPos + 1);
-				difficulty = parseInt(diffValue);
-				login = login.substr(0, fixedDiffCharPos);
-				if (!difficulty || difficulty != diffValue) {
-					log('warn', logSystem, 'Invalid difficulty value "%s" for login: %s', [diffValue, login]);
-					difficulty = portData.difficulty;
-				} else {
-					noRetarget = true;
-					if (difficulty < config.poolServer.varDiff.minDiff) {
-						difficulty = config.poolServer.varDiff.minDiff;
-					}
-				}
-			}
-		}
-
-		let addr = login.split(config.poolServer.paymentId.addressSeparator);
-		let address = addr[0] || null;
-		let paymentId = addr[1] || null;
-
-		if (!address) {
-			log('warn', logSystem, 'No address specified for login');
-			sendReply('Invalid address used for login');
-			return;
-		}
-
-		if (paymentId && paymentId.match('^([a-zA-Z0-9]){0,15}$')) {
-			if (config.poolServer.paymentId.validation) {
-				process.send({
-					type: 'banIP',
-					ip: ip
-				});
-				log('warn', logSystem, 'Invalid paymentId specified for login');
-			} else {
-				log('warn', logSystem, 'Invalid paymentId specified for login');
-			}
-			sendReply(`Invalid paymentId specified for login, ${portData.ip} banned for ${config.poolServer.banning.time / 60} minutes`);
-			return
-		}
-
-
-		if (!utils.validateMinerAddress(address)) {
-			let addressPrefix = utils.getAddressPrefix(address);
-			if (!addressPrefix) addressPrefix = 'N/A';
-
-			log('warn', logSystem, 'Invalid address used for login (prefix: %s): %s', [addressPrefix, address]);
-			sendReply('Invalid address used for login');
-			return;
-		}
-
-		let minerId = utils.uid();
-		miner = new Miner(minerId, login, pass, ip, port, params.agent, workerName, difficulty, noRetarget, pushMessage);
-		connectedMiners[minerId] = miner;
-
-		sendReply(null, {
-			id: minerId,
-			job: miner.getJob(),
-			status: 'OK'
-		});
-
-		newConnectedWorker(miner);
-		break;
-	case 'getjob':
-		if (!miner) {
-			sendReply('Unauthenticated');
-			return;
-		}
-		miner.heartbeat();
-		sendReply(null, miner.getJob());
-		break;
-	case 'submit':
-		if (!miner) {
-			sendReply('Unauthenticated');
-			return;
-		}
-		miner.heartbeat();
-
-		let job = miner.validJobs.filter(function (job) {
-			return job.id === params.job_id;
-		})[0];
-
-		if (!job) {
-			sendReply('Invalid job id');
-			return;
-		}
-
-		if (!params.nonce || !params.result) {
-			sendReply('Attack detected');
-			let minerText = miner ? (' ' + miner.login + '@' + miner.ip) : '';
-			log('warn', logSystem, 'Malformed miner share: ' + JSON.stringify(params) + ' from ' + minerText);
-			return;
-		}
-
-		params.nonce = params.nonce.substr(0, 16)
-			.toLowerCase();
-
-		if (!noncePattern.test(params.nonce)) {
-			let minerText = miner ? (' ' + miner.login + '@' + miner.ip) : '';
-			log('warn', logSystem, 'Malformed nonce: ' + JSON.stringify(params) + ' from ' + minerText);
-			perIPStats[miner.ip] = {
-				validShares: 0,
-				invalidShares: 999999
-			};
-			miner.checkBan(false);
-			sendReply('Duplicate share');
-			return;
-		}
-
-		// Force lowercase for further comparison
-		//            params.nonce = params.nonce.toLowerCase();
-
-		if (!miner.proxy) {
-			if (job.submissions.indexOf(params.nonce) !== -1) {
-				let minerText = miner ? (' ' + miner.login + '@' + miner.ip) : '';
-				log('warn', logSystem, 'Duplicate share: ' + JSON.stringify(params) + ' from ' + minerText);
-				perIPStats[miner.ip] = {
-					validShares: 0,
-					invalidShares: 999999
-				};
-				miner.checkBan(false);
-				sendReply('Duplicate share');
+		case 'login':
+			let login = params.login;
+			if (!login) {
+				sendReply('Missing login');
 				return;
 			}
 
-			job.submissions.push(params.nonce);
-		} else {
-			if (!Number.isInteger(params.poolNonce) || !Number.isInteger(params.workerNonce)) {
+			let port = portData.port;
+
+			let pass = params.pass;
+			let workerName = '';
+			if (params.rigid) {
+				workerName = params.rigid.trim();
+			} else if (pass) {
+				workerName = pass.trim();
+				if (pass.indexOf(':') >= 0 && pass.indexOf('@') >= 0) {
+					passDelimiterPos = pass.lastIndexOf(':');
+					workerName = pass.substr(0, passDelimiterPos)
+						.trim();
+				}
+				workerName = workerName.replace(/:/g, '');
+				workerName = workerName.replace(/\+/g, '');
+				workerName = workerName.replace(/\s/g, '');
+				if (workerName.toLowerCase() === 'x') {
+					workerName = '';
+				}
+			}
+			if (!workerName || workerName === '') {
+				workerName = 'undefined';
+			}
+			workerName = utils.cleanupSpecialChars(workerName);
+
+			let difficulty = portData.difficulty;
+			let noRetarget = false;
+			if (config.poolServer.fixedDiff.enabled) {
+				let fixedDiffCharPos = login.lastIndexOf(config.poolServer.fixedDiff.addressSeparator);
+				if (fixedDiffCharPos !== -1 && (login.length - fixedDiffCharPos < 32)) {
+					diffValue = login.substr(fixedDiffCharPos + 1);
+					difficulty = parseInt(diffValue);
+					login = login.substr(0, fixedDiffCharPos);
+					if (!difficulty || difficulty != diffValue) {
+						log('warn', logSystem, 'Invalid difficulty value "%s" for login: %s', [diffValue, login]);
+						difficulty = portData.difficulty;
+					} else {
+						noRetarget = true;
+						if (difficulty < config.poolServer.varDiff.minDiff) {
+							difficulty = config.poolServer.varDiff.minDiff;
+						}
+					}
+				}
+			}
+
+			let addr = login.split(config.poolServer.paymentId.addressSeparator);
+			let address = addr[0] || null;
+			let paymentId = addr[1] || null;
+
+			if (!address) {
+				log('warn', logSystem, 'No address specified for login');
+				sendReply('Invalid address used for login');
+				return;
+			}
+
+			if (paymentId && paymentId.match('^([a-zA-Z0-9]){0,15}$')) {
+				if (config.poolServer.paymentId.validation) {
+					process.send({
+						type: 'banIP',
+						ip: ip
+					});
+					log('warn', logSystem, 'Invalid paymentId specified for login');
+				} else {
+					log('warn', logSystem, 'Invalid paymentId specified for login');
+				}
+				sendReply(`Invalid paymentId specified for login, ${portData.ip} banned for ${config.poolServer.banning.time / 60} minutes`);
+				return
+			}
+
+
+			if (!utils.validateMinerAddress(address)) {
+				let addressPrefix = utils.getAddressPrefix(address);
+				if (!addressPrefix) addressPrefix = 'N/A';
+
+				log('warn', logSystem, 'Invalid address used for login (prefix: %s): %s', [addressPrefix, address]);
+				sendReply('Invalid address used for login');
+				return;
+			}
+
+			let minerId = utils.uid();
+			miner = new Miner(minerId, login, pass, ip, port, params.agent, workerName, difficulty, noRetarget, pushMessage);
+			connectedMiners[minerId] = miner;
+
+			sendReply(null, {
+				id: minerId,
+				job: miner.getJob(),
+				status: 'OK'
+			});
+
+			newConnectedWorker(miner);
+			break;
+		case 'getjob':
+			if (!miner) {
+				sendReply('Unauthenticated');
+				return;
+			}
+			miner.heartbeat();
+			sendReply(null, miner.getJob());
+			break;
+		case 'submit':
+			if (!miner) {
+				sendReply('Unauthenticated');
+				return;
+			}
+			miner.heartbeat();
+
+			let job = miner.validJobs.filter(function (job) {
+				return job.id === params.job_id;
+			})[0];
+
+			if (!job) {
+				sendReply('Invalid job id');
+				return;
+			}
+
+			if (!params.nonce || !params.result) {
+				sendReply('Attack detected');
+				let minerText = miner ? (' ' + miner.login + '@' + miner.ip) : '';
+				log('warn', logSystem, 'Malformed miner share: ' + JSON.stringify(params) + ' from ' + minerText);
+				return;
+			}
+
+			params.nonce = params.nonce.substr(0, 16)
+				.toLowerCase();
+
+			if (!noncePattern.test(params.nonce)) {
 				let minerText = miner ? (' ' + miner.login + '@' + miner.ip) : '';
 				log('warn', logSystem, 'Malformed nonce: ' + JSON.stringify(params) + ' from ' + minerText);
 				perIPStats[miner.ip] = {
@@ -704,77 +675,107 @@ function handleMinerMethod (method, params, ip, portData, sendReply, pushMessage
 				sendReply('Duplicate share');
 				return;
 			}
-			let nonce_test = `${params.nonce}_${params.poolNonce}_${params.workerNonce}`;
-			if (job.submissions.indexOf(nonce_test) !== -1) {
-				let minerText = miner ? (' ' + miner.login + '@' + miner.ip) : '';
-				log('warn', logSystem, 'Duplicate share: ' + JSON.stringify(params) + ' from ' + minerText);
-				perIPStats[miner.ip] = {
-					validShares: 0,
-					invalidShares: 999999
-				};
-				miner.checkBan(false);
-				sendReply('Duplicate share');
+
+			// Force lowercase for further comparison
+			//            params.nonce = params.nonce.toLowerCase();
+
+			if (!miner.proxy) {
+				if (job.submissions.indexOf(params.nonce) !== -1) {
+					let minerText = miner ? (' ' + miner.login + '@' + miner.ip) : '';
+					log('warn', logSystem, 'Duplicate share: ' + JSON.stringify(params) + ' from ' + minerText);
+					perIPStats[miner.ip] = {
+						validShares: 0,
+						invalidShares: 999999
+					};
+					miner.checkBan(false);
+					sendReply('Duplicate share');
+					return;
+				}
+
+				job.submissions.push(params.nonce);
+			} else {
+				if (!Number.isInteger(params.poolNonce) || !Number.isInteger(params.workerNonce)) {
+					let minerText = miner ? (' ' + miner.login + '@' + miner.ip) : '';
+					log('warn', logSystem, 'Malformed nonce: ' + JSON.stringify(params) + ' from ' + minerText);
+					perIPStats[miner.ip] = {
+						validShares: 0,
+						invalidShares: 999999
+					};
+					miner.checkBan(false);
+					sendReply('Duplicate share');
+					return;
+				}
+				let nonce_test = `${params.nonce}_${params.poolNonce}_${params.workerNonce}`;
+				if (job.submissions.indexOf(nonce_test) !== -1) {
+					let minerText = miner ? (' ' + miner.login + '@' + miner.ip) : '';
+					log('warn', logSystem, 'Duplicate share: ' + JSON.stringify(params) + ' from ' + minerText);
+					perIPStats[miner.ip] = {
+						validShares: 0,
+						invalidShares: 999999
+					};
+					miner.checkBan(false);
+					sendReply('Duplicate share');
+					return;
+				}
+				job.submissions.push(nonce_test);
+
+			}
+
+			let blockTemplate = currentBlockTemplate.height === job.height ? currentBlockTemplate : validBlockTemplates.filter(function (t) {
+				return t.height === job.height;
+			})[0];
+
+			if (!blockTemplate) {
+				sendReply('Block expired');
 				return;
 			}
-			job.submissions.push(nonce_test);
 
-		}
+			let shareAccepted = processShare(miner, job, blockTemplate, params);
+			miner.checkBan(shareAccepted);
 
-		let blockTemplate = currentBlockTemplate.height === job.height ? currentBlockTemplate : validBlockTemplates.filter(function (t) {
-			return t.height === job.height;
-		})[0];
-
-		if (!blockTemplate) {
-			sendReply('Block expired');
-			return;
-		}
-
-		let shareAccepted = processShare(miner, job, blockTemplate, params);
-		miner.checkBan(shareAccepted);
-
-		if (shareTrustEnabled) {
-			if (shareAccepted) {
-				miner.trust.probability -= shareTrustStepFloat;
-				if (miner.trust.probability < shareTrustMinFloat)
-					miner.trust.probability = shareTrustMinFloat;
-				miner.trust.penalty--;
-				miner.trust.threshold--;
-			} else {
-				log('warn', logSystem, 'Share trust broken by %s@%s', [miner.login, miner.ip]);
-				miner.trust.probability = 1;
-				miner.trust.penalty = config.poolServer.shareTrust.penalty;
+			if (shareTrustEnabled) {
+				if (shareAccepted) {
+					miner.trust.probability -= shareTrustStepFloat;
+					if (miner.trust.probability < shareTrustMinFloat)
+						miner.trust.probability = shareTrustMinFloat;
+					miner.trust.penalty--;
+					miner.trust.threshold--;
+				} else {
+					log('warn', logSystem, 'Share trust broken by %s@%s', [miner.login, miner.ip]);
+					miner.trust.probability = 1;
+					miner.trust.penalty = config.poolServer.shareTrust.penalty;
+				}
 			}
-		}
 
-		if (!shareAccepted) {
-			sendReply('Rejected share: invalid result');
-			return;
-		}
+			if (!shareAccepted) {
+				sendReply('Rejected share: invalid result');
+				return;
+			}
 
-		let now = Date.now() / 1000 | 0;
-		miner.shareTimeRing.append(now - miner.lastShareTime);
-		miner.lastShareTime = now;
-		//miner.retarget(now);
+			let now = Date.now() / 1000 | 0;
+			miner.shareTimeRing.append(now - miner.lastShareTime);
+			miner.lastShareTime = now;
+			//miner.retarget(now);
 
-		sendReply(null, {
-			status: 'OK'
-		});
-		break;
-	case 'keepalived':
-		if (!miner) {
-			sendReply('Unauthenticated');
-			return;
-		}
-		miner.heartbeat();
-		sendReply(null, {
-			status: 'KEEPALIVED'
-		});
-		break;
-	default:
-		sendReply('Invalid method');
-		let minerText = miner ? (' ' + miner.login + '@' + miner.ip) : '';
-		log('warn', logSystem, 'Invalid method: %s (%j) from %s', [method, params, minerText]);
-		break;
+			sendReply(null, {
+				status: 'OK'
+			});
+			break;
+		case 'keepalived':
+			if (!miner) {
+				sendReply('Unauthenticated');
+				return;
+			}
+			miner.heartbeat();
+			sendReply(null, {
+				status: 'KEEPALIVED'
+			});
+			break;
+		default:
+			sendReply('Invalid method');
+			let minerText = miner ? (' ' + miner.login + '@' + miner.ip) : '';
+			log('warn', logSystem, 'Invalid method: %s (%j) from %s', [method, params, minerText]);
+			break;
 	}
 }
 
@@ -868,23 +869,24 @@ function recordShareData (miner, job, shareDiff, blockCandidate, hashHex, shareT
             redis.call('hincrbyfloat', KEYS[1], ARGV[1], score)
             return {score, tostring(age)}
             `,
-            2 /*keys*/ , config.coin + ':scores:roundCurrent', config.coin + ':stats',
-            /* args */
-			miner.login, job.difficulty, Date.now(), config.poolServer.slushMining.weight];
+			2 /*keys*/ , config.coin + ':scores:roundCurrent', config.coin + ':stats',
+			/* args */
+			miner.login, job.difficulty, Date.now(), config.poolServer.slushMining.weight
+		];
 	} else {
 		job.score = job.difficulty;
 		updateScore = ['hincrbyfloat', config.coin + ':scores:roundCurrent', miner.login, job.score]
 	}
 
 	let redisCommands = [
-        updateScore,
-        ['hincrby', config.coin + ':shares_actual:roundCurrent', miner.login, job.difficulty],
-        ['zadd', config.coin + ':hashrate', dateNowSeconds, [job.difficulty, miner.login, dateNow].join(':')],
-        ['hincrby', config.coin + ':workers:' + miner.login, 'hashes', job.difficulty],
-        ['hset', config.coin + ':workers:' + miner.login, 'lastShare', dateNowSeconds],
-        ['expire', config.coin + ':workers:' + miner.login, (86400 * cleanupInterval)],
-        ['expire', config.coin + ':payments:' + miner.login, (86400 * cleanupInterval)]
-    ];
+		updateScore,
+		['hincrby', config.coin + ':shares_actual:roundCurrent', miner.login, job.difficulty],
+		['zadd', config.coin + ':hashrate', dateNowSeconds, [job.difficulty, miner.login, dateNow].join(':')],
+		['hincrby', config.coin + ':workers:' + miner.login, 'hashes', job.difficulty],
+		['hset', config.coin + ':workers:' + miner.login, 'lastShare', dateNowSeconds],
+		['expire', config.coin + ':workers:' + miner.login, (86400 * cleanupInterval)],
+		['expire', config.coin + ':payments:' + miner.login, (86400 * cleanupInterval)]
+	];
 
 	if (miner.workerName) {
 		redisCommands.push(['zadd', config.coin + ':hashrate', dateNowSeconds, [job.difficulty, miner.login + '~' + miner.workerName, dateNow].join(':')]);
@@ -926,12 +928,12 @@ function recordShareData (miner, job, shareDiff, blockCandidate, hashHex, shareT
 						return p + parseInt(workerShares[c])
 					}, 0);
 				redisClient.zadd(config.coin + ':blocks:candidates', job.height, [
-                hashHex,
-                Date.now() / 1000 | 0,
-                blockTemplate.difficulty,
-                totalShares,
-                totalScore
-            ].join(':'), function (err, result) {
+					hashHex,
+					Date.now() / 1000 | 0,
+					blockTemplate.difficulty,
+					totalShares,
+					totalScore
+				].join(':'), function (err, result) {
 					if (err) {
 						log('error', logSystem, 'Failed inserting block candidate %s \n %j', [hashHex, err]);
 					}
@@ -1014,7 +1016,7 @@ function processShare (miner, job, blockTemplate, params) {
 					.toString('hex');
 				log('info', logSystem,
 					'Block %s found at height %d by miner %s@%s - submit result: %j',
-                    [blockFastHash.substr(0, 6), job.height, miner.login, miner.ip, result]
+					[blockFastHash.substr(0, 6), job.height, miner.login, miner.ip, result]
 				);
 				recordShareData(miner, job, hashDiff.toString(), true, blockFastHash, shareType, blockTemplate);
 				jobRefresh();

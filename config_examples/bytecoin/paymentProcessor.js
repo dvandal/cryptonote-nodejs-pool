@@ -40,8 +40,8 @@ function bytecoin_create_transaction (transferCmd, callback) {
 			transfers: transferCmd.rpc.destinations
 		},
 		spend_addresses: [
-                config.poolServer.poolAddress
-      ],
+			config.poolServer.poolAddress
+		],
 		change_address: config.poolServer.poolAddress,
 		optimization: "minimal"
 	};
@@ -82,13 +82,13 @@ function bytecoin_send_transaction (createTransactionResult, transferCmd, callba
 				.replace('>', '');
 
 			transferCmd.redis.push(['zadd', config.coin + ':payments:all', now, [
-                txHash,
-                transferCmd.amount,
-                transferCmd.rpc.fee,
-                transferCmd.rpc.mixin,
-                Object.keys(transferCmd.rpc.destinations)
+				txHash,
+				transferCmd.amount,
+				transferCmd.rpc.fee,
+				transferCmd.rpc.mixin,
+				Object.keys(transferCmd.rpc.destinations)
 				.length
-            ].join(':')]);
+			].join(':')]);
 
 			var notify_miners_on_success = [];
 			for (var i = 0; i < transferCmd.rpc.destinations.length; i++) {
@@ -97,11 +97,11 @@ function bytecoin_send_transaction (createTransactionResult, transferCmd, callba
 					destination.address += config.poolServer.paymentId.addressSeparator + transferCmd.rpc.payment_id;
 				}
 				transferCmd.redis.push(['zadd', config.coin + ':payments:' + destination.address, now, [
-                    txHash,
-                    destination.amount,
-                    transferCmd.rpc.fee,
-                    transferCmd.rpc.mixin
-                ].join(':')]);
+					txHash,
+					destination.amount,
+					transferCmd.rpc.fee,
+					transferCmd.rpc.mixin
+				].join(':')]);
 
 				notify_miners_on_success.push(destination);
 			}
@@ -138,8 +138,8 @@ function bytecoin_send_transaction (createTransactionResult, transferCmd, callba
 function runInterval () {
 	async.waterfall([
 
-        // Get worker keys
-        function (callback) {
+		// Get worker keys
+		function (callback) {
 			redisClient.keys(config.coin + ':workers:*', function (error, result) {
 				if (error) {
 					log('error', logSystem, 'Error trying to get worker balances from redis %j', [error]);
@@ -148,10 +148,10 @@ function runInterval () {
 				}
 				callback(null, result);
 			});
-        },
+		},
 
-        // Get worker balances
-        function (keys, callback) {
+		// Get worker balances
+		function (keys, callback) {
 			var redisCommands = keys.map(function (k) {
 				return ['hget', k, 'balance'];
 			});
@@ -172,10 +172,10 @@ function runInterval () {
 					}
 					callback(null, keys, balances);
 				});
-        },
+		},
 
-        // Get worker minimum payout
-        function (keys, balances, callback) {
+		// Get worker minimum payout
+		function (keys, balances, callback) {
 			var redisCommands = keys.map(function (k) {
 				return ['hget', k, 'minPayoutLevel'];
 			});
@@ -207,10 +207,10 @@ function runInterval () {
 					}
 					callback(null, balances, minPayoutLevel);
 				});
-        },
+		},
 
-        // Filter workers under balance threshold for payment
-        function (balances, minPayoutLevel, callback) {
+		// Filter workers under balance threshold for payment
+		function (balances, minPayoutLevel, callback) {
 			var payments = {};
 
 			for (var worker in balances) {
@@ -344,9 +344,9 @@ function runInterval () {
 
 					// Nueva versión from Bytecoin/walletd 3.2.0-beta
 					async.waterfall([
-                        async.apply(bytecoin_create_transaction, transferCmd),
+						async.apply(bytecoin_create_transaction, transferCmd),
 							bytecoin_send_transaction
-                    ], function (err, res) {
+					], function (err, res) {
 						if (err) {
 							log('error', logSystem, 'Error waterfall %j , %j', [err, res]);
 						}
@@ -372,13 +372,13 @@ function runInterval () {
 							.replace('>', '');
 
 						transferCmd.redis.push(['zadd', config.coin + ':payments:all', now, [
-                            txHash,
-                            transferCmd.amount,
-                            transferCmd.rpc.fee,
-                            transferCmd.rpc.mixin,
-                            Object.keys(transferCmd.rpc.destinations)
+							txHash,
+							transferCmd.amount,
+							transferCmd.rpc.fee,
+							transferCmd.rpc.mixin,
+							Object.keys(transferCmd.rpc.destinations)
 							.length
-                        ].join(':')]);
+						].join(':')]);
 
 						var notify_miners_on_success = [];
 						for (var i = 0; i < transferCmd.rpc.destinations.length; i++) {
@@ -387,11 +387,11 @@ function runInterval () {
 								destination.address += config.poolServer.paymentId.addressSeparator + transferCmd.rpc.payment_id;
 							}
 							transferCmd.redis.push(['zadd', config.coin + ':payments:' + destination.address, now, [
-                                txHash,
-                                destination.amount,
-                                transferCmd.rpc.fee,
-                                transferCmd.rpc.mixin
-                            ].join(':')]);
+								txHash,
+								destination.amount,
+								transferCmd.rpc.fee,
+								transferCmd.rpc.mixin
+							].join(':')]);
 
 							notify_miners_on_success.push(destination);
 						}
@@ -431,9 +431,9 @@ function runInterval () {
 				callback(null);
 			});
 
-        }
+		}
 
-    ], function (error, result) {
+	], function (error, result) {
 		setTimeout(runInterval, config.payments.interval * 1000);
 	});
 }

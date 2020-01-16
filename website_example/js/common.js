@@ -28,15 +28,15 @@ var docCookies = {
 		var sExpires = "";
 		if (vEnd) {
 			switch (vEnd.constructor) {
-			case Number:
-				sExpires = vEnd === Infinity ? "; expires=Fri, 31 Dec 9999 23:59:59 GMT" : "; max-age=" + vEnd;
-				break;
-			case String:
-				sExpires = "; expires=" + vEnd;
-				break;
-			case Date:
-				sExpires = "; expires=" + vEnd.toUTCString();
-				break;
+				case Number:
+					sExpires = vEnd === Infinity ? "; expires=Fri, 31 Dec 9999 23:59:59 GMT" : "; max-age=" + vEnd;
+					break;
+				case String:
+					sExpires = "; expires=" + vEnd;
+					break;
+				case Date:
+					sExpires = "; expires=" + vEnd.toUTCString();
+					break;
 			}
 		}
 		document.cookie = encodeURIComponent(sKey) + "=" + encodeURIComponent(sValue) + sExpires + (sDomain ? "; domain=" + sDomain : "") + (sPath ? "; path=" + sPath : "") + (bSecure ? "; secure" : "");
@@ -198,8 +198,15 @@ function formatPercent (percent) {
 
 // Get readable time
 function getReadableTime (seconds) {
-	var units = [[60, 'second'], [60, 'minute'], [24, 'hour'],
-                [7, 'day'], [4, 'week'], [12, 'month'], [1, 'year']];
+	var units = [
+		[60, 'second'],
+		[60, 'minute'],
+		[24, 'hour'],
+		[7, 'day'],
+		[4, 'week'],
+		[12, 'month'],
+		[1, 'year']
+	];
 
 	function formatAmounts (amount, unit) {
 		var rounded = Math.round(amount);
@@ -557,7 +564,7 @@ function poolBlocks_GenerateChart (data, displayedChart) {
 					backgroundColor: bgcolor,
 					borderColor: bordercolor,
 					borderWidth: borderwidth
-            },
+				},
 				{
 					label: 'Solo Blocks',
 					data: valuesSolo,
@@ -565,7 +572,8 @@ function poolBlocks_GenerateChart (data, displayedChart) {
 					backgroundColor: 'rgba(0, 230, 64, 1)',
 					borderColor: bordercolor,
 					borderWidth: borderwidth
-            }]
+				}
+			]
 		},
 		options: {
 			responsive: true,
@@ -581,7 +589,7 @@ function poolBlocks_GenerateChart (data, displayedChart) {
 							if (Math.floor(label) === label) return label;
 						}
 					}
-                }],
+				}],
 			},
 			layout: {
 				padding: {
@@ -638,18 +646,18 @@ function poolBlocks_ParseBlock (height, serializedBlock, stats) {
 	}
 
 	switch (block.orphaned) {
-	case '0':
-		block.status = 'unlocked';
-		block.maturity = "<i class='fa fa-unlock-alt'></i>";
-		break;
-	case '1':
-		block.status = 'orphaned';
-		block.maturity = "<i class='fa fa-times'></i>";
-		block.reward = 0;
-		break;
-	default:
-		block.status = 'pending';
-		break;
+		case '0':
+			block.status = 'unlocked';
+			block.maturity = "<i class='fa fa-unlock-alt'></i>";
+			break;
+		case '1':
+			block.status = 'orphaned';
+			block.maturity = "<i class='fa fa-times'></i>";
+			block.reward = 0;
+			break;
+		default:
+			block.status = 'pending';
+			break;
 	}
 	return block;
 }
@@ -1615,7 +1623,7 @@ function market_CreateCharts (stats) {
 						backgroundColor: bgcolor,
 						borderColor: bordercolor,
 						borderWidth: borderwidth
-                    }]
+					}]
 				},
 				options: {
 					animation: false,
@@ -1640,7 +1648,7 @@ function market_CreateCharts (stats) {
 							gridLines: {
 								display: false
 							}
-                        }],
+						}],
 						yAxes: [{
 							display: false,
 							ticks: {
@@ -1653,7 +1661,7 @@ function market_CreateCharts (stats) {
 							gridLines: {
 								display: false
 							}
-                        }]
+						}]
 					},
 					layout: {
 						padding: {
@@ -2534,9 +2542,9 @@ function home_CreateCharts (data) {
 			},
 			workers: {
 				data: [home_GetGraphData(data.charts.workers), home_GetGraphData(data.charts.workersSolo)],
-                                options: {
-                                        lineColor: 'orange'
-                                }
+				options: {
+					lineColor: 'orange'
+				}
 			},
 		};
 
@@ -2549,12 +2557,12 @@ function home_CreateCharts (data) {
 				var $chart = $('[data-chart=' + graphType + '] .chart');
 				$chart.closest('.poolChart')
 					.show();
-		                settings.tooltipFormat = graphData[graphType].data[1] ? '<span style="color:{{color}}">PROP: {{y}}</span> &ndash; {{offset:names}}' : '<span>{{y}}</span> &ndash; {{offset:names}}'
+				settings.tooltipFormat = graphData[graphType].data[1] ? '<span style="color:{{color}}">PROP: {{y}}</span> &ndash; {{offset:names}}' : '<span>{{y}}</span> &ndash; {{offset:names}}'
 				$chart.sparkline(graphData[graphType].data[0].values, settings);
 				if (graphData[graphType].data[1]) {
 					settings.composite = true
 					settings.lineColor = graphData[graphType].options.lineColor
-			                settings.tooltipFormat = '<span style="color:orange">SOLO: {{y}}</span> &ndash; {{offset:names}}'
+					settings.tooltipFormat = '<span style="color:orange">SOLO: {{y}}</span> &ndash; {{offset:names}}'
 					$chart.sparkline(graphData[graphType].data[1].values, settings);
 				}
 			}
