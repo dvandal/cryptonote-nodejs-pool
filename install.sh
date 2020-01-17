@@ -1,3 +1,3 @@
 #!/bin/sh
-apt-get update
-apt-get install libboost-all-dev
+sudo apt-get update
+sudo apt-get install libboost-all-dev
