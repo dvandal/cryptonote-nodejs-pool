@@ -1,0 +1,316 @@
+<!-- Statistics -->
+<div id="poolStats" class="row">
+	<div id="mainPoolStats"></div>
+	<div id="networkStats"></div>
+	<div id="poolDetails"></div>
+</div>
+
+<script id="mainPoolTemplate" type="text/x-handlebars-template">
+	<!-- Pool Hash Rate -->
+	<div class="col-lg-3 col-sm-4">
+		<div class="infoBox hoverExpandEffect">
+			<div class="icon">
+				<span class="fa fa-dashboard"></span>
+			</div>
+			<div class="content">
+				<div class="text"><span data-tkey="poolHashrate">PROP/SOLO Pool Hash Rate</span></div>
+				<div class="value"><span id="poolHashrate" class="smallText">N/A</span> <span class="smallText">(<span id="hashPower">0%</span>)</span></div>
+				<div class="value"><span id="poolHashrateSolo" class="smallText">N/A</span> <span class="smallText">(<span id="hashPowerSolo">0%</span>)</span></div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Blocks Found -->
+	<div class="col-lg-3 col-sm-4">
+		<div class="infoBox hoverExpandEffect" id="infoBlocksTotal">
+			<div class="icon">
+				<span class="fa fa-cubes"></span>
+			</div>
+			<div class="content">
+				<div class="text"><span data-tkey="blocksTotal">Blocks Found</span> (PROP/SOLO)</div>
+				<div class="value">
+					{{#blocks}}
+						<span class="smallText" id="blocksTotal{{coin}}">{{blocks}}/{{blocksSolo}}</span><sup>{{symbol}}</sup>&nbsp;
+					{{/blocks}}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Blocks Found Every -->
+	<div class="col-lg-3 col-sm-4">
+		<div class="infoBox hoverExpandEffect" id="infoBlocksFound">
+			<div class="icon">
+				<span class="fa fa-history"></span>
+			</div>
+			<div class="content">
+				<div class="text"><span data-tkey="blockSolvedTime">Blocks Found Every</span></div>
+				<div class="value">
+					<span class="smallText" id="blockSolvedTime">N/A</span> <span class="smallText">(<span class="smallText">estimated</span>)</span>
+				</div>
+				<div class="value">
+					<span class="smallText">LAST BLOCK: <span id="poolLastBlockFound">Never</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Current Effort -->
+	<div class="col-lg-3 col-sm-4">
+		<div class="infoBox hoverExpandEffect">
+			<div class="icon">
+				<span class="fa fa-line-chart"></span>
+			</div>
+			<div class="content">
+				<div class="text"><span data-tkey="currentEffort">Current Effort</span></div>
+				<div class="value">
+					{{#efforts}}
+						<span class="smallText" id="currentEffort{{coin}}">{{effort}}</span><sup>{{symbol}}</sup>&nbsp;
+					{{/efforts}}
+				</div>
+			</div>
+		</div>
+	</div>
+</script>
+
+<script id="siblingTemplate" type="text/x-handlebars-template">
+	<div id="networkStats{{coin}}">
+        <div class="col-lg-3 col-sm-4">
+            <div class="infoBox hoverExpandEffect mergedBg">
+                <div class="icon">
+                    <span class="fa fa-dashboard"></span>
+                </div>
+                <div class="content">
+                    <div class="text"><span data-tkey="networkHashrate">Network Hash Rate</span> ({{symbol}})</div>
+                    <div class="value"><span id="networkHashrate{{coin}}">N/A</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-4">
+            <div class="infoBox hoverExpandEffect mergedBg">
+                <div class="icon">
+                    <span class="fa fa-unlock-alt"></span>
+                </div>
+                <div class="content">
+                    <div class="text"><span data-tkey="networkDifficulty">Difficulty</span> ({{symbol}})</div>
+                    <div class="value"><span id="networkDifficulty{{coin}}">N/A</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blockchain Height -->
+        <div class="col-lg-3 col-sm-4">
+            <div class="infoBox hoverExpandEffect mergedBg">
+                <div class="icon">
+                    <span class="fa fa-bars"></span>
+                </div>
+                <div class="content">
+                    <div class="text"><span data-tkey="blockchainHeight">Blockchain Height</span> ({{symbol}})</div>
+                    <div class="value"><span id="blockchainHeight{{coin}}">N/A</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Last Reward -->
+        <div class="col-lg-3 col-sm-4">
+            <div class="infoBox hoverExpandEffect mergedBg">
+                <div class="icon">
+                    <span class="fa fa-dollar"></span>
+                </div>
+                <div class="content">
+                    <div class="text"><span data-tkey="networkLastReward">Last Reward</span> ({{symbol}})</div>
+                    <div class="value"><span id="networkLastReward{{coin}}">N/A</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script id="poolDetailTemplate" type="text/x-handlebars-template">
+	<!-- Connected Miners -->
+	<div class="col-lg-3 col-sm-4">
+		<div class="infoBox hoverExpandEffect">
+			<div class="icon">
+				<span class="fa fa-group"></span>
+			</div>
+			<div class="content">
+				<div class="text"><span data-tkey="propSoloConnectedMiners">Connected Miners</span> (PROP/SOLO)</div>
+				<div class="value">
+					{{#blocks}}
+						<span class="smallText" id="poolMiners{{coin}}">{{miners}}/{{minersSolo}}</span><sup>{{symbol}}</sup>&nbsp;
+					{{/blocks}}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Pool Fee -->
+	<div class="col-lg-3 col-sm-4">
+		<div class="infoBox hoverExpandEffect">
+			<div class="icon">
+				<span class="fa fa-dollar"></span>
+			</div>
+			<div class="content">
+				<div class="text"><span data-tkey="poolFee">Pool Fee</span></div>
+				<div class="value"><span id="poolFee">N/A</span><sup>{{symbol}}</sup></div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Minimum Payout -->
+	<div class="col-lg-3 col-sm-4">
+		<div class="infoBox hoverExpandEffect">
+			<div class="icon">
+				<span class="fa fa-dollar"></span>
+			</div>
+			<div class="content">
+				<div class="text"><span data-tkey="paymentsMinimum">Minimum Payout</span></div>
+				<div class="value"><span id="paymentsMinimum">N/A</span></div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Payment Interval -->
+	<div class="col-lg-3 col-sm-4">
+		<div class="infoBox hoverExpandEffect">
+			<div class="icon">
+				<span class="fa fa-clock-o"></span>
+			</div>
+			<div class="content">
+				<div class="text"><span data-tkey="paymentsInterval">Payment Interval</span></div>
+				<div class="value"><span id="paymentsInterval">N/A</span></div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Last Hash -->
+	<div class="col-sm-12">
+		<div class="hashInfo hoverExpandEffect">
+			<div class="text"><span data-tkey="lastHash">Last Hash</span></div>
+			<div class="content clearfix">
+				<div class="value"><a id="lastHash" target="_blank">N/A</a></div>
+				<div class="time">(<span id="networkLastBlockFound">Never</span>)</div>
+			</div>
+		</div>
+	</div>
+</script>
+
+<!-- Pool Charts -->
+<div class="row">
+	<div class="col-sm-6 poolChart push-up-15">
+		<h4><span data-tkey="hashRate">Hash Rate</span></h4>
+		<div id="chartHashrate" class="card" data-chart="hashrate">
+			<div class="chart"></div>
+		</div>
+	</div>
+	<div class="col-sm-6 poolChart push-up-15">
+		<h4><span data-tkey="difficulty">Difficulty</span></h4>
+		<div id="chartDifficulty" class="card" data-chart="diff">
+			<div class="chart"></div>
+		</div>
+	</div>
+	<div class="col-sm-6 poolChart push-up-15">
+		<h4><span data-tkey="miners">Miners</span></h4>
+		<div id="chartMiners" class="card" data-chart="miners">
+			<div class="chart"></div>
+		</div>
+	</div>
+	<div class="col-sm-6 poolChart push-up-15">
+		<h4><span data-tkey="workers">Workers</span></h4>
+		<div id="chartWorkers" class="card" data-chart="workers">
+			<div class="chart"></div>
+		</div>
+	</div>
+</div>
+
+<!-- Javascript -->
+<script>
+	// Update current page
+	let lastBlockFound = null
+
+	currentPage = {
+		destroy: function () {
+			$('#networkLastBlockFound,#poolLastBlockFound')
+				.timeago('dispose');
+		},
+		update: function (updateKey) {
+			if (lastStats)
+				$('#networkLastBlockFound')
+				.timeago('update', new Date(lastStats.lastblock.timestamp * 1000)
+					.toISOString());
+
+			let stats = updateKey === parentCoin ? lastStats : mergedStats[updateKey]
+			if (stats) {
+
+				home_GenerateNetworkStats(updateKey, stats.config.symbol)
+
+				if (!lastBlockFound)
+					$('#poolLastBlockFound')
+					.removeAttr('title')
+					.data('ts', '')
+					.update('Never')
+
+				if (stats.pool.lastBlockFound) {
+					let lastChildBlockFound = parseInt(stats.pool.lastBlockFound)
+					if (lastChildBlockFound > lastBlockFound) {
+						lastBlockFound = lastChildBlockFound
+						$('#poolLastBlockFound')
+							.timeago('update', new Date(lastBlockFound)
+								.toISOString());
+					}
+				}
+
+				updateText(`networkHashrate${updateKey}`, getReadableHashRateString(stats.network.difficulty / stats.config.coinDifficultyTarget) + '/sec');
+				updateText(`networkDifficulty${updateKey}`, formatNumber(stats.network.difficulty.toString(), ' '));
+				updateText(`blockchainHeight${updateKey}`, formatNumber(stats.network.height.toString(), ' '));
+				let rewardMinusNetworkFee = stats.lastblock.reward - (stats.lastblock.reward * (stats.config.networkFee ? stats.config.networkFee / 100 : 0))
+				updateText(`networkLastReward${updateKey}`, getReadableCoin(stats, rewardMinusNetworkFee));
+
+
+				updateText(`poolMiners${updateKey}`, `${stats.pool.miners}/${stats.pool.minersSolo}`);
+				updateText(`blocksTotal${updateKey}`, `${stats.pool.totalBlocks}/${stats.pool.totalBlocksSolo}`);
+				updateText(`currentEffort${updateKey}`, (stats.pool.roundHashes / stats.network.difficulty * 100)
+					.toFixed(1) + '%');
+
+
+				let el = updateText('lastHash', lastStats.lastblock.hash)
+				if (el)
+					el.setAttribute('href', getBlockchainUrl(lastStats.lastblock.hash, lastStats));
+				updateText('poolHashrate', 'PROP: ' + getReadableHashRateString(lastStats.pool.hashrate) + '/sec');
+				updateText('poolHashrateSolo', 'SOLO: ' + getReadableHashRateString(lastStats.pool.hashrateSolo) + '/sec');
+				var hashPowerSolo = lastStats.pool.hashrateSolo / (lastStats.network.difficulty / lastStats.config.coinDifficultyTarget) * 100;
+				updateText('hashPowerSolo', hashPowerSolo.toFixed(2) + '%');
+				var hashPower = lastStats.pool.hashrate / (lastStats.network.difficulty / lastStats.config.coinDifficultyTarget) * 100;
+				updateText('hashPower', hashPower.toFixed(2) + '%');
+
+
+				updateText('blockSolvedTime', getReadableTime(lastStats.network.difficulty / lastStats.pool.hashrate));
+			}
+		}
+	};
+
+	// Enable timeago on last block found
+	$('#networkLastBlockFound,#poolLastBlockFound')
+		.timeago();
+
+
+	// Handle charts tooltip
+	$(function () {
+		$('[data-toggle="tooltip"]')
+			.tooltip();
+	});
+
+
+	// Render charts
+	var xhrRenderCharts;
+	$(function () {
+		xhrRenderCharts = $.ajax({
+			url: api + '/stats',
+			cache: false,
+			success: home_CreateCharts
+		});
+	});
+
+	home_InitTemplate(lastStats, mergedStats)
+
+</script>

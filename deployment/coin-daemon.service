@@ -1,0 +1,17 @@
+[Unit]
+Description=Coin Daemon
+After=network.target
+
+[Service]
+Type=forking
+GuessMainPID=no
+Restart=always
+
+# Change this line to set the location of your coin daemon
+ExecStart=/path/to/coin/coind --rpc-bind-ip 0.0.0.0 --confirm-external-bind --detach
+
+# Change this line to the user that will run your coin daemon
+User=pool-user
+
+[Install]
+WantedBy=multi-user.target

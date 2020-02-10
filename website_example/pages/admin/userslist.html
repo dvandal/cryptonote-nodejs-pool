@@ -1,0 +1,153 @@
+<ul class="nav nav-tabs" id="UserListTabs">
+</ul>
+
+<div class="tab-content" id="tab-content">
+</div>
+
+<script id="siblingTabTemplate" type="text/x-handlebars-template">
+	<li id="UserListTabs{{coin}} role="presentation" class="{{active}}"><a href="#{{coin}}">{{coin}} {{symbol}}</a></li>
+</script>
+
+<script id="siblingTemplate" type="text/x-handlebars-template">
+	<div role="tabpanel" class="tab-pane {{active}}" id="{{coin}}">
+        <h3>Users List (<span id="totalUsers">{{totalUsers}}</span> users)</h3>
+            <!-- Users list -->
+            <div class="card">
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped usersList">
+                        <thead>
+                            <tr>
+                                <th class="col1">Wallet</th>
+                                <th class="col2 sort">Hashrate <i class="fa fa-sort"></i></th>
+                                <th class="col3 sort">Hashes <i class="fa fa-sort"></i></th>
+                                <th class="col4 sort">Pending <i class="fa fa-sort"></i></th>
+                                <th class="col5 sort">Paid <i class="fa fa-sort"></i></th>
+                                <th class="col6 sort">Last share <i class="fa fa-sort"></i></th>
+                            </tr>
+                        </thead>
+                        <tbody id="template">
+    			{{#users}}
+            		    <tr>
+                	        <td class="col1"><a href="/?{{coin}}={{miner}}{{#childWallet}}&{{childWallet}}{{/childWallet}}#worker_stats">{{miner}}</a></td>
+                    		<td class="col2" data-sort="{{wallet.hashrate}}">{{readableHashrate}}</td>
+                    		<td class="col3" data-sort="{{wallet.hashes}}">{{readableHashes}}</td>
+                    		<td class="col4" data-sort="{{wallet.pending}}">{{readablePending}}</td>
+                    		<td class="col5" data-sort="{{wallet.paid}}">{{readablePaid}}</td>
+                    		<td class="col6" data-sort="{{wallet.lastShare}}">{{timeago}}</td>
+            		    </tr>
+            		{{/users}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+    </div>
+</script>
+
+<script>
+	function parseUsers (stats, wallets, active) {
+		var totalUsers = 0;
+		var walletsArray = [];
+		var properObject = {};
+
+		for (var wallet in wallets) {
+			if (wallets.hasOwnProperty(wallet)) {
+				var userData = wallets[wallet];
+				walletsArray.push({
+					coin: stats.config.coin,
+					miner: wallet,
+					childWallet: userData.childWallet,
+					wallet: userData,
+					timeago: $.timeago(new Date(userData.lastShare * 1000)
+						.toISOString()),
+					readablePending: getReadableCoin(stats, userData.pending, null, true),
+					readablePaid: getReadableCoin(stats, userData.paid, null, true),
+					readableHashrate: getReadableHashRateString(userData.hashrate) + '/s',
+					readableHashes: getReadableHashRateString(userData.hashes)
+				});
+				totalUsers++;
+			}
+		}
+		properObject['totalUsers'] = totalUsers
+
+
+		properObject['users'] = walletsArray.sort(function (a, b) {
+				return a.wallet.hashrate - b.wallet.hashrate
+			})
+			.reverse();
+		properObject['coin'] = stats.config.coin
+		properObject['active'] = active
+		return properObject;
+	}
+
+	function createUserTable (promptPassword, api, parentStats, otherStats, active) {
+		var password = docCookies.getItem('password');
+
+		if (!password || promptPassword) {
+			password = prompt('Enter admin password');
+		}
+
+		$.ajax({
+			url: `${api}/admin_users`,
+			data: {
+				password: password,
+				otherCoin: otherStats.config.coin
+			},
+			dataType: 'json',
+			cache: false,
+			success: function (data) {
+				docCookies.setItem('password', password, Infinity);
+				renderTemplate(parseUsers(parentStats, data, active), '#siblingTemplate', '#tab-content');
+				$('[data-toggle="tooltip"]')
+					.tooltip();
+				$('.usersList th.sort')
+					.on('click', sortTable);
+			},
+			error: function (e) {
+				docCookies.removeItem('password');
+			}
+		});
+	}
+
+	function Setup () {
+		let template = $('#siblingTabTemplate')
+			.html();
+		Mustache.parse(template)
+		let rendered = Mustache.render(template, {
+			coin: lastStats.config.coin,
+			symbol: `(${lastStats.config.symbol})`,
+			active: 'active'
+		});
+		$('#UserListTabs')
+			.append(rendered)
+		createUserTable(null, api, lastStats, lastStats, 'active');
+
+		Object.keys(mergedStats)
+			.forEach(key => {
+				template = $('#siblingTabTemplate')
+					.html();
+				Mustache.parse(template)
+				rendered = Mustache.render(template, {
+					coin: key,
+					symbol: `(${mergedStats[key].config.symbol})`
+				});
+				$('#UserListTabs')
+					.append(rendered)
+				createUserTable(null, mergedApis[key].api, mergedStats[key], lastStats);
+			})
+
+		sortElementList($(`#UserListTabs`), $(`#UserListTabs>li`), mergedStats)
+
+
+		$('#UserListTabs a')
+			.click(function (e) {
+				e.preventDefault()
+				$(this)
+					.tab('show')
+			})
+	}
+
+	$(function () {
+		Setup()
+	});
+
+</script>

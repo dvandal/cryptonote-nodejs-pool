@@ -1,0 +1,16 @@
+[Unit]
+Description=Wallet RPC Daemon
+After=network.target
+
+[Service]
+Type=simple
+Restart=always
+
+# Change this line to set the location of your coin wallet RPC daemon and set the RPC port you want to use
+ExecStart=/path/to/coin/wallet-rpc --rpc-bind-ip=127.0.0.1 --rpc-bind-port=5432 --wallet=/path/to/wallet --password=your.wallet.password!
+
+# Change this line to the user that will run your wallet RPC daemon
+User=pool-user
+
+[Install]
+WantedBy=multi-user.target

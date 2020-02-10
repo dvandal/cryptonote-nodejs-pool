@@ -1,0 +1,200 @@
+<ul class="nav nav-tabs" id="coinTabs">
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content" id="tab-content">
+</div>
+
+<script id="siblingTabTemplate" type="text/x-handlebars-template">
+	<li id="coinTabs{{coin}}" role="presentation" class="{{active}}"><a href="#{{coin}}" data-coin="{{coin}}">{{coin}} {{symbol}}</a></li>
+</script>
+
+<!-- Handlebars template -->
+<script id="monitoringInfo" type="text/x-handlebars-template">
+	<div role="tabpanel" class="tab-pane {{active}}" id="{{coin}}">
+        <div class="row">
+            <div class="infos col-sm-6">
+                <h3>Daemon</h3>
+                  <div class="card padding-10">
+                    <ul class="list-unstyled">
+                         <li><strong>Last check:</strong> {{monitoringDaemon.lastCheck}}</li>
+                         <li><strong>Last status:</strong>
+                             <span id="daemonStatus">{{monitoringDaemon.lastStatus}}</span>
+                         </li>
+                         <li><strong>Last response:</strong>
+                             <pre>{{monitoringDaemon.lastResponse}}</pre>
+                         </li>
+                         <li><strong>Last fail:</strong>
+                             <span>{{monitoringDaemon.lastFail}}</span>
+                         </li>
+                         <li><strong>Last fail response:</strong>
+                             <pre>{{monitoringDaemon.lastFailResponse}}</pre>
+                         </li>
+                     </ul>
+                </div>
+            </div>
+            <div class="infos col-sm-6">
+                <h3>Wallet</h3>
+                <div class="card padding-10">
+                    <ul class="list-unstyled">
+                        <li><strong>Last check:</strong> {{monitoringWallet.lastCheck}}</li>
+                        <li><strong>Last status:</strong>
+                            <span id="walletStatus">{{monitoringWallet.lastStatus}}</span>
+                        </li>
+                        <li><strong>Last response:</strong>
+                            <pre>{{monitoringWallet.lastResponse}}</pre>
+                        </li>
+                        <li><strong>Last fail:</strong>
+                            <span>{{monitoringWallet.lastFail}}</span>
+                        </li>
+                        <li><strong>Last fail response:</strong>
+                            <pre>{{monitoringWallet.lastFailResponse}}</span></pre>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <h3>Logs</h3>
+
+        <div class="card">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped logList" id="logTable">
+                    <thead>
+                    <tr>
+                        <th class="sort">Name <i class="fa fa-sort"></i></th>
+                        <th class="sort">Modified <i class="fa fa-sort"></i></th>
+                        <th class="sort">Size <i class="fa fa-sort"></i></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#logs}}
+                    <tr>
+                        <td data-sort="{{name}}"><a href="{{link}}" target="_blank">{{name}}</a></td>
+                        <td data-sort="{{changed}}">{{changed}}</td>
+                        <td data-sort="{{size}}">{{size}} bytes</td>
+                    </tr>
+                    {{/logs}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</script>
+
+<!-- Javascript -->
+<script>
+	function getCheckTime (timestamp) {
+		return timestamp ? $.timeago(new Date(timestamp * 1000)
+			.toISOString()) : null;
+	}
+
+	function monitoringInfoParse (endPoint, key, data) {
+		let monitoringDaemon = {
+			lastCheck: getCheckTime(data['monitoring'].daemon.lastCheck) || 'never',
+			lastStatus: data['monitoring'].daemon.lastStatus || '',
+			lastFail: getCheckTime(data['monitoring'].daemon.lastFail) || 'never',
+			lastFailResponse: data['monitoring'].daemon.lastFailResponse || ' ',
+			lastResponse: data['monitoring'].daemon.lastResponse || ' '
+		};
+
+		let monitoringWallet = {
+			lastCheck: getCheckTime(data['monitoring'].wallet.lastCheck) || 'never',
+			lastStatus: data['monitoring'].wallet.lastStatus || '',
+			lastFail: getCheckTime(data['monitoring'].wallet.lastFail) || 'never',
+			lastFailResponse: data['monitoring'].wallet.lastFailResponse || ' ',
+			lastResponse: data['monitoring'].wallet.lastResponse || ' '
+		};
+
+		let properData = {};
+		if (data.hasOwnProperty('logs')) {
+			properData['logs'] = []
+			for (let log in data['logs']) {
+				properData['logs'].push({
+					name: log,
+					link: `${endPoint}/admin_log?file=${log}&password=${docCookies.getItem('password')}`,
+					changed: formatDate(data['logs'][log].changed),
+					size: data['logs'][log].size
+				})
+			}
+		}
+		properData['coin'] = key
+		properData['active'] = data.active
+		properData['monitoringDaemon'] = monitoringDaemon;
+		properData['monitoringWallet'] = monitoringWallet;
+		return properData;
+	}
+
+	function renderLogInfo (endPoint, key, active, password) {
+
+
+		if (!password) {
+			password = prompt('Enter admin password');
+		}
+
+		$.ajax({
+			url: `${endPoint}/admin_monitoring`,
+			data: {
+				password: password
+			},
+			dataType: 'json',
+			cache: false,
+			success: function (data) {
+				docCookies.setItem('password', password, Infinity);
+				data['active'] = active
+				renderTemplate(monitoringInfoParse(endPoint, key, data), `#monitoringInfo`, `#tab-content`);
+				$(`#daemonStatus${key}`)
+					.addClass(data['monitoring'].daemon.lastStatus == 'ok' ? 'text-success' : 'text-danger');
+				$(`#walletStatus${key}`)
+					.addClass(data['monitoring'].wallet.lastStatus == 'ok' ? 'text-success' : 'text-danger');
+
+				$('.logList th.sort')
+					.on('click', sortTable)
+			},
+			error: function (e) {
+				docCookies.removeItem('password');
+			}
+		});
+	}
+
+	$(function () {
+		let password = docCookies.getItem('password');
+
+		let template = $('#siblingTabTemplate')
+			.html();
+		Mustache.parse(template)
+		let rendered = Mustache.render(template, {
+			coin: parentCoin,
+			symbol: `(${lastStats.config.symbol})`,
+			active: 'active'
+		});
+		$('#coinTabs')
+			.append(rendered)
+
+		renderLogInfo(api, parentCoin, 'active', password);
+
+		Object.keys(mergedApis)
+			.forEach(key => {
+
+				template = $('#siblingTabTemplate')
+					.html();
+				Mustache.parse(template)
+				rendered = Mustache.render(template, {
+					coin: `${mergedStats[key].config.coin}`,
+					symbol: `(${mergedStats[key].config.symbol})`
+				});
+				$('#coinTabs')
+					.append(rendered)
+
+				renderLogInfo(mergedApis[key].api, key, '', password)
+			})
+		sortElementList($(`#coinTabs`), $(`#coinTabs>li`), mergedStats)
+		$('#coinTabs a')
+			.click(function (e) {
+				e.preventDefault()
+				$(this)
+					.tab('show')
+			})
+
+	});
+
+</script>

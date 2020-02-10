@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+
+	<title>BlockHashMining.com</title>
+
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+	<style>
+		@import url(//fonts.googleapis.com/css?family=Roboto:400,300,500,700);
+		@import url(//fonts.googleapis.com/css?family=Inconsolata:400,700);
+
+		body {
+			background-color: #f5f5f5;
+			font-family: 'Roboto', Helvetica, Arial, sans-serif;
+			line-height: 1.428571429;
+			color: #262626;
+			margin: 0;
+			padding: 0;
+			font-size: 16px;
+			overflow-y: scroll;
+		}
+
+		#coin {
+			text-align: center;
+			background-color: #fff;
+			width: 100%;
+			box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px;
+			margin-bottom: 30px;
+		}
+
+		#coin a {
+			display: block;
+		}
+
+		#coin a:hover {
+			text-decoration: none;
+		}
+
+		#coin img {
+			margin: 30px;
+			max-width: 100%;
+			max-height: 125px
+		}
+
+		#coin .name {
+			display: block;
+			width: 100%;
+			background-color: #024e72;
+			color: #fff;
+			font-size: 18px;
+			font-weight: 700;
+			padding: 6px 12px;
+			text-align: center;
+		}
+
+		#coin ul.stats {
+			padding: 0;
+			margin: 0;
+			text-align: left;
+			font-family: 'Inconsolata', monospace;
+		}
+
+		#coin ul.stats strong {
+			font-weight: 700;
+		}
+
+		#coin ul.stats li {
+			list-style: none;
+			border-bottom: 1px solid #ececec;
+			padding: 7px 15px;
+			font-size: 15px;
+			color: #333;
+		}
+
+	</style>
+</head>
+
+<body>
+
+	<div class="container">
+		<div class="row">
+
+			<div class="col-xs-12">
+				<br />
+				<h1>Sample landing page!</h1>
+				<br />
+			</div>
+
+			<div class="col-md-4 col-sm-6">
+				<div id="coin">
+					<a href="https://graft.blockhashmining.com/">
+						<span class="name">Graft (GRFT)</span>
+						<ul class="stats">
+							<li><strong><span id="graft_poolMiners">...</span></strong> active miners</span></li>
+							<li><strong><span id="graft_poolHashrate">...</span></strong> pool hashrate</span></li>
+							<li><strong><span id="graft_networkHashrate">...</span></strong> network hashrate</span></li>
+							<li><strong><span id="graft_hashPower">...</span></strong> of network hashrate</span></li>
+							<li><strong><span id="graft_blocksFound">...</span></strong> blocks found</span></li>
+							<li><strong><span id="graft_algorithm">...</span></strong> algorithm</span></li>
+						</ul>
+					</a>
+				</div>
+			</div>
+
+			<div class="col-md-4 col-sm-6">
+				<div id="coin">
+					<a href="https://haven.blockhashmining.com/">
+						<span class="name">Haven (XHV)</span>
+						<ul class="stats">
+							<li><strong><span id="haven_poolMiners">...</span></strong> active miners</span></li>
+							<li><strong><span id="haven_poolHashrate">...</span></strong> pool hashrate</span></li>
+							<li><strong><span id="haven_networkHashrate">...</span></strong> network hashrate</span></li>
+							<li><strong><span id="haven_hashPower">...</span></strong> of network hashrate</span></li>
+							<li><strong><span id="haven_blocksFound">...</span></strong> blocks found</span></li>
+							<li><strong><span id="haven_algorithm">...</span></strong> algorithm</span></li>
+						</ul>
+					</a>
+				</div>
+			</div>
+
+			<div class="col-md-4 col-sm-6">
+				<div id="coin">
+					<a href="https://stellite.blockhashmining.com/">
+						<span class="name">Stellite (XTL)</span>
+						<ul class="stats">
+							<li><strong><span id="stellite_poolMiners">...</span></strong> active miners</span></li>
+							<li><strong><span id="stellite_poolHashrate">...</span></strong> pool hashrate</span></li>
+							<li><strong><span id="stellite_networkHashrate">...</span></strong> network hashrate</span></li>
+							<li><strong><span id="stellite_hashPower">...</span></strong> of network hashrate</span></li>
+							<li><strong><span id="stellite_blocksFound">...</span></strong> blocks found</span></li>
+							<li><strong><span id="stellite_algorithm">...</span></strong> algorithm</span></li>
+						</ul>
+					</a>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<br />
+
+	<script>
+		/**
+		 * Pool statistics
+		 **/
+
+		// Get stats from pool API
+		function getPoolStats (poolID, poolURL) {
+			let apiURL = poolURL + '/stats';
+			$.get(apiURL, function (data) {
+				if (!data) return;
+
+				let poolHashrate = 'N/A';
+				let poolMiners = 'N/A';
+				let poolWorkers = 'N/A';
+				if (data.pool) {
+					poolHashrate = getReadableHashRate(data.pool.hashrate);
+					poolMiners = data.pool.miners || 0;
+					poolWorkers = data.pool.workers || 0;
+				}
+
+				let networkHashrate = 'N/A';
+				let networkDiff = 'N/A';
+				if (data.network) {
+					networkHashrate = getReadableHashRate(data.network.difficulty / data.config.coinDifficultyTarget);
+					networkDiff = data.network.difficulty;
+				}
+
+				let hashPower = 'N/A';
+				if (data.pool && data.network) {
+					hashPower = data.pool.hashrate / (data.network.difficulty / data.config.coinDifficultyTarget) * 100;
+					hashPower = hashPower.toFixed(2) + '%';
+				}
+
+				let blocksFound = data.pool.totalBlocks.toString();
+
+				let cnAlgorithm = data.config.cnAlgorithm || "cryptonight";
+				let cnVariant = data.config.cnVariant || 0;
+
+				if (cnAlgorithm == "cryptonight_light") {
+					if (cnVariant === 1) {
+						algorithm = 'Cryptonight Light (Aeon v7)';
+					} else if (cnVariant === 2) {
+						algorithm = 'Cryptonight Light (IPBC)';
+					} else {
+						algorithm = 'Cryptonight Light (Original)';
+					}
+				} else if (cnAlgorithm == "cryptonight_heavy") {
+					if (cnVariant === 1) {
+						algorithm = 'Cryptonight Heavy (Haven)';
+					} else {
+						algorithm = 'Cryptonight Heavy';
+					}
+				} else {
+					if (cnVariant === 1) {
+						algorithm = 'Cryptonight (Monero v7)';
+					} else if (cnVariant === 3) {
+						algorithm = 'Cryptonight (Stellite v7)';
+					} else if (cnVariant === 4) {
+						algorithm = 'Cryptonight Fast (Masari)';
+					} else if (cnVariant === 8) {
+						algorithm = 'Cryptonight (Monero v8)';
+					} else {
+						algorithm = 'Cryptonight (Original)';
+					}
+				}
+
+				updateText(poolID + '_poolHashrate', poolHashrate);
+				updateText(poolID + '_poolMiners', poolMiners);
+				updateText(poolID + '_networkHashrate', networkHashrate);
+				updateText(poolID + '_hashPower', hashPower);
+				updateText(poolID + '_blocksFound', blocksFound);
+				updateText(poolID + '_algorithm', algorithm);
+			});
+		}
+
+		// Update pools
+		function updatePools () {
+			getPoolStats('graft', 'https://graft.blockhashmining.com/api');
+			getPoolStats('haven', 'https://haven.blockhashmining.com/api');
+			getPoolStats('intense', 'https://intense.blockhashmining.com/api');
+			getPoolStats('loki', 'https://loki.blockhashmining.com/api');
+			getPoolStats('masari', 'https://masari.blockhashmining.com/api');
+			getPoolStats('stellite', 'https://stellite.blockhashmining.com/api');
+		}
+
+		// Initialize
+		$(function () {
+			setInterval(updatePools, (30 * 1000));
+			updatePools();
+		});
+
+		/**
+		 * Strings
+		 **/
+
+		// Update Text content
+		function updateText (elementId, text) {
+			let el = document.getElementById(elementId);
+			if (el && el.textContent !== text) {
+				el.textContent = text;
+			}
+			return el;
+		}
+
+		// Get readable hashrate
+		function getReadableHashRate (hashrate) {
+			let i = 0;
+			let byteUnits = [' H', ' KH', ' MH', ' GH', ' TH', ' PH'];
+			while (hashrate > 1000) {
+				hashrate = hashrate / 1000;
+				i++;
+			}
+			return hashrate.toFixed(2) + byteUnits[i] + '/s';
+		}
+
+	</script>
+
+</body>
+
+</html>

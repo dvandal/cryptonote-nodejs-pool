@@ -1,0 +1,122 @@
+#page-wrapper {
+	padding: 0 15px 0;
+	min-height: 568px;
+}
+
+@media (min-width: 992px) {
+	#page-wrapper {
+		padding: 0 30px;
+	}
+}
+
+.nav-side-menu li.sign-out {
+	border-left: 3px solid darkred;
+	background-color: rgba(255, 0, 0, .2);
+}
+
+.nav-side-menu li.sign-out:hover {
+	border-left: 3px solid darkred;
+	background-color: darkred;
+}
+
+/* Pool Statistics */
+#poolStats .luckGood {
+	color: #5eff5e;
+}
+
+#poolStats .luckBad {
+	color: red;
+}
+
+#poolStats .luckMid {
+	color: #FFF500;
+}
+
+/* Users list */
+.usersList {
+	word-wrap: break-word;
+}
+
+.usersList .tooltip-inner {
+	max-width: 100%;
+}
+
+@media (min-width: 768px) {
+	.usersList {
+		table-layout: fixed;
+	}
+
+	.usersList tr>th,
+	.usersList tr>td {
+		text-align: center;
+		white-space: nowrap;
+	}
+
+	.usersList .col1 {
+		white-space: normal;
+	}
+
+	.usersList .col2 {
+		width: 100px;
+	}
+
+	.usersList .col3 {
+		width: 100px;
+	}
+
+	.usersList .col4 {
+		width: 100px;
+	}
+
+	.usersList .col5 {
+		width: 100px;
+	}
+
+	.usersList .col6 {
+		width: 120px;
+		white-space: normal;
+	}
+}
+
+/* Monitoring */
+.adminMonitor code {
+	white-space: normal;
+}
+
+.adminMonitor .tab-pane li {
+	margin-bottom: 10px;
+}
+
+.adminMonitor .infos {
+	margin-bottom: 20px;
+}
+
+.adminMonitor #logTable th {
+	white-space: nowrap;
+}
+
+/* Ports Usage */
+#portsUsage tr>td {
+	vertical-align: middle;
+	font-size: 0.95em;
+}
+
+#portsUsage table .col1,
+#portsUsage table .col2 {
+	text-align: center;
+}
+
+@media (min-width: 768px) {
+	#portsUsage table th {
+		white-space: nowrap;
+	}
+
+	#portsUsage table .col1 {
+		width: 60px;
+	}
+
+	#portsUsage table .col2 {
+		width: 160px;
+		text-align: center;
+	}
+}

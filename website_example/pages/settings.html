@@ -1,0 +1,88 @@
+<ul class="nav nav-tabs" id="blocksTabs">
+</ul>
+
+<div class="tab-content" id="tab-content">
+</div>
+
+<script id="siblingTabTemplate" type="text/x-handlebars-template">
+	<li id="blockTabs{{coin}}" role="presentation" class="{{active}}"><a href="#{{coin}}">{{coin}} {{symbol}}</a></li>
+</script>
+
+<script id="siblingTemplate" type="text/x-handlebars-template">
+	<div role="tabpanel" class="tab-pane {{active}}" id="{{coin}}">
+                <!-- Verification fields -->
+        <h3><span data-tkey="verificationFields">Verification fields</span></h3>
+
+        <div class="card padding-15 padding-b-10">
+            <p><span data-tkey="minerVerification">In order to get a little more confidence that the wallet address is yours we ask you to give one of the worker names that is used by your miner.</span></p>
+            <div>
+            <div id="action_update_message{{coin}}" role="alert" ></div>
+            </div>
+            <div class="row push-down-5">
+                <label class="col-lg-2 col-sm-3 col-form-label col-form-label-lg" for="yourAddress"><span data-tkey="minerAddress">Miner Address:</span>:</label>
+                <div class="col-md-10 col-sm-9">
+                    <input class="form-control" id="yourAddress{{coin}}" type="text" data-tplaceholder="enterYourAddress" placeholder="Enter your address">
+                </div>
+            </div>
+            <div class="row push-down-5">
+                <label class="col-lg-2 col-sm-3 col-form-label col-form-label-lg" for="yourIP"><span data-tkey="minerIP">Miner IP Address::</span>:</label>
+                <div class="col-md-4 col-sm-5">
+                    <input class="form-control" id="yourIP{{coin}}" type="text" data-tkey="enterYourMinerIP" placeholder="An IP address your miners use (any)">
+                </div>
+            </div>
+        </div>
+
+        <!-- Minimum payout level -->
+        <h3><span data-tkey="setMinimumPayout">Set your minimal payout level</span></h3>
+        <div class="card padding-15 padding-b-10">
+            <p><span data-tkey="minerMinPayout">If you prefer a higher payout level than the pool's default then this is where you can change it for your miners. The amount you indicate here will become the minimum amount for pool payments to your address.</span></p>
+            <div class="row">
+                <label class="col-lg-2 col-sm-3 col-form-label col-form-label-lg" for="yourPayoutRate"><span data-tkey="minimumPayout">Minimum payout</span>:</label>
+                <div class="col-sm-2 push-down-5">
+                <input class="form-control" id="yourPayoutRate{{coin}}" type="number" value="">
+                </div>
+                <div class="col-sm-4 push-down-5">
+                    <button class="btn btn-default" type="button" id="payoutSetButton{{coin}}">
+                        <span><i class="fa fa-check"></i>&nbsp; <span data-tkey="set">Set</span></span>
+                    </button>
+                </div>
+            </div>
+        </div>      
+    </div>
+</script>
+
+<script>
+	let ranOnce = false
+	// Update current page
+	currentPage = {
+		destroy: function () {
+			Object.keys(mergedApis)
+				.forEach(key => {
+					$(`#payoutSetButton${key}`)
+						.off('click')
+					$(`#enableButton${key}`)
+						.off('click')
+					$(`#disableButton${key}`)
+						.off('click')
+				})
+			$('#blocksTabs a')
+				.off('click')
+		},
+		update: function (updateKey) {
+
+		}
+	};
+
+	function RunOnce () {
+		$('#blocksTabs a')
+			.click(function (e) {
+				e.preventDefault()
+				$(this)
+					.tab('show')
+			})
+		return true
+	}
+
+	settings_InitTemplate(ranOnce)
+
+</script>

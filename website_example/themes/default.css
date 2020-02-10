@@ -1,0 +1,1363 @@
+@import url(//fonts.googleapis.com/css?family=Roboto+Condensed:400,700);
+@import url(//fonts.googleapis.com/css?family=Roboto:400,300,500,700);
+@import url(//fonts.googleapis.com/css?family=Inconsolata:400,700);
+
+body {
+	background-color: #f5f5f5;
+	font-family: 'Roboto', Helvetica, Arial, sans-serif;
+	line-height: 1.428571429;
+	color: #262626;
+	margin: 0;
+	padding: 0;
+	margin-bottom: 85px;
+	font-size: 16px;
+	overflow-y: scroll;
+}
+
+a {
+	color: #014e71;
+}
+
+a:hover {
+	color: #0274a8;
+}
+
+hr {
+	border-top-color: #0274a8;
+}
+
+strong,
+b {
+	font-weight: 500;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+	font-weight: 400;
+	-webkit-font-smoothing: antialiased;
+	font-family: 'Roboto Condensed', Arial, sans-serif;
+}
+
+h3,
+.h3 {
+	font-size: 32px;
+	margin-bottom: 14px;
+}
+
+code {
+	color: #0274a8;
+	background-color: #efefef;
+	padding: 2px 10px;
+	border-radius: 0;
+}
+
+.padding-5 {
+	padding: 5px !important;
+}
+
+.padding-10 {
+	padding: 10px !important;
+}
+
+.padding-15 {
+	padding: 15px !important;
+}
+
+.padding-20 {
+	padding: 20px !important;
+}
+
+.padding-25 {
+	padding: 25px !important;
+}
+
+.padding-30 {
+	padding: 30px !important;
+}
+
+.padding-t-5 {
+	padding-top: 5px !important;
+}
+
+.padding-t-10 {
+	padding-top: 10px !important;
+}
+
+.padding-t-15 {
+	padding-top: 15px !important;
+}
+
+.padding-t-20 {
+	padding-top: 20px !important;
+}
+
+.padding-t-25 {
+	padding-top: 25px !important;
+}
+
+.padding-t-30 {
+	padding-top: 30px !important;
+}
+
+.padding-b-5 {
+	padding-bottom: 5px !important;
+}
+
+.padding-b-10 {
+	padding-bottom: 10px !important;
+}
+
+.padding-b-15 {
+	padding-bottom: 15px !important;
+}
+
+.padding-b-20 {
+	padding-bottom: 20px !important;
+}
+
+.padding-b-25 {
+	padding-bottom: 25px !important;
+}
+
+.padding-b-30 {
+	padding-bottom: 30px !important;
+}
+
+.padding-l-5 {
+	padding-left: 5px !important;
+}
+
+.padding-l-10 {
+	padding-left: 10px !important;
+}
+
+.padding-l-15 {
+	padding-left: 15px !important;
+}
+
+.padding-l-20 {
+	padding-left: 20px !important;
+}
+
+.padding-l-25 {
+	padding-left: 25px !important;
+}
+
+.padding-l-30 {
+	padding-left: 30px !important;
+}
+
+.padding-r-5 {
+	padding-right: 5px !important;
+}
+
+.padding-r-10 {
+	padding-right: 10px !important;
+}
+
+.padding-r-15 {
+	padding-right: 15px !important;
+}
+
+.padding-r-20 {
+	padding-right: 20px !important;
+}
+
+.padding-r-25 {
+	padding-right: 25px !important;
+}
+
+.padding-r-30 {
+	padding-right: 30px !important;
+}
+
+.push-up-5 {
+	margin-top: 5px !important;
+}
+
+.push-up-10 {
+	margin-top: 10px !important;
+}
+
+.push-up-15 {
+	margin-top: 15px !important;
+}
+
+.push-up-20 {
+	margin-top: 20px !important;
+}
+
+.push-up-25 {
+	margin-top: 25px !important;
+}
+
+.push-up-30 {
+	margin-top: 30px !important;
+}
+
+.push-down-5 {
+	margin-bottom: 5px !important;
+}
+
+.push-down-10 {
+	margin-bottom: 10px !important;
+}
+
+.push-down-15 {
+	margin-bottom: 15px !important;
+}
+
+.push-down-20 {
+	margin-bottom: 20px !important;
+}
+
+.push-down-25 {
+	margin-bottom: 25px !important;
+}
+
+.push-down-30 {
+	margin-bottom: 30px !important;
+}
+
+/* Footer */
+footer {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	background-color: #262626;
+	font-size: 14px;
+	color: #efefef;
+	z-index: 9999;
+}
+
+footer a {
+	color: #6ED5EE;
+}
+
+footer>div {
+	color: #fff;
+	margin: 10px auto;
+	text-align: center;
+}
+
+/* Wrappers */
+#wrapper {
+	width: 100%;
+}
+
+#page-wrapper {
+	padding: 0 15px;
+	min-height: 568px;
+}
+
+@media (min-width: 992px) {
+	#page-wrapper {
+		position: inherit;
+		margin: 0 0 0 225px;
+		padding: 60px 30px 0 30px;
+	}
+}
+
+#loading {
+	font-size: 2em;
+}
+
+/* Sidebar */
+.nav-side-menu {
+	overflow: auto;
+	font-size: 16px;
+	font-weight: 200;
+	background-color: rgba(0, 0, 0, .8);
+	position: fixed;
+	top: 0;
+	width: 225px;
+	height: 100%;
+	color: #fff;
+	z-index: 1000;
+}
+
+.nav-side-menu .brand {
+	background-color: #014e71;
+	line-height: 50px;
+	display: block;
+	text-align: center;
+	font-size: 20px;
+	color: #fff;
+	font-weight: 400;
+}
+
+.nav-side-menu .brand a {
+	color: #fff;
+	text-decoration: none;
+}
+
+.nav-side-menu .toggle-btn {
+	display: none;
+}
+
+.nav-side-menu ul,
+.nav-side-menu li {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	line-height: 35px;
+	cursor: pointer;
+}
+
+.nav-side-menu ul :not(collapsed) .arrow:before,
+.nav-side-menu li :not(collapsed) .arrow:before {
+	font-family: FontAwesome;
+	content: "\f078";
+	display: inline-block;
+	padding-left: 10px;
+	padding-right: 10px;
+	vertical-align: middle;
+	float: right;
+}
+
+.nav-side-menu ul .active,
+.nav-side-menu li .active {
+	border-left: 3px solid #03a9f4;
+	background-color: #0274a8;
+}
+
+.nav-side-menu ul .active a,
+.nav-side-menu li .active a {
+	color: #fff;
+}
+
+.nav-side-menu ul .sub-menu li.active,
+.nav-side-menu li .sub-menu li.active {
+	color: #03a9f4;
+}
+
+.nav-side-menu ul .sub-menu li a,
+.nav-side-menu li .sub-menu li a {
+	display: inline-block;
+	width: 85%;
+}
+
+.nav-side-menu ul .sub-menu li.active a,
+.nav-side-menu li .sub-menu li.active a {
+	color: #03a9f4;
+}
+
+.nav-side-menu ul .sub-menu li,
+.nav-side-menu li .sub-menu li {
+	background-color: #181c20;
+	border: none;
+	line-height: 28px;
+	border-bottom: 1px solid #23282e;
+	margin-left: 0;
+}
+
+.nav-side-menu ul .sub-menu li:hover,
+.nav-side-menu li .sub-menu li:hover {
+	background-color: #020203;
+}
+
+.nav-side-menu ul .sub-menu li:before,
+.nav-side-menu li .sub-menu li:before {
+	font-family: FontAwesome;
+	content: "\f105";
+	display: inline-block;
+	padding-left: 10px;
+	padding-right: 10px;
+	vertical-align: middle;
+}
+
+.nav-side-menu li {
+	padding-left: 0;
+	border-left: 3px solid #2e353d;
+	border-bottom: 1px solid #23282e;
+}
+
+.nav-side-menu li a {
+	text-decoration: none;
+	color: #fff;
+	display: block;
+	width: 100%;
+	padding: 2px 0;
+}
+
+.nav-side-menu li a i {
+	padding-left: 10px;
+	width: 20px;
+	padding-right: 20px;
+}
+
+.nav-side-menu li:hover {
+	border-left: 3px solid #03a9f4;
+	background-color: #0274a8;
+	-webkit-transition: all 1s ease;
+	-moz-transition: all 1s ease;
+	-o-transition: all 1s ease;
+	-ms-transition: all 1s ease;
+	transition: all 1s ease;
+}
+
+.nav-side-menu li:hover a {
+	color: #fff;
+}
+
+@media (max-width: 991px) {
+	.nav-side-menu {
+		position: relative;
+		width: 100%;
+	}
+
+	.nav-side-menu .toggle-btn {
+		display: block;
+		cursor: pointer;
+		position: absolute;
+		right: 10px;
+		top: 10px;
+		z-index: 10 !important;
+		padding: 3px;
+		background-color: #ffffff;
+		color: #000;
+		width: 40px;
+		text-align: center;
+		border-radius: 3px;
+	}
+
+	.brand {
+		text-align: left !important;
+		font-size: 22px;
+		padding-left: 20px;
+		line-height: 58px !important;
+	}
+}
+
+@media (min-width: 992px) {
+	.nav-side-menu .menu-list .menu-content {
+		display: block;
+	}
+}
+
+/* Top Bar */
+#top-bar {
+	background-color: #0274a8;
+	line-height: 50px;
+	display: block;
+	font-size: 17px;
+	color: #fff;
+	padding: 0 15px;
+	z-index: 1000;
+}
+
+#top-bar div {
+	display: inline-block;
+	padding: 0 15px;
+}
+
+#top-bar div strong {
+	font-weight: 700;
+}
+
+#top-bar #statsUpdated {
+	font-weight: normal;
+}
+
+@media (max-width: 1199px) {
+	#top-bar #statsUpdated .text {
+		display: none;
+	}
+}
+
+@media (min-width: 992px) {
+	#top-bar {
+		overflow: auto;
+		position: fixed;
+		top: 0;
+		left: 225px;
+		right: 0;
+		padding: 0 15px;
+	}
+}
+
+@media (max-width: 767px) {
+	#top-bar {
+		display: none;
+	}
+}
+
+/* Bootstrap Buttons */
+.btn-default {
+	color: #ffffff;
+	background-color: #014e71;
+	border-color: #014e71;
+}
+
+.btn-default:hover,
+.btn-default:focus,
+.btn-default:active,
+.btn-default.active,
+.open>.dropdown-toggle.btn-default {
+	color: #ffffff;
+	background-color: #013d58;
+	border-color: #013d58;
+}
+
+.btn-default.disabled,
+.btn-default[disabled],
+fieldset[disabled] .btn-default,
+.btn-default.disabled:hover,
+.btn-default[disabled]:hover,
+fieldset[disabled] .btn-default:hover,
+.btn-default.disabled:focus,
+.btn-default[disabled]:focus,
+fieldset[disabled] .btn-default:focus,
+.btn-default.disabled:active,
+.btn-default[disabled]:active,
+fieldset[disabled] .btn-default:active,
+.btn-default.disabled.active,
+.btn-default[disabled].active,
+fieldset[disabled] .btn-default.active {
+	background-color: #014e71;
+	border-color: #014e71;
+}
+
+.btn-default .badge {
+	color: #014e71;
+	background-color: #ffffff;
+}
+
+.btn-primary {
+	color: #ffffff;
+	background-color: #03a678;
+	border-color: #03a678;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open>.dropdown-toggle.btn-primary {
+	color: #ffffff;
+	background-color: #027454;
+	border-color: #026a4d;
+}
+
+.btn-primary:active,
+.btn-primary.active,
+.open>.dropdown-toggle.btn-primary {
+	background-image: none;
+}
+
+.btn-primary.disabled,
+.btn-primary[disabled],
+fieldset[disabled] .btn-primary,
+.btn-primary.disabled:hover,
+.btn-primary[disabled]:hover,
+fieldset[disabled] .btn-primary:hover,
+.btn-primary.disabled:focus,
+.btn-primary[disabled]:focus,
+fieldset[disabled] .btn-primary:focus,
+.btn-primary.disabled:active,
+.btn-primary[disabled]:active,
+fieldset[disabled] .btn-primary:active,
+.btn-primary.disabled.active,
+.btn-primary[disabled].active,
+fieldset[disabled] .btn-primary.active {
+	background-color: #03a678;
+	border-color: #03a678;
+}
+
+.btn-primary .badge {
+	color: #03a678;
+	background-color: #ffffff;
+}
+
+/* Bootstrap Form Controls */
+.input-group-addon {
+	color: #014e71;
+}
+
+/* Bootstrap Tables */
+.table>thead>tr>td.success,
+.table>tbody>tr>td.success,
+.table>tfoot>tr>td.success,
+.table>thead>tr>th.success,
+.table>tbody>tr>th.success,
+.table>tfoot>tr>th.success,
+.table>thead>tr.success>td,
+.table>tbody>tr.success>td,
+.table>tfoot>tr.success>td,
+.table>thead>tr.success>th,
+.table>tbody>tr.success>th,
+.table>tfoot>tr.success>th {
+	background-color: #000000;
+}
+
+.table-hover>tbody>tr>td.success:hover,
+.table-hover>tbody>tr>th.success:hover,
+.table-hover>tbody>tr.success:hover>td,
+.table-hover>tbody>tr:hover>.success,
+.table-hover>tbody>tr.success:hover>th {
+	background-color: #000000;
+}
+
+.table>thead>tr>th {
+	color: #014e71;
+	border-bottom-color: #014e71;
+	font-weight: 400;
+}
+
+.table-striped>tbody>tr:nth-child(odd)>td,
+.table-striped>tbody>tr:nth-child(odd)>th {
+	background-color: rgba(151, 222, 255, 0.3);
+}
+
+.table>tbody>tr:hover td,
+.table>tbody>tr:hover th {
+	background-color: rgba(3, 169, 244, 0.3);
+}
+
+.table>tbody>tr>td {
+	border-top-color: #c9e0e9;
+}
+
+table th.sort:hover {
+	cursor: pointer;
+}
+
+/* jQuery sparkline tooltip */
+.jqstooltip {
+	border: none !important;
+	background: rgba(0, 0, 0, 0.8) !important;
+	border-radius: 2px !important;
+	margin-top: -20px !important;
+	/* Override Bootstrap defaults to fix jQuery.Sparkline tooltips appearance */
+	-webkit-box-sizing: content-box !important;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box !important;
+}
+
+.jqstooltip .jqsfield {
+	color: #ccc;
+	font-size: 13px !important;
+}
+
+.jqstooltip .jqsfield b {
+	color: #fff;
+}
+
+/* Content Card */
+.card {
+	display: inline-block;
+	position: relative;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+	border-radius: 3px;
+	color: rgba(0, 0, 0, 0.87);
+	background: #fff;
+}
+
+.card table,
+.card .table {
+	margin-bottom: 0;
+}
+
+/* Info box */
+.infoBox {
+	background-color: #03a9f4;
+	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+	height: 90px;
+	cursor: default;
+	position: relative;
+	overflow: hidden;
+	margin-bottom: 30px;
+	border-radius: 3px;
+}
+
+@media (max-width: 767px) {
+	.infoBox {
+		margin-bottom: 15px;
+	}
+}
+
+.infoBox .icon {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	text-align: center;
+	font-size: 60px;
+	line-height: 60px;
+	width: 75px;
+	text-align: center;
+	color: rgba(255, 255, 255, 0.3);
+}
+
+.infoBox .content {
+	display: inline-block;
+	padding: 7px 16px;
+}
+
+.infoBox .content .text {
+	font-size: 13px;
+	margin-top: 11px;
+	color: #fff;
+	text-transform: uppercase;
+}
+
+.infoBox .content .value {
+	font-size: 22px;
+	font-weight: 700;
+	margin-top: -4px;
+	color: #fff;
+	text-shadow: 1px 1px 1px #000;
+}
+
+.infoBox .content .value .smallText {
+	font-size: 16px;
+	font-weight: normal;
+}
+
+#marketInfos .infoBox {
+	height: 100px;
+}
+
+#marketInfos .infoBox .source {
+	font-size: 13px;
+	font-style: italic;
+	color: #fff;
+}
+
+#marketInfos .infoBox .source a,
+#marketInfos .infoBox .source a:hover {
+	color: #fff;
+}
+
+
+/* Hash info box */
+.hashInfo {
+	background-color: #014e71;
+	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+	cursor: default;
+	padding: 15px;
+	border-radius: 3px;
+	color: #fff;
+	/*  margin-bottom: 30px;
+}
+@media (max-width: 767px){
+  .hashInfo {
+    margin-bottom: 15px;
+  } */
+}
+
+.hashInfo .text {
+	font-size: 13px;
+	color: #fff;
+	text-transform: uppercase;
+}
+
+.hashInfo .content {
+	overflow: hidden;
+}
+
+.hashInfo .content .value {
+	float: left;
+	font-family: 'Inconsolata', monospace;
+	font-size: 16px;
+	font-weight: 800;
+	color: #fff;
+	padding-right: 8px;
+}
+
+.hashInfo .content .value a {
+	color: #fff;
+}
+
+.hashInfo .content .time {
+	float: left;
+	font-size: 15px;
+	font-weight: normal;
+}
+
+/* Slush payment info box */
+.slushInfo {
+	background-color: #014e71;
+	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+	cursor: default;
+	padding: 15px;
+	border-radius: 3px;
+	color: #fff;
+	margin-bottom: 30px;
+}
+
+.slushInfo .text {
+	font-size: 13px;
+	color: #fff;
+	text-transform: uppercase;
+}
+
+@media (max-width: 767px) {
+	.slushInfo {
+		margin-bottom: 15px;
+	}
+}
+
+.slushInfo .content .value {
+	float: left;
+	font-size: 16px;
+	font-weight: 400;
+	color: #fff;
+	padding: 8px 8px 0 0;
+}
+
+.slushInfo .content .value a {
+	color: #fff;
+}
+
+/* Pool Statistics */
+.stats>div:not(#addressError) {
+	color: #262626;
+	padding: 10px 0px;
+}
+
+.stats>div:not(#addressError).marketFooter {
+	padding: 5px 0;
+}
+
+.stats>div:not(#addressError)>i.fa {
+	color: #0274a8;
+	font-size: 21px;
+	width: 30px;
+	text-align: center;
+}
+
+.stats>div:not(#addressError)>span:not(.input-group-btn):first-of-type {
+	font-weight: 500;
+	padding: 0 2px;
+	color: #0274a8;
+}
+
+/* Pool and Worker Charts */
+.poolChart,
+.marketChart,
+.userChart {
+	display: none;
+}
+
+.poolChart .chart,
+.marketChart .chart,
+.userChart .chart {
+	height: 140px;
+}
+
+.poolChart,
+.marketChart {
+	margin-bottom: 30px;
+}
+
+@media (max-width: 767px) {
+
+	.poolChart,
+	.marketChart {
+		margin-bottom: 15px;
+	}
+}
+
+.poolChart h4,
+.marketChart h4,
+.userChart h4 {
+	text-align: center;
+	font-size: 21px;
+}
+
+.chart a.chart-style {
+	display: none;
+	/* never displayed; we just use it to store the following colors: */
+	background-color: rgba(3, 169, 244, .4);
+	border-color: #03a9f4;
+	width: 1px;
+	/* controls the chart border width (must be specified in px) */
+}
+
+/* Market Rates */
+#marketStats {
+	margin-top: 20px;
+}
+
+#marketUpdate {
+	display: none;
+}
+
+/* Mining Profit Calculator */
+#miningProfitCalc {
+	margin: 35px 0;
+}
+
+#miningProfitCalc .input-group-addon {
+	padding: 6px;
+}
+
+#miningProfitCalc .input-group-addon,
+#miningProfitCalc .input-group-btn .btn,
+#miningProfitCalc .input-group .form-control {
+	height: 45px;
+}
+
+#calcHashDropdown {
+	border-radius: 0;
+	border-left: 0;
+	border-right: 0;
+}
+
+#calcHashHolder {
+	width: 590px;
+	max-width: 100%;
+}
+
+#calcHashRate {
+	z-index: inherit;
+	font-family: 'Inconsolata', monospace;
+}
+
+#calcHashAmount {
+	font-family: 'Inconsolata', monospace;
+	display: inline-block;
+	text-align: center;
+	vertical-align: middle;
+	overflow: hidden;
+}
+
+#calcHashPeriod {
+	font-family: 'Inconsolata', monospace;
+	display: inline-block;
+	width: 60px;
+	vertical-align: middle;
+}
+
+#calcHashResultsHolder {
+	min-width: 170px;
+	max-width: 170px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+@media (min-width: 768px) {
+	#calcHashResultsHolder {
+		min-width: 225px;
+		max-width: 225px;
+	}
+}
+
+/* Mining Ports */
+#miningPorts tr>td {
+	vertical-align: middle;
+	font-size: 0.95em;
+}
+
+#miningPorts table .col1,
+#miningPorts table .col2 {
+	text-align: center;
+}
+
+@media (min-width: 768px) {
+	#miningPorts table th {
+		white-space: nowrap;
+	}
+
+	#miningPorts table .col1 {
+		width: 60px;
+	}
+
+	#miningPorts table .col2 {
+		width: 160px;
+		text-align: center;
+	}
+}
+
+/* Mining Apps */
+#miningApps .table>thead>tr>th {
+	white-space: nowrap;
+}
+
+#miningApps_rows>tr:first-child>td {
+	padding-top: 10px;
+}
+
+#miningApps_rows>tr>td {
+	border-top: none;
+}
+
+#miningApps_rows .appInfo td {
+	padding: 10px;
+	margin: 0;
+}
+
+#miningApps_rows .appConfig td {
+	padding: 0 10px;
+}
+
+#miningApps_rows tr:hover,
+#miningApps_rows tr:hover>td,
+#miningApps_rows tr:hover>th {
+	background-color: transparent;
+}
+
+#miningApps .btn {
+	width: 100%;
+}
+
+#miningApps .miningAppTitle {
+	font-weight: bold;
+}
+
+#miningApps .exampleAddress,
+#miningApps .exampleWorkerName {
+	font-style: italic;
+}
+
+/* Worker Statistics */
+#yourStatsInput {
+	z-index: inherit;
+	font-family: 'Inconsolata', monospace;
+}
+
+#yourAddressDisplay {
+	word-wrap: break-word;
+}
+
+#yourAddressDisplay>span {
+	font-family: 'Inconsolata', monospace;
+}
+
+#lookUp>span:nth-child(2) {
+	display: none;
+}
+
+.yourStats,
+.yourWorkers {
+	display: none;
+}
+
+#yourAddressDisplay {
+	display: inline-block;
+	max-width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	vertical-align: middle;
+	font-family: 'Inconsolata', monospace;
+	font-size: 0.9em;
+}
+
+#addressError {
+	color: red;
+}
+
+#workersReport td {
+	vertical-align: middle;
+}
+
+#workersReport .status-ok {
+	color: #17a600;
+}
+
+#workersReport .status-error {
+	color: #a60000;
+}
+
+#workersReport table .col1,
+#workersReport table .col3,
+#workersReport table .col4,
+#workersReport table .col5 {
+	text-align: center;
+}
+
+@media (min-width: 768px) {
+	#workersReport table th {
+		white-space: nowrap;
+	}
+
+	#workersReport table .col1 {
+		width: 80px;
+	}
+
+	#workersReport table .col3,
+	#workersReport table .col4,
+	#workersReport table .col5,
+	#workersReport table .col6 {
+		width: 120px;
+	}
+
+	#workersReport table .col7 {
+		width: 210px;
+	}
+
+	#workersReport table .col8 {
+		width: 210px;
+	}
+}
+
+#workerPayments td {
+	vertical-align: middle;
+	font-family: 'Inconsolata', monospace;
+	font-size: 0.95em;
+}
+
+#workerPayments table .col3,
+#workerPayments table .col4 {
+	text-align: center;
+}
+
+#workerPayments table .summary {
+	font-weight: 700;
+}
+
+@media (min-width: 768px) {
+	#workerPayments table {
+		table-layout: fixed;
+	}
+
+	#workerPayments table th {
+		white-space: nowrap;
+	}
+
+	#workerPayments table .col1 {
+		width: 190px;
+	}
+
+	#workerPayments table .col2 {
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	#workerPayments table .col3 {
+		width: 130px;
+	}
+
+	#workerPayments table .col4 {
+		width: 70px;
+	}
+}
+
+/* Pool Blocks */
+#blocksStats {
+	margin-top: 20px;
+}
+
+#blocksStats .infoBox {
+	margin-bottom: 15px;
+}
+
+#blocksStats .luckGood {
+	color: #5eff5e;
+}
+
+#blocksStats .luckBad {
+	color: red;
+}
+
+#blocksStats .luckMid {
+	color: #FFF500;
+}
+
+#blocksReport tr>td {
+	vertical-align: middle;
+	font-family: 'Inconsolata', monospace;
+	font-size: 0.95em;
+}
+
+#blocksReport table .col2,
+#blocksReport table .col3,
+#blocksReport table .col4,
+#blocksReport table .col6,
+#blocksReport table .col7 {
+	text-align: center;
+}
+
+@media (min-width: 768px) {
+	#blocksReport table {
+		table-layout: fixed;
+	}
+
+	#blocksReport table th {
+		white-space: nowrap;
+	}
+
+	#blocksReport table .col1 {
+		width: 190px;
+	}
+
+	#blocksReport table .col2 {
+		width: 80px;
+	}
+
+	#blocksReport table .col3 {
+		width: 90px;
+	}
+
+	#blocksReport table .col4 {
+		width: 120px;
+	}
+
+	#blocksReport table .col5 {
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	#blocksReport table .col6 {
+		width: 55px;
+	}
+
+	#blocksReport table .col7 {
+		width: 80px;
+	}
+}
+
+#blocksReport .pending td {
+	background-color: rgba(255, 255, 255, .3);
+}
+
+#blocksReport .unlocked td {
+	background-color: rgba(0, 255, 0, .1);
+}
+
+#blocksReport .orphaned td {
+	background-color: rgba(255, 0, 0, .1);
+}
+
+#blocksReport .luckGood,
+#blocksReport .unlocked .col7 {
+	color: #17a600;
+}
+
+#blocksReport .luckBad,
+#blocksReport .orphaned .col7 {
+	color: #a60000;
+}
+
+#blocksReport .luckMid {
+	color: #df9d00;
+}
+
+/* Payments */
+#paymentsStats {
+	margin-top: 20px;
+}
+
+#paymentsStats .infoBox {
+	margin-bottom: 15px;
+}
+
+#paymentsReport td {
+	vertical-align: middle;
+	font-family: 'Inconsolata', monospace;
+	font-size: 0.95em;
+}
+
+#paymentsReport table .col3,
+#paymentsReport table .col4,
+#paymentsReport table .col5,
+#paymentsReport table .col6 {
+	text-align: center;
+}
+
+@media (min-width: 768px) {
+	#paymentsReport table {
+		table-layout: fixed;
+	}
+
+	#paymentsReport table th {
+		white-space: nowrap;
+	}
+
+	#paymentsReport table .col1 {
+		width: 190px;
+	}
+
+	#paymentsReport table .col2 {
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	#paymentsReport table .col3 {
+		width: 130px;
+	}
+
+	#paymentsReport table .col4 {
+		width: 110px;
+	}
+
+	#paymentsReport table .col5 {
+		width: 70px;
+	}
+
+	#paymentsReport table .col6 {
+		width: 70px;
+	}
+}
+
+/* Top 10 miners */
+#top10miners td {
+	vertical-align: middle;
+}
+
+#top10miners table .col1,
+#top10miners table .col3,
+#top10miners table .col4,
+#top10miners table .col5 {
+	text-align: center;
+}
+
+@media (min-width: 768px) {
+	#top10miners table th {
+		white-space: nowrap;
+	}
+
+	#top10miners table .col1 {
+		width: 80px;
+	}
+
+	#top10miners table .col3 {
+		width: 150px;
+	}
+
+	#top10miners table .col4 {
+		width: 210px;
+	}
+
+	#top10miners table .col5 {
+		width: 210px;
+	}
+}
+
+/* Language selector */
+#langSelector {
+	float: right;
+	padding-right: 0 !important;
+}
+
+#langSelector select {
+	display: inline-block;
+	width: auto;
+	height: 32px;
+	padding: 6px 10px;
+}
+
+#mLangSelector {
+	display: none;
+	padding: 10px;
+}
+
+@media (max-width: 767px) {
+	#mLangSelector {
+		display: block;
+	}
+}

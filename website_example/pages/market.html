@@ -1,0 +1,164 @@
+<ul class="nav nav-tabs" id="blocksTabs">
+</ul>
+
+<div class="tab-content" id="tab-content">
+</div>
+
+<div class="row" id="calculator">
+</div>
+
+<script id="siblingTabTemplate" type="text/x-handlebars-template">
+	<li id="blockTabs{{coin}} role="presentation" class="{{active}}"><a href="#{{coin}}">{{coin}} {{symbol}}</a></li>
+</script>
+
+<!-- Market -->
+<script id="siblingMarketTemplate" type="text/x-handlebars-template">
+	<div role="tabpanel" class="tab-pane {{active}}" id="{{coin}}">
+        <div id="marketStats{{coin}}" class="row">
+            <div id="marketInfos{{coin}}" class="clearfix marketInfos"><div class="col-xs-12"><span class="fa fa-spinner fa-spin"></span> <span data-tkey="loadingMarket">Loading market prices</span> ...</div></div>
+
+            <div class="col-sm-6 marketChart push-down-15">
+                <div class="card">
+                    <h4><span data-tkey="priceIn">Price in</span> <span id="priceChartCurrency{{coin}}">USD</span></h4>
+                    <div class="chart" style="height:120px;">
+                        <canvas id="chart{{coin}}_price"></canvas>
+                        <a class="chart-style"></a>
+                    </div>
+                </div>        
+            </div>
+            <div class="col-sm-6 marketChart push-down-15">
+                <div class="card">
+                    <h4><span data-tkey="hashPer">Hash/</span><span id="profitChartProfit{{coin}}">USD</span> <span data-toggle="tooltip" data-placement="top" data-original-title="Reward * Rate / Difficulty"><i class="fa fa-question-circle"></i></span></h4>
+                    <div class="chart" style="height:120px;">
+                        <canvas id="chart{{coin}}_profit"></canvas>
+                        <a class="chart-style"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script id="siblingCalculatorTemplate" type="text/x-handlebars-template">
+	<!-- Mining Profit Calculator -->
+	<div id="miningProfitCalc{{coin}}">
+		<h3><span data-tkey="estimateProfit">Estimate Mining Profits</span></h3>
+		<div id="calcHashHolder">
+			<div class="input-group">
+				<input class="form-control" id="calcHashRate" data-tplaceholder="enterYourHashrate" placeholder="Enter Your Hash Rate" type="number">
+				<div class="input-group-btn">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="calcHashDropdown">
+						<span id="calcHashUnit" data-mul="1">KH/s</span> <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu dropdown-menu-right" role="menu" id="calcHashUnits">
+						<li><a href="#" data-mul="0">H/s</a></li>
+						<li><a href="#" data-mul="1">KH/s</a></li>
+						<li><a href="#" data-mul="2">MH/s</a></li>
+					</ul>
+				</div>
+				<span class="input-group-addon">=</span>
+			</div>
+		</div>
+	</div>
+</script>
+
+<script id="calcHashResultTemplate" type="text/x-handlebars-template">
+	<span class="input-group-addon" id="calcHashResultsHolder{{coin}}"><div id="calcHashAmount{{coin}}"><span id="calcHashAmount{{coin}}1"></span><br/><span id="calcHashAmount{{coin}}2"></span></div> <div id="calcHashPeriod{{coin}}"><span data-tkey="perDay">per day</span></div></span>
+</script>
+
+
+<!-- Javascript -->
+<script>
+	// Market settings
+	let priceSource = 'cryptonator';
+	let priceCurrency = 'USD';
+
+	if (typeof cryptonatorWidget !== 'undefined' && typeof marketCurrencies === 'undefined') {
+		let marketCurrencies = cryptonatorWidget;
+	}
+
+	// Charts initialized
+	let chartsInitialized = {}
+	let loadedData = {}
+	let intervalChartsUpdate = {}
+	let ranOnce = false
+	let xhrMarketGets = {}
+	let marketPrices = {}
+	let currencyPairs = {}
+	// Update current page
+	currentPage = {
+		destroy: function () {
+			if (chartsInitialized) {
+				Object.keys(chartsInitialized)
+					.forEach(key => {
+						chartsInitialized[key] = false;
+						clearInterval(intervalChartsUpdate[key]);
+					})
+			}
+			if (xhrMarketGets) {
+				Object.keys(xhrMarketGets)
+					.forEach(key => {
+						if (xhrMarketGets[key])
+							xhrMarketGets[key].abort();
+					})
+			}
+
+			$('#blocksTabs a')
+				.off('click')
+			$('#calcHashUnits > li > a')
+				.off('click')
+			$('#calcHashRate')
+				.off('keyup')
+		},
+		update: function (updateKey) {
+
+		}
+	};
+
+	function RunOnce () {
+
+		/**
+		 * Hash Profitability Calculator
+		 **/
+
+		// Automatically update profit calculation on key press
+		$('#calcHashRate')
+			.keyup((e) => {
+				market_CalcEstimateProfit(marketPrices)
+			})
+			.change((e) => {
+				market_CalcEstimateProfit(marketPrices)
+			})
+
+
+		// Click on button
+		$('#calcHashUnits > li > a')
+			.click(function (e) {
+				e.preventDefault();
+				$('#calcHashUnit')
+					.text($(this)
+						.text())
+					.data('mul', $(this)
+						.data('mul'));
+				market_CalcEstimateProfit(marketPrices);
+			});
+
+		$('#blocksTabs a')
+			.click(function (e) {
+				e.preventDefault()
+				$(this)
+					.tab('show')
+			})
+		return true
+	}
+
+	// Handle tooltip
+	$(function () {
+		$('[data-toggle="tooltip"]')
+			.tooltip();
+	});
+
+
+	market_InitTemplate(ranOnce, chartsInitialized, loadedData, marketPrices, intervalChartsUpdate, currencyPairs, xhrMarketGets)
+
+</script>

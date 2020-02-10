@@ -1,0 +1,503 @@
+<!-- Connection Details -->
+<div class="row">
+	<div class="col-sm-6">
+		<h3><span data-tkey="connectionDetails">Connection Details</span></h3>
+		<div class="card padding-l-10 padding-r-10">
+			<div class="stats">
+				<div><i class="fa fa-cloud"></i> <span data-tkey="miningPoolHost">Mining Pool Address</span>: <span id="miningPoolHost"></span></div>
+				<div><i class="fa fa-cubes"></i> <span data-tkey="cnAlgorithm">Algorithm</span>: <span id="cnAlgorithm"></span></div>
+			</div>
+		</div>
+
+		<h4 class="push-up-15"><span data-tkey="username">Username<span></h4>
+		<div class="card padding-l-10 padding-r-10">
+			<div class="stats">
+				<div><i class="fa fa-key"></i> <span data-tkey="usernameDesc">This is your wallet address</span></div>
+				<div id="paymentId"><i class="fa fa-exchange"></i> <span data-tkey="paymentId">Exchange Payment ID</span>: <span><u data-tkey="parentaddress">parent address</u><span id="paymentIdSeparator">.</span><u data-tkey="addrPaymentId">paymentID</u></span></div>
+				<div id="fixedDiff"><i class="fa fa-wrench"></i> <span data-tkey="fixedDiff">Difficulty locking</span>: <span><u data-tkey="parentaddress">parent address</u><span id="fixedDiffSeparator">+</span><u data-tkey="addrDiff">diff</u></span></div>
+			</div>
+		</div>
+
+		<h4 class="push-up-15"><span data-tkey="password">Password</span></h4>
+		<div class="card padding-l-10 padding-r-10">
+			<div class="stats">
+				<div><i class="fa fa-key"></i> <span data-tkey="usernameDesc2">Use your <strong id="paymentChildCoins">Iridium OR Nibble wallet address</strong> in the password field for merged mining.</span></div>
+				<div id="paymentId"><i class="fa fa-exchange"></i> <span data-tkey="paymentId">Exchange Payment ID</span>: <span><u data-tkey="childaddress">child address</u><span id="paymentIdSeparator">+</span><u data-tkey="addrPaymentId">paymentID</u></span></div>
+				<div><i class="fa fa-server"></i> <span data-tkey="fixedDiff2">Worker Name</span>: <span><u data-tkey="childaddress">child-address</u><span id="fixedDiffSeparator2">@</span><u data-tkey="addrDiff2">workerName</u></span></div>
+				<div><i class="fa fa-exchange fa-server"></i> <span data-tkey="fixedDiff2PaymentId">Payment ID and Worker Name</span>: <span><u data-tkey="childaddress">child-address</u>+<u data-tkey="">paymentID</u><span id="fixedDiffSeparator2">@</span><u data-tkey="addrDiff2">workerName</u></span></div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Mining ports -->
+	<div class="col-sm-6">
+		<h3><span data-tkey="miningPorts">Mining Ports</span></h3>
+		<div class="card">
+			<div id="miningPorts" class="table-responsive">
+				<table class="table table-hover table-striped">
+					<thead>
+						<tr>
+							<th class="col1"><span data-tkey="port">Port</span></th>
+							<th class="col2"><span data-tkey="portDiff">Starting Difficulty</span></th>
+							<th class="col3"><span data-tkey="description">Description</span></th>
+						</tr>
+					</thead>
+					<tbody id="miningPorts_rows">
+						<tr>
+							<td class="col1"><span class="miningPort"></span></td>
+							<td class="col2"><span class="miningPortDiff"></span></td>
+							<td class="col3"><span class="miningPortDesc"></span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<!-- Mining Applications and Configuration Generator -->
+<h3><span data-tkey="miningApps">Mining Applications</span></h3>
+
+<!-- Configuration Generator -->
+<div class="card padding-15">
+	<p><span data-tkey="configGeneratorDesc">Generate your custom configuration to mine on our pool</span></p>
+	<div id="configGenerator" class="row">
+		<div class="col-sm-3 col-xs-8">
+			<div class="input-group push-down-5">
+				<span class="input-group-addon"><i class="fa fa-link"></i></span>
+				<select class="form-control" id="gMiningPort"></select>
+			</div>
+		</div>
+		<div class="col-sm-3 col-xs-4">
+			<div class="input-group push-down-5">
+				<span style="white-space: nowrap;">Solo Mining
+					<label><input type="checkbox" name="solo" id="gSolo" value="1" title="Check if want to mine both pools solo"></label>
+				</span>
+			</div>
+		</div>
+		<div class="col-sm-6 col-xs-12">
+			<div class="input-group push-down-5">
+				<span class="input-group-addon"><i class="fa fa-server"></i></span>
+				<input class="form-control" id="gWorkerName" data-tplaceholder="workerNameField" type="text" placeholder="Worker_Name" />
+			</div>
+		</div>
+		<div class="col-sm-6 col-xs-12">
+			<div class="input-group push-down-5">
+				<span class="input-group-addon"><i class="fa fa-key"></i></span>
+				<input class="form-control" id="gAddress" type="text" data-tplaceholder="addressField" placeholder="Wallet Address" required="required" />
+			</div>
+		</div>
+		<div class="col-sm-6 col-xs-12">
+			<div class="input-group push-down-5">
+				<span class="input-group-addon"><i class="fa fa-exchange"></i></span>
+				<input class="form-control" id="gPaymentID" type="text" data-tplaceholder="paymentIdField" placeholder="Parent Payment ID for exchanges (optional)" />
+			</div>
+		</div>
+		<div class="col-sm-6 col-xs-12">
+			<div class="input-group push-down-5">
+				<span class="input-group-addon"><i class="fa fa-key"></i></span>
+				<input class="form-control" id="gChildAddress" type="text" data-tplaceholder="childAddressField" placeholder="Child Address" required="required" />
+			</div>
+		</div>
+		<div class="col-sm-6 col-xs-12">
+			<div class="input-group push-down-5">
+				<span class="input-group-addon"><i class="fa fa-exchange"></i></span>
+				<input class="form-control" id="gChildPaymentID" type="text" data-tplaceholder="childPaymentIdField" placeholder="Child Payment ID for exchanges (optional)" />
+			</div>
+		</div>
+		<div class="col-sm-6 col-xs-12">
+			<div class="input-group push-down-5">
+				<span class="input-group-addon"><i class="fa fa-wrench"></i></span>
+				<input class="form-control" id="gDifficulty" type="text" data-tplaceholder="fixedDiffField" placeholder="Fixed difficulty (optional)" />
+			</div>
+		</div>
+		<div class="col-md-12 push-up-5">
+			<input id="generateConf" type="submit" tvalue="generateConfig" value="Generate configuration" class="btn btn-default" data-toggle="collapse" href="#xmrstak" />
+		</div>
+	</div>
+</div>
+
+<!-- Mining Applications -->
+<div class="card push-up-5">
+	<div id="miningApps" class="table-responsive">
+		<table class="table">
+			<thead>
+				<tr>
+					<th><i class="fa fa-book"></i> <span data-tkey="appName">App Name</span></th>
+					<th><i class="fa fa-car"></i> <span data-tkey="appArch">Architecture</span></th>
+					<th><i class="fa fa-star"></i> <span data-tkey="appDesc">Features</span></th>
+					<th><i class="fa fa-download"></i> <span data-tkey="download">Download</span></th>
+					<th><i class="fa fa-file-code-o"></i> <span data-tkey="configuration">Configuration</span></th>
+				</tr>
+			</thead>
+			<tbody id="miningApps_rows">
+
+				<!-- XMR Stak -->
+				<tr class="appInfo">
+					<td class="miningAppTitle">XMR Stak</td>
+					<td>CPU & GPU (AMD/NVIDIA)</td>
+					<td>Easy to use CPU + GPU Mining App</td>
+					<td><a class="btn btn-success" target="_blank" href="https://github.com/fireice-uk/xmr-stak/releases/latest"><span data-tkey="download">Download</span></a></td>
+					<td><a class="btn btn-default" role="button" data-toggle="collapse" href="#xmrstak" aria-expanded="true" aria-controls="collapseExample"><span data-tkey="showConfig">See more</span></a></td>
+				</tr>
+				<tr class="appConfig">
+					<td colspan="5">
+						<div class="collapse" id="xmrstak">
+
+							<pre><code>"pool_list": [
+    {
+        "pool_address": "<span class="exampleHost">POOL_HOST</span>:<span class="examplePort">PORT</span>",
+        "wallet_address": "<span class="exampleLogin">YOUR_WALLET_ADDRESS</span>",
+        "rig_id": "",
+        "pool_password": /* Solo Mining set [solo:] */"<span class="examplePassword">YOUR_WORKER_NAME</span>",
+        "use_nicehash": false,
+        "use_tls": false, /* Set to true if you are using an SSL port */
+        "tls_fingerprint": "",
+        "pool_weight": 1
+    },
+],
+"currency": "<span id="xmrstakAlgo"></span>",</code></pre>
+
+						</div>
+					</td>
+				</tr>
+
+				<!-- XMRig -->
+				<tr class="appInfo">
+					<td class="miningAppTitle">XMRig</td>
+					<td>CPU</td>
+					<td>Ligthweight but powerful CPU Mining App</td>
+					<td><a class="btn btn-success" target="_blank" href="https://github.com/xmrig/xmrig/releases/latest"><span data-tkey="download">Download</span></a></td>
+					<td><a class="btn btn-default" role="button" data-toggle="collapse" href="#xmrig" aria-expanded="true" aria-controls="collapseExample"><span data-tkey="showConfig">See more</span></a></td>
+				</tr>
+				<tr class="appConfig">
+					<td colspan="5">
+						<div class="collapse" id="xmrig">
+
+							<pre><code>"pools": [
+    {
+        "url": "<span class="exampleHost">POOL_HOST</span>:<span class="examplePort">PORT</span>",
+        "user": "<span class="exampleLogin">YOUR_WALLET_ADDRESS</span>",
+        "pass": "<span class="examplePassword">YOUR_WORKER_NAME</span>",
+        "keepalive": true,
+        "nicehash": false,
+        "variant": "trtl",
+        "algo": "cryptonight-pico/trtl"
+    }
+],</code></pre>
+
+						</div>
+					</td>
+				</tr>
+
+				<!-- XMRig-AMD -->
+				<tr class="appInfo">
+					<td class="miningAppTitle">XMRig-AMD</td>
+					<td>OpenCL (AMD)</td>
+					<td>XMRIG version for AMD GPU</td>
+					<td><a class="btn btn-success" target="_blank" href="https://github.com/xmrig/xmrig-amd/releases/latest"><span data-tkey="download">Download</span></a></td>
+					<td><a class="btn btn-default" role="button" data-toggle="collapse" href="#xmrig-amd" aria-expanded="true" aria-controls="collapseExample"><span data-tkey="showConfig">See more</span></a></td>
+				</tr>
+				<tr class="appConfig">
+					<td colspan="5">
+						<div class="collapse" id="xmrig-amd">
+
+							<pre><code>"pools": [
+    {
+        "url": "<span class="exampleHost">POOL_HOST</span>:<span class="examplePort">PORT</span>",
+        "user": "<span class="exampleLogin">YOUR_WALLET_ADDRESS</span>",
+        "pass": "<span class="examplePassword">YOUR_WORKER_NAME</span>"
+        "keepalive": true,
+        "nicehash": false,
+        "variant": "trtl",
+        "algo": "cryptonight-pico/trtl"
+    }
+],</code></pre>
+
+						</div>
+					</td>
+				</tr>
+
+				<!-- XMRig-NVIDIA -->
+				<tr class="appInfo">
+					<td class="miningAppTitle">XMRig-NVIDIA</td>
+					<td>Cuda (Nvidia)</td>
+					<td>XMRIG version for Nvidia GPU</td>
+					<td><a class="btn btn-success" target="_blank" href="https://github.com/xmrig/xmrig-nvidia/releases/latest"><span data-tkey="download">Download</span></a></td>
+					<td><a class="btn btn-default" role="button" data-toggle="collapse" href="#xmrig-nvidia" aria-expanded="true" aria-controls="collapseExample"><span data-tkey="showConfig">See more</span></a></td>
+				</tr>
+				<tr class="appConfig">
+					<td colspan="5">
+						<div class="collapse" id="xmrig-nvidia">
+
+							<pre><code>"pools": [
+    {
+        "url": "<span class="exampleHost">POOL_HOST</span>:<span class="examplePort">PORT</span>",
+        "user": "<span class="exampleLogin">YOUR_WALLET_ADDRESS</span>",
+        "pass": "<span class="examplePassword">YOUR_WORKER_NAME</span>"
+        "keepalive": true,
+        "nicehash": false
+        "variant": "trtl",
+        "algo": "cryptonight-pico/trtl"
+    }
+],</code></pre>
+
+						</div>
+					</td>
+				</tr>
+
+				<!-- XMRigCC -->
+				<tr class="appInfo">
+					<td class="miningAppTitle">XMRigCC</td>
+					<td>CPU</td>
+					<td>XMRIG Fork, optimized with remote control</td>
+					<td><a class="btn btn-success" target="_blank" href="https://github.com/Bendr0id/xmrigCC/releases/latest"><span data-tkey="download">Download</span></a></td>
+					<td><a class="btn btn-default" role="button" data-toggle="collapse" href="#xmrig-cc" aria-expanded="true" aria-controls="collapseExample"><span data-tkey="showConfig">See more</span></a></td>
+				</tr>
+				<tr class="appConfig">
+					<td colspan="5">
+						<div class="collapse" id="xmrig-cc">
+
+							<pre><code>"pools": [
+    {
+        "url": "<span class="exampleHost">POOL_HOST</span>:<span class="examplePort">PORT</span>",
+        "user": "<span class="exampleLogin">YOUR_WALLET_ADDRESS</span>",
+        "pass": "<span class="examplePassword">YOUR_WORKER_NAME</span>",
+        "keepalive": true,
+        "nicehash": false,
+        "algo": "cryptonight-ultralite",
+        "pow-variant": "2"
+    },
+],</code></pre>
+
+						</div>
+					</td>
+				</tr>
+
+				<!-- Team Red Miner -->
+				<tr class="appInfo">
+					<td class="miningAppTitle">Team Red Miner</td>
+					<td>GPU</td>
+					<td>AMD GPU Optimized Cryptocurrency Miner</td>
+					<td><a class="btn btn-success" target="_blank" href="https://github.com/todxx/teamredminer/releases/latestt"><span data-tkey="download">Download</span></a></td>
+					<td><a class="btn btn-default" role="button" data-toggle="collapse" href="#teamRedMiner" aria-expanded="true" aria-controls="collapseExample"><span data-tkey="showConfig">See more</span></a></td>
+				</tr>
+				<tr class="appConfig">
+					<td colspan="5">
+						<div class="collapse" id="teamRedMiner">
+							<pre><code>teamredminer.ext -a cnv8 trtle -o stratum+tcp//<span class="exampleHost">POOL_HOST</span>:<span class="examplePort">PORT</span> -u "<span class="exampleLogin">YOUR_WALLET_ADDRESS</span>" -p "<span class="examplePassword">YOUR_WORKER_NAME</span>" 
+</code></pre>
+
+						</div>
+					</td>
+				</tr>
+
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<!-- Javascript -->
+<script>
+	// Cleanup mining ports
+	var lastPortsJson = '';
+	var $miningPorts = $('#miningPorts_rows');
+	var miningPortTemplate = $miningPorts.html();
+	$miningPorts.empty();
+
+	var $miningPortSelect = $('#gMiningPort');
+	$miningPortSelect.empty();
+
+	// Update current page
+	currentPage = {
+		destroy: function () {},
+		update: function (updateKey) {
+			var portsJson = JSON.stringify(lastStats.config.ports);
+			if (lastPortsJson !== portsJson) {
+				lastPortsJson = portsJson;
+				var $miningPortChildren = [];
+				var $miningPortOptions = [];
+				for (var i = 0; i < lastStats.config.ports.length; i++) {
+					var portData = lastStats.config.ports[i];
+					var $portChild = $(miningPortTemplate);
+					$portChild.find('.miningPort')
+						.text(portData.port);
+					$portChild.find('.miningPortDiff')
+						.text(formatDifficulty(portData.difficulty));
+					$portChild.find('.miningPortDesc')
+						.text(portData.desc);
+					$miningPortChildren.push($portChild);
+					$miningPortOptions.push('<option value="' + portData.port + '">' + portData.port + ' &ndash; ' + portData.desc + '</option>');
+				}
+				$miningPorts.empty()
+					.append($miningPortChildren);
+				$miningPortSelect.empty()
+					.append($miningPortOptions);
+				updateTextClasses('examplePort', lastStats.config.ports[0].port.toString());
+			}
+
+			updateText('miningPoolHost', getPoolHost());
+			updateTextClasses('exampleHost', getPoolHost());
+			updateText('paymentIdSeparator', lastStats.config.paymentIdSeparator);
+			updateText('fixedDiffSeparator', lastStats.config.fixedDiffSeparator);
+			let childCoins = Object.keys(mergedStats)
+				.join(' or ')
+			updateText('paymentChildCoins', `${childCoins} wallet address`);
+			if (!lastStats.config.fixedDiffEnabled) $('#fixedDiff')
+				.hide();
+
+			var coin = lastStats.config.coin.toLowerCase() || null;
+			var cnAlgorithm = lastStats.config.cnAlgorithm || "cryptonight";
+			var cnVariant = lastStats.config.cnVariant || 0;
+
+			algorithm = '';
+			xmrstakAlgo = '';
+
+			if (cnAlgorithm == "argon2") {
+				if (cnVariant === 1)
+					algorithm = 'Argon2id WRKZ';
+				else
+					algorithm = 'Argon2id Chukwa';
+			} else if (cnAlgorithm == "randomx") {
+				if (cnVariant === 1)
+					algorithm = 'CryptoNight DefyX';
+				else if (cnVariant === 2)
+					algorithm = 'RandomARQ';
+				else if (cnVariant === 17) {
+					algorithm = 'RandomWOW';
+					xmrstakAlgo = 'randomX_wow';
+				} else if (cnVariant === 18) {
+					algorithm = 'RandomXL';
+					xmrstakAlgo = 'randomX_loki';
+				} else {
+					algorithm = 'RandomX';
+					xmrstakAlgo = 'randomX';
+				}
+			} else if (cnAlgorithm == "cryptonight_light") {
+				if (cnVariant === 1) {
+					algorithm = 'CryptoNight Lite v7';
+					xmrstakAlgo = 'cryptonight_lite_v7';
+				} else {
+					algorithm = 'CryptoNight Lite';
+					xmrstakAlgo = 'cryptonight_lite';
+				}
+			} else if (cnAlgorithm == "cryptonight_pico" || cnAlgorithm == "cryptonight-turtle") {
+				if (cnAlgorithm == "cryptonight-turtle" && cnVariant === 2) {
+					algorithm = 'CryptoNight Ultra v2';
+				} else {
+					algorithm = 'CryptoNight Turtle';
+					xmrstakAlgo = 'cryptonight_turtle';
+				}
+			} else if (cnAlgorithm == "cryptonight_heavy") {
+				if (cnVariant === 1) {
+					algorithm = 'CryptoNight Haven';
+					xmrstakAlgo = 'cryptonight_haven';
+				} else if (cnVariant === 2) {
+					algorithm = 'CryptoNight Saber';
+					xmrstakAlgo = 'cryptonight_bittube2';
+				} else {
+					algorithm = 'CryptoNight Heavy';
+					xmrstakAlgo = 'cryptonight_heavy';
+				}
+			} else {
+				if (cnVariant === 1) {
+					algorithm = 'CryptoNight v7';
+					xmrstakAlgo = 'cryptonight_v7';
+				} else if (cnVariant === 4) {
+					algorithm = 'CryptoNight Fast';
+					xmrstakAlgo = 'cryptonight_masari';
+				} else if (cnVariant === 6) {
+					algorithm = 'CryptoNight Alloy';
+					xmrstakAlgo = 'cryptonight_alloy';
+				} else if (cnVariant === 7) {
+					algorithm = 'CryptoNight Arto';
+					xmrstakAlgo = 'cryptonight_arto';
+				} else if (cnVariant === 8) {
+					algorithm = 'CryptoNight v8';
+					xmrstakAlgo = 'cryptonight_v8';
+				} else if (cnVariant === 9) {
+					algorithm = 'CryptoNight v8 Half';
+					xmrstakAlgo = 'cryptonight_v8_half';
+				} else if (cnVariant === 11) {
+					algorithm = 'CryptoNight GPU';
+					xmrstakAlgo = 'cryptonight_gpu';
+				} else if (cnVariant === 13) {
+					algorithm = 'CryptoNight R';
+					xmrstakAlgo = 'cryptonight_r';
+				} else if (cnVariant === 14) {
+					algorithm = 'CryptoNight v8 ReverseWaltz';
+					xmrstakAlgo = 'cryptonight_v8_reversewaltz';
+				} else if (cnVariant === 15) {
+					algorithm = 'CryptoNight Zelerius';
+					xmrstakAlgo = 'cryptonight_v8_zelerius';
+				} else if (cnVariant === 16) {
+					algorithm = 'CryptoNight v8 Double';
+					xmrstakAlgo = 'cryptonight_v8_double';
+				} else {
+					algorithm = 'CryptoNight';
+					xmrstakAlgo = 'cryptonight';
+				}
+			}
+
+			updateText('cnAlgorithm', algorithm);
+			updateText('xmrstakAlgo', xmrstakAlgo);
+		}
+	};
+
+	/**
+	 * Configuration generator
+	 **/
+
+	$('#generateConf')
+		.click(function () {
+			// Mining Port
+			var port = $('#gMiningPort')
+				.val();
+			updateTextClasses('examplePort', port);
+
+			// Username
+			var address = $('#gAddress')
+				.val()
+				.replace(/\s+/g, '')
+				.trim();
+			var childAddress = $('#gChildAddress')
+				.val()
+				.replace(/\s+/g, '')
+				.trim();
+			var solo = $('#gSolo')
+				.val();
+			var paymentID = $('#gPaymentID')
+				.val()
+				.replace(/\s+/g, '')
+				.trim();
+			var childPaymentID = $('#gChildPaymentID')
+				.val()
+				.replace(/\s+/g, '')
+				.trim();
+			var difficulty = parseInt($('#gDifficulty')
+				.val()
+				.replace(/\s+/g, '')
+				.trim());
+			var workerName = $('#gWorkerName')
+				.val()
+				.replace(/\s+/g, '')
+				.trim();
+
+			var login = address ? address : 'YOUR_WALLET_ADDRESS';
+			if (paymentID) login = login + lastStats.config.paymentIdSeparator + paymentID;
+			if (difficulty) login = login + lastStats.config.fixedDiffSeparator + difficulty;
+			if ($('input[name=solo]')
+				.is(':checked')) login = `solo:${login}`
+			updateTextClasses('exampleLogin', login);
+
+			// Password
+			var childLogin = childAddress ? childAddress : 'YOUR_CHILD_WALLET_ADDRESS';
+			if (childPaymentID) childLogin = childLogin + lastStats.config.paymentIdSeparator + childPaymentID;
+			if (difficulty) childLogin = childLogin + lastStats.config.fixedDiffSeparator + difficulty;
+			if (workerName) childLogin = `${childLogin}@${workerName}`
+
+			updateTextClasses('examplePassword', childLogin);
+		});
+
+</script>

@@ -168,7 +168,7 @@ sudo su - your-user
 Clone the repository and run `npm update` for all the dependencies to be installed:
 
 ```bash
-git clone https://github.com/muscleman/cryptonote-nodejs-pool.git pool
+git clone https://github.com/dvandal/cryptonote-nodejs-pool.git pool
 cd pool
 
 npm update
@@ -201,7 +201,7 @@ Explanation for each field:
 "blockchainExplorer": "http://blockexplorer.arqma.com/block/{id}",  //used on blocks page to generate hyperlinks.
 "transactionExplorer": "http://blockexplorer.arqma.com/tx/{id}",    //used on the payments page to generate hyperlinks
 
-/* Set daemon type. Supported values: default, forknote (Fix block height + 1), bytecoin (ByteCoin Wallet RPC API), turtlecoin, bytecoin2 */
+/* Set daemon type. Supported values: default, forknote (Fix block height + 1), bytecoin (ByteCoin Wallet RPC API) */
 "daemonType": "default",
 
 /* Set Cryptonight algorithm settings.
@@ -215,8 +215,6 @@ Explanation for each field:
 "includeHeight":false, /*true to include block.height in job to miner*/
 "includeAlgo":"cn/wow", /*wownero specific change to include algo in job to miner*/	"includeAlgo":"cn/wow", /*wownero specific change to include algo in job to miner*/
 "isRandomX": true,
-"previousOffset": 7, // bytecoin derived coins try 3
-"offset": 2, // bytecoin derived coins try 3
 /* Logging */
 "logging": {
 
@@ -422,14 +420,6 @@ Explanation for each field:
     "sslCA": "./chain.pem", // The SSL certificate authority chain
     "trustProxyIP": false // Proxy X-Forwarded-For support
 },
-
-"rpcMethods": {
-    "getblocktemplate": "get_block_template",
-    "submitblock": {"key": "submit_block",
-                    "value": "{\"blocktemplate_blob\": \"{0}\"}"
-                   }
-},
-
 
 /* Coin daemon connection details (default port is 18981) */
 "daemon": {
@@ -653,7 +643,7 @@ node init.js -module=api
 [Example screenshot](http://i.imgur.com/SEgrI3b.png) of running the pool in single module mode with tmux.
 
 To keep your pool up, on operating system with systemd, you can create add your pool software as a service.  
-Use this [example](https://github.com/muscleman/cryptonote-nodejs-pool/blob/master/deployment/cryptonote-nodejs-pool.service) to create the systemd service `/lib/systemd/system/cryptonote-nodejs-pool.service`
+Use this [example](https://github.com/dvandal/cryptonote-nodejs-pool/blob/master/deployment/cryptonote-nodejs-pool.service) to create the systemd service `/lib/systemd/system/cryptonote-nodejs-pool.service`
 Then enable and start the service with the following commands : 
 
 ```
@@ -810,12 +800,6 @@ Thanks for supporting my works on this project! If you want to make a donation t
 * Bitcoin Cash (BCH): `qpl0gr8u3yu7z4nzep955fqy3w8m6w769sec08u3dp`
 * Ethereum (ETH): `0x83ECF65934690D132663F10a2088a550cA201353`
 * Litecoin (LTC): `LS9To9u2C95VPHKauRMEN5BLatC8C1k4F1`
-* Monero (XMR): `49WyMy9Q351C59dT913ieEgqWjaN12dWM5aYqJxSTZCZZj1La5twZtC3DyfUsmVD3tj2Zud7m6kqTVDauRz53FqA9zphHaj`
-* Graft (GRFT): `GBqRuitSoU3PFPBAkXMEnLdBRWXH4iDSD6RDxnQiEFjVJhWUi1UuqfV5EzosmaXgpPGE6JJQjMYhZZgWY8EJQn8jQTsuTit`
-* Haven (XHV): `hvxy2RAzE7NfXPLE3AmsuRaZztGDYckCJ14XMoWa6BUqGrGYicLCcjDEjhjGAQaAvHYGgPD7cGUwcYP7nEUs8u6w3uaap9UZTf`
-* IntenseCoin (ITNS): `iz4fRGV8XsRepDtnK8XQDpHc3TbtciQWQ5Z9285qihDkCAvB9VX1yKt6qUCY6sp2TCC252SQLHrjmeLuoXsv4aF42YZtnZQ53`
-* Masari (MSR): `5n7mffxVT9USrq7tcG3TM8HL5yAz7MirUWypXXJfHrNfTcjNtDouLAAGex8s8htu4vBpmMXFzay8KG3jYGMFhYPr2aMbN6i`
-* Stellite (XTL): `Se45GzgpFG3CnvYNwEFnxiRHD2x7YzRnhFLdxjUqXdbv3ysNbfW5U7aUdn87RgMRPM7xwN6CTbXNc7nL5QUgcww11bDeypTe1`
 
 
 Credits
@@ -823,7 +807,6 @@ Credits
 
 * [fancoder](//github.com/fancoder) - Developper on cryptonote-universal-pool project from which current project is forked.
 * dvandal (//github.com/dvandal) - Developer of cryptonote-nodejs-pool software
-* Musclesonvacation (//github.com/muscleman) - Current developer for pool software
 
 License
 -------

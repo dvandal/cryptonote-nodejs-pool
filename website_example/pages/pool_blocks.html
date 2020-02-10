@@ -1,0 +1,152 @@
+<ul class="nav nav-tabs" id="blocksTabs">
+</ul>
+
+<div class="tab-content" id="tab-content">
+</div>
+
+<script id="siblingTabTemplate" type="text/x-handlebars-template">
+	<li id="blockTabs{{coin}} role="presentation" class="{{active}}"><a href="#{{coin}}">{{coin}} {{symbol}}</a></li>
+</script>
+
+<script id="siblingTemplate" type="text/x-handlebars-template">
+	<div role="tabpanel" class="tab-pane {{active}}" id="{{coin}}">
+        <!-- Statistics -->
+        <div class="blocksStats row">
+
+            <!-- Total Blocks Mined -->
+            <div class="col-lg-3 col-sm-4">
+                <div class="infoBox hoverExpandEffect mergedBg">
+                    <div class="icon">
+                        <span class="fa fa-cubes"></span>
+                    </div>
+                    <div class="content">
+                        <div class="text"><span data-tkey="blocksTotal">Total Prop Blocks Mined</span></div>
+                        <div class="value"><span id="blocksTotal{{coin}}">N/A</span> <span class="smallText">(<span id="lastBlockFound{{coin}}">Never</span>)</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-4">
+                <div class="infoBox hoverExpandEffect mergedBg">
+                    <div class="icon">
+                        <span class="fa fa-cubes"></span>
+                    </div>
+                    <div class="content">
+                        <div class="text"><span data-tkey="blocksTotalSolo">Total Solo Blocks Mined</span></div>
+                        <div class="value"><span id="blocksTotalSolo{{coin}}">N/A</span> <span class="smallText">(<span id="lastBlockFoundSolo{{coin}}">Never</span>)</span></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Maturity Depth Requirement -->
+            <div class="col-lg-3 col-sm-4">
+                <div class="infoBox hoverExpandEffect mergedBg">
+                    <div class="icon">
+                        <span class="fa fa-unlock-alt"></span>
+                    </div>
+                    <div class="content">
+                        <div class="text"><span data-tkey="blocksMaturityCount">Maturity Requirement</span></div>
+                        <div class="value"><span id="blocksMaturityCount{{coin}}">N/A</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Average Luck -->
+            <div class="col-lg-3 col-sm-4">
+                <div class="infoBox hoverExpandEffect mergedBg">
+                    <div class="icon">
+                        <span class="fa fa-line-chart"></span>
+                    </div>
+                    <div class="content">
+                        <div class="text"><span data-tkey="averageLuck">Average Luck</span></div>
+                        <div class="value"><span id="averageLuck{{coin}}">N/A</span></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+         <!-- Chart -->
+        <div id="blocksChart{{coin}}" class="card padding-15 padding-t-5 padding-b-5">
+            <h4 id="blocksChartTitle{{coin}}">Blocks found</h4>
+            <div class="chart" style="height:200px;">
+                <canvas id="blocksChartObj{{coin}}"></canvas>
+                <a class="chart-style"></a>
+            </div>
+        </div>
+        <!-- Report -->
+        <div class="card push-up-10">
+            <div class="table-responsive blocksReport">
+                <table class="table table-hover table-striped">
+                    <thead>
+                    <tr>
+                        <th class="col1"><span data-tkey="timeFound">Time Found</span></th>
+                        <th class="col2"><span data-tkey="reward">Reward</span></th>
+                        <th class="col3"><span data-tkey="height">Height</span></th>
+                        <th class="col4"><span data-tkey="difficulty">Difficulty</span></th>
+                        <th class="col5"><span data-tkey="blockHash">Block Hash</span></th>
+	                    <th class="col1"><span data-data-tkey="miner">Miner Address</span></th>
+                        <th class="col6"><span data-tkey="effort">Effort</span></th>
+                        <th class="col7" title="How many more blocks network must mine before this block is matured"><span data-tkey="status">Status</span></th>
+                    </tr>
+                    </thead>
+                    <tbody id="blocksReport{{coin}}_rows">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <p class="text-center push-up-10">
+            <button type="button" class="btn btn-default" id="loadMoreBlocks{{coin}}"><span data-tkey="loadMore">Load More</span></button>
+        </p>
+    </div>
+</script>
+
+<!-- Javascript -->
+<script>
+	$('#blocksChartarqma')
+		.hide();
+	$('#blocksChartiridium')
+		.hide();
+
+	let displayedChart = {};
+	let xhrGetBlocks = {}
+	let ranOnce = false
+	// Update current page
+	currentPage = {
+		destroy: function () {
+			if (xhrGetBlocks) {
+				Object.keys(xhrGetBlocks)
+					.forEach(key => {
+						if (xhrGetBlocks[key])
+							xhrGetBlocks[key].abort();
+						$(`#loadMoreBlocks${key}`)
+							.off('click')
+					})
+			}
+			$('#blocksTabs a')
+				.off('click')
+		},
+		update: function (updateKey) {
+			let stats = updateKey === parentCoin ? lastStats : mergedStats[updateKey]
+			if (stats) {
+				displayedChart[updateKey] = false
+				if (stats.charts.blocks) {
+					poolBlocks_GenerateChart(stats, displayedChart);
+				}
+				poolBlocks_RenderBlocks(stats.pool.blocks, stats);
+			}
+		}
+	};
+
+
+	function RunOnce () {
+		$('#blocksTabs a')
+			.click(function (e) {
+				e.preventDefault()
+				$(this)
+					.tab('show')
+			})
+		return true
+	}
+
+	poolBlocks_InitTemplate(ranOnce, displayedChart, xhrGetBlocks)
+
+</script>
