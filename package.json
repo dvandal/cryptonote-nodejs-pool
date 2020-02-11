@@ -6,7 +6,7 @@
 	"Maintained by": "Musclesonvacation",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/muscleman/cryptonote-nodejs-pool.git"
+		"url": "https://github.com/dvandal/cryptonote-nodejs-pool.git"
 	},
 	"dependencies": {
 		"async": "1",
