@@ -920,13 +920,12 @@ function top10Miners_UpdateTop10 (xhrGetMiners, endPoint, key) {
 	if (xhrGetMiners[key])
 		xhrGetMiners[key].abort()
 
-	$(`#top10miners_rows${key}`)
-		.empty();
+	let top10_body = $(`#top10_rows${key}`);
 
 	xhrGetMiners[key] = $.ajax({
 		url: `${endPoint}/get_top10miners`,
 		data: {
-			time: $(`#top10_rows${key}`)
+			time: top10_body
 				.children()
 				.last()
 				.data('time')
@@ -935,9 +934,12 @@ function top10Miners_UpdateTop10 (xhrGetMiners, endPoint, key) {
 		cache: 'false',
 		success: function (data) {
 			if (!data) return;
-			for (var i = 0; i < data.length; ++i) {
-				$(`#top10miners_rows${key}`)
-					.append('<tr>' + top10Miners_GetMinerCells(i + 1, data[i]) + '</tr>');
+			for (var i=0; i<data.length; ++i) {
+				if ($('#top' + (i+1)).length) {
+					$('#top' + (i+1)).html(top10Miners_GetMinerCells(i+1, data[i]));
+				} else {		
+					$( top10_body.append('<tr id="top' + (i+1) + '">' + top10Miners_GetMinerCells(i+1, data[i]) + '</tr>'));
+				}
 			}
 		}
 	});
