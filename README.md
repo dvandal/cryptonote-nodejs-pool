@@ -106,7 +106,7 @@ Community / Support
 * http://itns.proxpool.com/
 * https://bytecoin.pt/
 * https://pool.leviar.io/
-* https://pool.croatpirineus.cat/
+* https://pool.croat.community/
 
 Usage
 ===
