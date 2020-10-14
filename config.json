@@ -1,17 +1,17 @@
 {
-	"poolHost": "your.pool.host",
+	"poolHost": "swepool.kryptokrona.se",
 
-	"coin": "sumokoin",
-	"symbol": "SUMO",
-	"coinUnits": 1000000000,
+	"coin": "Kryptokrona",
+	"symbol": "XKR",
+	"coinUnits": 100,
 	"coinDecimalPlaces": 4,
-	"coinDifficultyTarget": 240,
-	"blockchainExplorer": "http://blockexplorer.arqma.com/block/{id}",
-	"transactionExplorer": "http://blockexplorer.arqma.com/tx/{id}",
-	"daemonType": "default",
-	"cnAlgorithm": "cryptonight",
-	"cnVariant": 13,
-	"cnBlobType": 0,
+	"coinDifficultyTarget": 90,
+	"blockchainExplorer": "https://explorer.kryptokrona.se/?hash={id}#blockchain_block'",
+	"transactionExplorer": "https://explorer.kryptokrona.se/?hash={id}#blockchain_transaction",
+	"daemonType": "bytecoin",
+	"cnAlgorithm": "cryptonight_pico",
+	"cnVariant": 2,
+	"cnBlobType": 2,
 
 	"logging": {
 		"files": {
@@ -24,15 +24,13 @@
 			"colors": true
 		}
 	},
-	"includeHeight": true,
-	"includeAlgo": "cn/r",
 	"childPools": null,
 	"poolServer": {
 		"enabled": true,
 		"mergedMining": false,
 		"clusterForks": "auto",
-		"poolAddress": "** Your pool wallet address **",
-		"intAddressPrefix": 536986,
+		"poolAddress": "SEKReVjEbFSRpa5yW97GbMLii|  replace me | yvcbu7m8tZUc42nJxnig",
+		"intAddressPrefix": null,
 		"blockRefreshInterval": 1000,
 		"minerTimeout": 900,
 		"sslCert": "./cert.pem",
@@ -54,28 +52,30 @@
 				"difficulty": 25000,
 				"desc": "High end hardware"
             },
-			{
-				"port": 7777,
-				"difficulty": 500000,
-				"desc": "Cloud-mining / NiceHash"
+	             {
+                                "port": 7777,
+                                "difficulty": 50000,
+                                "desc": "CloudMining High range hardware",
+                                "ssl": false
             },
+
 			{
 				"port": 8888,
-				"difficulty": 25000,
-				"desc": "Hidden port",
-				"hidden": true
+				"difficulty": 15000,
+				"desc": "TLS Connection Mid range hardware",
+				"ssl": true
             },
 			{
 				"port": 9999,
-				"difficulty": 20000,
-				"desc": "SSL connection",
-				"ssl": true
+				"difficulty": 50000,
+				"desc": "TLS connection High end hardware",
+				"ssl": true 
             }
         ],
 		"varDiff": {
-			"minDiff": 100,
-			"maxDiff": 100000000,
-			"targetTime": 60,
+			"minDiff": 1000,
+			"maxDiff": 500000,
+			"targetTime": 10,
 			"retargetTime": 30,
 			"variancePercent": 30,
 			"maxJump": 100
@@ -113,26 +113,26 @@
 
 	"payments": {
 		"enabled": true,
-		"interval": 1800,
+		"interval": 120,
 		"maxAddresses": 50,
-		"mixin": 12,
+		"mixin": 1,
 		"priority": 0,
-		"transferFee": 1000,
+		"transferFee": 100,
 		"dynamicTransferFee": true,
 		"minerPayFee": true,
-		"minPayment": 10000000000,
+		"minPayment": 50000000,
 		"maxPayment": null,
 		"maxTransactionAmount": 0,
-		"denomination": 10000000
+		"denomination": 100
 	},
 
 	"blockUnlocker": {
 		"enabled": true,
 		"interval": 30,
-		"depth": 60,
-		"poolFee": 0.8,
+		"depth": 40,
+		"poolFee": 0.6,
 		"devDonation": 0.2,
-		"networkFee": 0.0
+		"networkFee": 0
 	},
 
 	"api": {
@@ -143,7 +143,7 @@
 		"port": 8117,
 		"blocks": 30,
 		"payments": 30,
-		"password": "your_password",
+		"password": "SET PASS",
 		"ssl": false,
 		"sslPort": 8119,
 		"sslCert": "./cert.pem",
@@ -154,12 +154,13 @@
 
 	"daemon": {
 		"host": "127.0.0.1",
-		"port": 19734
+		"port": 11898
 	},
 
 	"wallet": {
 		"host": "127.0.0.1",
-		"port": 19735
+		"port": 8070,
+		"password": "SET PASS"
 	},
 
 	"redis": {
@@ -257,7 +258,7 @@
 	},
 
 	"prices": {
-		"source": "tradeogre",
+		"source": null,
 		"currency": "USD"
 	},
 
