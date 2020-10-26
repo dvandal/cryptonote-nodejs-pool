@@ -6,8 +6,8 @@
 	"coinUnits": 100000000,
 	"coinDecimalPlaces": 8,
 	"coinDifficultyTarget": 120,
-	"blockchainExplorer": "http://blockexplorer.arqma.com/block/{id}",
-	"transactionExplorer": "http://blockexplorer.arqma.com/tx/{id}",
+	"blockchainExplorer": "https://explorer.qwertycoin.org/?hash={id}#blockchain_block",
+	"transactionExplorer": "https://explorer.qwertycoin.org/?hash={id}#blockchain_transaction",
 	"daemonType": "default",
 	"cnAlgorithm": "cryptonight",
 	"cnVariant": 0,
@@ -129,7 +129,7 @@
 		"depth": 60,
 		"poolFee": 0.8,
 		"devDonation": 0.2,
-		"networkFee": 0.0
+		"networkFee": 10.0
 	},
 
 	"api": {
