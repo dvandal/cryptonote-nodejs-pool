@@ -160,8 +160,7 @@
 
 	"daemon": {
 		"host": "127.0.0.1",
-		"port": 33888,
-		"alwaysPoll": true
+		"port": 33888
 	},
 
 	"wallet": {
