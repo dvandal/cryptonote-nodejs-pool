@@ -12,7 +12,7 @@
 	"cnAlgorithm": "randomx",
 	"cnVariant": 0,
 	"cnBlobType": 0,
-	"includeHeight": false,
+	"includeHeight": true,
 	"isRandomX": true,
 
 	"logging": {
