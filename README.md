@@ -100,6 +100,11 @@ Community / Support
 
 #### Pools Using This Software
 
+* https://mining.crystaleum.org/
+* https://ukpool.electronero.org/
+* https://ukpool.electroneropulse.org/
+* https://poolgui.litenero.org/
+* https://poolgui.goldnero.org/
 * https://imaginary.stream/
 * https://graft.anypool.net/
 * https://www.dark-mine.su/
@@ -264,12 +269,15 @@ Explanation for each field:
 
     /* Address where block rewards go, and miner payments come from. */
     "poolAddress": "your wallet",
-
-    /* This is the integrated address prefix used for miner login validation. */
-    "intAddressPrefix": 91,
+    
+    /* This is the Public address prefix used for miner login validation. */
+    "pubAddressPrefix": 343,
+    
+    /* This is the Integrated address prefix used for miner login validation. */
+    "intAddressPrefix": 340,
     
     /* This is the Subaddress prefix used for miner login validation. */
-    "subAddressPrefix": 252,
+    "subAddressPrefix": 439,
     
     /* Poll RPC daemons for new blocks every this many milliseconds. */
     "blockRefreshInterval": 1000,
