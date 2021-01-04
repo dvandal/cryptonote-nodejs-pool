@@ -1,7 +1,7 @@
 {
     "poolHost": "CRFI_POOL_ADDRESS",
-    "blockchainExplorer": "https://oracle.crystaleum.com/block/{id}",
-    "transactionExplorer": "https://oracle.crystaleum.com/tx/{id}",
+    "blockchainExplorer": "https://oracle.crystaleum.org/block/{id}",
+    "transactionExplorer": "https://oracle.crystaleum.org/tx/{id}",
     "includeHeight": false,
     "includeAlgo": null,
     "isRandomX": false,
