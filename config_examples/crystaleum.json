@@ -5,12 +5,12 @@
     "includeHeight": false,
     "includeAlgo": null,
     "isRandomX": false,
+    "finderReward": 0.0,
     "coin": "Crystaleum",
     "symbol": "CRFI",
     "coinUnits": 1000000000000,
     "coinDecimalPlaces": 12,
     "coinDifficultyTarget": 6,
-
     "daemonType": "default",
     "cnAlgorithm": "cryptonight",
     "cnVariant": 4,
