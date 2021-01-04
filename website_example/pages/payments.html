@@ -5,11 +5,11 @@
 </div>
 
 <script id="siblingTabTemplate" type="text/x-handlebars-template">
-	<li id="blockTabs{{coin}}" role="presentation" class="{{active}}"><a href="#{{coin}}">{{coin}} {{symbol}}</a></li>
+    <li id="blockTabs{{coin}}" role="presentation" class="{{active}}"><a href="#{{coin}}">{{coin}} {{symbol}}</a></li>
 </script>
 
 <script id="siblingTemplate" type="text/x-handlebars-template">
-	<div role="tabpanel" class="tab-pane {{active}}" id="{{coin}}">
+  <div role="tabpanel" class="tab-pane {{active}}" id="{{coin}}">
       <!-- Statistics -->
       <div class="row paymentsStats">
 
@@ -96,46 +96,43 @@
 
 <!-- Javascript -->
 <script>
-	let xhrGetPayments = {}
-	let ranOnce = false
-	// Update current page
-	currentPage = {
-		destroy: function () {
-			if (xhrGetPayments) {
-				Object.keys(xhrGetPayments)
-					.forEach(key => {
-						if (xhrGetPayments[key])
-							xhrGetPayments[key].abort();
-						$(`#loadMorePayments${key}`)
-							.off('click')
-					})
-			}
-			$('#blocksTabs a')
-				.off('click')
-		},
-		update: function (updateKey) {
-			let stats = updateKey === parentCoin ? lastStats : mergedStats[updateKey]
-			if (stats) {
-				updateText(`paymentsTotal${updateKey}`, stats.pool.totalPayments.toString());
-				updateText(`paymentsTotalPaid${updateKey}`, stats.pool.totalMinersPaid.toString());
-				updateText(`paymentsInterval${updateKey}`, getReadableTime(stats.config.paymentsInterval));
-				updateText(`paymentsMinimum${updateKey}`, getReadableCoin(stats, stats.config.minPaymentThreshold));
-				updateText(`paymentsDenomination${updateKey}`, getReadableCoin(stats, stats.config.denominationUnit, 3));
-				payments_renderPayments(stats.pool.payments, stats);
-			}
-		}
-	};
 
-	function RunOnce () {
-		$('#blocksTabs a')
-			.click(function (e) {
-				e.preventDefault()
-				$(this)
-					.tab('show')
-			})
-		return true
-	}
+let xhrGetPayments = {}
+let ranOnce = false
+// Update current page
+currentPage = {
+    destroy: function(){
+        if (xhrGetPayments) {
+            Object.keys(xhrGetPayments).forEach(key => {
+                if (xhrGetPayments[key])
+                    xhrGetPayments[key].abort();
+                $(`#loadMorePayments${key}`).off('click')
+            })
+        }
+        $('#blocksTabs a').off('click')
+    },
+    update: function(updateKey){
+        let stats = updateKey === parentCoin ? lastStats : mergedStats[updateKey]
+        if (stats) {
+            updateText(`paymentsTotal${updateKey}`, stats.pool.totalPayments.toString());
+            updateText(`paymentsTotalPaid${updateKey}`, stats.pool.totalMinersPaid.toString());
+            updateText(`paymentsInterval${updateKey}`, getReadableTime(stats.config.paymentsInterval));
+            updateText(`paymentsMinimum${updateKey}`, getReadableCoin(stats, stats.config.minPaymentThreshold));
+            updateText(`paymentsDenomination${updateKey}`, getReadableCoin(stats, stats.config.denominationUnit, 3));
+            payments_renderPayments(stats.pool.payments, stats);
+        }
+    }
+};
 
-	payments_InitTemplate(xhrGetPayments, ranOnce)
+function RunOnce() {
+    $('#blocksTabs a').click(function (e) {
+      e.preventDefault()
+      $(this).tab('show')
+    })
+    return true
+}
+
+payments_InitTemplate(xhrGetPayments, ranOnce)
 
 </script>
+
