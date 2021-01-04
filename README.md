@@ -395,6 +395,8 @@ Explanation for each field:
        the variable CRYPTONOTE_MINED_MONEY_UNLOCK_WINDOW */
     "depth": 60,
     "poolFee": 0.8, // 0.8% pool fee (1% total fee total including donations)
+    "soloFee": 0, // solo fee
+    "finderReward": 0.2, // 0.2 finder reward
     "devDonation": 0.2, // 0.2% donation to send to pool dev
     "networkFee": 0.0, // Network/Governance fee (used by some coins like Loki)
     

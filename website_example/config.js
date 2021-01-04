@@ -1,12 +1,13 @@
-var api = "https://multi-miner.smartcoinpool.net:8119";
-let parentCoin = "Arqma"
+var api = "https://your-api.pool.com/apiMerged";
+var apiMerged = "https://your-api.pool.com/apiMerged1";
+let parentCoin = "Chimera"
 
 var email = "support@poolhost.com";
 var telegram = "https://t.me/YourPool";
 var discord = "https://discordapp.com/invite/YourPool";
 var facebook = "https://www.facebook.com/<YourPoolFacebook>";
 
-var marketCurrencies = ["{symbol}-BTC", "{symbol}-LTC", "{symbol}-DOGE", "{symbol}-USDT", "{symbol}-USD", "{symbol}-EUR", "{symbol}-CAD"];
+var marketCurrencies = ["{symbol}-BTC", "{symbol}-USD", "{symbol}-EUR", "{symbol}-CAD"];
 
 var blockchainExplorer = "http://chainradar.com/{symbol}/block/{id}";
 var blockchainExplorerMerged = "http://explorer.ird.cash/?hash={id}#block";
