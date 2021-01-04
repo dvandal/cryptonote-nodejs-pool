@@ -814,7 +814,7 @@ Credits
 ---------
 
 * [fancoder](//github.com/fancoder) - Developper on cryptonote-universal-pool project from which current project is forked.
-* dvandal (//github.com/dvandal) - Developer of cryptonote-nodejs-pool software
+* [dvandal](//github.com/dvandal) - Developer of cryptonote-nodejs-pool software
 
 License
 -------
