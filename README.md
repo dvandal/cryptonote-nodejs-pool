@@ -1,4 +1,4 @@
-cryptonote-nodejs-pool
+crystaleum-nodejs-pool
 ======================
 
 High performance Node.js (with native C addons) mining pool for Crystaleum. Comes with lightweight example front-end script which uses the pool's AJAX API. 
