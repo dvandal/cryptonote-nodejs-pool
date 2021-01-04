@@ -1,6 +1,5 @@
 {
 	"poolHost": "your.pool.host",
-
 	"coin": "Arqma",
 	"symbol": "ARQ",
 	"coinUnits": 1000000000,
@@ -8,7 +7,9 @@
 	"coinDifficultyTarget": 120,
 	"blockchainExplorer": "http://blockexplorer.arqma.com/block/{id}",
 	"transactionExplorer": "http://blockexplorer.arqma.com/tx/{id}",
-
+	"includeHeight": false,
+	"includeAlgo": null,
+	"isRandomX": false,
 	"daemonType": "default",
 	"cnAlgorithm": "cryptonight_pico",
 	"cnVariant": 2,
@@ -27,7 +28,9 @@
 	},
 	"childPools": [{
 			"poolAddress": "** Your pool wallet address **",
+			"pubAddressPrefix": null,
 			"intAddressPrefix": null,
+			"subAddressPrefix": null,
 			"coin": "CyprusCoin",
 			"childDaemon": {
 				"host": "1.2.3.4",
@@ -41,7 +44,9 @@
                     },
 		{
 			"poolAddress": "** Your pool wallet address **",
+			"pubAddressPrefix": null,
 			"intAddressPrefix": null,
+			"subAddressPrefix": null,
 			"coin": "Turtlecoin",
 			"childDaemon": {
 				"host": "1.2.3.4",
@@ -55,7 +60,9 @@
                     },
 		{
 			"poolAddress": "** Your pool wallet address **",
+			"pubAddressPrefix": null,
 			"intAddressPrefix": null,
+			"subAddressPrefix": null,
 			"coin": "Plenteum",
 			"childDaemon": {
 				"host": "1.2.3.4",
@@ -69,7 +76,9 @@
                     },
 		{
 			"poolAddress": "** Your pool wallet address **",
+			"pubAddressPrefix": null,
 			"intAddressPrefix": null,
+			"subAddressPrefix": null,
 			"coin": "Iridium",
 			"childDaemon": {
 				"host": "1.2.3.4",
@@ -83,7 +92,9 @@
                     },
 		{
 			"poolAddress": "** Your pool wallet address **",
+			"pubAddressPrefix": null,
 			"intAddressPrefix": null,
+			"subAddressPrefix": null,
 			"coin": "Tritanium",
 			"childDaemon": {
 				"host": "1.2.3.4",
@@ -97,7 +108,9 @@
                     },
 		{
 			"poolAddress": "** Your pool wallet address **",
+			"pubAddressPrefix": null,
 			"intAddressPrefix": null,
+			"subAddressPrefix": null,
 			"coin": "WrkzCoin",
 			"childDaemon": {
 				"host": "1.2.3.4",
@@ -111,7 +124,9 @@
                     },
 		{
 			"poolAddress": "** Your pool wallet address **",
+			"pubAddressPrefix": null,
 			"intAddressPrefix": null,
+			"subAddressPrefix": null,
 			"coin": "Elphyrecoin2",
 			"childDaemon": {
 				"host": "1.2.3.4",
@@ -129,7 +144,9 @@
 		"mergedMining": true,
 		"clusterForks": 5,
 		"poolAddress": "** Your pool wallet address **",
+		"pubAddressPrefix": null,
 		"intAddressPrefix": 1141703,
+		"subAddressPrefix": null,
 		"blockRefreshInterval": 1000,
 		"minerTimeout": 900,
 		"sslCert": "cert.pem",
