@@ -1,7 +1,7 @@
 cryptonote-nodejs-pool
 ======================
 
-High performance Node.js (with native C addons) mining pool for Crystaleum. Comes with lightweight example front-end script which uses the pool's AJAX API. 
+High performance Node.js (with native C addons) mining pool for CryptoNote based coins. Comes with lightweight example front-end script which uses the pool's AJAX API. Support for Cryptonight (Original, Monero v7, Stellite v7), Cryptonight Light (Original, Aeon v7, IPBC) and Cryptonight Heavy (Sumokoin) algorithms.
 
 
 #### Table of Contents
@@ -100,7 +100,18 @@ Community / Support
 
 #### Pools Using This Software
 
-* https://mining.crystaleum.org
+* https://mining.crystaleum.org/
+* https://ukpool.electronero.org/
+* https://ukpool.electroneropulse.org/
+* https://poolgui.litenero.org/
+* https://poolgui.goldnero.org/
+* https://imaginary.stream/
+* https://graft.anypool.net/
+* https://www.dark-mine.su/
+* http://itns.proxpool.com/
+* https://bytecoin.pt/
+* https://pool.leviar.io/
+* https://pool.croat.community/
 
 Usage
 ===
@@ -207,7 +218,7 @@ Explanation for each field:
 "cnVariant": 1,
 "cnBlobType": 0,
 "includeHeight":false, /*true to include block.height in job to miner*/
-"includeAlgo":"cn/wow", /*wownero specific change to include algo in job to miner*/	"includeAlgo":"cn/wow", /*wownero specific change to include algo in job to miner*/
+"includeAlgo":"cn/wow", /*wownero specific change to include algo in job to miner*/	
 "isRandomX": true,
 /* Logging */
 "logging": {
@@ -258,12 +269,15 @@ Explanation for each field:
 
     /* Address where block rewards go, and miner payments come from. */
     "poolAddress": "your wallet",
-
-    /* This is the integrated address prefix used for miner login validation. */
-    "intAddressPrefix": 91,
+    
+    /* This is the Public address prefix used for miner login validation. */
+    "pubAddressPrefix": 343,
+    
+    /* This is the Integrated address prefix used for miner login validation. */
+    "intAddressPrefix": 340,
     
     /* This is the Subaddress prefix used for miner login validation. */
-    "subAddressPrefix": 252,
+    "subAddressPrefix": 439,
     
     /* Poll RPC daemons for new blocks every this many milliseconds. */
     "blockRefreshInterval": 1000,
