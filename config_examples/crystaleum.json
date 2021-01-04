@@ -1,12 +1,15 @@
 {
     "poolHost": "CRFI_POOL_ADDRESS",
-
+    "blockchainExplorer": "https://oracle.crystaleum.org/block/{id}",
+    "transactionExplorer": "https://oracle.crystaleum.org/tx/{id}",
+    "includeHeight": false,
+    "includeAlgo": null,
+    "isRandomX": false,
     "coin": "Crystaleum",
     "symbol": "CRFI",
     "coinUnits": 1000000000000,
     "coinDecimalPlaces": 12,
     "coinDifficultyTarget": 6,
-
     "daemonType": "default",
     "cnAlgorithm": "cryptonight",
     "cnVariant": 4,
@@ -127,7 +130,9 @@
         "depth": 30,
         "poolFee": 0.0,
         "devDonation": 0.0,
-        "networkFee": 0.0
+        "networkFee": 0.0,
+        "finderReward": 0.0,
+	"soloFee": 0.0
     },
 
     "api": {
