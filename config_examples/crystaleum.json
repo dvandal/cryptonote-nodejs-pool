@@ -1,6 +1,10 @@
 {
     "poolHost": "CRFI_POOL_ADDRESS",
-
+    "blockchainExplorer": "https://oracle.crystaleum.com/block/{id}",
+    "transactionExplorer": "https://oracle.crystaleum.com/tx/{id}",
+    "includeHeight": false,
+    "includeAlgo": null,
+    "isRandomX": false,
     "coin": "Crystaleum",
     "symbol": "CRFI",
     "coinUnits": 1000000000000,
