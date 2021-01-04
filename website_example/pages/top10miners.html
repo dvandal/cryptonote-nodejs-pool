@@ -8,11 +8,11 @@
 </div>
 
 <script id="siblingTabTemplate" type="text/x-handlebars-template">
-	<li id="blockTab{{coin}}" role="presentation" class="{{active}}"><a href="#{{coin}}" data-coin="{{coin}}">{{coin}} {{symbol}}</a></li>
+    <li id="blockTab{{coin}}" role="presentation" class="{{active}}"><a href="#{{coin}}" data-coin="{{coin}}">{{coin}} {{symbol}}</a></li>
 </script>
 
 <script id="siblingTemplate" type="text/x-handlebars-template">
-	<div role="tabpanel" class="tab-pane {{active}}" id="{{coin}}">
+    <div role="tabpanel" class="tab-pane {{active}}" id="{{coin}}">
         <div class="card">
             <div id="top10miners" class="table-responsive">
                 <table class="table table-striped">
@@ -35,40 +35,36 @@
 
 <!-- Javascript -->
 <script>
-	let ranOnce = false
-	let xhrGetMiners = {}
-	// Update current page
-	currentPage = {
-		destroy: function () {
-			if (xhrGetMiners) {
-				Object.keys(xhrGetMiners)
-					.forEach(key => {
-						if (xhrGetMiners[key])
-							xhrGetMiners[key].abort();
-					})
-			}
-			$('#blocksTabs a')
-				.off('click')
-		},
-		update: function (updateKey) {
-			let endPoint = updateKey === parentCoin ? api : mergedApis[updateKey] ? mergedApis[updateKey].api : null
-			if (endPoint) {
-				top10Miners_UpdateTop10(xhrGetMiners, endPoint, updateKey)
-			}
-		}
-	};
+let ranOnce = false
+let xhrGetMiners = {}
+// Update current page
+currentPage = {
+    destroy: function(){
+        if (xhrGetMiners) {
+            Object.keys(xhrGetMiners).forEach(key => {
+                if (xhrGetMiners[key])
+                    xhrGetMiners[key].abort();
+            })
+        }
+        $('#blocksTabs a').off('click')
+    },
+    update: function(updateKey){
+        let endPoint = updateKey === parentCoin ? api : mergedApis[updateKey] ? mergedApis[updateKey].api : null
+        if (endPoint) {
+           top10Miners_UpdateTop10(xhrGetMiners, endPoint, updateKey)
+        }       
+    }
+};
 
-	function RunOnce () {
-		$('#blocksTabs a')
-			.click(function (e) {
-				e.preventDefault()
-				$(this)
-					.tab('show')
-			})
-		return true
-	}
+function RunOnce() {
+    $('#blocksTabs a').click(function (e) {
+      e.preventDefault()
+      $(this).tab('show')
+    })
+    return true
+}
 
 
-	top10Miners_InitTemplate(xhrGetMiners, ranOnce)
+top10Miners_InitTemplate(xhrGetMiners, ranOnce)
 
 </script>

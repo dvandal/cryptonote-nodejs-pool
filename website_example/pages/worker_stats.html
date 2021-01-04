@@ -4,15 +4,15 @@
 <ul class="nav nav-tabs" id="blocksTabs">
 </ul>
 
-<div class="tab-content" id="tab-content">
+<div class="tab-content" id="tab-content"> 
 </div>
 
 <script id="siblingTabTemplate" type="text/x-handlebars-template">
-	<li id="blockTab{{coin}}" role="presentation" class="{{active}}"><a href="#{{coin}}" data-coin="{{coin}}">{{coin}} {{symbol}}</a></li>
+    <li id="blockTab{{coin}}" role="presentation" class="{{active}}"><a href="#{{coin}}" data-coin="{{coin}}">{{coin}} {{symbol}}</a></li>
 </script>
 
 <script id="siblingTemplate" type="text/x-handlebars-template">
-	<div role="tabpanel" class="tab-pane {{active}}" id="{{coin}}">
+    <div role="tabpanel" class="tab-pane {{active}}" id="{{coin}}">
         <div id="workerStats{{coin}}">
             <div class="input-group">
                 <input class="form-control" id="yourStatsInput{{coin}}" type="text" data-tplaceholder="enterYourAddress" placeholder="Enter Your {{coin}} Address">
@@ -122,95 +122,86 @@
 
 <!-- Javascript -->
 <script>
-	let xhrGetPayments = {}
-	let xhrAddressPoll = {}
-	let addressTimeout = {}
-	let ranOnce = false
-	// Update current page
-	currentPage = {
-		destroy: function () {
-			$(`#yourLastShare${lastStats.config.coin}`)
-				.timeago('dispose');
-			if (mergedApis) {
-				Object.keys(mergedApis)
-					.forEach(key => {
-						if (mergedApis[key])
-							$(`#yourLastShare${key}`)
-							.timeago('dispose');
-					})
-			}
-			if (xhrAddressPoll[lastStats.config.coin])
-				xhrAddressPoll[lastStats.config.coin].abort();
-			if (xhrAddressPoll) {
-				Object.keys(xhrAddressPoll)
-					.forEach(key => {
-						if (xhrAddressPoll[key])
-							xhrAddressPoll[key].abort();
-					})
-			}
-			if (addressTimeout[lastStats.config.coin])
-				clearTimeout(addressTimeout[lastStats.config.coin])
 
-			if (addressTimeout) {
-				Object.keys(addressTimeout)
-					.forEach(key => {
-						if (addressTimeout[key])
-							clearTimeout(addressTimeout[key])
-					})
-			}
-			if (xhrGetPayments[lastStats.config.coin])
-				xhrGetPayments[lastStats.config.coin].abort();
+let xhrGetPayments = {}
+let xhrAddressPoll = {}
+let addressTimeout = {}
+let ranOnce = false
+// Update current page
+currentPage = {
+    destroy: function(){
+        $(`#yourLastShare${lastStats.config.coin}`).timeago('dispose');
+        if (mergedApis) {
+            Object.keys(mergedApis).forEach(key => {
+                if (mergedApis[key])
+                    $(`#yourLastShare${key}`).timeago('dispose');
+            })
+        }
+        if (xhrAddressPoll[lastStats.config.coin])
+            xhrAddressPoll[lastStats.config.coin].abort();
+        if (xhrAddressPoll) {
+            Object.keys(xhrAddressPoll).forEach(key => {
+                if (xhrAddressPoll[key])
+                    xhrAddressPoll[key].abort();
+            })
+        }
+        if (addressTimeout[lastStats.config.coin])
+            clearTimeout(addressTimeout[lastStats.config.coin])
 
-			if (xhrGetPayments) {
-				Object.keys(xhrGetPayments)
-					.forEach(key => {
-						if (xhrGetPayments[key])
-							xhrGetPayments[key].abort();
-					})
-			}
+        if (addressTimeout) {
+            Object.keys(addressTimeout).forEach(key => {
+                if (addressTimeout[key])
+                    clearTimeout(addressTimeout[key])
+            })
+        }
+        if (xhrGetPayments[lastStats.config.coin])
+            xhrGetPayments[lastStats.config.coin].abort();
 
-		},
-		update: function (updateKey) {}
-	};
+        if (xhrGetPayments) {
+            Object.keys(xhrGetPayments).forEach(key => {
+                if (xhrGetPayments[key])
+                    xhrGetPayments[key].abort();
+            })
+        }
 
-	function RunOnce () {
-		$('#blocksTabs a')
-			.click(function (e) {
-				e.preventDefault()
-				$(this)
-					.tab('show')
-				let coin = $(this)
-					.data('coin')
-				$(`#lookUp${coin}`)
-					.click();
-			})
-		return true
-	}
+    },
+    update: function(updateKey){
+    }
+};
 
-	// Charts settings
-	var graphSettings = {
-		type: 'line',
-		width: '100%',
-		height: '140',
-		lineColor: '#03a9f4',
-		fillColor: 'rgba(3, 169, 244, .4)',
-		spotColor: null,
-		minSpotColor: null,
-		maxSpotColor: null,
-		highlightLineColor: '#236d26',
-		spotRadius: 3,
-		chartRangeMin: 0,
-		drawNormalOnTop: false,
-		tooltipFormat: '<b>{{y}}</b> &ndash; {{offset:names}}'
-	};
+function RunOnce() {
+    $('#blocksTabs a').click(function (e) {
+      e.preventDefault()
+      $(this).tab('show')
+      let coin = $(this).data('coin')
+      $(`#lookUp${coin}`).click();
+    })
+    return true
+}
 
-	// Handle charts tooltip
-	$(function () {
-		$('[data-toggle="tooltip"]')
-			.tooltip();
-	});
+// Charts settings
+var graphSettings = {
+    type: 'line',
+    width: '100%',
+    height: '140',
+    lineColor: '#03a9f4',
+    fillColor: 'rgba(3, 169, 244, .4)',
+    spotColor: null,
+    minSpotColor: null,
+    maxSpotColor: null,
+    highlightLineColor: '#236d26',
+    spotRadius: 3,
+    chartRangeMin: 0,
+    drawNormalOnTop: false,
+    tooltipFormat: '<b>{{y}}</b> &ndash; {{offset:names}}'
+};
+
+// Handle charts tooltip
+$(function() {
+    $('[data-toggle="tooltip"]').tooltip();
+});
 
 
-	workerstats_InitTemplate(ranOnce, addressTimeout, xhrAddressPoll)
+workerstats_InitTemplate(ranOnce, addressTimeout, xhrAddressPoll)
 
 </script>
