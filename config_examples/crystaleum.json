@@ -130,9 +130,8 @@
         "depth": 30,
         "poolFee": 0.0,
         "devDonation": 0.0,
-        "networkFee": 0.0,
         "finderReward": 0.0,
-	"soloFee": 0.0
+        "networkFee": 0.0
     },
 
     "api": {
