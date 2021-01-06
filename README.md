@@ -431,6 +431,13 @@ Explanation for each field:
     "trustProxyIP": false // Proxy X-Forwarded-For support
 },
 
+/* zmq daemon support */
+"zmq": {
+    "enabled": false,
+    "host": "127.0.0.1",
+    "port": 19995
+},
+
 /* Coin daemon connection details (default port is 18981) */
 "daemon": {
     "host": "127.0.0.1",
