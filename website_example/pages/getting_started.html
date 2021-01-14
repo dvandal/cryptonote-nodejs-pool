@@ -182,8 +182,8 @@
         "pass": "<span class="examplePassword">YOUR_WORKER_NAME</span>",
         "keepalive": true,
         "nicehash": false,
-        "variant": "trtl",
-        "algo": "cryptonight-pico/trtl"
+        "variant": "!msr",
+        "algo": "<span id="xmrigAlgo"></span>"
     }
 ],</code></pre>
 
@@ -210,8 +210,8 @@
         "pass": "<span class="examplePassword">YOUR_WORKER_NAME</span>"
         "keepalive": true,
         "nicehash": false,
-        "variant": "trtl",
-        "algo": "cryptonight-pico/trtl"
+        "variant": "!msr",
+        "algo": "<span id="xmrigAlgo"></span>"
     }
 ],</code></pre>
 
@@ -238,8 +238,8 @@
         "pass": "<span class="examplePassword">YOUR_WORKER_NAME</span>"
         "keepalive": true,
         "nicehash": false
-        "variant": "trtl",
-        "algo": "cryptonight-pico/trtl"
+        "variant": "!msr",
+        "algo": "<span id="xmrigAlgo"></span>"
     }
 ],</code></pre>
 
@@ -266,8 +266,8 @@
         "pass": "<span class="examplePassword">YOUR_WORKER_NAME</span>",
         "keepalive": true,
         "nicehash": false,
-        "algo": "cryptonight-ultralite",
-        "pow-variant": "2"
+        "algo": "<span id="xmrigAlgo"></span>",
+        "pow-variant": "!msr"
     },
 ],</code></pre>
 
@@ -276,22 +276,19 @@
             </tr>
 
                     <!-- Team Red Miner -->
-            <tr class="appInfo">
+<!--             <tr class="appInfo">
                 <td class="miningAppTitle">Team Red Miner</td>
                 <td>GPU</td>
                 <td>AMD GPU Optimized Cryptocurrency Miner</td>
                 <td><a class="btn btn-success" target="_blank" href="https://github.com/todxx/teamredminer/releases/latestt"><span data-tkey="download">Download</span></a></td>
                 <td><a class="btn btn-default" role="button" data-toggle="collapse" href="#teamRedMiner" aria-expanded="true" aria-controls="collapseExample"><span data-tkey="showConfig">See more</span></a></td>
-            </tr>
-            <tr class="appConfig">
-                <td colspan="5">
-                    <div class="collapse" id="teamRedMiner">
-<pre><code>teamredminer.ext -a cnv8 trtle -o stratum+tcp//<span class="exampleHost">POOL_HOST</span>:<span class="examplePort">PORT</span> -u "<span class="exampleLogin">YOUR_WALLET_ADDRESS</span>" -p "<span class="examplePassword">YOUR_WORKER_NAME</span>" 
-</code></pre>
-
-                    </div>
-                </td>
-            </tr>
+            </tr> -->
+<!--             <tr class="appConfig">
+                <td colspan="5"> -->
+<!--                     <div class="collapse" id="teamRedMiner">
+                    </div> -->
+<!--                 </td>
+            </tr> -->
 	    
             </tbody>
         </table>
@@ -347,6 +344,7 @@ currentPage = {
 
         algorithm = '';
         xmrstakAlgo = '';
+        xmrigAlgo = '';
 
         if (cnAlgorithm == "argon2") {
             if (cnVariant === 1)
@@ -397,6 +395,7 @@ currentPage = {
             } else if (cnVariant === 4) {
                 algorithm = 'CryptoNight Fast';
                 xmrstakAlgo = 'cryptonight_masari';
+                xmrigAlgo = 'cn/fast';
             } else if (cnVariant === 6) {
                 algorithm = 'CryptoNight Alloy';
                 xmrstakAlgo = 'cryptonight_alloy';
@@ -432,6 +431,7 @@ currentPage = {
 
         updateText('cnAlgorithm', algorithm);
         updateText('xmrstakAlgo', xmrstakAlgo);
+        updateText('xmrigAlgo', xmrigAlgo);
     }
 };
 
@@ -469,4 +469,3 @@ $('#generateConf').click(function() {
 });
 
 </script>
-
