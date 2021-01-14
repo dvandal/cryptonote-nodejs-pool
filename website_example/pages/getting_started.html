@@ -356,12 +356,15 @@ currentPage = {
                 algorithm = 'CryptoNight DefyX';
             else if (cnVariant === 2)
                 algorithm = 'RandomARQ';
+		xmrigAlgo = 'rx/arq';
             else if (cnVariant === 17) {
                 algorithm = 'RandomWOW';
                 xmrstakAlgo = 'randomX_wow';
+		xmrigAlgo = 'rx/wow';
             } else if (cnVariant === 18) {
                 algorithm = 'RandomXL';
                 xmrstakAlgo = 'randomX_loki';
+		xmrigAlgo = 'rx/loki';
             } else {
                 algorithm = 'RandomX';
                 xmrstakAlgo = 'randomX';
@@ -370,28 +373,35 @@ currentPage = {
             if (cnVariant === 1) {
                 algorithm = 'CryptoNight Lite v7';
                 xmrstakAlgo = 'cryptonight_lite_v7';
+		xmrigAlgo = 'cn-lite/0';
             } else {
                 algorithm = 'CryptoNight Lite';
                 xmrstakAlgo = 'cryptonight_lite';
+		xmrigAlgo = 'cn-lite/1';
             }
         } else if (cnAlgorithm == "cryptonight_pico") {
             algorithm = 'CryptoNight Turtle';
             xmrstakAlgo = 'cryptonight_turtle';
+	    xmrigAlgo = 'cn-pico';
         } else if (cnAlgorithm == "cryptonight_heavy") {
             if (cnVariant === 1) {
                 algorithm = 'CryptoNight Haven';
                 xmrstakAlgo = 'cryptonight_haven';
+		xmrigAlgo = 'cn-heavy/xhv';
             } else if (cnVariant === 2) {
                 algorithm = 'CryptoNight Saber';
                 xmrstakAlgo = 'cryptonight_bittube2';
+		xmrigAlgo = 'cn-heavy/tube';
             } else {
                 algorithm = 'CryptoNight Heavy';
                 xmrstakAlgo = 'cryptonight_heavy';
+		xmrigAlgo = 'cn-heavy/0';
             }
         } else {
             if (cnVariant === 1) {
                 algorithm = 'CryptoNight v7';
                 xmrstakAlgo = 'cryptonight_v7';
+		xmrigAlgo = 'cn/1';
             } else if (cnVariant === 4) {
                 algorithm = 'CryptoNight Fast';
                 xmrstakAlgo = 'cryptonight_masari';
@@ -414,18 +424,22 @@ currentPage = {
             } else if (cnVariant === 13) {
                 algorithm = 'CryptoNight R';
                 xmrstakAlgo = 'cryptonight_r';
+		xmrigAlgo = 'cn/r';
             } else if (cnVariant === 14) {
                 algorithm = 'CryptoNight v8 ReverseWaltz';
                 xmrstakAlgo = 'cryptonight_v8_reversewaltz';
             } else if (cnVariant === 15) {
                 algorithm = 'CryptoNight Zelerius';
                 xmrstakAlgo = 'cryptonight_v8_zelerius';
+		xmrigAlgo = 'cn/zls';
             } else if (cnVariant === 16) {
                 algorithm = 'CryptoNight v8 Double';
                 xmrstakAlgo = 'cryptonight_v8_double';
+		xmrigAlgo = 'cn/double';
             } else {
                 algorithm = 'CryptoNight';
-                xmrstakAlgo = 'cryptonight';
+                xmrstakAlgo = 'cryptonight
+		xmrigAlgo = 'cn/2';
             }
         }
 
