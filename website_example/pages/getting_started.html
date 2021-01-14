@@ -183,7 +183,7 @@
         "keepalive": true,
         "nicehash": false,
         "variant": "!msr",
-        "algo": "<span id="xmrigAlgo"></span>"
+        "algo": "<span id="xmrigAlgoCPU"></span>"
     }
 ],</code></pre>
 
@@ -211,7 +211,7 @@
         "keepalive": true,
         "nicehash": false,
         "variant": "!msr",
-        "algo": "<span id="xmrigAlgo"></span>"
+        "algo": "<span id="xmrigAlgoAMD"></span>"
     }
 ],</code></pre>
 
@@ -239,7 +239,7 @@
         "keepalive": true,
         "nicehash": false
         "variant": "!msr",
-        "algo": "<span id="xmrigAlgo"></span>"
+        "algo": "<span id="xmrigAlgoNVIDIA"></span>"
     }
 ],</code></pre>
 
@@ -266,7 +266,7 @@
         "pass": "<span class="examplePassword">YOUR_WORKER_NAME</span>",
         "keepalive": true,
         "nicehash": false,
-        "algo": "<span id="xmrigAlgo"></span>",
+        "algo": "<span id="xmrigAlgoCC"></span>",
         "pow-variant": "!msr"
     },
 ],</code></pre>
@@ -431,7 +431,10 @@ currentPage = {
 
         updateText('cnAlgorithm', algorithm);
         updateText('xmrstakAlgo', xmrstakAlgo);
-        updateText('xmrigAlgo', xmrigAlgo);
+        updateText('xmrigAlgoCPU', xmrigAlgo);
+        updateText('xmrigAlgoAMD', xmrigAlgo);
+        updateText('xmrigAlgoNVIDIA', xmrigAlgo);
+        updateText('xmrigAlgoCC', xmrigAlgo);
     }
 };
 
@@ -469,3 +472,4 @@ $('#generateConf').click(function() {
 });
 
 </script>
+
