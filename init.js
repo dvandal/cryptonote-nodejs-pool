@@ -16,6 +16,20 @@
  // Load log system
  require('./lib/logger.js');
 
+ // Initialize log system
+ var logSystem = 'master';
+ require('./lib/exceptionWriter.js')(logSystem);
+
+ // Pool informations
+ log('info', logSystem, 'Starting Cryptonote Node.JS pool version %s', [version]);
+
+ // Check configuration data
+ var poolAddress = config.poolServer.poolAddress || null;
+ if (!poolAddress || poolAddress.match(/(\s+|\*)/)) {
+        log('error', logSystem, 'Invalid pool wallet address in configuration file (poolServer.poolAddress)');
+        process.exit();
+ }
+
  // Initialize redis database client
  var redis = require('redis');
 
@@ -60,13 +74,6 @@
  	}
  	return;
  }
-
- // Initialize log system
- var logSystem = 'master';
- require('./lib/exceptionWriter.js')(logSystem);
-
- // Pool informations
- log('info', logSystem, 'Starting Cryptonote Node.JS pool version %s', [version]);
 
  // Developer donations
  if (devFee < 0.2)
