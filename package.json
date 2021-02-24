@@ -12,6 +12,7 @@
 		"async": "^3.2.0",
 		"base58-native": "*",
 		"bignum": "*",
+		"bufferutil": "*",
 		"cli-color": "*",
 		"cryptoforknote-util": "git://github.com/MoneroOcean/node-cryptoforknote-util.git",
 		"cryptonight-hashing": "git://github.com/MoneroOcean/node-cryptonight-hashing.git",
@@ -24,7 +25,8 @@
 		"redis": "*",
 		"socket.io": "^3.1.1",
 		"time-ago": "*",
-		"turtlecoin-multi-hashing": "git+https://github.com/turtlecoin/node8-multi-hashing.git"
+		"turtlecoin-multi-hashing": "git+https://github.com/turtlecoin/node8-multi-hashing.git",
+		"utf-8-validate": "*"
 	},
 	"engines": {
 		"node": ">=8.11.3"
