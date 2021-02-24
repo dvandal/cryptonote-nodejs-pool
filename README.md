@@ -6,8 +6,6 @@ High performance Node.js (with native C addons) mining pool for CryptoNote based
 
 #### Table of Contents
 * [Features](#features)
-* [Community Support](#community--support)
-* [Pools Using This Software](#pools-using-this-software)
 * [Usage](#usage)
   * [Requirements](#requirements)
   * [Downloading & Installing](#1-downloading--installing)
@@ -19,6 +17,9 @@ High performance Node.js (with native C addons) mining pool for CryptoNote based
   * [Upgrading](#upgrading)
 * [JSON-RPC Commands from CLI](#json-rpc-commands-from-cli)
 * [Monitoring Your Pool](#monitoring-your-pool)
+* [Community Support](#community--support)
+* [Pools Using This Software](#pools-using-this-software)
+* [Referal Links](#referal-links)
 * [Donations](#donations)
 * [Credits](#credits)
 * [License](#license)
@@ -89,29 +90,6 @@ Features
 * Telegram channel notifications when a block is unlocked
 * Top 10 miners report
 * Multilingual user interface
-
-
-Community / Support
-===
-
-* [GitHub Wiki](https://github.com/dvandal/cryptonote-nodejs-pool/wiki)
-* [GitHub Issues](https://github.com/dvandal/cryptonote-nodejs-pool/issues)
-* [Telegram Group](http://t.me/CryptonotePool)
-
-#### Pools Using This Software
-
-* https://mining.crystaleum.org/
-* https://ukpool.electronero.org/
-* https://ukpool.electroneropulse.org/
-* https://poolgui.litenero.org/
-* https://poolgui.goldnero.org/
-* https://imaginary.stream/
-* https://graft.anypool.net/
-* https://www.dark-mine.su/
-* http://itns.proxpool.com/
-* https://bytecoin.pt/
-* https://pool.leviar.io/
-* https://pool.croat.community/
 
 Usage
 ===
@@ -804,6 +782,32 @@ curl 127.0.0.1:18081/json_rpc -d '{"method":"getblockheaderbyheight","params":{"
 * To keep your pool node script running in background, logging to file, and automatically restarting if it crashes - I suggest using [forever](https://github.com/nodejitsu/forever) or [PM2](https://github.com/Unitech/pm2)
 
 
+Community / Support
+===
+
+* [GitHub Issues](https://github.com/dvandal/cryptonote-nodejs-pool/issues)
+* [Telegram Group](http://t.me/CryptonotePool)
+
+#### Pools Using This Software
+
+* https://mining.crystaleum.org/
+* https://ukpool.electronero.org/
+* https://ukpool.electroneropulse.org/
+* https://poolgui.litenero.org/
+* https://poolgui.goldnero.org/
+* https://imaginary.stream/
+* https://graft.anypool.net/
+* https://www.dark-mine.su/
+* http://itns.proxpool.com/
+* https://bytecoin.pt/
+* https://pool.leviar.io/
+* https://pool.croat.community/
+
+Referal Links
+-------------
+* Coinbase: Buy 100$ USD (or equivalent in your currency) and get 10$ USD - [https://www.coinbase.com/join/vandal_y](https://www.coinbase.com/join/vandal_y)
+* Shakepay: Buy 100$ CAD and get 30$ CAD - [https://shakepay.me/r/VDAIT0G](https://shakepay.me/r/VDAIT0G)
+
 Donations
 ---------
 
@@ -825,11 +829,6 @@ Thanks for supporting my works on this project! If you want to make a donation t
 * Tezos (XTZ): `tz1T1idcT5hfyjfLHWeqbYvmrcYn5JgwrJKW`
 * Zcash (ZCH): `t1YTGVoVbeCuTn3Pg9MPGrSqweFLPGTQ7on`
 * 0x (ZRX): `0x4e52AAfC6dAb2b7812A0a7C24a6DF6FAab65Fc9a`
-
-Referal Links
--------------
-* Coinbase - [https://www.coinbase.com/join/vandal_y](https://www.coinbase.com/join/vandal_y) - Buy 100$ USD (or equivalent in your currency) and get 10$ USD
-* Shakepay - [https://shakepay.me/r/VDAIT0G](https://shakepay.me/r/VDAIT0G) - Buy 100$ CAD and get 30$ CAD
 
 Credits
 ---------
