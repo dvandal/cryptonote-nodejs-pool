@@ -150,6 +150,9 @@ echo 1024 > /proc/sys/net/core/somaxconn
 
 * Boost is required for the cryptoforknote-util module
   * For Ubuntu: `sudo apt-get install libboost-all-dev`
+  
+* libsodium  
+  * For Ubuntu: `sudo apt-get install libsodium-dev`
 
 
 ##### Seriously
@@ -189,13 +192,13 @@ Explanation for each field:
 "poolHost": "your.pool.host",
 
 /* Used for storage in redis so multiple coins can share the same redis instance. */
-"coin": "graft", // Must match the parentCoin variable in config.js
+"coin": "monero", // Must match the parentCoin variable in config.js
 
 /* Used for front-end display */
-"symbol": "GRFT",
+"symbol": "XMR",
 
 /* Minimum units in a single coin, see COIN constant in DAEMON_CODE/src/cryptonote_config.h */
-"coinUnits": 10000000000,
+"coinUnits": 1000000000000,
 
 /* Number of coin decimals places for notifications and front-end */
 "coinDecimalPlaces": 4,
@@ -808,6 +811,7 @@ Thanks for supporting my works on this project! If you want to make a donation t
 
 * Bitcoin (BTC): `392gS9zuYQBghmMpK3NipBTaQcooR9UoGy`
 * Bitcoin Cash (BCH): `qp46fz7ht8xdhwepqzhk7ct3aa0ucypfgv5qvv57td`
+* Monero (XMR): `49WyMy9Q351C59dT913ieEgqWjaN12dWM5aYqJxSTZCZZj1La5twZtC3DyfUsmVD3tj2Zud7m6kqTVDauRz53FqA9zphHaj`
 * Dash (DASH): `XgFnxEu1ru7RTiM4uH1GWt2yseU1BVBqWL`
 * Ethereum (ETH): `0x8c42D411545c9E1963ff56A91d06dEB8C4A9f444`
 * Ethereum Classic (ETC): `0x4208D6775A2bbABe64C15d76e99FE5676F2768Fb`
@@ -817,12 +821,15 @@ Thanks for supporting my works on this project! If you want to make a donation t
 * Basic Attention Token (BAT): `0x5A66CE95ea2428BC5B2c7EeB7c96FC184258f064`
 * Chainlink (LINK): `0x5A66CE95ea2428BC5B2c7EeB7c96FC184258f064`
 * Dai (DAI): `0xF2a50BcCEE8BEb7807dA40609620e454465B40A1`
-* Graft (GRFT): `GBqRuitSoU3PFPBAkXMEnLdBRWXH4iDSD6RDxnQiEFjVJhWUi1UuqfV5EzosmaXgpPGE6JJQjMYhZZgWY8EJQn8jQTsuTit`
 * Orchid (OXT): `0xf52488AAA1ab1b1EB659d6632415727108600BCb`
 * Tezos (XTZ): `tz1T1idcT5hfyjfLHWeqbYvmrcYn5JgwrJKW`
 * Zcash (ZCH): `t1YTGVoVbeCuTn3Pg9MPGrSqweFLPGTQ7on`
 * 0x (ZRX): `0x4e52AAfC6dAb2b7812A0a7C24a6DF6FAab65Fc9a`
 
+Referal Links
+-------------
+* Coinbase - [https://www.coinbase.com/join/vandal_y](https://www.coinbase.com/join/vandal_y) - Buy 100$ USD (or equivalent in your currency) and get 10$ USD
+* Shakepay - [https://shakepay.me/r/VDAIT0G](https://shakepay.me/r/VDAIT0G) - Buy 100$ CAD and get 30$ CAD
 
 Credits
 ---------
