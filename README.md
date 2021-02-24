@@ -19,7 +19,7 @@ High performance Node.js (with native C addons) mining pool for CryptoNote based
 * [Monitoring Your Pool](#monitoring-your-pool)
 * [Community Support](#community--support)
 * [Pools Using This Software](#pools-using-this-software)
-* [Referal Links](#referal-links)
+* [Referral Links](#referral-links)
 * [Donations](#donations)
 * [Credits](#credits)
 * [License](#license)
@@ -803,10 +803,10 @@ Community / Support
 * https://pool.leviar.io/
 * https://pool.croat.community/
 
-Referal Links
--------------
-* Coinbase - Buy 100$ USD (or equivalent in your currency) and get 10$ USD : [https://www.coinbase.com/join/vandal_y](https://www.coinbase.com/join/vandal_y)
-* Shakepay - Buy 100$ CAD and get 30$ CAD : [https://shakepay.me/r/VDAIT0G](https://shakepay.me/r/VDAIT0G)
+Referral Links
+--------------
+* Coinbase - Buy 100$ USD and get 10$ USD (or equivalent in your currency): `[https://www.coinbase.com/join/vandal_y](https://www.coinbase.com/join/vandal_y)`
+* Shakepay - Buy 100$ CAD and get 30$ CAD: `[https://shakepay.me/r/VDAIT0G](https://shakepay.me/r/VDAIT0G)`
 
 Donations
 ---------
