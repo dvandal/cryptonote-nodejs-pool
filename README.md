@@ -805,8 +805,8 @@ Community / Support
 
 Referal Links
 -------------
-* Coinbase: Buy 100$ USD (or equivalent in your currency) and get 10$ USD - [https://www.coinbase.com/join/vandal_y](https://www.coinbase.com/join/vandal_y)
-* Shakepay: Buy 100$ CAD and get 30$ CAD - [https://shakepay.me/r/VDAIT0G](https://shakepay.me/r/VDAIT0G)
+* Coinbase - Buy 100$ USD (or equivalent in your currency) and get 10$ USD : [https://www.coinbase.com/join/vandal_y](https://www.coinbase.com/join/vandal_y)
+* Shakepay - Buy 100$ CAD and get 30$ CAD : [https://shakepay.me/r/VDAIT0G](https://shakepay.me/r/VDAIT0G)
 
 Donations
 ---------
