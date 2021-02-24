@@ -1,3 +1,5 @@
+var parentCoin = "COIN";
+
 var api = "http://poolhost:8117";
 var poolHost = "poolhost.com";
 
