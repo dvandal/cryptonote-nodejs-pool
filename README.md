@@ -790,16 +790,6 @@ Community / Support
 
 #### Pools Using This Software
 
-* https://mining.crystaleum.org/
-* https://ukpool.electronero.org/
-* https://ukpool.electroneropulse.org/
-* https://poolgui.litenero.org/
-* https://poolgui.goldnero.org/
-* https://imaginary.stream/
-* https://graft.anypool.net/
-* https://www.dark-mine.su/
-* http://itns.proxpool.com/
-* https://bytecoin.pt/
 * https://pool.leviar.io/
 * https://pool.croat.community/
 
