@@ -85,6 +85,7 @@ Features
 #### Extra features
 * An easily extendable, responsive, light-weight front-end using API to display data
 * Onishin's [keepalive function](https://github.com/perl5577/cpuminer-multi/commit/0c8aedb)
+* Support for merged mining
 * Support for slush mining system (disabled by default)
 * E-Mail Notifications on worker connected, disconnected (timeout) or banned (support MailGun, SMTP and Sendmail)
 * Telegram channel notifications when a block is unlocked
