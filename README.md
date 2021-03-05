@@ -796,8 +796,9 @@ Community / Support
 Referral Links
 --------------
 * NiceHash Miner - Test your mining pool: [https://www.nicehash.com/?refby=938d7799-8f8e-4935-975e-897a1567b1ed](https://www.nicehash.com/?refby=938d7799-8f8e-4935-975e-897a1567b1ed)
-* Coinbase Wallet - Buy 100$ USD and get 10$ USD: [https://www.coinbase.com/join/vandal_y](https://www.coinbase.com/join/vandal_y)
-* Shakepay Wallet - Buy 100$ CAD and get 30$ CAD: [https://shakepay.me/r/VDAIT0G](https://shakepay.me/r/VDAIT0G)
+* Binance Exchange - Buy and Sell cryptos: [https://www.binance.com/en/register?ref=92696209](https://www.binance.com/en/register?ref=92696209)
+* Coinbase Wallet - Buy 100$ USD and get 10$ USD free: [https://www.coinbase.com/join/vandal_y](https://www.coinbase.com/join/vandal_y)
+* Shakepay Wallet - Buy 100$ CAD and get 30$ CAD free: [https://shakepay.me/r/VDAIT0G](https://shakepay.me/r/VDAIT0G)
 
 Donations
 ---------
