@@ -130,7 +130,7 @@ echo 1024 > /proc/sys/net/core/somaxconn
   * For Ubuntu: `sudo apt-get install libboost-all-dev`
   
 * libsodium  
-  * For Ubuntu: `sudo apt-get install libsodium-dev`
+  * For Ubuntu: `sudo apt-get install -y libsodium-dev`
 
 
 ##### Seriously
@@ -156,7 +156,7 @@ Clone the repository and run `npm update` for all the dependencies to be install
 ```bash
 git clone https://github.com/dvandal/cryptonote-nodejs-pool.git pool
 cd pool
-
+npm install domexception
 npm update
 ```
 
