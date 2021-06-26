@@ -6,12 +6,13 @@
 	"coinUnits": 100000000000,
 	"coinDecimalPlaces": 4,
 	"coinDifficultyTarget": 60,
-	"blockchainExplorer": "http://blockexplorer.arqma.com/block/{id}",
-	"transactionExplorer": "http://blockexplorer.arqma.com/tx/{id}",
+	"blockchainExplorer": "http://explorer.croat.community/?hash={id}#blockchain_block",
+	"transactionExplorer": "http://explorer.croat.community/?hash={id}#blockchain_transaction",
 	"daemonType": "default",
 	"cnAlgorithm": "cryptonight",
 	"cnVariant": 0,
-	"cnBlobType": 2,
+	"cnBlobType": 0,
+	"offset": 3,
 
 	"logging": {
 		"files": {
@@ -67,7 +68,7 @@
 				"port": 9999,
 				"difficulty": 20000,
 				"desc": "SSL connection",
-				"ssl": true
+				"ssl": false
             }
         ],
 		"varDiff": {
@@ -86,7 +87,7 @@
 		},
 		"fixedDiff": {
 			"enabled": true,
-			"addressSeparator": "."
+			"addressSeparator": "+"
 		},
 		"shareTrust": {
 			"enabled": true,
