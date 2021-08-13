@@ -6,11 +6,13 @@
 	"coinUnits": 10000000000,
 	"coinDecimalPlaces": 4,
 	"coinDifficultyTarget": 120,
-	"blockchainExplorer": "http://blockexplorer.arqma.com/block/{id}",
-	"transactionExplorer": "http://blockexplorer.arqma.com/tx/{id}",
+	"blockchainExplorer": "https://blockexplorer.graft.network/block/{id}",
+	"transactionExplorer": "https://blockexplorer.graft.network/tx/{id}",
 	"daemonType": "default",
-	"cnAlgorithm": "cryptonight",
-	"cnVariant": 15,
+	"cnAlgorithm": "randomx",
+	"isRandomX": true,
+        "includeHeight": true,
+	"cnVariant": 20,
 	"cnBlobType": 0,
 
 	"logging": {
