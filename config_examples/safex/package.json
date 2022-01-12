@@ -9,20 +9,24 @@
 		"url": "https://github.com/muscleman/cryptonote-nodejs-pool.git"
 	},
 	"dependencies": {
-		"async": "1",
+		"async": "^1.5.2",
 		"base58-native": "*",
 		"bignum": "*",
+		"bufferutil": "*",
 		"cli-color": "*",
 		"cryptoforknote-util": "git://github.com/VanGrx/node-cryptoforknote-util.git",
 		"cryptonight-hashing": "git://github.com/VanGrx/node-cryptonight-hashing.git",
-		"dateformat": "*",
+		"dateformat": "3.0.3",
+		"domexception": "*",
 		"mailgun.js": "*",
 		"node-telegram-bot-api": "*",
-		"nodemailer": "2.7.2",
+		"nodemailer": "^6.4.18",
 		"nodemailer-sendmail-transport": "*",
-		"redis": "*",
-		"socket.io": "^2.1.1",
-		"time-ago": "*"
+		"redis": "3.1.2",
+		"socket.io": "^3.1.1",
+		"time-ago": "*",
+		"turtlecoin-multi-hashing": "git+https://github.com/turtlecoin/node8-multi-hashing.git",
+		"utf-8-validate": "*"
 	},
 	"engines": {
 		"node": ">=8.11.3"
