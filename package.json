@@ -25,7 +25,7 @@
 		"redis": "*",
 		"socket.io": "^3.1.1",
 		"time-ago": "*",
-		"turtlecoin-multi-hashing": "git+https://github.com/turtlecoin/node8-multi-hashing.git",
+		"turtlecoin-multi-hashing": "git+https://github.com/turtlecoin/turtlecoin-crypto.git",
 		"utf-8-validate": "*"
 	},
 	"engines": {
