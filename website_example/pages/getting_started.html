@@ -182,8 +182,8 @@
         "pass": "<span class="examplePassword">YOUR_WORKER_NAME</span>",
         "keepalive": true,
         "nicehash": false,
-        "variant": "trtl",
-        "algo": "cryptonight-pico/trtl"
+        "variant": "!msr",
+        "algo": "<span id="xmrigAlgoCPU"></span>"
     }
 ],</code></pre>
 
@@ -210,8 +210,8 @@
         "pass": "<span class="examplePassword">YOUR_WORKER_NAME</span>"
         "keepalive": true,
         "nicehash": false,
-        "variant": "trtl",
-        "algo": "cryptonight-pico/trtl"
+        "variant": "!msr",
+        "algo": "<span id="xmrigAlgoAMD"></span>"
     }
 ],</code></pre>
 
@@ -238,8 +238,8 @@
         "pass": "<span class="examplePassword">YOUR_WORKER_NAME</span>"
         "keepalive": true,
         "nicehash": false
-        "variant": "trtl",
-        "algo": "cryptonight-pico/trtl"
+        "variant": "!msr",
+        "algo": "<span id="xmrigAlgoNVIDIA"></span>"
     }
 ],</code></pre>
 
@@ -266,33 +266,13 @@
         "pass": "<span class="examplePassword">YOUR_WORKER_NAME</span>",
         "keepalive": true,
         "nicehash": false,
-        "algo": "cryptonight-ultralite",
-        "pow-variant": "2"
+        "algo": "<span id="xmrigAlgoCC"></span>",
+        "pow-variant": "!msr"
     },
 ],</code></pre>
-
-                    </div>
-                </td>
-            </tr>
-
-                    <!-- Team Red Miner -->
-            <tr class="appInfo">
-                <td class="miningAppTitle">Team Red Miner</td>
-                <td>GPU</td>
-                <td>AMD GPU Optimized Cryptocurrency Miner</td>
-                <td><a class="btn btn-success" target="_blank" href="https://github.com/todxx/teamredminer/releases/latestt"><span data-tkey="download">Download</span></a></td>
-                <td><a class="btn btn-default" role="button" data-toggle="collapse" href="#teamRedMiner" aria-expanded="true" aria-controls="collapseExample"><span data-tkey="showConfig">See more</span></a></td>
-            </tr>
-            <tr class="appConfig">
-                <td colspan="5">
-                    <div class="collapse" id="teamRedMiner">
-<pre><code>teamredminer.ext -a cnv8 trtle -o stratum+tcp//<span class="exampleHost">POOL_HOST</span>:<span class="examplePort">PORT</span> -u "<span class="exampleLogin">YOUR_WALLET_ADDRESS</span>" -p "<span class="examplePassword">YOUR_WORKER_NAME</span>" 
-</code></pre>
-
-                    </div>
-                </td>
-            </tr>
-	    
+			    </div>
+			</td>
+		    </tr>	    
             </tbody>
         </table>
     </div>
@@ -347,6 +327,7 @@ currentPage = {
 
         algorithm = '';
         xmrstakAlgo = '';
+        xmrigAlgo = '';
 
         if (cnAlgorithm == "argon2") {
             if (cnVariant === 1)
@@ -358,12 +339,15 @@ currentPage = {
                 algorithm = 'CryptoNight DefyX';
             else if (cnVariant === 2)
                 algorithm = 'RandomARQ';
+		xmrigAlgo = 'rx/arq';
             else if (cnVariant === 17) {
                 algorithm = 'RandomWOW';
                 xmrstakAlgo = 'randomX_wow';
+		xmrigAlgo = 'rx/wow';
             } else if (cnVariant === 18) {
                 algorithm = 'RandomXL';
                 xmrstakAlgo = 'randomX_loki';
+		xmrigAlgo = 'rx/loki';
             } else {
                 algorithm = 'RandomX';
                 xmrstakAlgo = 'randomX';
@@ -372,31 +356,39 @@ currentPage = {
             if (cnVariant === 1) {
                 algorithm = 'CryptoNight Lite v7';
                 xmrstakAlgo = 'cryptonight_lite_v7';
+		xmrigAlgo = 'cn-lite/0';
             } else {
                 algorithm = 'CryptoNight Lite';
                 xmrstakAlgo = 'cryptonight_lite';
+		xmrigAlgo = 'cn-lite/1';
             }
         } else if (cnAlgorithm == "cryptonight_pico") {
             algorithm = 'CryptoNight Turtle';
             xmrstakAlgo = 'cryptonight_turtle';
+	    xmrigAlgo = 'cn-pico';
         } else if (cnAlgorithm == "cryptonight_heavy") {
             if (cnVariant === 1) {
                 algorithm = 'CryptoNight Haven';
                 xmrstakAlgo = 'cryptonight_haven';
+		xmrigAlgo = 'cn-heavy/xhv';
             } else if (cnVariant === 2) {
                 algorithm = 'CryptoNight Saber';
                 xmrstakAlgo = 'cryptonight_bittube2';
+		xmrigAlgo = 'cn-heavy/tube';
             } else {
                 algorithm = 'CryptoNight Heavy';
                 xmrstakAlgo = 'cryptonight_heavy';
+		xmrigAlgo = 'cn-heavy/0';
             }
         } else {
             if (cnVariant === 1) {
                 algorithm = 'CryptoNight v7';
                 xmrstakAlgo = 'cryptonight_v7';
+		xmrigAlgo = 'cn/1';
             } else if (cnVariant === 4) {
                 algorithm = 'CryptoNight Fast';
                 xmrstakAlgo = 'cryptonight_masari';
+                xmrigAlgo = 'cn/fast';
             } else if (cnVariant === 6) {
                 algorithm = 'CryptoNight Alloy';
                 xmrstakAlgo = 'cryptonight_alloy';
@@ -415,23 +407,31 @@ currentPage = {
             } else if (cnVariant === 13) {
                 algorithm = 'CryptoNight R';
                 xmrstakAlgo = 'cryptonight_r';
+		xmrigAlgo = 'cn/r';
             } else if (cnVariant === 14) {
                 algorithm = 'CryptoNight v8 ReverseWaltz';
                 xmrstakAlgo = 'cryptonight_v8_reversewaltz';
             } else if (cnVariant === 15) {
                 algorithm = 'CryptoNight Zelerius';
                 xmrstakAlgo = 'cryptonight_v8_zelerius';
+		xmrigAlgo = 'cn/zls';
             } else if (cnVariant === 16) {
                 algorithm = 'CryptoNight v8 Double';
                 xmrstakAlgo = 'cryptonight_v8_double';
+		xmrigAlgo = 'cn/double';
             } else {
                 algorithm = 'CryptoNight';
-                xmrstakAlgo = 'cryptonight';
+                xmrstakAlgo = 'cryptonight
+		xmrigAlgo = 'cn/2';
             }
         }
 
         updateText('cnAlgorithm', algorithm);
         updateText('xmrstakAlgo', xmrstakAlgo);
+        updateText('xmrigAlgoCPU', xmrigAlgo);
+        updateText('xmrigAlgoAMD', xmrigAlgo);
+        updateText('xmrigAlgoNVIDIA', xmrigAlgo);
+        updateText('xmrigAlgoCC', xmrigAlgo);
     }
 };
 
