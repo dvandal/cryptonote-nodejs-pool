@@ -1,6 +1,6 @@
 {
-	"name": "cryptonote-nodejs-pool",+https
-	"version": "1+https.4.0",
+	"name": "cryptonote-nodejs-pool",
+	"version": "1.4.0",
 	"license": "GPL-2.0
 		"base58-native": "*",
 		"bignum": "*",
