@@ -9,8 +9,8 @@
 
 	"daemonType": "default",
 	"cnAlgorithm": "randomx",
-	"cnVariant": 0,
-	"cnBlobType": 23,
+	"cnVariant": 23,
+	"cnBlobType": 0,
 	"includeHeight": false,
 	"isRandomX": true,
 
@@ -32,7 +32,7 @@
 		"mergedMining": false,
 		"clusterForks": "auto",
 		"poolAddress": "** Your pool wallet address **",
-		"intAddressPrefix": 251,
+		"intAddressPrefix": "Safexi",
 		"blockRefreshInterval": 1000,
 		"minerTimeout": 900,
 		"sslCert": "./cert.pem",
@@ -132,7 +132,8 @@
 		"depth": 60,
 		"poolFee": 0.8,
 		"devDonation": 0.2,
-		"networkFee": 0.0
+		"networkFee": 0.0,
+        "fixBlockHeightRPC": true
 	},
 
 	"api": {
