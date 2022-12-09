@@ -1,5 +1,5 @@
 # Why node:8 and not node:10? Because (a) v8 is LTS, so more likely to be stable, and (b) "npm update" on node:10 breaks on Docker on Linux (but not on OSX, oddly)
-FROM node:10.24.0-slim
+FROM node:14-slim
 
 RUN apt-get update \
   && DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs git libboost-all-dev libssl-dev make gcc g++ libsodium-dev\
