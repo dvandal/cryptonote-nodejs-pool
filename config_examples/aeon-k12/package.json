@@ -19,7 +19,7 @@
 		"dateformat": "*",
 		"mailgun.js": "*",
 		"node-telegram-bot-api": "*",
-		"nodemailer": "2.7.2",
+		"nodemailer": "6.6.1",
 		"nodemailer-sendmail-transport": "*",
 		"redis": "*",
 		"socket.io": "^2.1.1",
