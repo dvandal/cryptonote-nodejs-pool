@@ -13,7 +13,7 @@
 		"base58-native": "*",
 		"bignum": "*",
 		"cli-color": "*",
-		"multi-hashing": "git+https://musclesonvacation@bitbucket.org/musclesonvacation/node-multi-hashing-aesni.git",
+		"multi-hashing": "git+https://github.com/minershaven/node-multi-hashing-aesni.git",
 		"cryptonote-util": "git://github.com/stoffu/node-cryptonote-util.git#xmr-Nan-2.0",
 		"cryptonight-hashing": "git://github.com/MoneroOcean/node-cryptonight-hashing.git",
 		"dateformat": "*",
