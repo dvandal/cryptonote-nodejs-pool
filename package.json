@@ -8,7 +8,7 @@
 		"url": "https://github.com/dvandal/cryptonote-nodejs-pool.git"
 	},
 	"dependencies": {
-		"async": "^3.2.0",
+		"async": "^1.5.2",
 		"base58-native": "*",
 		"bignum": "*",
 		"bufferutil": "*",
